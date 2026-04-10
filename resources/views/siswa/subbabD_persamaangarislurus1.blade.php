@@ -298,6 +298,7 @@
                     Gambar: Garis bergradien $m$ yang melalui titik $(x_1, y_1)$
                 </div>
             </div>
+            
 
             <p style="line-height:1.8;">
                 Dari gambar tersebut, terlihat bahwa perubahan nilai $y$ terhadap $y_1$ sebanding dengan perubahan nilai $x$
