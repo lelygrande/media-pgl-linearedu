@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LinearEdu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{-- BOOTSTRAP CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- GOOGLE FONT --}}
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    {{-- P5.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+
+    {{-- KaTeX --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+                                                                                delimiters: [
+                                                                                  {left: '$$', right: '$$', display: true},
+                                                                                  {left: '$', right: '$', display: false},
+                                                                                  {left: '\\\\[', right: '\\\\]', display: true},
+                                                                                  {left: '\\\\(', right: '\\\\)', display: false}
+                                                                                ]
+                                                                              });"></script>
+
+    <style>
+        :root {
+            --hero-bg: #e8f4ff;
+            --section-light: #cfe6ff;
+            --section-dark: #a9cff7;
+            --footer-bg: #004365;
+            --primary-color: #0187b8;
+            --primary-dark: #00658b;
+        }
+
+        body {
+            font-family: "Quicksand", sans-serif;
+            background-color: #e0e9f6;
+            overflow: hidden;
+            font-weight: 550;
+        }
+
+        .navbar {
+            font-weight: 600;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .navbar-brand span:first-child {
+            color: #000;
+            font-weight: 600;
+        }
+
+        .navbar-brand span:last-child {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-link {
+            font-weight: 600;
+        }
+
+        .sidebar-wrapper {
+            background-color: #d6ebff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .sidebar-wrapper .btn-sub {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 8px;
+            padding: 12px 60px 12px 18px;
+            border-radius: 14px;
+            background-color: #1e5c7b;
+            border: none;
+            font-weight: 700;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+            position: relative;
+        }
+
+        .btn-sub.dropdown-toggle::after {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: 0;
+        }
+
+        .sidebar-wrapper .btn-sub:hover {
+            background-color: #2c6f92 !important;
+        }
+
+        .dropdown-item-custom {
+            width: 90%;
+            margin-left: auto;
+            margin-right: 0;
+            margin-bottom: 8px;
+            display: block;
+            background: #eef7ff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #1e5c7b;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            white-space: normal;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .dropdown-item-custom:hover {
+            background: #dfefff;
+        }
+
+        .dropdown-item-custom.active {
+            background: var(--section-light);
+            border: 2px solid var(--primary-color);
+        }
+
+        .content-wrapper {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+
+        .main-row {
+            min-height: calc(100vh - 80px);
+        }
+
+        .btn-prev {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .btn-prev:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-next {
+            background-color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: #fff;
+        }
+
+        .burger-mini {
+            width: 42px;
+            height: 42px;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s ease-in-out;
+        }
+
+        .burger-mini:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .materi-top-btn {
+            width: fit-content;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .nav-wrapper {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            bottom: 0;
+            background: #e0e9f6;
+            padding: 12px 0;
+            z-index: 50;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+
+        input[type="text"] {
+            font-family: "Times New Roman", "Cambria Math", "STIX Two Text", "Latin Modern Roman", serif;
+            font-style: italic;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    {{-- NAVBAR --}}
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('landing-page') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('landing-page') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('petunjuk') }}">Petunjuk Penggunaan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('progress-belajar') }}">Progress Belajar</a>
+                    </li>
+
+                    @auth('siswa')
+                        <li class="nav-item d-flex align-items-center">
+                            <form action="{{ route('siswa.logout') }}" method="POST" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    @endauth
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4 py-3">
+        <div class="row main-row g-3">
+            {{-- SIDEBAR --}}
+            <div id="sidebarCol" class="col-md-4 col-lg-3">
+                <div class="sidebar-wrapper p-3 h-100">
+                    <button id="closeSidebarBtn" type="button" class="burger-mini mb-3">
+                        ☰
+                    </button>
+
+                    @php
+                        $openIntro = request()->routeIs('peta-konsep', 'apersepsi1');
+
+                        $openA = request()->routeIs('subbabA1', 'subbabA2.1', 'subbabA2.2') || request()->is('quiz/1');
+
+                        $openB =
+                            request()->routeIs(
+                                'subbabB_gradien',
+                                'subbabB_gradiensatutitik',
+                                'subbabB_gradienduatitik',
+                                'subbabB_gradienpersamaan1',
+                            ) || request()->is('quiz/2');
+
+                        $openC =
+                            request()->routeIs(
+                                'subbabC_gradien_garissejajar_sumbuxy',
+                                'subbabC_gradien_duagarissejajar',
+                                'subbabC_gradien_duagaristegaklurus',
+                            ) || request()->is('quiz/3');
+
+                        $openD =
+                            request()->routeIs('subbabD_persamaangarislurus1', 'subbabD_persamaangarislurus2') ||
+                            request()->is('quiz/4');
+
+                    @endphp
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sub dropdown-toggle {{ $openIntro ? '' : 'collapsed' }}"
+                            data-bs-toggle="collapse" data-bs-target="#subIntro"
+                            aria-expanded="{{ $openIntro ? 'true' : 'false' }}">
+                            Pengantar
+                        </button>
+
+                        <div id="subIntro" class="collapse mt-2 {{ $openIntro ? 'show' : '' }}">
+                            <a href="{{ route('peta-konsep') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('peta-konsep') ? 'active' : '' }}">
+                                Peta Konsep
+                            </a>
+
+                            <a href="{{ route('apersepsi1') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('apersepsi1') ? 'active' : '' }}">
+                                Apersepsi
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sub dropdown-toggle {{ $openA ? '' : 'collapsed' }}"
+                            data-bs-toggle="collapse" data-bs-target="#subA"
+                            aria-expanded="{{ $openA ? 'true' : 'false' }}">
+                            Bentuk Umum Persamaan Garis Lurus
+                        </button>
+
+                        <div id="subA" class="collapse mt-2 {{ $openA ? 'show' : '' }}">
+                            <a href="{{ route('subbabA1') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabA1') ? 'active' : '' }}">
+                                Pengertian dan Bentuk Umum
+                            </a>
+
+                            <a href="{{ route('subbabA2.1') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabA2.1') ? 'active' : '' }}">
+                                Menggambar Grafik Persamaan Garis Lurus 1
+                            </a>
+
+                            <a href="{{ route('subbabA2.2') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabA2.2') ? 'active' : '' }}">
+                                Menggambar Grafik Persamaan Garis Lurus 2
+                            </a>
+
+                            <a href="{{ route('quiz.show', 1) }}"
+                                class="dropdown-item-custom {{ request()->is('quiz/1') ? 'active' : '' }}">
+                                Kuis A
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sub dropdown-toggle {{ $openB ? '' : 'collapsed' }}"
+                            data-bs-toggle="collapse" data-bs-target="#subB"
+                            aria-expanded="{{ $openB ? 'true' : 'false' }}">
+                            Gradien (Kemiringan Garis)
+                        </button>
+
+                        <div id="subB" class="collapse mt-2 {{ $openB ? 'show' : '' }}">
+                            <a href="{{ route('subbabB_gradien') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradien') ? 'active' : '' }}">
+                                Pengertian Gradien
+                            </a>
+
+                            <a href="{{ route('subbabB_gradiensatutitik') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradiensatutitik') ? 'active' : '' }}">
+                                Gradien garis melalui (0,0) dan (x1,y1)
+                            </a>
+
+                            <a href="{{ route('subbabB_gradienduatitik') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradienduatitik') ? 'active' : '' }}">
+                                Gradien garis yang melewati dua titik
+                            </a>
+
+                            <a href="{{ route('subbabB_gradienpersamaan1') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradienpersamaan1') ? 'active' : '' }}">
+                                Gradien garis dari suatu Persamaan Garis Lurus
+                            </a>
+
+                            <a href="{{ route('quiz.show', 2) }}"
+                                class="dropdown-item-custom {{ request()->is('quiz/2') ? 'active' : '' }}">
+                                Kuis B
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sub dropdown-toggle {{ $openC ? '' : 'collapsed' }}"
+                            data-bs-toggle="collapse" data-bs-target="#subC"
+                            aria-expanded="{{ $openC ? 'true' : 'false' }}">
+                            Hubungan Gradien Garis
+                        </button>
+
+                        <div id="subC" class="collapse mt-2 {{ $openC ? 'show' : '' }}">
+                            <a href="{{ route('subbabC_gradien_garissejajar_sumbuxy') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_garissejajar_sumbuxy') ? 'active' : '' }}">
+                                Gradien garis sejajar sumbu x dan sumbu y
+                            </a>
+
+                            <a href="{{ route('subbabC_gradien_duagarissejajar') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_duagarissejajar') ? 'active' : '' }}">
+                                Gradien garis garis yang saling sejajar
+                            </a>
+
+                            <a href="{{ route('subbabC_gradien_duagaristegaklurus') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_duagaristegaklurus') ? 'active' : '' }}">
+                                Gradien garis garis yang saling tegak lurus
+                            </a>
+
+                            <a href="{{ route('quiz.show', 3) }}"
+                                class="dropdown-item-custom {{ request()->is('quiz/3') ? 'active' : '' }}">
+                                Kuis C
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sub dropdown-toggle {{ $openD ? '' : 'collapsed' }}"
+                            data-bs-toggle="collapse" data-bs-target="#subD"
+                            aria-expanded="{{ $openD ? 'true' : 'false' }}">
+                            Persamaan Garis Lurus
+                        </button>
+
+                        <div id="subD" class="collapse mt-2 {{ $openD ? 'show' : '' }}">
+                            <a href="{{ route('subbabD_persamaangarislurus1') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus1') ? 'active' : '' }}">
+                                Persamaan Garis Melalui Satu Titik dan Gradien
+                            </a>
+
+                            <a href="{{ route('subbabD_persamaangarislurus2') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus2') ? 'active' : '' }}">
+                                Persamaan Garis yang Melalui Dua Titik
+                            </a>
+
+                            <a href="{{ route('quiz.show', 4) }}"
+                                class="dropdown-item-custom {{ request()->is('quiz/4') ? 'active' : '' }}">
+                                Kuis D
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('quiz.show', 5) }}" class="btn btn-primary btn-sub w-100">
+                        Evaluasi
+                    </a>
+
+                </div>
+            </div>
+
+            {{-- KONTEN --}}
+            <div id="contentCol" class="col-md-8 col-lg-9 d-flex flex-column">
+                <button id="openSidebarBtn" type="button" class="btn btn-primary d-none materi-top-btn"
+                    style="background-color: var(--primary-color)">
+                    ☰ Materi
+                </button>
+
+                <div class="content-wrapper p-4 flex-grow-1">
+                    @yield('content')
+                </div>
+
+                <div class="nav-wrapper">
+                    @yield('nav')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- BOOTSTRAP JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- TOGGLE SIDEBAR --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarCol = document.getElementById("sidebarCol");
+            const contentCol = document.getElementById("contentCol");
+
+            const openBtn = document.getElementById("openSidebarBtn");
+            const closeBtn = document.getElementById("closeSidebarBtn");
+
+            function showSidebar() {
+                sidebarCol.classList.remove("d-none");
+                contentCol.classList.remove("col-12");
+                contentCol.classList.add("col-md-8", "col-lg-9");
+                openBtn.classList.add("d-none");
+            }
+
+            function hideSidebar() {
+                sidebarCol.classList.add("d-none");
+                contentCol.classList.remove("col-md-8", "col-lg-9");
+                contentCol.classList.add("col-12");
+                openBtn.classList.remove("d-none");
+            }
+
+            if (closeBtn) closeBtn.addEventListener("click", hideSidebar);
+            if (openBtn) openBtn.addEventListener("click", showSidebar);
+
+            if (window.innerWidth < 768) {
+                hideSidebar();
+            }
+        });
+    </script>
+
+    {{-- KaTeX --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "\\[",
+                        right: "\\]",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+.card-tujuan {
+    background: #2e75b6;
+    color: #fff;
+    border: 0;
+    border-radius: 16px;
+    padding: 10px 6px;
+}
+
+.card-tujuan h5 {
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.card-tujuan ol {
+    margin-bottom: 0;
+    padding-left: 22px;
+    line-height: 1.7;
+}
+
+/* tambahan */
+.card-materi {
+    border-radius: 16px;
+    border: 2px solid #2e75b6;
+    background: #fff;
+}
+
+.rumus-box {
+    background: #f7f9fc;
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 20px;
+}
+
+.badge-mini {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+
+.badge-contoh {
+    display: inline-block;
+    background: #2e75b6;
+    color: #fff;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.badge-latihan {
+    display: inline-block;
+    background: #22b969;
+    color: #fff;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.img-grid figure {
+    margin: 0;
+    text-align: center;
+}
+
+.img-grid img {
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.quiz-card {
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+}
+
+.btn-palet {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.btn-palet:hover {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+/* ukuran input */
+.frac-input input,
+.frac input {
+    width: 70px;
+    text-align: center;
+}
+
+/* container pecahan */
+.frac-input.single,
+.frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+
+/* garis pecahan */
+.frac .top,
+.frac-input .top {
+    border-bottom: 2px solid #222;
+    padding: 3px 6px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: fit-content;
+}
+
+.frac .bottom,
+.frac-input .bottom {
+    padding: 6px 6px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: fit-content;
+}
+
+/* layout utama */
+.latihan-gradien {
+    line-height: 1.8;
+}
+
+.rumus-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.rumus-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.first-row {
+    margin-bottom: 2px;
+}
+
+.math-text {
+    font-size: 25px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hasil-akhir {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* No 3 */
+.latihan-no3 {
+    line-height: 1.9;
+}
+
+.flex-wrap-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.blok-rumus-no3 {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 12px 0 18px 0;
+}
+
+.rumus-baris-no3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.langkah-kali-no3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+.kesimpulan-no3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.input-kecil {
+    width: 80px;
+    max-width: 80px;
+}
+
+.input-sedang {
+    width: 120px;
+    max-width: 120px;
+}
+
+.math-inline,
+.eq {
+    font-size: 24px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* pecahan */
+.frac-input input,
+.frac input {
+    width: 70px;
+    text-align: center;
+}
+
+.frac .top,
+.frac-input .top {
+    border-bottom: 2px solid #222;
+    padding: 3px 6px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.frac .bottom,
+.frac-input .bottom {
+    padding: 6px 6px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.frac-input.single {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    width: fit-content;
+}
+
+/* --------------- */
+/* Latihan Slider */
+/* --------------- */
+.latihan-step {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}
+
+.latihan-step.muncul {
+    animation: slideMuncul 0.5s ease;
+}
+
+@keyframes slideMuncul {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+

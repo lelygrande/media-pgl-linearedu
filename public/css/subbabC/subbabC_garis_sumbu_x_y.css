@@ -1,0 +1,190 @@
+/* Contoh */
+.rumus-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: #f7f9fc;
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    padding: 20px 16px;
+}
+
+.rumus-m {
+    font-size: 32px;
+    font-style: italic;
+    font-family: "Times New Roman", serif;
+}
+
+.pecahan-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 240px;
+}
+
+.pembilang,
+.penyebut {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 26px;
+}
+
+.garis-pecahan {
+    width: 100%;
+    height: 2px;
+    background: #222;
+    margin: 8px 0;
+}
+
+.rumus-mini {
+    width: 64px;
+    height: 42px;
+    text-align: center;
+    border: 1px solid #b8c7db;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Times New Roman", serif;
+}
+
+.hasil-box {
+    width: 70px;
+}
+
+/* Sumbu y */
+
+.pecahan-tabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    gap: 3px;
+}
+
+.input-pecahan {
+    width: 48px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid #b8c7db;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px;
+}
+
+.garis-pecahan-kecil {
+    width: 70px;
+    height: 2px;
+    background: #222;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.pecahan-inline {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    vertical-align: middle;
+}
+
+.input-pecahan-inline {
+    width: 42px;
+    height: 28px;
+    text-align: center;
+    border: 1px solid #b8c7db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+.garis-pecahan-inline {
+    width: 100%;
+    border-top: 1.5px solid #222;
+    margin: 3px 0;
+}
+
+/* Latihan Soal */
+
+/* pecahan */
+.frac,
+.frac-input {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin: 0 4px;
+}
+
+/* garis pecahan */
+.frac .top,
+.frac-input .top {
+    border-bottom: 2px solid #222;
+    padding: 3px 6px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.frac .bottom,
+.frac-input .bottom {
+    padding: 6px 6px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* ukuran input */
+.frac-input input,
+.frac input {
+    width: 70px;
+    text-align: center;
+}
+
+/* pecahan kecil */
+.frac-small .top,
+.frac-small .bottom {
+    min-width: 50px;
+}
+
+/* supaya tidak nabrak */
+.card-materi .d-flex {
+    flex-wrap: wrap;
+}
+
+/* jarak antar elemen */
+.card-materi .gap-2 {
+    gap: 8px !important;
+}
+
+/* responsif */
+@media (max-width: 768px) {
+    .frac-input input,
+    .frac input {
+        width: 60px;
+        font-size: 14px;
+    }
+
+    .frac .top,
+    .frac-input .top {
+        padding: 2px 4px 5px;
+    }
+
+    .frac .bottom,
+    .frac-input .bottom {
+        padding: 5px 4px 2px;
+    }
+}

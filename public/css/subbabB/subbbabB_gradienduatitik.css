@@ -1,0 +1,74 @@
+/* pecahan */
+.frac,
+.frac-input{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    vertical-align:middle;
+    margin:0 4px;
+}
+
+/* garis pecahan */
+.frac .top,
+.frac-input .top{
+    border-bottom:2px solid #222;
+    padding:3px 6px 6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+}
+
+.frac .bottom,
+.frac-input .bottom{
+    padding:6px 6px 3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+}
+
+/* ukuran input */
+.frac-input input,
+.frac input{
+    width:70px;
+    text-align:center;
+}
+
+/* pecahan kecil */
+.frac-small .top,
+.frac-small .bottom{
+    min-width:50px;
+}
+
+/* supaya tidak nabrak */
+.card-materi .d-flex{
+    flex-wrap:wrap;
+}
+
+/* jarak antar elemen */
+.card-materi .gap-2{
+    gap:8px !important;
+}
+
+/* responsif */
+@media (max-width:768px){
+
+    .frac-input input,
+    .frac input{
+        width:60px;
+        font-size:14px;
+    }
+
+    .frac .top,
+    .frac-input .top{
+        padding:2px 4px 5px;
+    }
+
+    .frac .bottom,
+    .frac-input .bottom{
+        padding:5px 4px 2px;
+    }
+
+}
