@@ -167,141 +167,132 @@ function normalize(val) {
     return val
         .trim()
         .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/−/g, "-")
-        .replace(/–/g, "-");
+        .replace(/\s+/g, '')
+        .replace(/−/g, '-')
+        .replace(/–/g, '-')
+        .replace(/₁/g, '1');
+}
+
+function tampilkanLatihan(idLatihan) {
+    const target = document.getElementById(idLatihan);
+    if (target) {
+        target.classList.remove("d-none");
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (window.renderMathInElement) {
+            renderMathInElement(target, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false }
+                ]
+            });
+        }
+    }
 }
 
 function cekLatihan1() {
     const x1 = normalize(document.getElementById("x1_1").value);
     const y1 = normalize(document.getElementById("y1_1").value);
     const m = normalize(document.getElementById("m_1").value);
-
     const sub_y1 = normalize(document.getElementById("sub_y1_1").value);
     const sub_m = normalize(document.getElementById("sub_m_1").value);
     const sub_x1 = normalize(document.getElementById("sub_x1_1").value);
-
     const h1 = normalize(document.getElementById("hasil1_1").value);
     const h2 = normalize(document.getElementById("hasil2_1").value);
     const h3 = normalize(document.getElementById("hasil3_1").value);
-
     const a1 = normalize(document.getElementById("akhir1_1").value);
     const a2 = normalize(document.getElementById("akhir2_1").value);
 
     const fb = document.getElementById("feedbackLatihan1");
 
-    // cek langkah
-    const benar1 = x1 === "3" && y1 === "-2" && m === "2";
-    const benar2 = sub_y1 === "-2" && sub_m === "2" && sub_x1 === "3";
-    const benar3 = h1 === "2" && h2 === "2" && h3 === "-6";
-    const benar4 = a1 === "2" && a2 === "-8";
+    const benar1 = (x1 === "3" && y1 === "-2" && m === "2");
+    const benar2 = (sub_y1 === "-2" && sub_m === "2" && sub_x1 === "3");
+    const benar3 = (h1 === "2" && h2 === "2" && h3 === "-6");
+    const benar4 = (a1 === "2" && a2 === "-8");
 
     if (benar1 && benar2 && benar3 && benar4) {
-        fb.innerHTML =
-            "<span class='text-success fw-bold'>Benar! Persamaan garisnya adalah y = 2x - 8</span>";
+        fb.innerHTML = "<span class='text-success fw-bold'>Benar! Lanjut ke soal berikutnya.</span>";
+        tampilkanLatihan("latihan2");
     } else {
         let pesan = [];
-
-        if (!benar1) pesan.push("Periksa nilai x₁, y₁, dan m.");
+        if (!benar1) pesan.push("Periksa nilai $x_1$, $y_1$, dan $m$.");
         if (benar1 && !benar2) pesan.push("Perhatikan langkah substitusi.");
         if (benar2 && !benar3) pesan.push("Periksa hasil penyederhanaan.");
         if (benar3 && !benar4) pesan.push("Periksa jawaban akhir.");
+        fb.innerHTML = "<span class='text-danger'>" + pesan.join("<br>") + "</span>";
+    }
 
-        fb.innerHTML =
-            "<span class='text-danger'>" + pesan.join("<br>") + "</span>";
+    if (window.renderMathInElement) {
+        renderMathInElement(fb, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
     }
 }
 
-// No 2
 function cekLatihan2() {
-    const val = (id) => document.getElementById(id).value.trim().toLowerCase();
+    const val = id => normalize(document.getElementById(id).value);
     const fb = document.getElementById("feedbackLatihan2");
-
     let pesan = [];
 
-    // =====================
-    // STEP 1: diketahui
-    // =====================
     const x1 = val("l2_x1");
     const y1 = val("l2_y1");
     const m = val("l2_m");
-
-    if (x1 !== "3" || y1 !== "-2") {
-        pesan.push("💡 Hint: Ambil titik dari kalimat 'suhu -2 saat x = 3'.");
-    }
-
-    if (m !== "-2") {
-        pesan.push("💡 Hint: Gradien adalah laju perubahan suhu.");
-    }
-
-    // =====================
-    // STEP 2: substitusi
-    // =====================
     const sub_y1 = val("l2_sub_y1");
     const sub_m = val("l2_sub_m");
     const sub_x1 = val("l2_sub_x1");
-
-    if (x1 === "3" && y1 === "-2" && m === "-2") {
-        if (sub_y1 !== "-2" || sub_m !== "-2" || sub_x1 !== "3") {
-            pesan.push("💡 Hint: Substitusi ke rumus y - y₁ = m(x - x₁).");
-        }
-    }
-
-    // =====================
-    // STEP 3: bentuk persamaan
-    // =====================
     const h1 = val("l2_h1");
     const h2 = val("l2_h2");
-
-    if (sub_y1 === "-2" && sub_m === "-2" && sub_x1 === "3") {
-        if (!(h1 === "-2" && (h2 === "+4" || h2 === "4"))) {
-            pesan.push(
-                "💡 Hint: Sederhanakan persamaan sampai bentuk y = mx + c.",
-            );
-        }
-    }
-
-    // =====================
-    // STEP 4: substitusi x = -5
-    // =====================
     const s1 = val("l2_s1");
     const s2 = val("l2_s2");
     const s3 = val("l2_s3");
-
-    if (h1 === "-2") {
-        if (s2 !== "-5") {
-            pesan.push("Petunjuk : Nilai x yang diminta adalah -5.");
-        }
-
-        if (s1 !== "-2") {
-            pesan.push("Petunjuk : Gunakan gradien sebagai koefisien x.");
-        }
-    }
-
-    // =====================
-    // STEP 5: hasil akhir
-    // =====================
     const final = val("l2_final");
 
+    if (x1 !== "3" || y1 !== "-2") {
+        pesan.push("Hint: Ambil titik dari informasi saat suhu $-2$ ketika $x=3$.");
+    }
+    if (m !== "-2") {
+        pesan.push("Hint: Gradien adalah laju perubahan suhu.");
+    }
+    if (x1 === "3" && y1 === "-2" && m === "-2") {
+        if (sub_y1 !== "-2" || sub_m !== "-2" || sub_x1 !== "3") {
+            pesan.push("Hint: Substitusi ke rumus $y-y_1=m(x-x_1)$.");
+        }
+    }
+    if (sub_y1 === "-2" && sub_m === "-2" && sub_x1 === "3") {
+        if (!(h1 === "-2" && (h2 === "+4" || h2 === "4"))) {
+            pesan.push("Hint: Sederhanakan sampai bentuk $y = mx + c$.");
+        }
+    }
+    if (h1 === "-2" && (h2 === "+4" || h2 === "4")) {
+        if (s1 !== "-2" || s2 !== "-5" || !(s3 === "+4" || s3 === "4")) {
+            pesan.push("Hint: Substitusikan $x=-5$ ke persamaan yang sudah diperoleh.");
+        }
+    }
     if (final !== "14") {
-        pesan.push("Petunjuk : Hitung -2 × (-5) + 4.");
+        pesan.push("Hint: Hitung $-2\\times(-5)+4$.");
     }
 
-    // =====================
-    // HASIL
-    // =====================
     if (pesan.length === 0) {
-        fb.innerHTML =
-            "<span class='text-success fw-bold'>Benar! Kamu berhasil menemukan nilai y = 14</span>";
+        fb.innerHTML = "<span class='text-success fw-bold'>Benar! Lanjut ke soal berikutnya.</span>";
+        tampilkanLatihan("latihan3");
     } else {
-        fb.innerHTML =
-            "<span class='text-warning'>" + pesan.join("<br>") + "</span>";
+        fb.innerHTML = "<span class='text-warning'>" + pesan.join("<br>") + "</span>";
+    }
+
+    if (window.renderMathInElement) {
+        renderMathInElement(fb, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
     }
 }
 
-// No 3
 function cekLatihan3() {
-    const val = (id) => document.getElementById(id).value.trim().toLowerCase();
+    const val = id => normalize(document.getElementById(id).value);
     const fb = document.getElementById("feedbackLatihan3");
 
     const benar =
@@ -309,18 +300,26 @@ function cekLatihan3() {
         val("l3_y1") === "0" &&
         (val("l3_m") === "-3/5" || val("l3_m") === "-0.6") &&
         val("l3_sub_y1") === "0" &&
+        (val("l3_sub_m") === "-3/5" || val("l3_sub_m") === "-0.6") &&
         val("l3_sub_x1") === "0" &&
-        val("l3_h1") === "-3/5" &&
+        (val("l3_h1") === "-3/5" || val("l3_h1") === "-0.6") &&
         val("l3_kiri") === "5" &&
         val("l3_kanan") === "-3" &&
         val("l3_final1") === "3" &&
         val("l3_final2") === "5";
 
     if (benar) {
-        fb.innerHTML =
-            "<span class='text-success fw-bold'>Benar! Persamaan garis: 3x + 5y = 0</span>";
+        fb.innerHTML = "<span class='text-success fw-bold'>Hebat, semua latihan sudah selesai.</span>";
     } else {
-        fb.innerHTML =
-            "<span class='text-warning'>Petunjuk : Ingat titik awal adalah (0,0) dan kalikan agar pecahan hilang.</span>";
+        fb.innerHTML = "<span class='text-warning'>Hint: Titik awal koordinat adalah $(0,0)$, lalu hilangkan pecahan dengan mengalikan 5.</span>";
+    }
+
+    if (window.renderMathInElement) {
+        renderMathInElement(fb, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
     }
 }

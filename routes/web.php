@@ -34,12 +34,14 @@ Route::middleware('auth:siswa')->group(function () {
     Route::view('/subbab-B-gradien_dua_titik', 'siswa.subbabB_gradienduatitik')->name('subbabB_gradienduatitik');
     Route::view('/subbab-B-gradien_persamaan1', 'siswa.subbabB_gradienpersamaan1')->name('subbabB_gradienpersamaan1');
 
-    Route::view('/subbab-C-gradien_garissejajarsumbuxy', 'siswa.subbabC_gradien_garissejajar_sumbuxy')->name('subbabC_gradien_garissejajar_sumbuxy');
-    Route::view('/subbab-C-gradien_duagaris_sejajar', 'siswa.subbabC_gradien_duagarissejajar')->name('subbabC_gradien_duagarissejajar');
-    Route::view('/subbab-C-gradien_duagaris_tegaklurus', 'siswa.subbabC_gradien_duagaristegaklurus')->name('subbabC_gradien_duagaristegaklurus');
+    Route::view('/subbab-C-gradien_garissejajarsumbuxy', 'siswa.subbabC_gradien_garis_sejajar_sumbuxy')->name('subbabC_gradien_garissejajar_sumbuxy');
+    Route::view('/subbab-C-gradien_duagaris_sejajar', 'siswa.subbabC_gradien_garisgarissejajar')->name('subbabC_gradien_gradiengarissejajar');
+    Route::view('/subbab-C-gradien_duagaris_tegaklurus', 'siswa.subbabC_gradien_garisgaristegaklurus')->name('subbabC_gradien_garistegaklurus');
 
     Route::view('/subbab-D-pgl1', 'siswa.subbabD_persamaangarislurus1')->name('subbabD_persamaangarislurus1');
     Route::view('/subbab-D-pgl2', 'siswa.subbabD_persamaangarislurus2')->name('subbabD_persamaangarislurus2');
+    Route::view('/subbab-D-pgl-dan-sejajar', 'siswa.subbabD_persamaangarislurus3_sejajar')->name('subbabD_persamaangarislurus3_sejajar');
+    Route::view('/subbab-D-pgl-dan-tegaklurus', 'siswa.subbabD_persamaangarislurus4_tegaklurus')->name('subbabD_persamaangarislurus4_tegaklurus');
 
     Route::view('/siswa/progress-belajar', 'siswa.progres_belajar')->name('progress-belajar');
 

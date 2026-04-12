@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-                                                                                delimiters: [
-                                                                                  {left: '$$', right: '$$', display: true},
-                                                                                  {left: '$', right: '$', display: false},
-                                                                                  {left: '\\\\[', right: '\\\\]', display: true},
-                                                                                  {left: '\\\\(', right: '\\\\)', display: false}
-                                                                                ]
-                                                                              });"></script>
+                                                                                            delimiters: [
+                                                                                              {left: '$$', right: '$$', display: true},
+                                                                                              {left: '$', right: '$', display: false},
+                                                                                              {left: '\\\\[', right: '\\\\]', display: true},
+                                                                                              {left: '\\\\(', right: '\\\\)', display: false}
+                                                                                            ]
+                                                                                          });"></script>
 
     <style>
         :root {
@@ -281,14 +281,17 @@
                         $openC =
                             request()->routeIs(
                                 'subbabC_gradien_garissejajar_sumbuxy',
-                                'subbabC_gradien_duagarissejajar',
-                                'subbabC_gradien_duagaristegaklurus',
+                                'subbabC_gradien_gradiengarissejajar',
+                                'subbabC_gradien_garistegaklurus',
                             ) || request()->is('quiz/3');
 
                         $openD =
-                            request()->routeIs('subbabD_persamaangarislurus1', 'subbabD_persamaangarislurus2') ||
-                            request()->is('quiz/4');
-
+                            request()->routeIs(
+                                'subbabD_persamaangarislurus1',
+                                'subbabD_persamaangarislurus2',
+                                'subbabD_persamaangarislurus3_sejajar',
+                                'subbabD_persamaangarislurus4_tegaklurus',
+                            ) || request()->is('quiz/4');
                     @endphp
 
                     <div class="dropdown">
@@ -389,13 +392,13 @@
                                 Gradien garis sejajar sumbu x dan sumbu y
                             </a>
 
-                            <a href="{{ route('subbabC_gradien_duagarissejajar') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_duagarissejajar') ? 'active' : '' }}">
+                            <a href="{{ route('subbabC_gradien_gradiengarissejajar') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_gradiengarissejajar') ? 'active' : '' }}">
                                 Gradien garis garis yang saling sejajar
                             </a>
 
-                            <a href="{{ route('subbabC_gradien_duagaristegaklurus') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_duagaristegaklurus') ? 'active' : '' }}">
+                            <a href="{{ route('subbabC_gradien_garistegaklurus') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_garistegaklurus') ? 'active' : '' }}">
                                 Gradien garis garis yang saling tegak lurus
                             </a>
 
@@ -422,6 +425,16 @@
                             <a href="{{ route('subbabD_persamaangarislurus2') }}"
                                 class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus2') ? 'active' : '' }}">
                                 Persamaan Garis yang Melalui Dua Titik
+                            </a>
+
+                            <a href="{{ route('subbabD_persamaangarislurus3_sejajar') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus3_sejajar') ? 'active' : '' }}">
+                                Persamaan Garis dan Sejajar
+                            </a>
+
+                            <a href="{{ route('subbabD_persamaangarislurus4_tegaklurus') }}"
+                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus4_tegaklurus') ? 'active' : '' }}">
+                                Persamaan Garis dan Tegak Lurus
                             </a>
 
                             <a href="{{ route('quiz.show', 4) }}"
