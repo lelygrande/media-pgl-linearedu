@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-                                                                                            delimiters: [
-                                                                                              {left: '$$', right: '$$', display: true},
-                                                                                              {left: '$', right: '$', display: false},
-                                                                                              {left: '\\\\[', right: '\\\\]', display: true},
-                                                                                              {left: '\\\\(', right: '\\\\)', display: false}
-                                                                                            ]
-                                                                                          });"></script>
+                                                                                                        delimiters: [
+                                                                                                          {left: '$$', right: '$$', display: true},
+                                                                                                          {left: '$', right: '$', display: false},
+                                                                                                          {left: '\\\\[', right: '\\\\]', display: true},
+                                                                                                          {left: '\\\\(', right: '\\\\)', display: false}
+                                                                                                        ]
+                                                                                                      });"></script>
 
     <style>
         :root {
@@ -266,32 +266,42 @@
                     </button>
 
                     @php
+                        $currentSlug = request()->route('slug');
+
                         $openIntro = request()->routeIs('peta-konsep', 'apersepsi1');
 
-                        $openA = request()->routeIs('subbabA1', 'subbabA2.1', 'subbabA2.2') || request()->is('quiz/1');
+                        $openA =
+                            ($currentSlug && in_array($currentSlug, ['subbab-a1', 'subbab-a2-1', 'subbab-a2-2'])) ||
+                            request()->is('quiz/1');
 
                         $openB =
-                            request()->routeIs(
-                                'subbabB_gradien',
-                                'subbabB_gradiensatutitik',
-                                'subbabB_gradienduatitik',
-                                'subbabB_gradienpersamaan1',
-                            ) || request()->is('quiz/2');
+                            ($currentSlug &&
+                                in_array($currentSlug, [
+                                    'subbab-b-gradien',
+                                    'subbab-b-gradien-satu-titik',
+                                    'subbab-b-gradien-dua-titik',
+                                    'subbab-b-gradien-persamaan1',
+                                ])) ||
+                            request()->is('quiz/2');
 
                         $openC =
-                            request()->routeIs(
-                                'subbabC_gradien_garissejajar_sumbuxy',
-                                'subbabC_gradien_gradiengarissejajar',
-                                'subbabC_gradien_garistegaklurus',
-                            ) || request()->is('quiz/3');
+                            ($currentSlug &&
+                                in_array($currentSlug, [
+                                    'subbab-c-garis-sejajar-sumbuxy',
+                                    'subbab-c-dua-garis-sejajar',
+                                    'subbab-c-dua-garis-tegak-lurus',
+                                ])) ||
+                            request()->is('quiz/3');
 
                         $openD =
-                            request()->routeIs(
-                                'subbabD_persamaangarislurus1',
-                                'subbabD_persamaangarislurus2',
-                                'subbabD_persamaangarislurus3_sejajar',
-                                'subbabD_persamaangarislurus4_tegaklurus',
-                            ) || request()->is('quiz/4');
+                            ($currentSlug &&
+                                in_array($currentSlug, [
+                                    'subbab-d-pgl1',
+                                    'subbab-d-pgl2',
+                                    'subbab-d-pgl-sejajar',
+                                    'subbab-d-pgl-tegak-lurus',
+                                ])) ||
+                            request()->is('quiz/4');
                     @endphp
 
                     <div class="dropdown">
@@ -322,18 +332,18 @@
                         </button>
 
                         <div id="subA" class="collapse mt-2 {{ $openA ? 'show' : '' }}">
-                            <a href="{{ route('subbabA1') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabA1') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-a1') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-a1' ? 'active' : '' }}">
                                 Pengertian dan Bentuk Umum
                             </a>
 
-                            <a href="{{ route('subbabA2.1') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabA2.1') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-a2-1') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-1' ? 'active' : '' }}">
                                 Menggambar Grafik Persamaan Garis Lurus 1
                             </a>
 
-                            <a href="{{ route('subbabA2.2') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabA2.2') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-a2-2') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-2' ? 'active' : '' }}">
                                 Menggambar Grafik Persamaan Garis Lurus 2
                             </a>
 
@@ -352,23 +362,23 @@
                         </button>
 
                         <div id="subB" class="collapse mt-2 {{ $openB ? 'show' : '' }}">
-                            <a href="{{ route('subbabB_gradien') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradien') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-b-gradien') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien' ? 'active' : '' }}">
                                 Pengertian Gradien
                             </a>
 
-                            <a href="{{ route('subbabB_gradiensatutitik') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradiensatutitik') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-b-gradien-satu-titik') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-satu-titik' ? 'active' : '' }}">
                                 Gradien garis melalui (0,0) dan (x1,y1)
                             </a>
 
-                            <a href="{{ route('subbabB_gradienduatitik') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradienduatitik') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-b-gradien-dua-titik') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-dua-titik' ? 'active' : '' }}">
                                 Gradien garis yang melewati dua titik
                             </a>
 
-                            <a href="{{ route('subbabB_gradienpersamaan1') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabB_gradienpersamaan1') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-b-gradien-persamaan1') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-persamaan1' ? 'active' : '' }}">
                                 Gradien garis dari suatu Persamaan Garis Lurus
                             </a>
 
@@ -387,19 +397,19 @@
                         </button>
 
                         <div id="subC" class="collapse mt-2 {{ $openC ? 'show' : '' }}">
-                            <a href="{{ route('subbabC_gradien_garissejajar_sumbuxy') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_garissejajar_sumbuxy') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-c-garis-sejajar-sumbuxy') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-garis-sejajar-sumbuxy' ? 'active' : '' }}">
                                 Gradien garis sejajar sumbu x dan sumbu y
                             </a>
 
-                            <a href="{{ route('subbabC_gradien_gradiengarissejajar') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_gradiengarissejajar') ? 'active' : '' }}">
-                                Gradien garis garis yang saling sejajar
+                            <a href="{{ route('materi.show', 'subbab-c-dua-garis-sejajar') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-sejajar' ? 'active' : '' }}">
+                                Gradien Garis-garis yang saling Sejajar
                             </a>
 
-                            <a href="{{ route('subbabC_gradien_garistegaklurus') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabC_gradien_garistegaklurus') ? 'active' : '' }}">
-                                Gradien garis garis yang saling tegak lurus
+                            <a href="{{ route('materi.show', 'subbab-c-dua-garis-tegak-lurus') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-tegak-lurus' ? 'active' : '' }}">
+                                Gradien Garis-garis yang saling Tegak Lurus
                             </a>
 
                             <a href="{{ route('quiz.show', 3) }}"
@@ -417,24 +427,24 @@
                         </button>
 
                         <div id="subD" class="collapse mt-2 {{ $openD ? 'show' : '' }}">
-                            <a href="{{ route('subbabD_persamaangarislurus1') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus1') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-d-pgl1') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl1' ? 'active' : '' }}">
                                 Persamaan Garis Melalui Satu Titik dan Gradien
                             </a>
 
-                            <a href="{{ route('subbabD_persamaangarislurus2') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus2') ? 'active' : '' }}">
+                            <a href="{{ route('materi.show', 'subbab-d-pgl2') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl2' ? 'active' : '' }}">
                                 Persamaan Garis yang Melalui Dua Titik
                             </a>
 
-                            <a href="{{ route('subbabD_persamaangarislurus3_sejajar') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus3_sejajar') ? 'active' : '' }}">
-                                Persamaan Garis dan Sejajar
+                            <a href="{{ route('materi.show', 'subbab-d-pgl-sejajar') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-sejajar' ? 'active' : '' }}">
+                                Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain
                             </a>
 
-                            <a href="{{ route('subbabD_persamaangarislurus4_tegaklurus') }}"
-                                class="dropdown-item-custom {{ request()->routeIs('subbabD_persamaangarislurus4_tegaklurus') ? 'active' : '' }}">
-                                Persamaan Garis dan Tegak Lurus
+                            <a href="{{ route('materi.show', 'subbab-d-pgl-tegak-lurus') }}"
+                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-tegak-lurus' ? 'active' : '' }}">
+                                Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan Garis Lain
                             </a>
 
                             <a href="{{ route('quiz.show', 4) }}"
@@ -444,10 +454,10 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('quiz.show', 5) }}" class="btn btn-primary btn-sub w-100">
+                    <a href="{{ route('quiz.show', 5) }}"
+                        class="btn btn-primary btn-sub w-100 {{ request()->is('quiz/5') ? 'active' : '' }}">
                         Evaluasi
                     </a>
-
                 </div>
             </div>
 

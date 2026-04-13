@@ -424,7 +424,6 @@
                     Gradien garis $k$ = 1 dan gradien garis $l$ = 1.<br>
                     Karena $m_k = m_l$, maka kedua garis sejajar.
                 </div>
-
             </div>
         </div>
     </div>
@@ -498,12 +497,10 @@
                         style="width:80px;">
                 </div>
             </div>
-
             <p class="mb-3 mt-4" style="line-height:1.8;">
                 <b>2.</b> Perhatikan persamaan garis berikut. Pilih garis yang sejajar dengan
                 <b>$y = 4x + 2$</b>.
             </p>
-
             <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="l2_a">
@@ -605,10 +602,40 @@
 @endsection
 
 @section('nav')
-    <a href="{{ route('subbabC_gradien_garissejajar_sumbuxy') }}" class="btn btn-prev px-4 rounded-pill">
-        ← Prev
-    </a>
-    <a href="{{ route('subbabC_gradien_duagaristegaklurus') }}" class="btn btn-next px-4 rounded-pill fw-semibold">
-        Next →
-    </a>
+    {{-- PREV --}}
+    @if($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    {{-- KHUSUS MATERI PERTAMA --}}
+    @elseif($materi->slug === 'subbab-a1')
+        <a href="{{ route('apersepsi1') }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    @else
+        <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
+    @endif
+
+
+    {{-- NEXT --}}
+    @if($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Next →
+        </a>
+
+    {{-- MATERI TERAKHIR → KUIS --}}
+    @elseif($quizBab)
+        <a href="{{ route('quiz.show', $quizBab->id) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Kuis →
+        </a>
+    @else
+        <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
+    @endif
 @endsection
+

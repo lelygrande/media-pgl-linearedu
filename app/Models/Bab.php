@@ -18,4 +18,9 @@ class Bab extends Model
     {
         return $this->hasMany(Quiz::class, 'bab_id');
     }
+
+    public function materis()
+    {
+        return $this->hasMany(Materi::class, 'bab_id')->orderBy('urutan');
+    }
 }

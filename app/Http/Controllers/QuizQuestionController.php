@@ -7,6 +7,8 @@ use App\Models\QuizQuestion;
 use App\Models\QuizOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class QuizQuestionController extends Controller
 {
@@ -20,21 +22,30 @@ class QuizQuestionController extends Controller
     public function store(Request $request, $quizId)
     {
         $request->validate([
-            'question_text' => 'required|string',
-            'option_a' => 'required|string',
-            'option_b' => 'required|string',
-            'option_c' => 'required|string',
-            'option_d' => 'required|string',
-            'correct_option' => 'required|in:A,B,C,D',
+            'question_text'   => 'required|string',
+            'option_a'        => 'required|string',
+            'option_b'        => 'required|string',
+            'option_c'        => 'required|string',
+            'option_d'        => 'required|string',
+            'correct_option'  => 'required|in:A,B,C,D',
+            'question_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         DB::transaction(function () use ($request, $quizId) {
-            $nextOrder = QuizQuestion::where('quiz_id', $quizId)->max('question_order') + 1;
+            $nextOrder = (QuizQuestion::where('quiz_id', $quizId)->max('question_order') ?? 0) + 1;
+
+            $imageName = null;
+
+            if ($request->hasFile('question_image')) {
+                $file = $request->file('question_image');
+                $imageName = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('img/kuis'), $imageName);
+            }
 
             $question = QuizQuestion::create([
                 'quiz_id' => $quizId,
                 'question_text' => $request->question_text,
-                'question_image' => null,
+                'question_image' => $imageName,
                 'question_order' => $nextOrder,
             ]);
 
@@ -73,19 +84,49 @@ class QuizQuestionController extends Controller
     public function update(Request $request, $questionId)
     {
         $request->validate([
-            'question_text' => 'required|string',
-            'option_a' => 'required|string',
-            'option_b' => 'required|string',
-            'option_c' => 'required|string',
-            'option_d' => 'required|string',
-            'correct_option' => 'required|in:A,B,C,D',
+        'question_text'   => 'required|string',
+        'option_a'        => 'required|string',
+        'option_b'        => 'required|string',
+        'option_c'        => 'required|string',
+        'option_d'        => 'required|string',
+        'correct_option'  => 'required|in:A,B,C,D',
+        'question_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'remove_image'    => 'nullable|boolean',
         ]);
 
         DB::transaction(function () use ($request, $questionId) {
             $question = QuizQuestion::with('options', 'quiz')->findOrFail($questionId);
 
+            $imageName = $question->question_image;
+
+            // Hapus gambar
+            if ($request->has('remove_image') && $request->remove_image == 1) {
+                if ($question->question_image) {
+                    $oldPath = public_path('img/kuis/' . $question->question_image);
+                    if (File::exists($oldPath)) {
+                        File::delete($oldPath);
+                    }
+                }
+                $imageName = null;
+            }
+
+            // Upload gambar baru (override)
+            if ($request->hasFile('question_image')) {
+                if ($question->question_image) {
+                    $oldPath = public_path('img/kuis/' . $question->question_image);
+                    if (File::exists($oldPath)) {
+                        File::delete($oldPath);
+                    }
+                }
+
+                $file = $request->file('question_image');
+                $imageName = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('img/kuis'), $imageName);
+            }
+
             $question->update([
                 'question_text' => $request->question_text,
+                'question_image' => $imageName,
             ]);
 
             $map = [
@@ -113,6 +154,13 @@ class QuizQuestionController extends Controller
         $quizId = $question->quiz_id;
 
         DB::transaction(function () use ($question, $quizId) {
+            if ($question->question_image) {
+                $imagePath = public_path('img/kuis/' . $question->question_image);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+
             $question->delete();
 
             $remaining = QuizQuestion::where('quiz_id', $quizId)->orderBy('question_order')->get();

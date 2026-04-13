@@ -111,6 +111,7 @@ function resetKotakABC() {
     hasil.innerHTML = "";
     hasil.style.display = "none";
 }
+
 // Contoh menentukan persamaan garis lurus atau tidak
 function toggleSolution(id, btn) {
     const el = document.getElementById(id);
@@ -122,7 +123,7 @@ function toggleSolution(id, btn) {
         : "Lihat Penyelesaian";
 }
 
-// Contoh impliasit klik kotak abc
+// Contoh implisit klik kotak abc
 function tampilABC(huruf) {
     const hasil = document.getElementById("hasilABC");
 
@@ -149,6 +150,13 @@ function tampilABC(huruf) {
     }
 }
 
+// Contoh mengubah persamaan eksplisit ke implisit
+// Contoh 1
+function openStepUmum(id, btn) {
+    document.getElementById(id).style.display = "block";
+    btn.style.display = "none";
+}
+
 // contoh cara mengubah persamaan ke eksplisit
 function openStepS(id, btn) {
     const next = document.getElementById(id);
@@ -168,10 +176,109 @@ function openStep(n, btn) {
 }
 
 // Latihan Soal
-// no 1
-function renderKatex(el) {
+let currentLatihan = 0;
+let draggedItem = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+    initDragDropA1();
+    updateLatihanSlide();
+});
+
+function updateLatihanSlide() {
+    const track = document.getElementById("latihanTrack");
+    track.style.transform = `translateX(-${currentLatihan * 100}%)`;
+}
+
+function nextLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
+function prevLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
+function norm(expr) {
+    return expr.toLowerCase().replace(/\s+/g, "").replace(/−/g, "-");
+}
+
+// =========================
+// LATIHAN 1
+// =========================
+function initDragDropA1() {
+    const items = document.querySelectorAll(".opsi-item");
+    const dropzone = document.getElementById("dropLinear");
+    const opsiWrap = document.getElementById("opsiLinear");
+
+    items.forEach((item) => {
+        item.addEventListener("dragstart", function () {
+            draggedItem = this;
+        });
+    });
+
+    [dropzone, opsiWrap].forEach((area) => {
+        area.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            if (this.id === "dropLinear") this.classList.add("over");
+        });
+
+        area.addEventListener("dragleave", function () {
+            if (this.id === "dropLinear") this.classList.remove("over");
+        });
+
+        area.addEventListener("drop", function (e) {
+            e.preventDefault();
+            this.classList.remove("over");
+            if (draggedItem) {
+                this.appendChild(draggedItem);
+                draggedItem = null;
+            }
+        });
+    });
+}
+
+function cekLatihan1A1() {
+    const dropzone = document.getElementById("dropLinear");
+    const items = dropzone.querySelectorAll(".opsi-item");
+    const fb = document.getElementById("feedbackLatihan1A1");
+    const nextBtn = document.getElementById("nextBtn1");
+
+    if (items.length === 0) {
+        fb.innerHTML = "Belum ada jawaban yang diseret ke kotak.";
+        fb.style.color = "red";
+        nextBtn.disabled = true;
+        return;
+    }
+
+    let semuaBenar = true;
+    let jumlahBenar = 0;
+    items.forEach((item) => {
+        if (item.dataset.linear === "true") {
+            jumlahBenar++;
+        } else {
+            semuaBenar = false;
+        }
+    });
+
+    const totalLinear = document.querySelectorAll(
+        '.opsi-item[data-linear="true"]',
+    ).length;
+
+    if (semuaBenar && jumlahBenar === totalLinear) {
+        fb.innerHTML =
+            "Benar. Semua pilihanmu merupakan persamaan garis lurus.";
+        fb.style.color = "green";
+        nextBtn.disabled = false;
+    } else {
+        fb.innerHTML =
+            "Masih ada jawaban yang belum tepat. Persamaan garis lurus hanya memuat variabel berpangkat satu dan tidak mengandung akar, pangkat lebih dari satu, atau hasil kali variabel.";
+        fb.style.color = "red";
+        nextBtn.disabled = true;
+    }
+
     if (window.renderMathInElement) {
-        renderMathInElement(el, {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -180,118 +287,110 @@ function renderKatex(el) {
     }
 }
 
-function cekPasanganBerurutan() {
-    const y1 = Number(document.getElementById("t1-y").value);
-    const y2 = Number(document.getElementById("t2-y").value);
-    const y3 = Number(document.getElementById("t3-y").value);
+function resetLatihan1A1() {
+    const opsiWrap = document.getElementById("opsiLinear");
+    const dropzone = document.getElementById("dropLinear");
+    const items = Array.from(dropzone.querySelectorAll(".opsi-item"));
+    items.forEach((item) => opsiWrap.appendChild(item));
 
-    // update pasangan
-    const pair1 = document.getElementById("pair-t1");
-    const pair2 = document.getElementById("pair-t2");
-    const pair3 = document.getElementById("pair-t3");
-
-    pair1.innerHTML = `$(-2, ${y1})$`;
-    pair2.innerHTML = `$(0, ${y2})$`;
-    pair3.innerHTML = `$(2, ${y3})$`;
-
-    // render ulang hanya bagian ini (lebih efisien)
-    renderKatex(pair1);
-    renderKatex(pair2);
-    renderKatex(pair3);
-
-    const fb = document.getElementById("fb-pasangan");
-
-    if (y1 === 4 && y2 === 2 && y3 === 0) {
-        fb.innerHTML = "Benar! Titiknya adalah $(-2,4)$, $(0,2)$, dan $(2,0)$.";
-    } else {
-        fb.innerHTML = "Masih ada yang salah. Gunakan $y = -x + 2$.";
-    }
-
-    // render feedback juga
-    renderKatex(fb);
+    document.getElementById("feedbackLatihan1A1").innerHTML = "";
+    document.getElementById("nextBtn1").disabled = true;
 }
 
-// no3
-function clean(v) {
-    return (v || "")
-        .toString()
-        .trim()
-        .replace(/\s+/g, "")
-        .replace(/−/g, "-")
-        .replace(/,/g, ".");
-}
+// =========================
+// LATIHAN 2
+// =========================
+function cekLatihan2A1() {
+    let skor = 0;
 
-function toNum(v) {
-    const n = parseFloat(clean(v));
-    return Number.isFinite(n) ? n : null;
-}
+    const a = norm(document.getElementById("lat2a").value);
+    const b = norm(document.getElementById("lat2b").value);
+    const c = norm(document.getElementById("lat2c").value);
 
-function approx(a, b, eps = 1e-3) {
-    return Math.abs(a - b) <= eps;
-}
-
-function setFb(id, ok, msg) {
-    const el = document.getElementById(id);
-    el.className = "fb " + (ok ? "text-success" : "text-danger");
-    el.textContent = msg;
-}
-
-document.getElementById("btn-cek-no2").addEventListener("click", () => {
-    let score = 0;
-
-    // A: y = -4x + 12
-    const aM = toNum(document.getElementById("a-m").value);
-    const aC = toNum(document.getElementById("a-c").value);
-
-    if (aM !== null && aC !== null && approx(aM, -4) && approx(aC, 12)) {
-        setFb("fb-a", true, "Benar");
-        score++;
+    if (["2x-y-5", "-2x+y+5"].includes(a)) {
+        document.getElementById("fb-lat2a").innerHTML = "Benar.";
+        document.getElementById("fb-lat2a").style.color = "green";
+        skor++;
     } else {
-        setFb("fb-a", false, "Belum tepat.");
+        document.getElementById("fb-lat2a").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat2a").style.color = "red";
     }
 
-    // B: y = -4x + 5/3
-    const bM = toNum(document.getElementById("b-m").value);
-    const bTop = toNum(document.getElementById("b-c-top").value);
-    const bBot = toNum(document.getElementById("b-c-bot").value);
-
-    if (bM !== null && bTop !== null && bBot !== null && bBot !== 0) {
-        const cVal = bTop / bBot;
-
-        if (approx(bM, -4) && approx(cVal, 5 / 3)) {
-            setFb("fb-b", true, "Benar");
-            score++;
-        } else {
-            setFb("fb-b", false, "Belum tepat.");
-        }
+    if (["3x+y-4", "-3x-y+4"].includes(b)) {
+        document.getElementById("fb-lat2b").innerHTML = "Benar.";
+        document.getElementById("fb-lat2b").style.color = "green";
+        skor++;
     } else {
-        setFb("fb-b", false, "Isi semua kotak dengan benar.");
+        document.getElementById("fb-lat2b").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat2b").style.color = "red";
     }
 
-    // C: y = (7/3)x - 7
-    const cTop = toNum(document.getElementById("c-m-top").value);
-    const cBot = toNum(document.getElementById("c-m-bot").value);
-    const cC = toNum(document.getElementById("c-c").value);
-
-    if (cTop !== null && cBot !== null && cBot !== 0 && cC !== null) {
-        const mVal = cTop / cBot;
-
-        if (approx(mVal, 7 / 3) && approx(cC, 7)) {
-            setFb("fb-c", true, "Benar");
-            score++;
-        } else {
-            setFb("fb-c", false, "Belum tepat.");
-        }
+    if (["x-2y+6", "-x+2y-6"].includes(c)) {
+        document.getElementById("fb-lat2c").innerHTML = "Benar.";
+        document.getElementById("fb-lat2c").style.color = "green";
+        skor++;
     } else {
-        setFb("fb-c", false, "Isi semua kotak dengan benar.");
+        document.getElementById("fb-lat2c").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat2c").style.color = "red";
     }
 
-    const total = document.getElementById("fb-total");
-    if (score === 3) {
-        total.className = "mt-3 fw-semibold text-success";
-        total.textContent = "Mantap! Semua benar (3/3).";
+    const fb = document.getElementById("feedbackLatihan2A1");
+    const nextBtn = document.getElementById("nextBtn2");
+
+    if (skor === 3) {
+        fb.innerHTML = "Bagus. Semua jawabanmu benar.";
+        fb.style.color = "green";
+        nextBtn.disabled = false;
     } else {
-        total.className = "mt-3 fw-semibold text-danger";
-        total.textContent = `Skor: ${score}/3.`;
+        fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
+        fb.style.color = "black";
+        nextBtn.disabled = true;
     }
-});
+}
+
+// =========================
+// LATIHAN 3
+// =========================
+function cekLatihan3A1() {
+    let skor = 0;
+
+    const a = norm(document.getElementById("lat3a").value);
+    const b = norm(document.getElementById("lat3b").value);
+    const c = norm(document.getElementById("lat3c").value);
+
+    if (["-3x+7"].includes(a)) {
+        document.getElementById("fb-lat3a").innerHTML = "Benar.";
+        document.getElementById("fb-lat3a").style.color = "green";
+        skor++;
+    } else {
+        document.getElementById("fb-lat3a").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat3a").style.color = "red";
+    }
+
+    if (["1/2x+2", "0.5x+2"].includes(b)) {
+        document.getElementById("fb-lat3b").innerHTML = "Benar.";
+        document.getElementById("fb-lat3b").style.color = "green";
+        skor++;
+    } else {
+        document.getElementById("fb-lat3b").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat3b").style.color = "red";
+    }
+
+    if (["-5/2x+3", "-2.5x+3"].includes(c)) {
+        document.getElementById("fb-lat3c").innerHTML = "Benar.";
+        document.getElementById("fb-lat3c").style.color = "green";
+        skor++;
+    } else {
+        document.getElementById("fb-lat3c").innerHTML = "Belum tepat.";
+        document.getElementById("fb-lat3c").style.color = "red";
+    }
+
+    const fb = document.getElementById("feedbackLatihan3A1");
+    if (skor === 3) {
+        fb.innerHTML = "Bagus. Semua jawabanmu benar.";
+        fb.style.color = "green";
+    } else {
+        fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
+        fb.style.color = "black";
+    }
+}

@@ -166,7 +166,7 @@
             <a class="navbar-brand d-flex align-items-center" href="{{ route('landing-page') }}">
                 <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -236,7 +236,12 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-8 col-7">Menggambar Grafik dari Persamaan Garis Lurus</div>
+                        <div class="col-md-8 col-7">Menggambar Grafik dari Persamaan Garis Lurus 1</div>
+                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-8 col-7">Menggambar Grafik dari Persamaan Garis Lurus 2</div>
                         <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
                     </div>
 
@@ -280,17 +285,12 @@
                     <hr>
 
                     <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien garis sejajar sumbu-x</div>
+                        <div class="col-md-8 col-7">Gradien garis sejajar sumbu x dan sumbu y</div>
                         <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien garis sejajar sumbu-y</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien dua garis sejajar</div>
+                        <div class="col-md-8 col-7"> Gradien garis garis yang saling sejajar</div>
                         <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
                     </div>
 
@@ -305,11 +305,22 @@
                     </div>
                     <hr>
                     <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan garis melalui satu titik & gradien</div>
+                        <div class="col-md-8 col-7">Persamaan Garis Melalui Satu Titik dan Gradien</div>
                         <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
                     </div>
                     <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan garis melalui dua titik</div>
+                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Dua Titik</div>
+                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis
+                            Lain</div>
+                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan
+                            Garis Lain
+                        </div>
                         <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
                     </div>
                     <div class="row mb-2">

@@ -446,7 +446,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <p class="mb-2">Jadi, persamaan garis yang tegak lurus adalah:</p>
+                                <p class="mb-2">Jadi, persamaan garis yang tegak lurus dengan garis $y = 3x - 2$ adalah:</p>
                                 <input type="text" id="l_jawaban" class="form-control form-control-sm"
                                     style="max-width:220px;" placeholder="Tulis persamaan lengkap">
                             </div>
@@ -545,10 +545,40 @@
 @endsection
 
 @section('nav')
-    <a href="{{ route('subbabB_gradienduatitik') }}" class="btn btn-prev px-4 rounded-pill">
-        ← Prev
-    </a>
-    <a href="{{ route('quiz.show', 3) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
-        Next →
-    </a>
+    {{-- PREV --}}
+    @if($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    {{-- KHUSUS MATERI PERTAMA --}}
+    @elseif($materi->slug === 'subbab-a1')
+        <a href="{{ route('apersepsi1') }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    @else
+        <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
+    @endif
+
+
+    {{-- NEXT --}}
+    @if($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Next →
+        </a>
+
+    {{-- MATERI TERAKHIR → KUIS --}}
+    @elseif($quizBab)
+        <a href="{{ route('quiz.show', $quizBab->id) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Kuis →
+        </a>
+    @else
+        <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
+    @endif
 @endsection
+

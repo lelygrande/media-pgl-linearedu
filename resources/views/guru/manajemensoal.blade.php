@@ -49,13 +49,9 @@
                     <div class="d-flex justify-content-between align-items-start mb-2">
                         <h6 class="fw-bold mb-0">Soal {{ $question->question_order }}</h6>
                         <div class="d-flex gap-1">
-                            <button type="button"
-                                class="btn btn-sm text-white btn-edit-soal"
-                                data-id="{{ $question->id }}"
-                                data-url="{{ route('kuis.soal.show', $question->id) }}"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditSoal"
-                                style="background-color: var(--primary-color);">
+                            <button type="button" class="btn btn-sm text-white btn-edit-soal" data-id="{{ $question->id }}"
+                                data-url="{{ route('kuis.soal.show', $question->id) }}" data-bs-toggle="modal"
+                                data-bs-target="#modalEditSoal" style="background-color: var(--primary-color);">
                                 Edit
                             </button>
 
@@ -92,7 +88,7 @@
     <div class="modal fade" id="modalTambahSoal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form action="{{ route('kuis.soal.store', $quiz->id) }}" method="POST">
+                <form action="{{ route('kuis.soal.store', $quiz->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Soal</h5>
@@ -102,6 +98,11 @@
                         <div class="mb-3">
                             <label class="form-label">Pertanyaan</label>
                             <textarea name="question_text" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Gambar Soal (opsional)</label>
+                            <input type="file" name="question_image" class="form-control">
                         </div>
 
                         <div class="row">
@@ -147,8 +148,7 @@
     <div class="modal fade" id="modalEditSoal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="formEditSoal" method="POST">
-                    @csrf
+                <form id="formEditSoal" method="POST" enctype="multipart/form-data"> @csrf
                     @method('PUT')
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Soal</h5>
@@ -158,6 +158,23 @@
                         <div class="mb-3">
                             <label class="form-label">Pertanyaan</label>
                             <textarea name="question_text" id="edit_question_text" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Gambar Soal (opsional)</label>
+                            <input type="file" name="question_image" class="form-control" accept="image/*">
+
+                            <div class="mt-2" id="edit_image_preview_wrapper" style="display:none;">
+                                <img id="edit_image_preview" class="img-fluid rounded" style="max-width:220px;">
+                            </div>
+
+                            <div class="form-check mt-2" id="remove_image_wrapper" style="display:none;">
+                                <input class="form-check-input" type="checkbox" name="remove_image" value="1"
+                                    id="remove_image">
+                                <label class="form-check-label" for="remove_image">
+                                    Hapus gambar
+                                </label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -202,16 +219,27 @@
         document.querySelectorAll('.btn-edit-soal').forEach(btn => {
             btn.addEventListener('click', async function() {
                 const url = this.dataset.url;
+                const previewWrapper = document.getElementById('edit_image_preview_wrapper');
+                const previewImage = document.getElementById('edit_image_preview');
+                const removeWrapper = document.getElementById('remove_image_wrapper');
+                const removeCheckbox = document.getElementById('remove_image');
 
                 try {
                     const response = await fetch(url, {
-                        headers: { 'Accept': 'application/json' }
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
                     const data = await response.json();
 
                     document.getElementById('edit_question_text').value = data.question_text ?? '';
 
-                    let options = {A: '', B: '', C: '', D: ''};
+                    let options = {
+                        A: '',
+                        B: '',
+                        C: '',
+                        D: ''
+                    };
                     let correct = 'A';
 
                     (data.options || []).forEach(option => {
@@ -224,6 +252,18 @@
                     document.getElementById('edit_option_c').value = options.C;
                     document.getElementById('edit_option_d').value = options.D;
                     document.getElementById('edit_correct_option').value = correct;
+
+                    if (data.question_image) {
+                        previewImage.src = `/img/kuis/${data.question_image}`;
+                        previewWrapper.style.display = 'block';
+                        removeWrapper.style.display = 'block';
+                        removeCheckbox.checked = false;
+                    } else {
+                        previewImage.src = '';
+                        previewWrapper.style.display = 'none';
+                        removeWrapper.style.display = 'none';
+                        removeCheckbox.checked = false;
+                    }
 
                     document.getElementById('formEditSoal').action = `/guru/soal/${data.id}`;
                 } catch (error) {

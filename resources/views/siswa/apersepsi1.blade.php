@@ -385,10 +385,10 @@
 
 
 @section('nav')
-    <a href="{{ route('subbabA1') }}" class="btn btn-prev px-4 rounded-pill invisible">
+    <a href="{{ route('peta-konsep') }}" class="btn btn-prev px-4 rounded-pill">
         ← Prev
     </a>
-    <a href="{{ route('subbabA1') }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    <a href="{{ route('materi.show', 'subbab-a1') }}" class="btn btn-next px-4 rounded-pill fw-semibold">
         Next →
     </a>
 @endsection

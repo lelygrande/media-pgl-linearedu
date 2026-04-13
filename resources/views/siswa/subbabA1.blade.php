@@ -22,6 +22,12 @@
             line-height: 1.7;
         }
 
+        .card-materi {
+            border-radius: 16px;
+            border: 2px solid #2E75B6;
+            background: #fff;
+        }
+
         /* Box eksplorasi */
         .eksplorasi {
             background: #D9E8F6;
@@ -65,6 +71,27 @@
             padding: 6px 12px;
             border-radius: 8px;
             margin-bottom: 10px;
+        }
+
+        .badge-contoh {
+            display: inline-block;
+            background: #2E75B6;
+            color: #fff;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .badge-sub {
+            display: inline-block;
+            background: #eef4ff;
+            color: #2E75B6;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid #dbe5f1;
         }
 
         .rumus-box {
@@ -160,65 +187,59 @@
     </style>
 
     <style>
-        .eq-block {
-            border: 3px solid #1f4ea3;
-            border-radius: 8px;
-            background: #fff;
+        .latihan-slider {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .latihan-track {
+            display: flex;
+            transition: transform 0.4s ease;
+            width: 100%;
+        }
+
+        .latihan-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .latihan-dnd-wrap {
+            background: #f8fbff;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 12px;
             padding: 14px;
         }
 
-        .eq-row {
+        .opsi-wrap {
             display: flex;
-            align-items: center;
-            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 8px;
-            margin-bottom: 6px;
+            gap: 10px;
         }
 
-        .var {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .box-inp {
-            width: 72px;
-            height: 36px;
-            border: 2px solid #111;
-            border-radius: 12px;
-
-            text-align: center;
-            font-size: 16px;
+        .opsi-item {
+            padding: 8px 14px;
+            background: #eef4ff;
+            border: 2px dashed #4a76b8;
+            border-radius: 10px;
+            cursor: grab;
             font-weight: 600;
-
-            padding: 0;
-            line-height: 36px;
-            /* samakan dengan height */
+            user-select: none;
         }
 
-        .frac {
+        .dropzone-linear {
+            min-height: 80px;
+            border: 2px dashed #2E75B6;
+            border-radius: 12px;
+            background: #ffffff;
+            padding: 12px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-start;
         }
 
-        .frac-line {
-            width: 120px;
-            height: 3px;
-            background: #111;
-            border-radius: 2px;
-        }
-
-        .sym {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .fb {
-            font-size: 13px;
-            margin-top: 4px;
-            min-height: 18px;
+        .dropzone-linear.over {
+            background: #eaf4ff;
         }
     </style>
 
@@ -380,53 +401,6 @@
         Artinya, sebuah garis juga dapat dipelajari melalui titik-titik yang menyusunnya.
     </p>
 
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
-
-        <p class="mt-2 mb-3">
-            Perhatikan persamaan <b>$y = 2x + 1$</b>.
-        </p>
-
-        <p style="text-align: justify;">
-            Untuk memahami persamaan tersebut, kita dapat menentukan beberapa pasangan nilai $(x,y)$.
-            Caranya adalah dengan memilih nilai $x$, kemudian mensubstitusikannya ke dalam persamaan
-            untuk mendapatkan nilai $y$.
-        </p>
-
-        <p style="text-align: justify;">
-            Misalnya, kita ambil beberapa nilai $x$, yaitu $x = -1$, $x = 0$, dan $x = 1$.
-        </p>
-
-        <table class="table table-bordered text-center" style="max-width:400px;">
-            <tr>
-                <th>$x$</th>
-                <th>$y = 2x + 1$</th>
-            </tr>
-            <tr>
-                <td>-1</td>
-                <td>$y = 2(-1) + 1 = -2 + 1 = -1$</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>$y = 2(0) + 1 = 1$</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>$y = 2(1) + 1 = 3$</td>
-            </tr>
-        </table>
-
-        <p class="mt-3" style="text-align: justify;">
-            Dari perhitungan tersebut diperoleh pasangan titik:
-            $(-1,-1)$, $(0,1)$, dan $(1,3)$.
-        </p>
-
-        <div class="final-box mt-3">
-            <b>Kesimpulan:</b> Setiap pasangan $(x,y)$ yang diperoleh memenuhi persamaan.
-            Jika titik-titik tersebut digambar pada bidang koordinat, maka akan terletak pada satu garis lurus.
-        </div>
-    </div>
-
     <p style="text-align: justify;">
         Sekarang, pertanyaannya adalah: bagaimana cara menyatakan sebuah garis dalam bentuk matematika?
         Untuk itu, digunakan suatu bentuk persamaan yang disebut <em>persamaan garis lurus</em>.
@@ -440,94 +414,102 @@
         sedangkan titik yang tidak memenuhi persamaan berada di luar garis.
     </p>
 
-    <h5 class="mt-4"><strong>Bentuk Persamaan Garis Lurus</strong></h5>
 
-    <p style="text-align: justify;">
-        Agar lebih mudah dipelajari, persamaan garis lurus dapat dituliskan dalam dua bentuk.
-        Ayo perhatikan kedua bentuk berikut.
-        Cobalah amati, apa perbedaan letak variabel <b>$y$</b> pada masing-masing bentuk?
-    </p>
-
-    <div class="box-info mt-3 mb-3">
-        <p class="mb-2"><strong>1. Bentuk Eksplisit</strong></p>
-
-        <div class="text-center mb-2">
-            <img src="{{ asset('img/eksplisit.png') }}" alt="" style="max-width: 500px">
-        </div>
-
-        <p class="mb-1" style="text-align: justify;">
-            Bentuk ini disebut bentuk eksplisit karena variabel <b>$y$</b> sudah dinyatakan secara langsung.
-            Jadi, kamu dapat segera melihat nilai gradien dan titik potong terhadap sumbu-$y$ dari persamaan tersebut.
-        </p>
-
-        <ul class="mb-0">
-            <li>$m$ adalah gradien (kemiringan garis).</li>
-            <li>$c$ adalah titik potong dengan sumbu $y$.</li>
-        </ul>
-    </div>
-
-
-    <div class="box-info mb-3">
-        <p class="mb-2"><strong>2. Bentuk Implisit</strong></p>
-
-        <div class="text-center mb-2">
-            <img src="{{ asset('img/implisit.png') }}" alt="">
-        </div>
-
-        <p class="mb-1" style="text-align: justify;">
-            Bentuk ini disebut bentuk implisit karena variabel <b>$y$</b> belum berdiri sendiri.
-            Oleh sebab itu, jika ingin mengetahui bentuk <b>$y = mx + c$</b>, kita perlu mengubahnya terlebih dahulu.
-        </p>
-
-        <div class="box-info mb-3">
-            <p class="mb-2"><strong>Memahami Bentuk Umum</strong></p>
+    <div class="card card-materi mb-4">
+        <div class="card-body">
+            <span class="badge-sub">Bentuk Umum Persamaan Garis Lurus</span>
 
             <p style="text-align: justify;">
-                Supaya kamu lebih memahami bentuk umum persamaan garis lurus, perhatikan penjelasan berikut.
-                Fokuslah pada koefisien di depan <b>$x$</b>, koefisien di depan <b>$y$</b>, dan bilangan tetapnya.
+                Agar lebih mudah dipelajari, persamaan garis lurus dapat dituliskan dalam dua bentuk.
+                Ayo perhatikan kedua bentuk berikut.
+                Cobalah amati, apa perbedaan letak variabel <b>$y$</b> pada masing-masing bentuk?
             </p>
 
-            <p>Pada bentuk $ax + by + c = 0$:</p>
+            <div class="box-info mt-3 mb-3">
+                <p class="mb-2"><strong>1. Bentuk Eksplisit</strong></p>
 
-            <ul>
-                <li>$a$ adalah koefisien dari $x$</li>
-                <li>$b$ adalah koefisien dari $y$</li>
-                <li>$c$ adalah konstanta</li>
-            </ul>
-
-            <p class="mb-2" style="text-align: justify;">
-                Sekarang, coba perhatikan contoh berikut: $3x + 2y - 6 = 0$.
-                Tuliskan terlebih dahulu nilai $a$, $b$, dan $c$ pada kotak berikut.
-            </p>
-
-            <div class="abc-grid">
-                <div class="abc-row">
-                    <label class="abc-label" for="inputA">$a =$</label>
-                    <input type="text" id="inputA" class="abc-input" placeholder="Isi jawaban">
+                <div class="text-center mb-2">
+                    <img src="{{ asset('img/eksplisit.png') }}" alt="" style="max-width: 500px">
                 </div>
 
-                <div class="abc-row">
-                    <label class="abc-label" for="inputB">$b =$</label>
-                    <input type="text" id="inputB" class="abc-input" placeholder="Isi jawaban">
-                </div>
+                <p class="mb-1" style="text-align: justify;">
+                    Bentuk ini disebut bentuk eksplisit karena variabel <b>$y$</b> sudah dinyatakan secara langsung.
+                    Jadi, kamu dapat segera melihat nilai gradien dan titik potong terhadap sumbu-$y$ dari persamaan
+                    tersebut.
+                </p>
 
-                <div class="abc-row">
-                    <label class="abc-label" for="inputC">$c =$</label>
-                    <input type="text" id="inputC" class="abc-input" placeholder="Isi jawaban">
-                </div>
+                <ul class="mb-0">
+                    <li>$m$ adalah gradien (kemiringan garis).</li>
+                    <li>$c$ adalah titik potong dengan sumbu $y$.</li>
+                </ul>
             </div>
 
-            <button type="button" class="btn btn-primary btn-sm mt-3" onclick="cekJawabanABC()">
-                Lihat Penyelesaian
-            </button>
 
-            <button type="button" class="btn btn-outline-secondary btn-sm mt-3" onclick="resetKotakABC()">
-                Reset
-            </button>
+            <div class="box-info mb-3">
+                <p class="mb-2"><strong>2. Bentuk Implisit</strong></p>
 
-            <div id="hasilABC" class="mt-3" style="display: none;"></div>
+                <div class="text-center mb-2">
+                    <img src="{{ asset('img/implisit.png') }}" alt="">
+                </div>
+
+                <p class="mb-1" style="text-align: justify;">
+                    Bentuk ini disebut bentuk implisit karena variabel <b>$y$</b> belum berdiri sendiri.
+                    Oleh sebab itu, jika ingin mengetahui bentuk <b>$y = mx + c$</b>, kita perlu mengubahnya terlebih
+                    dahulu.
+                </p>
+
+                <div class="box-info mb-3">
+                    <p class="mb-2"><strong>Memahami Bentuk Umum</strong></p>
+
+                    <p style="text-align: justify;">
+                        Supaya kamu lebih memahami bentuk umum persamaan garis lurus, perhatikan penjelasan berikut.
+                        Fokuslah pada koefisien di depan <b>$x$</b>, koefisien di depan <b>$y$</b>, dan bilangan tetapnya.
+                    </p>
+
+                    <p>Pada bentuk $ax + by + c = 0$:</p>
+
+                    <ul>
+                        <li>$a$ adalah koefisien dari $x$</li>
+                        <li>$b$ adalah koefisien dari $y$</li>
+                        <li>$c$ adalah konstanta</li>
+                    </ul>
+
+                    <p class="mb-2" style="text-align: justify;">
+                        Sekarang, coba perhatikan contoh berikut: $3x + 2y - 6 = 0$.
+                        Tuliskan terlebih dahulu nilai $a$, $b$, dan $c$ pada kotak berikut.
+                    </p>
+
+                    <div class="abc-grid">
+                        <div class="abc-row">
+                            <label class="abc-label" for="inputA">$a =$</label>
+                            <input type="text" id="inputA" class="abc-input" placeholder="Isi jawaban">
+                        </div>
+
+                        <div class="abc-row">
+                            <label class="abc-label" for="inputB">$b =$</label>
+                            <input type="text" id="inputB" class="abc-input" placeholder="Isi jawaban">
+                        </div>
+
+                        <div class="abc-row">
+                            <label class="abc-label" for="inputC">$c =$</label>
+                            <input type="text" id="inputC" class="abc-input" placeholder="Isi jawaban">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-sm mt-3" onclick="cekJawabanABC()">
+                        Lihat Penyelesaian
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm mt-3" onclick="resetKotakABC()">
+                        Reset
+                    </button>
+
+                    <div id="hasilABC" class="mt-3" style="display: none;"></div>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <p>
         Kedua bentuk tersebut menyatakan garis yang sama, hanya berbeda dalam cara penulisannya.
@@ -552,7 +534,84 @@
         Jadi, kita dapat menyimpulkan bahwa $y = 3x - 2$ merupakan persamaan garis lurus.
     </p>
 
-    {{-- contoh mengubah implisit ke eksplisit --}}
+    {{-- Contoh mengubah eksplisit ke implisit --}}
+    <div class="box-border-blue mb-4">
+        <span class="badge-judul">Contoh</span>
+
+        <p class="mt-2 mb-3" style="text-align: justify;">
+            Nyatakan persamaan garis berikut ke dalam bentuk umum <b>$Ax + By + C = 0$</b>.
+        </p>
+
+        <p class="text-center mb-3" style="font-weight:700;">
+            $y = -2x + 3$
+        </p>
+
+        <div class="step-stack">
+            <!-- STEP 1 -->
+            <div class="step-item">
+                <div class="step-row">
+                    <div class="step-eq">$y = -2x + 3$</div>
+                    <div class="step-note">
+                        Persamaan tersebut masih berbentuk <b>eksplisit</b> karena <b>$y$</b> sudah berdiri sendiri.
+                        Agar menjadi bentuk umum, semua suku harus dipindahkan ke satu ruas sehingga ruas lainnya bernilai
+                        nol.
+                    </div>
+                </div>
+
+                <button class="btn-arrow" type="button" onclick="openStepUmum('umum2', this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
+
+            <!-- STEP 2 -->
+            <div id="umum2" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$2x + y = 3$</div>
+                    <div class="step-note">
+                        Pindahkan <b>$-2x$</b> ke ruas kiri. Saat dipindahkan ruas, tandanya berubah menjadi <b>$+2x$</b>.
+                    </div>
+                </div>
+
+                <button class="btn-arrow" type="button" onclick="openStepUmum('umum3', this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
+
+            <!-- STEP 3 -->
+            <div id="umum3" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$2x + y - 3 = 0$</div>
+                    <div class="step-note">
+                        Selanjutnya, pindahkan <b>$3$</b> ke ruas kiri. Karena awalnya <b>$+3$</b> di ruas kanan,
+                        maka saat dipindahkan menjadi <b>$-3$</b>.
+                    </div>
+                </div>
+
+                <button class="btn-arrow" type="button" onclick="openStepUmum('umum4', this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
+
+            <!-- STEP 4 -->
+            <div id="umum4" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$2x + y - 3 = 0$</div>
+                    <div class="step-note">
+                        Sekarang persamaan sudah berbentuk umum <b>$Ax + By + C = 0$</b>,
+                        dengan <b>$A = 2$</b>, <b>$B = 1$</b>, dan <b>$C = -3$</b>.
+                    </div>
+                </div>
+
+                <div class="final-box mt-3">
+                    <b>Kesimpulan:</b> Bentuk umum dari persamaan <b>$y = -2x + 3$</b> adalah
+                    <b>$2x + y - 3 = 0$</b>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Contoh mengubah implisit ke eksplisit --}}
+
     <div class="box-border-blue mb-4">
         <span class="badge-judul">Contoh</span>
 
@@ -704,238 +763,267 @@
 
     </div>
 
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
 
-        <p class="mt-2 mb-3">
-            Tentukan apakah persamaan <b>$2y + 4^2 = x$</b> merupakan persamaan garis lurus!
-        </p>
+    <div class="card card-materi mb-4">
+        <div class="card-body">
+            <span class="badge-contoh">Contoh</span>
 
-        <div class="step-stack">
-            <div class="step-item">
-                <div class="step-row">
-                    <div class="step-eq">$2y + 4^2 = x$</div>
-                    <div class="step-note">
-                        Mulai dari persamaan awal. Hitung dulu nilai <b>$4^2$</b>.
+            <p class="mt-2 mb-3">
+                Tentukan apakah persamaan <b>$2y + 4^2 = x$</b> merupakan persamaan garis lurus!
+            </p>
+
+            <div class="step-stack">
+                <div class="step-item">
+                    <div class="step-row">
+                        <div class="step-eq">$2y + 4^2 = x$</div>
+                        <div class="step-note">
+                            Mulai dari persamaan awal. Hitung dulu nilai <b>$4^2$</b>.
+                        </div>
                     </div>
+
+                    <button class="btn-arrow" type="button" onclick="openStep(2, this)">
+                        ↓ Tampilkan langkah berikutnya
+                    </button>
                 </div>
 
-                <button class="btn-arrow" type="button" onclick="openStep(2, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step2" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$2y + 16 = x$</div>
-                    <div class="step-note">
-                        Karena <b>$4^2 = 16$</b>, persamaan menjadi <b>$2y + 16 = x$</b>.
+                <div id="step2" class="step-item" style="display:none;">
+                    <div class="step-row">
+                        <div class="step-eq">$2y + 16 = x$</div>
+                        <div class="step-note">
+                            Karena <b>$4^2 = 16$</b>, persamaan menjadi <b>$2y + 16 = x$</b>.
+                        </div>
                     </div>
+
+                    <button class="btn-arrow" type="button" onclick="openStep(3, this)">
+                        ↓ Tampilkan langkah berikutnya
+                    </button>
                 </div>
 
-                <button class="btn-arrow" type="button" onclick="openStep(3, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step3" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$2y = x - 16$</div>
-                    <div class="step-note">
-                        <b>Pindahkan 16</b> ke ruas kanan. Karena awalnya <b>+16</b>, saat pindah jadi <b>−16</b>.
+                <div id="step3" class="step-item" style="display:none;">
+                    <div class="step-row">
+                        <div class="step-eq">$2y = x - 16$</div>
+                        <div class="step-note">
+                            <b>Pindahkan 16</b> ke ruas kanan. Karena awalnya <b>+16</b>, saat pindah jadi <b>−16</b>.
+                        </div>
                     </div>
+
+                    <button class="btn-arrow" type="button" onclick="openStep(4, this)">
+                        ↓ Tampilkan langkah berikutnya
+                    </button>
                 </div>
 
-                <button class="btn-arrow" type="button" onclick="openStep(4, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step4" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$y = \frac{x - 16}{2}$</div>
-                    <div class="step-note">
-                        Koefisien di depan $y$ adalah <b>2</b>. Agar $y$ sendiri, kedua ruas <b>dibagi 2</b>.
+                <div id="step4" class="step-item" style="display:none;">
+                    <div class="step-row">
+                        <div class="step-eq">$y = \frac{x - 16}{2}$</div>
+                        <div class="step-note">
+                            Koefisien di depan $y$ adalah <b>2</b>. Agar $y$ sendiri, kedua ruas <b>dibagi 2</b>.
+                        </div>
                     </div>
+
+                    <button class="btn-arrow" type="button" onclick="openStep(5, this)">
+                        ↓ Tampilkan langkah berikutnya
+                    </button>
                 </div>
 
-                <button class="btn-arrow" type="button" onclick="openStep(5, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step5" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$y = \frac{1}{2}x - 8$</div>
-                    <div class="step-note">
-                        Sederhanakan: $\frac{x}{2}=\frac{1}{2}x$ dan $\frac{-16}{2}=-8$.
-                        Bentuk ini sudah sesuai $y=mx+c$.
+                <div id="step5" class="step-item" style="display:none;">
+                    <div class="step-row">
+                        <div class="step-eq">$y = \frac{1}{2}x - 8$</div>
+                        <div class="step-note">
+                            Sederhanakan: $\frac{x}{2}=\frac{1}{2}x$ dan $\frac{-16}{2}=-8$.
+                            Bentuk ini sudah sesuai $y=mx+c$.
+                        </div>
                     </div>
-                </div>
 
-                <div class="final-box mt-3">
-                    <b>Kesimpulan:</b> Persamaan dapat ditulis dalam bentuk <b>$y = mx + c$</b>,
-                    sehingga merupakan persamaan garis lurus.
+                    <div class="final-box mt-3">
+                        <b>Kesimpulan:</b> Persamaan dapat ditulis dalam bentuk <b>$y = mx + c$</b>,
+                        sehingga merupakan persamaan garis lurus.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     {{-- ===== Latihan Soal ===== --}}
-    <div class="box-border-blue mb-4">
-        <span class="badge-latihan">Latihan Soal</span>
-        <br><br>
+    <div class="latihan-slider">
+        <div class="latihan-track" id="latihanTrack">
 
-        <p class="mb-2">
-            <b>1.</b> Lengkapilah tabel berikut berdasarkan persamaan <b>$y = -x + 2$</b>.
-        </p>
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <section class="latihan-slide">
+                <div class="card card-materi mb-4">
+                    <div class="card-body">
+                        <span class="badge-latihan">Latihan 1</span>
 
-        <table class="table table-bordered text-center" style="max-width:500px;">
-            <tr>
-                <th>$x$</th>
-                <th>$y = -x + 2$</th>
-                <th>$(x,y)$</th>
-            </tr>
-            <tr>
-                <td>-2</td>
-                <td><input type="number" id="t1-y" class="box-inp"></td>
-                <td id="pair-t1">$(-2,\ \dots)$</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td><input type="number" id="t2-y" class="box-inp"></td>
-                <td id="pair-t2">$(0,\ \dots)$</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><input type="number" id="t3-y" class="box-inp"></td>
-                <td id="pair-t3">$(2,\ \dots)$</td>
-            </tr>
-        </table>
+                        <p>
+                            <b>1.</b> Seret persamaan yang merupakan <b>persamaan garis lurus</b> ke dalam kotak jawaban.
+                        </p>
 
-        <button class="btn-palet btn mt-2" onclick="cekPasanganBerurutan()">
-            Periksa Jawaban
-        </button>
+                        <div class="latihan-dnd-wrap mb-3">
+                            <div class="opsi-wrap" id="opsiLinear">
+                                <div class="opsi-item" draggable="true" data-linear="true">$x + 3y = 9$</div>
+                                <div class="opsi-item" draggable="true" data-linear="false">$x^2 + y = 4$</div>
+                                <div class="opsi-item" draggable="true" data-linear="true">$2x - y + 5 = 0$</div>
+                                <div class="opsi-item" draggable="true" data-linear="false">$\sqrt{y} + x = 2$</div>
+                                <div class="opsi-item" draggable="true" data-linear="true">$y = -3x + 1$</div>
+                                <div class="opsi-item" draggable="true" data-linear="false">$xy = 6$</div>
+                            </div>
 
-        <div id="fb-pasangan" class="mt-3 mb-3 fw-semibold"></div>
+                            <div class="dropzone-linear mt-3" id="dropLinear">
+                                Seret jawaban ke sini
+                            </div>
 
-        <p class="mb-2">
-            <b>2.</b> Seret persamaan yang merupakan persamaan garis lurus ke dalam kotak di kanan.
-            Klik tombol <b>Periksa Jawaban</b> untuk mengecek.
-        </p>
+                            <div class="mt-3">
+                                <button class="btn btn-palet btn-sm" onclick="cekLatihan1A1()">Cek</button>
+                                <button class="btn btn-outline-secondary btn-sm"
+                                    onclick="resetLatihan1A1()">Reset</button>
+                            </div>
 
-        <div class="p5-wrapper">
+                            <div id="feedbackLatihan1A1" class="mt-2"></div>
+                        </div>
 
-            <div id="p5-linear-drop"></div>
-
-            <div class="mt-3" style="margin-left:600px;">
-                <div id="p5-linear-actions"></div>
-                <div id="p5-linear-feedback" class="fw-semibold mt-2"></div>
-            </div>
-        </div>
-
-        <p class="mt-3 mb-2">
-            <b>3.</b> Nyatakan persamaan garis berikut ini ke dalam bentuk <b>y = mx + c</b>!
-        </p>
-
-        <div class="eq-block">
-
-            <!-- A -->
-            <div class="mb-3">
-                <p class="mb-1"><b>a.</b> $4x + y = 12$</p>
-
-                <div class="eq-row">
-                    <span class="var">$y$</span>
-                    <span class="sym">$=$</span>
-
-                    <input id="a-m" class="box-inp" placeholder="..." inputmode="decimal">
-
-                    <span class="var">$x$</span>
-                    <span class="var">$+$</span>
-
-                    <input id="a-c" class="box-inp" placeholder="..." inputmode="decimal">
-                </div>
-
-                <div id="fb-a" class="fb"></div>
-            </div>
-
-            <!-- B -->
-            <div class="mb-3">
-                <p class="mb-1"><b>b.</b> $12x + 3y = 5$</p>
-
-                <div class="eq-row">
-                    <span class="var">$y$</span>
-                    <span class="sym">$=$</span>
-                    <input id="b-m" class="box-inp" placeholder="..." inputmode="decimal">
-                    <span class="var">$x$</span>
-                    <span class="var">$+$</span>
-                    <div class="frac">
-                        <input id="b-c-top" class="box-inp" placeholder="..." inputmode="numeric">
-                        <div class="frac-line"></div>
-                        <input id="b-c-bot" class="box-inp" placeholder="..." inputmode="numeric">
+                        <div class="mt-3 text-end">
+                            <button id="nextBtn1" class="btn btn-palet btn-sm" onclick="nextLatihan(1)" disabled>
+                                Lanjut ke Latihan 2
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div id="fb-b" class="fb"></div>
-            </div>
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <section class="latihan-slide">
+                <div class="card card-materi mb-4">
+                    <div class="card-body">
+                        <span class="badge-latihan">Latihan 2</span>
 
-            <!-- C -->
-            <div class="mb-3">
-                <p class="mb-1"><b>c.</b> $7x − 3y − 21 = 0$</p>
+                        <p>
+                            <b>2.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
+                        </p>
 
-                <div class="eq-row">
-                    <span class="var">$y$</span>
-                    <span class="sym">$=$</span>
+                        <div class="mb-3">
+                            <p><b>a.</b> $y = 2x - 5$</p>
+                            <input type="text" id="lat2a"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:220px;">
+                            <span>$= 0$</span>
+                            <div id="fb-lat2a" class="mt-1"></div>
+                        </div>
 
-                    <div class="frac">
-                        <input id="c-m-top" class="box-inp" placeholder="..." inputmode="numeric">
-                        <div class="frac-line"></div>
-                        <input id="c-m-bot" class="box-inp" placeholder="..." inputmode="numeric">
+                        <div class="mb-3">
+                            <p><b>b.</b> $y = -3x + 4$</p>
+                            <input type="text" id="lat2b"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:220px;">
+                            <span>$= 0$</span>
+                            <div id="fb-lat2b" class="mt-1"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p><b>c.</b> $2y = x + 6$</p>
+                            <input type="text" id="lat2c"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:220px;">
+                            <span>$= 0$</span>
+                            <div id="fb-lat2c" class="mt-1"></div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">Cek</button>
+                        </div>
+
+                        <div id="feedbackLatihan2A1" class="mt-2"></div>
+
+                        <div class="mt-3 d-flex justify-content-between">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(0)">
+                                Kembali
+                            </button>
+                            <button id="nextBtn2" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
+                                Lanjut ke Latihan 3
+                            </button>
+                        </div>
                     </div>
-
-                    <span class="var">$x$</span>
-                    <span class="var">$-$</span>
-                    <input id="c-c" class="box-inp" placeholder="..." inputmode="decimal">
                 </div>
+            </section>
 
-                <div id="fb-c" class="fb"></div>
-            </div>
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <section class="latihan-slide">
+                <div class="card card-materi mb-4">
+                    <div class="card-body">
+                        <span class="badge-latihan">Latihan 3</span>
 
-            <button id="btn-cek-no2" type="button" class="btn-palet btn">
-                Periksa Jawaban
-            </button>
+                        <p>
+                            <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
+                        </p>
 
-            <div id="fb-total" class="mt-3 fw-semibold"></div>
+                        <div class="mb-3">
+                            <p><b>a.</b> $3x + y - 7 = 0$</p>
+                            <p>
+                                <span>$y =$</span>
+                                <input type="text" id="lat3a"
+                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                    style="width:220px;">
+                            </p>
+                            <div id="fb-lat3a" class="mt-1"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p><b>b.</b> $2x - 4y + 8 = 0$</p>
+                            <p>
+                                <span>$y =$</span>
+                                <input type="text" id="lat3b"
+                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                    style="width:220px;">
+                            </p>
+                            <div id="fb-lat3b" class="mt-1"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p><b>c.</b> $5x + 2y - 6 = 0$</p>
+                            <p>
+                                <span>$y =$</span>
+                                <input type="text" id="lat3c"
+                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                    style="width:220px;">
+                            </p>
+                            <div id="fb-lat3c" class="mt-1"></div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">Cek</button>
+                        </div>
+
+                        <div id="feedbackLatihan3A1" class="mt-2"></div>
+
+                        <div class="mt-3 d-flex justify-content-between">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(1)">
+                                Kembali
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
-
-    <div class="box-info mt-4">
-        <p class="mb-2" style="text-align: justify;">
-            Sampai di sini, kamu telah mempelajari pengertian dasar persamaan garis lurus, bentuk-bentuknya,
-            serta cara mengubah persamaan ke bentuk <b>$y = mx + c$</b>.
-        </p>
-        <p class="mb-0" style="text-align: justify;">
-            Pastikan kamu sudah memahami bahwa persamaan garis lurus selalu melibatkan variabel berpangkat satu.
-            Setelah ini, kamu akan melanjutkan ke pembahasan berikutnya yang masih berkaitan dengan garis lurus.
-        </p>
-    </div>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-                                                                                                            delimiters: [
-                                                                                                                {left: '$$', right: '$$', display: true},
-                                                                                                                {left: '$', right: '$', display: false}
-                                                                                                            ]
-                                                                                                        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+                                                                                                                                                                                    delimiters: [
+                                                                                                                                                                                        {left: '$$', right: '$$', display: true},
+                                                                                                                                                                                        {left: '$', right: '$', display: false}
+                                                                                                                                                                                    ]
+                                                                                                                                                                                });"></script>
 
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
-
-    <script src="{{ asset('js/subbabA/drag-and-drop-latihan-1.js') }}"></script>
-
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
-
     <script src="{{ asset('js/subbabA/subbabA1.js') }}"></script>
-
     <script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script>
-
     <script>
         mediumZoom('.zoomable', {
             margin: 40,
@@ -945,10 +1033,39 @@
 @endsection
 
 @section('nav')
-    <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill fw-semibold">
-        ← Prev
-    </a>
-    <a href="{{ route('subbabA2.1') }}" class="btn btn-next px-4 rounded-pill fw-semibold">
-        Next →
-    </a>
+    {{-- PREV --}}
+    @if($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    {{-- KHUSUS MATERI PERTAMA --}}
+    @elseif($materi->slug === 'subbab-a1')
+        <a href="{{ route('apersepsi1') }}"
+           class="btn btn-prev px-4 rounded-pill">
+            ← Prev
+        </a>
+
+    @else
+        <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
+    @endif
+
+
+    {{-- NEXT --}}
+    @if($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Next →
+        </a>
+
+    {{-- MATERI TERAKHIR → KUIS --}}
+    @elseif($quizBab)
+        <a href="{{ route('quiz.show', $quizBab->id) }}"
+           class="btn btn-next px-4 rounded-pill fw-semibold">
+            Kuis →
+        </a>
+    @else
+        <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
+    @endif
 @endsection
