@@ -1,3 +1,131 @@
+// Eksplorasi
+function normalizeMathInput(text) {
+    return text
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/_/g, "")
+        .replace(/[(){}[\]]/g, "")
+        .replace(/₁/g, "1")
+        .replace(/₂/g, "2")
+        .replace(/−/g, "-")
+        .trim();
+}
+
+function isEquivalent(input, validAnswers) {
+    const normalized = normalizeMathInput(input);
+    return validAnswers.some((ans) => normalizeMathInput(ans) === normalized);
+}
+
+function cekEksplorasiDuaTitik() {
+    const ex1 = document.getElementById("ex1_input").value;
+    const ex2 = document.getElementById("ex2_input").value;
+    const atas = document.getElementById("eks_subY2").value;
+    const bawah = document.getElementById("eks_subX2").value;
+
+    const fb1 = document.getElementById("fb_ex1");
+    const fb2 = document.getElementById("fb_ex2");
+    const fb3 = document.getElementById("fb_ex3");
+    const kesimpulan = document.getElementById("kesimpulanEksDuaTitik");
+
+    let skor = 0;
+
+    const benarEx1 = isEquivalent(ex1, ["y2-y1", "y_2-y_1"]);
+    const benarEx2 = isEquivalent(ex2, ["x2-x1", "x_2-x_1"]);
+    const benarAtas = isEquivalent(atas, ["y2-y1", "y_2-y_1"]);
+    const benarBawah = isEquivalent(bawah, ["x2-x1", "x_2-x_1"]);
+
+    if (benarEx1) {
+        fb1.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Benar. Selisih nilai $y$ dari titik A ke titik B adalah $y_2 - y_1$.
+            </div>
+        `;
+        skor++;
+    } else {
+        fb1.innerHTML = `
+            <div class="alert alert-warning py-2 mb-0">
+                Belum tepat. <b>Hint:</b> selisih diperoleh dari <i>nilai akhir dikurangi nilai awal</i>.
+                Perhatikan koordinat $y$ pada titik B dan titik A.
+            </div>
+        `;
+    }
+
+    if (benarEx2) {
+        fb2.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Benar. Selisih nilai $x$ dari titik A ke titik B adalah $x_2 - x_1$.
+            </div>
+        `;
+        skor++;
+    } else {
+        fb2.innerHTML = `
+            <div class="alert alert-warning py-2 mb-0">
+                Belum tepat. <b>Hint:</b> selisih diperoleh dari <i>nilai akhir dikurangi nilai awal</i>.
+                Perhatikan koordinat $x$ pada titik B dan titik A.
+            </div>
+        `;
+    }
+
+    if (benarAtas && benarBawah) {
+        fb3.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Benar. Gradien adalah perbandingan selisih nilai $y$ terhadap selisih nilai $x$.
+            </div>
+        `;
+        skor++;
+    } else {
+        let hintAtas = !benarAtas
+            ? `Bagian <b>atas</b> pecahan berisi selisih nilai $y$. `
+            : "";
+        let hintBawah = !benarBawah
+            ? `Bagian <b>bawah</b> pecahan berisi selisih nilai $x$.`
+            : "";
+
+        fb3.innerHTML = `
+            <div class="alert alert-warning py-2 mb-0">
+                Belum tepat. <b>Hint:</b> ${hintAtas}${hintBawah}
+            </div>
+        `;
+    }
+
+    if (skor === 3) {
+        kesimpulan.innerHTML = `
+            <div class="alert alert-success mb-0">
+                <b>Kesimpulan:</b> Gradien garis yang melalui titik $A(x_1,y_1)$ dan $B(x_2,y_2)$ adalah
+                $$m=\\frac{y_2-y_1}{x_2-x_1}$$
+            </div>
+        `;
+    } else {
+        kesimpulan.innerHTML = `
+            <div class="alert alert-info mb-0">
+                Coba perbaiki lagi jawabanmu dengan memperhatikan bahwa kita bergerak dari titik A ke titik B,
+                yaitu dari titik awal ke titik akhir.
+            </div>
+        `;
+    }
+
+    if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+            ],
+        });
+    }
+}
+
+function resetEksplorasiDuaTitik() {
+    document.getElementById("ex1_input").value = "";
+    document.getElementById("ex2_input").value = "";
+    document.getElementById("subY2").value = "";
+    document.getElementById("subX2").value = "";
+
+    document.getElementById("fb_ex1").innerHTML = "";
+    document.getElementById("fb_ex2").innerHTML = "";
+    document.getElementById("fb_ex3").innerHTML = "";
+    document.getElementById("kesimpulanEksDuaTitik").innerHTML = "";
+}
+
 // Penjelasan Konsep
 
 function kRender(tex, targetId, displayMode = true) {
@@ -79,82 +207,6 @@ function setFeedback(id, ok, msgOk, msgNo) {
     el.innerHTML = ok
         ? `<div class="text-success small"><b>Benar ✓</b> ${msgOk || ""}</div>`
         : `<div class="text-danger small"><b>Belum tepat</b> ${msgNo || ""}</div>`;
-}
-
-function cekEksplorasiDuaTitik() {
-    const a1 = picked("ex1");
-    const a2 = picked("ex2");
-    const a3 = picked("ex3");
-    const a4 = picked("ex4");
-
-    // validasi belum pilih
-    if (!a1 || !a2 || !a3 || !a4) {
-        document.getElementById("kesimpulanEksDuaTitik").innerHTML = `
-                <div class="alert alert-warning mb-0" style="border-radius:14px;">
-                    Masih ada yang belum dijawab. Lengkapi dulu semua pilihan ya 🙂
-                </div>`;
-        return;
-    }
-
-    const ok1 = a1 === "x2-x1";
-    const ok2 = a2 === "y2-y1";
-    const ok3 = a3 === "dy/dx";
-    const ok4 = a4 === "ya";
-
-    setFeedback(
-        "fb_ex1",
-        ok1,
-        "Δx dihitung dari <b>akhir − awal</b>.",
-        "Ingat: perubahan = <b>akhir − awal</b>.",
-    );
-    setFeedback(
-        "fb_ex2",
-        ok2,
-        "Δy juga dihitung dari <b>akhir − awal</b>.",
-        "Ingat: perubahan = <b>akhir − awal</b>.",
-    );
-    setFeedback(
-        "fb_ex3",
-        ok3,
-        "Gradien membandingkan perubahan y terhadap perubahan x.",
-        "Gradien itu <b>Δy dibagi Δx</b>.",
-    );
-    setFeedback(
-        "fb_ex4",
-        ok4,
-        "Jika Δx = 0 maka gradien tidak bisa dihitung.",
-        "Coba ingat: pembagian dengan 0 tidak bisa.",
-    );
-
-    const semuaBenar = ok1 && ok2 && ok3 && ok4;
-
-    document.getElementById("kesimpulanEksDuaTitik").innerHTML = semuaBenar
-        ? `<div class="alert alert-success mb-0" style="border-radius:14px;">
-                <b>Kesimpulan:</b><br>
-                Perubahan x: $\\Delta x = x_2 - x_1$<br>
-                Perubahan y: $\\Delta y = y_2 - y_1$<br>
-                Maka gradien: $m = \\frac{\\Delta y}{\\Delta x} = \\frac{y_2-y_1}{x_2-x_1}$
-              </div>`
-        : `<div class="alert alert-info mb-0" style="border-radius:14px;">
-                <b>Kesimpulan sementara:</b> Gradien dihitung dari <b>perubahan y</b> dibanding <b>perubahan x</b>.
-                Coba perbaiki jawaban yang masih salah, lalu cek lagi.
-              </div>`;
-
-    renderKatexSafe();
-}
-
-function resetEksplorasiDuaTitik() {
-    ["ex1", "ex2", "ex3", "ex4"].forEach((n) => {
-        document
-            .querySelectorAll(`input[name="${n}"]`)
-            .forEach((r) => (r.checked = false));
-    });
-
-    ["fb_ex1", "fb_ex2", "fb_ex3", "fb_ex4"].forEach((id) => {
-        document.getElementById(id).innerHTML = "";
-    });
-
-    document.getElementById("kesimpulanEksDuaTitik").innerHTML = "";
 }
 
 // Step by step
@@ -335,9 +387,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Latihan Soal
 function normalisasiNilai(teks) {
-    return teks.trim().replace(/\s+/g, "").replace(/−/g, "-").toLowerCase();
+    return (teks || "")
+        .trim()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .toLowerCase();
 }
 
+function renderMath(target) {
+    if (typeof renderMathInElement !== "function" || !target) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "\\[", right: "\\]", display: true },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+    });
+}
+
+// =========================
+// BUKA CARD BERIKUTNYA
+// =========================
+function tampilkanCardLatihan(idCard) {
+    const card = document.getElementById(idCard);
+    if (!card) return;
+
+    card.classList.remove("d-none");
+    setTimeout(() => {
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 150);
+
+    renderMath(card);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    ["cardLatihan1", "cardLatihan2", "cardLatihan3"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) renderMath(el);
+    });
+});
+
+// =========================
+// VALIDASI UMUM
+// =========================
 function cekField(id, jawabanBenar, labelTampil) {
     const el = document.getElementById(id);
     if (!el) return { benar: false, label: `Field ${id} tidak ditemukan.` };
@@ -345,7 +443,6 @@ function cekField(id, jawabanBenar, labelTampil) {
     const nilaiUser = normalisasiNilai(el.value);
     const nilaiKunci = normalisasiNilai(jawabanBenar);
 
-    // cek angka
     if (!isNaN(nilaiUser) && !isNaN(nilaiKunci)) {
         if (Number(nilaiUser) === Number(nilaiKunci)) {
             el.classList.remove("is-invalid");
@@ -354,7 +451,6 @@ function cekField(id, jawabanBenar, labelTampil) {
         }
     }
 
-    // cek string
     if (nilaiUser === nilaiKunci) {
         el.classList.remove("is-invalid");
         el.classList.add("is-valid");
@@ -364,27 +460,6 @@ function cekField(id, jawabanBenar, labelTampil) {
     el.classList.remove("is-valid");
     el.classList.add("is-invalid");
     return { benar: false, label: labelTampil };
-}
-
-function tampilkanFeedback(containerId, hasil, nomor) {
-    const fb = document.getElementById(containerId);
-    if (!fb) return hasil.semuaBenar;
-
-    if (hasil.semuaBenar) {
-        fb.innerHTML = `<div class="alert alert-success py-2 mb-0">Jawaban nomor ${nomor} benar.</div>`;
-    } else {
-        const daftarSalah = hasil.salah
-            .map((item) => `<li>${item}</li>`)
-            .join("");
-        fb.innerHTML = `
-            <div class="alert alert-danger py-2 mb-0">
-                Jawaban nomor ${nomor} masih ada yang salah.
-                <ul class="mb-0 mt-2">${daftarSalah}</ul>
-            </div>
-        `;
-    }
-
-    return hasil.semuaBenar;
 }
 
 function prosesPengecekan(data) {
@@ -401,230 +476,197 @@ function prosesPengecekan(data) {
     };
 }
 
-function cekLatihan1() {
-    const data = [
-        { id: "l1x1", jawaban: "-3", label: "Nilai x₁ belum benar." },
-        { id: "l1y1", jawaban: "6", label: "Nilai y₁ belum benar." },
-        { id: "l1x2", jawaban: "5", label: "Nilai x₂ belum benar." },
-        { id: "l1y2", jawaban: "-4", label: "Nilai y₂ belum benar." },
-        {
-            id: "subY2",
-            jawaban: "-4",
-            label: "Pembilang bagian y₂ pada substitusi belum benar.",
-        },
-        {
-            id: "subY1",
-            jawaban: "6",
-            label: "Pembilang bagian y₁ pada substitusi belum benar.",
-        },
-        {
-            id: "subX2",
-            jawaban: "5",
-            label: "Penyebut bagian x₂ pada substitusi belum benar.",
-        },
-        {
-            id: "subX1",
-            jawaban: "-3",
-            label: "Penyebut bagian x₁ pada substitusi belum benar.",
-        },
-        {
-            id: "hasilAtas",
-            jawaban: "-10",
-            label: "Hasil pembilang belum benar.",
-        },
-        {
-            id: "hasilBawah",
-            jawaban: "8",
-            label: "Hasil penyebut belum benar.",
-        },
-        {
-            id: "hasilAkhirAtas",
-            jawaban: "-5",
-            label: "Pembilang hasil akhir belum benar.",
-        },
-        {
-            id: "hasilAkhirBawah",
-            jawaban: "4",
-            label: "Penyebut hasil akhir belum benar.",
-        },
-    ];
+function tampilkanFeedback(containerId, hasil, nomor, pesanBenar) {
+    const fb = document.getElementById(containerId);
+    if (!fb) return hasil.semuaBenar;
 
-    const hasil = prosesPengecekan(data);
-    return tampilkanFeedback("fbLatihan1", hasil, 1);
-}
-
-function cekLatihan2() {
-    const data = [
-        {
-            id: "x1_2",
-            jawaban: "1",
-            label: "Nilai x₁ pada nomor 2 belum benar.",
-        },
-        {
-            id: "y1_2",
-            jawaban: "2",
-            label: "Nilai y₁ pada nomor 2 belum benar.",
-        },
-        {
-            id: "x2_2",
-            jawaban: "5",
-            label: "Nilai x₂ pada nomor 2 belum benar.",
-        },
-        {
-            id: "y2_2",
-            jawaban: "p",
-            label: "Nilai y₂ pada nomor 2 belum benar.",
-        },
-        {
-            id: "m_2",
-            jawaban: "1",
-            label: "Nilai gradien m pada nomor 2 belum benar.",
-        },
-        {
-            id: "kiri1_2",
-            jawaban: "1",
-            label: "Ruas kiri pada langkah substitusi belum benar.",
-        },
-        {
-            id: "subY2_2",
-            jawaban: "p",
-            label: "Bagian y₂ pada pembilang nomor 2 belum benar.",
-        },
-        {
-            id: "subY1_2",
-            jawaban: "2",
-            label: "Bagian y₁ pada pembilang nomor 2 belum benar.",
-        },
-        {
-            id: "subX2_2",
-            jawaban: "5",
-            label: "Bagian x₂ pada penyebut nomor 2 belum benar.",
-        },
-        {
-            id: "subX1_2",
-            jawaban: "1",
-            label: "Bagian x₁ pada penyebut nomor 2 belum benar.",
-        },
-        {
-            id: "kiri2_2",
-            jawaban: "1",
-            label: "Ruas kiri pada langkah penyederhanaan belum benar.",
-        },
-        {
-            id: "hasilAtas_2",
-            jawaban: "p-2",
-            label: "Pembilang hasil pecahan nomor 2 belum benar.",
-        },
-        {
-            id: "hasilBawah_2",
-            jawaban: "4",
-            label: "Penyebut hasil pecahan nomor 2 belum benar.",
-        },
-        {
-            id: "pers1Kiri_2",
-            jawaban: "4",
-            label: "Ruas kiri setelah menghilangkan pecahan belum benar.",
-        },
-        {
-            id: "pers1Kanan_2",
-            jawaban: "p-2",
-            label: "Ruas kanan setelah menghilangkan pecahan belum benar.",
-        },
-        {
-            id: "hasilP_2",
-            jawaban: "6",
-            label: "Nilai p pada nomor 2 belum benar.",
-        },
-    ];
-
-    const hasil = prosesPengecekan(data);
-    return tampilkanFeedback("fbLatihan2", hasil, 2);
-}
-
-function cekLatihan3() {
-    const data = [
-        {
-            id: "subY2_3",
-            jawaban: "4",
-            label: "Nilai y₂ pada nomor 3 belum benar.",
-        },
-        {
-            id: "subY1_3",
-            jawaban: "1",
-            label: "Nilai y₁ pada nomor 3 belum benar.",
-        },
-        {
-            id: "subX2_3",
-            jawaban: "8",
-            label: "Nilai x₂ pada nomor 3 belum benar.",
-        },
-        {
-            id: "subX1_3",
-            jawaban: "2",
-            label: "Nilai x₁ pada nomor 3 belum benar.",
-        },
-        {
-            id: "hasilAtas_3",
-            jawaban: "3",
-            label: "Hasil pembilang pada nomor 3 belum benar.",
-        },
-        {
-            id: "hasilBawah_3",
-            jawaban: "6",
-            label: "Hasil penyebut pada nomor 3 belum benar.",
-        },
-        {
-            id: "hasilAkhirAtas_3",
-            jawaban: "1",
-            label: "Pembilang hasil akhir nomor 3 belum benar.",
-        },
-        {
-            id: "hasilAkhirBawah_3",
-            jawaban: "2",
-            label: "Penyebut hasil akhir nomor 3 belum benar.",
-        },
-    ];
-
-    const hasil = prosesPengecekan(data);
-    return tampilkanFeedback("fbLatihan3", hasil, 3);
-}
-
-function cekSemuaLatihan() {
-    const benar1 = cekLatihan1();
-    const benar2 = cekLatihan2();
-    const benar3 = cekLatihan3();
-
-    const pesanAkhir = document.getElementById("pesanAkhirLatihan");
-    if (!pesanAkhir) return;
-
-    if (benar1 && benar2 && benar3) {
-        pesanAkhir.innerHTML = `
-            <div class="alert alert-primary fw-semibold text-center">
-                Bagus, kamu sudah memahami materi gradien.
+    if (hasil.semuaBenar) {
+        fb.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                ${pesanBenar}
             </div>
         `;
     } else {
-        pesanAkhir.innerHTML = "";
+        const daftarSalah = hasil.salah
+            .map((item) => `<li>${item}</li>`)
+            .join("");
+
+        fb.innerHTML = `
+            <div class="alert alert-danger py-2 mb-0">
+                Jawaban nomor ${nomor} masih ada yang salah.
+                <ul class="mb-0 mt-2">${daftarSalah}</ul>
+            </div>
+        `;
     }
+
+    renderMath(fb);
+    return hasil.semuaBenar;
 }
 
-function resetSemuaLatihan() {
-    const wrapper = document
-        .getElementById("pesanAkhirLatihan")
-        ?.closest(".card-body");
-    if (!wrapper) return;
+// =========================
+// LATIHAN 1
+// =========================
+function cekLatihanTitik1() {
+    const data = [
+        { id: "l1x1", jawaban: "-3", label: "Nilai \\(x_1\\) belum benar." },
+        { id: "l1y1", jawaban: "6", label: "Nilai \\(y_1\\) belum benar." },
+        { id: "l1x2", jawaban: "5", label: "Nilai \\(x_2\\) belum benar." },
+        { id: "l1y2", jawaban: "-4", label: "Nilai \\(y_2\\) belum benar." },
 
-    const semuaInput = wrapper.querySelectorAll("input");
+        { id: "l1_subY2", jawaban: "-4", label: "Bagian \\(y_2\\) pada pembilang belum benar." },
+        { id: "l1_subY1", jawaban: "6", label: "Bagian \\(y_1\\) pada pembilang belum benar." },
+        { id: "l1_subX2", jawaban: "5", label: "Bagian \\(x_2\\) pada penyebut belum benar." },
+        { id: "l1_subX1", jawaban: "-3", label: "Bagian \\(x_1\\) pada penyebut belum benar." },
 
-    semuaInput.forEach((input) => {
-        input.value = "";
-        input.classList.remove("is-valid", "is-invalid");
+        { id: "l1_hasilAtas", jawaban: "-10", label: "Hasil pembilang belum benar." },
+        { id: "l1_hasilBawah", jawaban: "8", label: "Hasil penyebut belum benar." },
+        { id: "l1_hasilAkhirAtas", jawaban: "-5", label: "Pembilang hasil akhir belum benar." },
+        { id: "l1_hasilAkhirBawah", jawaban: "4", label: "Penyebut hasil akhir belum benar." },
+    ];
+
+    const hasil = prosesPengecekan(data);
+    const benar = tampilkanFeedback(
+        "fbLatihan1",
+        hasil,
+        1,
+        "Jawaban nomor 1 benar. Lanjut ke latihan berikutnya..."
+    );
+
+    if (benar) {
+        setTimeout(() => {
+            tampilkanCardLatihan("cardLatihan2");
+        }, 700);
+    }
+
+    return benar;
+}
+
+function resetLatihanTitik1() {
+    [
+        "l1x1", "l1y1", "l1x2", "l1y2",
+        "l1_subY2", "l1_subY1", "l1_subX2", "l1_subX1",
+        "l1_hasilAtas", "l1_hasilBawah", "l1_hasilAkhirAtas", "l1_hasilAkhirBawah"
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
     });
 
-    ["fbLatihan1", "fbLatihan2", "fbLatihan3", "pesanAkhirLatihan"].forEach(
-        (id) => {
-            const el = document.getElementById(id);
-            if (el) el.innerHTML = "";
-        },
+    const fb = document.getElementById("fbLatihan1");
+    if (fb) fb.innerHTML = "";
+}
+
+// =========================
+// LATIHAN 2
+// =========================
+function cekLatihanTitik2() {
+    const data = [
+        { id: "x1_2", jawaban: "1", label: "Nilai \\(x_1\\) pada nomor 2 belum benar." },
+        { id: "y1_2", jawaban: "2", label: "Nilai \\(y_1\\) pada nomor 2 belum benar." },
+        { id: "x2_2", jawaban: "5", label: "Nilai \\(x_2\\) pada nomor 2 belum benar." },
+        { id: "y2_2", jawaban: "p", label: "Nilai \\(y_2\\) pada nomor 2 belum benar." },
+        { id: "m_2", jawaban: "1", label: "Nilai gradien \\(m\\) pada nomor 2 belum benar." },
+        { id: "kiri1_2", jawaban: "1", label: "Ruas kiri pada langkah substitusi belum benar." },
+        { id: "subY2_2", jawaban: "p", label: "Bagian \\(y_2\\) pada pembilang nomor 2 belum benar." },
+        { id: "subY1_2", jawaban: "2", label: "Bagian \\(y_1\\) pada pembilang nomor 2 belum benar." },
+        { id: "subX2_2", jawaban: "5", label: "Bagian \\(x_2\\) pada penyebut nomor 2 belum benar." },
+        { id: "subX1_2", jawaban: "1", label: "Bagian \\(x_1\\) pada penyebut nomor 2 belum benar." },
+        { id: "kiri2_2", jawaban: "1", label: "Ruas kiri pada langkah penyederhanaan belum benar." },
+        { id: "hasilAtas_2", jawaban: "p-2", label: "Pembilang hasil pecahan nomor 2 belum benar." },
+        { id: "hasilBawah_2", jawaban: "4", label: "Penyebut hasil pecahan nomor 2 belum benar." },
+        { id: "pers1Kiri_2", jawaban: "4", label: "Ruas kiri setelah menghilangkan pecahan belum benar." },
+        { id: "pers1Kanan_2", jawaban: "p-2", label: "Ruas kanan setelah menghilangkan pecahan belum benar." },
+        { id: "hasilP_2", jawaban: "6", label: "Nilai \\(p\\) pada nomor 2 belum benar." },
+    ];
+
+    const hasil = prosesPengecekan(data);
+    const benar = tampilkanFeedback(
+        "fbLatihan2",
+        hasil,
+        2,
+        "Jawaban nomor 2 benar. Lanjut ke latihan berikutnya..."
     );
+
+    if (benar) {
+        setTimeout(() => {
+            tampilkanCardLatihan("cardLatihan3");
+        }, 700);
+    }
+
+    return benar;
+}
+
+function resetLatihanTitik2() {
+    [
+        "x1_2", "y1_2", "x2_2", "y2_2", "m_2", "kiri1_2",
+        "subY2_2", "subY1_2", "subX2_2", "subX1_2",
+        "kiri2_2", "hasilAtas_2", "hasilBawah_2",
+        "pers1Kiri_2", "pers1Kanan_2", "hasilP_2"
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("fbLatihan2");
+    if (fb) fb.innerHTML = "";
+}
+
+// =========================
+// LATIHAN 3
+// =========================
+function cekLatihanTitik3() {
+    const data = [
+        { id: "subY2_3", jawaban: "4", label: "Nilai \\(y_2\\) pada nomor 3 belum benar." },
+        { id: "subY1_3", jawaban: "1", label: "Nilai \\(y_1\\) pada nomor 3 belum benar." },
+        { id: "subX2_3", jawaban: "8", label: "Nilai \\(x_2\\) pada nomor 3 belum benar." },
+        { id: "subX1_3", jawaban: "2", label: "Nilai \\(x_1\\) pada nomor 3 belum benar." },
+        { id: "hasilAtas_3", jawaban: "3", label: "Hasil pembilang pada nomor 3 belum benar." },
+        { id: "hasilBawah_3", jawaban: "6", label: "Hasil penyebut pada nomor 3 belum benar." },
+        { id: "hasilAkhirAtas_3", jawaban: "1", label: "Pembilang hasil akhir nomor 3 belum benar." },
+        { id: "hasilAkhirBawah_3", jawaban: "2", label: "Penyebut hasil akhir nomor 3 belum benar." },
+    ];
+
+    const hasil = prosesPengecekan(data);
+    const benar = tampilkanFeedback(
+        "fbLatihan3",
+        hasil,
+        3,
+        "Jawaban nomor 3 benar. Bagus, kamu sudah memahami materi gradien."
+    );
+
+    if (benar) {
+        const akhir = document.getElementById("pesanAkhirLatihan");
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-primary fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami materi gradien.
+                </div>
+            `;
+            renderMath(akhir);
+            akhir.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
+    return benar;
+}
+
+function resetLatihanTitik3() {
+    [
+        "subY2_3", "subY1_3", "subX2_3", "subX1_3",
+        "hasilAtas_3", "hasilBawah_3", "hasilAkhirAtas_3", "hasilAkhirBawah_3"
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("fbLatihan3");
+    if (fb) fb.innerHTML = "";
 }

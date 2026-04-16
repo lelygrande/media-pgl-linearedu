@@ -46,7 +46,7 @@
                                 </div>
                                 <br>
                                 <div class="question-card">
-                                    <p class="mb-2">{{ $question->question_text }}</p>
+                                    <p class="mb-2">{!! $question->question_text !!}</p>
 
                                     @if ($question->question_image)
                                         <img src="{{ asset('img/kuis/' . $question->question_image) }}"
@@ -62,7 +62,7 @@
                                                     value="{{ $option->id }}">
                                                 <div class="option-content">
                                                     <span class="option-label">{{ $option->option_label }}</span>
-                                                    <span class="option-text">{{ $option->option_text }}</span>
+                                                    <span class="option-text">{!! $option->option_text !!}</span>
                                                 </div>
                                             </label>
                                         @endforeach
@@ -119,6 +119,28 @@
             </form>
         </div>
     </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [{
+                        left: "\\(",
+                        right: "\\)",
+                        display: false
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    }
+                ]
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

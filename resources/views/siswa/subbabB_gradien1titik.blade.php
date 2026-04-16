@@ -20,10 +20,8 @@
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien yang melewati titik $(0, 0)$ dan $A(x,y)$</h2>
 
     {{-- Eksplorasi --}}
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+    <div class="box-eksplorasi mt-4 mb-4">
+        <div class="title-box">
             Eksplorasi: Titik-titik Segaris dengan (0,0)
         </div>
 
@@ -92,10 +90,10 @@
     </div>
 
     {{-- Contoh --}}
-    <div class="card card-materi mt-4 mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
 
-            <span class="badge-latihan">Latihan</span>
+            <span class="title-box">Contoh</span>
 
             <p style="line-height:1.8;">
                 Tentukan gradien garis yang melalui titik <b>O(0,0)</b> dan titik <b>A(6,3)</b>.
@@ -154,7 +152,6 @@
 
                 <div id="fb2" class="mt-2"></div>
             </div>
-
         </div>
     </div>
 
@@ -185,10 +182,10 @@
         }
     </script>
 
-    <div class="card card-materi mt-4 mb-4">
+    <div class="box-latihan mt-5 mb-4">
         <div class="card-body p-4">
 
-            <span class="badge-latihan">Latihan</span>
+            <span class="title-box">Latihan</span>
 
             <div id="latihan1" class="latihan-step">
 

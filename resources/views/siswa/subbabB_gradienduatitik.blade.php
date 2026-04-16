@@ -38,32 +38,6 @@
             font-size: 20px;
         }
 
-        .badge-mini {
-            font-size: 12px;
-            padding: 6px 10px;
-            border-radius: 999px;
-        }
-
-        .badge-contoh {
-            display: inline-block;
-            background: #2E75B6;
-            color: #fff;
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .badge-latihan {
-            display: inline-block;
-            background: #22b969;
-            color: #fff;
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
         .img-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(220px, 1fr));
@@ -106,60 +80,6 @@
 
     {{-- css pilgan --}}
     <style>
-        .box-eksplorasi {
-            position: relative;
-            border: 2px solid #4a76b8;
-            border-radius: 12px;
-            background: #fff;
-            padding: 26px 18px 18px;
-        }
-
-        .badge-eksplorasi {
-            position: absolute;
-            top: -16px;
-            left: 18px;
-            background: #4a76b8;
-            color: #fff;
-            font-weight: 800;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 16px;
-        }
-
-        .box-eksplorasi label.form-check {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding-left: 12px !important;
-            /* override padding bootstrap */
-            cursor: pointer;
-        }
-
-        .box-eksplorasi label.form-check .form-check-input {
-            float: none !important;
-            /* matikan float */
-            margin-left: 0 !important;
-            /* hilangkan margin negatif bootstrap */
-            margin-right: 0 !important;
-            margin-top: 2px !important;
-            position: static !important;
-            flex: 0 0 auto;
-        }
-
-        .box-eksplorasi label.form-check .form-check-label {
-            margin: 0 !important;
-            line-height: 1.35;
-        }
-
-        .box-eksplorasi label.form-check:hover {
-            background: #f3f7ff;
-            border-color: #2E75B6;
-        }
-
-        .box-eksplorasi .d-grid.gap-2>label.form-check {
-            width: 100%;
-        }
-
         /* pengantar */
         /* warna ala KA */
         .x-green {
@@ -172,6 +92,26 @@
             font-weight: 700;
         }
     </style>
+
+    {{-- Slider --}}
+    <style>
+        .latihan-slider {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .latihan-track {
+            display: flex;
+            transition: transform 0.4s ease;
+            width: 100%;
+        }
+
+        .latihan-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+
     <style>
         /* Penjelasan */
         .ka-toggle {
@@ -252,6 +192,81 @@
 
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">3. Gradien garis yang melewati dua titik</h2>
+
+    <div class="box-eksplorasi mt-4 mb-4">
+        <div class="title-box">Eksplorasi</div>
+
+        <p class="mb-3" style="line-height:1.7;">
+            Perhatikan gambar berikut. Terdapat dua titik, yaitu titik <b>A</b> dan titik <b>B</b>,
+            yang terletak pada suatu garis. Koordinat titik A adalah <b>$A(x_1, y_1)$</b>
+            dan koordinat titik B adalah <b>$B(x_2, y_2)$</b>.
+        </p>
+
+        <p class="mb-3" style="line-height:1.7;">
+            Bayangkan kamu bergerak dari titik <b>A</b> menuju titik <b>B</b>.
+            Untuk menentukan kemiringan garis tersebut, kita perlu melihat:
+        </p>
+
+        <ul class="mb-3" style="line-height:1.8;">
+            <li>selisih nilai $y$ (naik atau turun),</li>
+            <li>dan selisih nilai $x$ (gerak ke samping).</li>
+        </ul>
+
+        <div class="text-center mb-3">
+            <img src="{{ asset('img/gradien/gradienduatitik.png') }}"
+                style="max-width:300px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
+            <div class="text-muted mt-2" style="font-size:13px;">
+                Perpindahan dari titik A ke titik B
+            </div>
+        </div>
+
+        {{-- Soal 1 --}}
+        <div class="p-3 border rounded-4 mb-3">
+            <div class="fw-semibold mb-2">
+                1. Tuliskan bentuk selisih nilai $y$ dari titik A ke titik B.
+            </div>
+            <input type="text" id="ex1_input" class="form-control" style="width: 120px">
+            <div id="fb_ex1" class="mt-2"></div>
+        </div>
+
+        {{-- Soal 2 --}}
+        <div class="p-3 border rounded-4 mb-3">
+            <div class="fw-semibold mb-2">
+                2. Tuliskan bentuk selisih nilai $x$ dari titik A ke titik B.
+            </div>
+            <input type="text" id="ex2_input" class="form-control" style="width: 120px">
+            <div id="fb_ex2" class="mt-2"></div>
+        </div>
+
+        {{-- Soal 3 --}}
+        <div class="p-3 border rounded-4 mb-3">
+            <div class="fw-semibold mb-2">
+                3. Gradien adalah perbandingan selisih nilai $y$ terhadap selisih nilai $x$.
+                Lengkapi rumus gradien berikut:
+            </div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span>$m=$</span>
+
+                <div class="frac-input">
+                    <div class="top">
+                        <input type="text" id="eks_subY2" class="form-control form-control-sm text-center">
+                    </div>
+                    <div class="bottom">
+                        <input type="text" id="eks_subX2" class="form-control form-control-sm text-center">
+                    </div>
+                </div>
+            </div>
+
+            <div id="fb_ex3" class="mt-2"></div>
+        </div>
+        <div class="d-flex gap-2 flex-wrap mt-2">
+            <button class="btn btn-palet btn-sm" onclick="cekEksplorasiDuaTitik()">Cek Jawaban</button>
+            <button class="btn btn-outline-secondary btn-sm" onclick="resetEksplorasiDuaTitik()">Reset</button>
+        </div>
+
+        <div id="kesimpulanEksDuaTitik" class="mt-3"></div>
+    </div>
 
     {{-- Pengantar --}}
     <div class="card card-materi mb-4">
@@ -344,161 +359,6 @@
         </div>
     </div>
 
-    <div class="box-eksplorasi mt-4">
-
-        <div class="badge-eksplorasi">Eksplorasi</div>
-
-        <p class="text-muted small mb-3" style="line-height:1.6;">
-            Amati gambar berikut. Perhatikan titik awal dan titik akhir, lalu perhatikan “maju” (Δx) dan “naik/turun”
-            (Δy).
-            Jawab pertanyaan untuk menyimpulkan cara menghitung gradien dua titik.
-        </p>
-
-        <div class="text-center mb-3">
-            <img src="{{ asset('img/gradien/grafikeksplorasi2.3.png') }}" alt="Eksplorasi gradien dua titik"
-                style="max-width:300px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
-            <div class="text-muted mt-2" style="font-size:13px;">Gambar: Perubahan Δx dan Δy dari titik awal ke titik
-                akhir
-            </div>
-        </div>
-        <!-- SOAL 1 -->
-        <div class="p-3 border rounded-4 mb-3">
-            <div class="d-flex gap-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                    style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                    1
-                </div>
-
-                <div class="flex-grow-1" style="min-width:0;">
-                    <div class="fw-semibold mb-2">
-                        Anggap <b>x₁</b> adalah nilai x di titik <b>awal</b> dan <b>x₂</b> adalah nilai x di titik
-                        <b>akhir</b>.
-                        Cara menghitung perubahan x (Δx) yang benar adalah…
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex1" value="x2-x1">
-                            <span class="form-check-label">Δx = x₂ − x₁ (akhir − awal)</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex1" value="x1-x2">
-                            <span class="form-check-label">Δx = x₁ − x₂</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex1" value="x2+x1">
-                            <span class="form-check-label">Δx = x₂ + x₁</span>
-                        </label>
-                    </div>
-
-                    <div id="fb_ex1" class="mt-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SOAL 2 -->
-        <div class="p-3 border rounded-4 mb-3">
-            <div class="d-flex gap-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                    style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                    2
-                </div>
-
-                <div class="flex-grow-1" style="min-width:0;">
-                    <div class="fw-semibold mb-2">
-                        Cara menghitung perubahan y (Δy) dari titik awal ke titik akhir adalah…
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex2" value="y2-y1">
-                            <span class="form-check-label">Δy = y₂ − y₁ (akhir − awal)</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex2" value="y1-y2">
-                            <span class="form-check-label">Δy = y₁ − y₂</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex2" value="y2+y1">
-                            <span class="form-check-label">Δy = y₂ + y₁</span>
-                        </label>
-                    </div>
-
-                    <div id="fb_ex2" class="mt-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SOAL 3 -->
-        <div class="p-3 border rounded-4 mb-3">
-            <div class="d-flex gap-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                    style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                    3
-                </div>
-
-                <div class="flex-grow-1" style="min-width:0;">
-                    <div class="fw-semibold mb-2">
-                        Gradien (kemiringan) garis diperoleh dari…
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex3" value="dx/dy">
-                            <span class="form-check-label">m = Δx / Δy</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex3" value="dy/dx">
-                            <span class="form-check-label">m = Δy / Δx</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex3" value="dx+dy">
-                            <span class="form-check-label">m = Δx + Δy</span>
-                        </label>
-                    </div>
-
-                    <div id="fb_ex3" class="mt-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SOAL 4 -->
-        <div class="p-3 border rounded-4 mb-3">
-            <div class="d-flex gap-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                    style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                    4
-                </div>
-
-                <div class="flex-grow-1" style="min-width:0;">
-                    <div class="fw-semibold mb-2">
-                        Jika <b>x₂ = x₁</b>, maka Δx = 0 sehingga gradien <b>tidak terdefinisi</b> (garis vertikal).
-                        Pernyataan ini…
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex4" value="ya">
-                            <span class="form-check-label">Ya (benar)</span>
-                        </label>
-                        <label class="form-check border rounded-3 p-2 m-0">
-                            <input class="form-check-input" type="radio" name="ex4" value="tidak">
-                            <span class="form-check-label">Tidak</span>
-                        </label>
-                    </div>
-
-                    <div id="fb_ex4" class="mt-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex gap-2 flex-wrap mt-2">
-            <button class="btn btn-palet btn-sm" onclick="cekEksplorasiDuaTitik()">Cek Jawaban</button>
-            <button class="btn btn-outline-secondary btn-sm" onclick="resetEksplorasiDuaTitik()">Reset</button>
-        </div>
-
-        <div id="kesimpulanEksDuaTitik" class="mt-3"></div>
-    </div>
 
     {{-- Materi: Konsep --}}
     <div class="card card-materi mt-4 mb-4">
@@ -540,10 +400,10 @@
         </div>
     </div>
 
-    {{-- Contoh 2.2 --}}
-    <div class="card card-materi mb-4">
+    {{-- Contoh --}}
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh Soal 2.2</span>
+            <span class="title-box">Contoh</span>
 
             <p class="mb-2" style="line-height:1.8;">
                 Tentukanlah gradien garis yang melalui titik-titik koordinat berikut:
@@ -593,10 +453,10 @@
     </div>
 
     {{-- Contoh soal step by step --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
-            <p class="mb-3">Tentukan gradien garis melalui P(1,3) dan Q(5,7).</p>
+            <span class="title-box">Contoh</span>
+            <p class="mb-3">Tentukan gradien garis melalui $P(1,3)$ dan $Q(5,7)$.</p>
 
             {{-- STEP 1 --}}
             <div class="border rounded-4 p-3 mb-3">
@@ -607,19 +467,19 @@
 
                 <div class="row g-2 mt-3">
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">x₁</label>
+                        <label class="form-label mb-1">$x₁$</label>
                         <input id="x1" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">y₁</label>
+                        <label class="form-label mb-1">$y₁$</label>
                         <input id="y1" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">x₂</label>
+                        <label class="form-label mb-1">$x₂$</label>
                         <input id="x2" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">y₂</label>
+                        <label class="form-label mb-1">$y₂$</label>
                         <input id="y2" type="number" class="form-control" placeholder="...">
                     </div>
                 </div>
@@ -679,14 +539,14 @@
         </div>
     </div>
 
-    <div class="card card-materi mt-4 mb-4">
-        <div class="card-body p-4">
-            <span class="badge-latihan">Latihan</span>
+    {{-- Latihan Soal --}}
 
-            <!-- Nomor 1 -->
-            <p class="mb-3 mt-3" style="line-height:1.8;">
+    <div class="box-latihan mt-5 mb-4" id="cardLatihan1">
+        <div class="card-body p-4">
+            <span class="title-box">Latihan 1</span>
+            <p class="mb-3" style="line-height:1.8;">
                 1. Seorang teknisi sedang mengamati jalur kabel pada peta gedung. Jalur tersebut
-                menghubungkan titik <b>$P(-3,6)$</b> dan <b>$Q(5,-4)$</b>.
+                menghubungkan titik <b>\(P(-3,6)\)</b> dan <b>\(Q(5,-4)\)</b>.
                 Tentukan gradien jalur kabel tersebut.
             </p>
 
@@ -694,114 +554,124 @@
                 <p class="mb-3"><b>Penyelesaian:</b></p>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$P(-3,6)$, maka</span>
-                    <span>$x_1=$</span>
+                    <span>\(P(-3,6)\), maka</span>
+                    <span>\(x_1=\)</span>
                     <input type="text" id="l1x1" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                     <span>dan</span>
-                    <span>$y_1=$</span>
+                    <span>\(y_1=\)</span>
                     <input type="text" id="l1y1" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                 </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$Q(5,-4)$, maka</span>
-                    <span>$x_2=$</span>
+                    <span>\(Q(5,-4)\), maka</span>
+                    <span>\(x_2=\)</span>
                     <input type="text" id="l1x2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                     <span>dan</span>
-                    <span>$y_2=$</span>
+                    <span>\(y_2=\)</span>
                     <input type="text" id="l1y2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                 </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
                     <span>Jadi,</span>
-                    <span>$m=\dfrac{y_2-y_1}{x_2-x_1}=$</span>
+                    <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
 
                     <div class="frac-input">
                         <div class="top">
-                            <input type="text" id="subY2"
+                            <input type="text" id="l1_subY2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                             <span>-</span>
-                            <input type="text" id="subY1"
+                            <input type="text" id="l1_subY1"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                         <div class="bottom">
-                            <input type="text" id="subX2"
+                            <input type="text" id="l1_subX2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                             <span>- (</span>
-                            <input type="text" id="subX1"
+                            <input type="text" id="l1_subX1"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                             <span>)</span>
                         </div>
                     </div>
 
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input single">
                         <div class="top">
-                            <input type="text" id="hasilAtas"
+                            <input type="text" id="l1_hasilAtas"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                         <div class="bottom">
-                            <input type="text" id="hasilBawah"
+                            <input type="text" id="l1_hasilBawah"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                     </div>
 
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input single">
                         <div class="top">
-                            <input type="text" id="hasilAkhirAtas"
+                            <input type="text" id="l1_hasilAkhirAtas"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                         <div class="bottom">
-                            <input type="text" id="hasilAkhirBawah"
+                            <input type="text" id="l1_hasilAkhirBawah"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                     </div>
                 </div>
 
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik1()">Cek Jawaban</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="button"
+                        onclick="resetLatihanTitik1()">Reset</button>
+                </div>
+
                 <div id="fbLatihan1" class="mt-3"></div>
             </div>
+        </div>
+    </div>
 
-            <!-- Nomor 2 -->
+    <div class="box-latihan mt-5 mb-4 d-none" id="cardLatihan2">
+        <div class="card-body p-4">
+            <span class="title-box">Latihan 2</span>
             <p class="mb-3" style="line-height:1.8;">
                 2. Seorang perencana kota akan membuat jalan baru yang menghubungkan dua titik pada peta,
-                yaitu <b>$A(1,2)$</b> dan <b>$B(5,p)$</b>. Agar kemiringan jalan tersebut sesuai rancangan,
-                gradiennya harus bernilai <b>$1$</b>. Tentukan nilai <b>$p$</b>.
+                yaitu <b>\(A(1,2)\)</b> dan <b>\(B(5,p)\)</b>. Agar kemiringan jalan tersebut sesuai rancangan,
+                gradiennya harus bernilai <b>\(1\)</b>. Tentukan nilai <b>\(p\)</b>.
             </p>
 
             <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
                 <p class="mb-3"><b>Penyelesaian:</b></p>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$A(1,2)$, maka</span>
-                    <span>$x_1=$</span>
+                    <span>\(A(1,2)\), maka</span>
+                    <span>\(x_1=\)</span>
                     <input type="text" id="x1_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                     <span>dan</span>
-                    <span>$y_1=$</span>
+                    <span>\(y_1=\)</span>
                     <input type="text" id="y1_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                 </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$B(5,p)$, maka</span>
-                    <span>$x_2=$</span>
+                    <span>\(B(5,p)\), maka</span>
+                    <span>\(x_2=\)</span>
                     <input type="text" id="x2_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                     <span>dan</span>
-                    <span>$y_2=$</span>
+                    <span>\(y_2=\)</span>
                     <input type="text" id="y2_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                 </div>
 
                 <p class="mb-2">Karena gradiennya diketahui, maka:</p>
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$m=$</span>
+                    <span>\(m=\)</span>
                     <input type="text" id="m_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
                 </div>
@@ -810,20 +680,20 @@
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
                     <input type="text" id="kiri1_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input">
                         <div class="top">
                             <input type="text" id="subY2_2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>$-$</span>
+                            <span>\(-\)</span>
                             <input type="text" id="subY1_2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                         <div class="bottom">
                             <input type="text" id="subX2_2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>$-$</span>
+                            <span>\(-\)</span>
                             <input type="text" id="subX1_2"
                                 class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
@@ -834,7 +704,7 @@
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
                     <input type="text" id="kiri2_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:70px;">
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input single">
                         <div class="top">
@@ -852,25 +722,35 @@
                 <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
                     <input type="text" id="pers1Kiri_2"
                         class="form-control form-control-sm text-center jawaban-latihan" style="width:90px;">
-                    <span>$=$</span>
+                    <span>\(=\)</span>
                     <input type="text" id="pers1Kanan_2"
                         class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
                 </div>
 
-                <p class="mt-3">Sehingga nilai <b>$p$</b> adalah:</p>
+                <p class="mt-3">Sehingga nilai <b>\(p\)</b> adalah:</p>
                 <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
-                    <span>$p=$</span>
+                    <span>\(p=\)</span>
                     <input type="text" id="hasilP_2" class="form-control form-control-sm text-center jawaban-latihan"
                         style="width:80px;">
                 </div>
 
-                <div id="fbLatihan2" class="mt-3"></div>
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik2()">Cek
+                        Jawaban</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="button"
+                        onclick="resetLatihanTitik2()">Reset</button>
+                </div>
             </div>
+            <div id="fbLatihan2" class="mt-3"></div>
+        </div>
+    </div>
 
-            <!-- Nomor 3 -->
+    <div class="box-latihan mt-5 mb-4 d-none" id="cardLatihan3">
+        <div class="card-body p-4">
+            <span class="title-box">Latihan 3</span>
             <p class="mb-3" style="line-height:1.8;">
                 3. Sebuah jalan menanjak pada kawasan perumahan digambarkan pada ilustrasi berikut.
-                Titik awal jalan berada di <b>$A(2,1)$</b> dan titik akhir berada di <b>$B(8,4)$</b>.
+                Titik awal jalan berada di <b>\(A(2,1)\)</b> dan titik akhir berada di <b>\(B(8,4)\)</b>.
                 Tentukan gradien jalan tersebut.
             </p>
 
@@ -883,7 +763,7 @@
                 <p class="mb-3"><b>Penyelesaian:</b></p>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
-                    <span>$m=\dfrac{y_2-y_1}{x_2-x_1}=$</span>
+                    <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
 
                     <div class="frac-input">
                         <div class="top">
@@ -902,7 +782,7 @@
                         </div>
                     </div>
 
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input single">
                         <div class="top">
@@ -915,7 +795,7 @@
                         </div>
                     </div>
 
-                    <span>$=$</span>
+                    <span>\(=\)</span>
 
                     <div class="frac-input single">
                         <div class="top">
@@ -929,53 +809,47 @@
                     </div>
                 </div>
 
-                <div id="fbLatihan3" class="mt-3"></div>
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik3()">Cek
+                        Jawaban</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="button"
+                        onclick="resetLatihanTitik3()">Reset</button>
+                </div>
             </div>
-
-            <!-- Tombol global -->
-            <div class="d-flex gap-2 flex-wrap mt-4">
-                <button class="btn btn-palet btn-sm" onclick="cekSemuaLatihan()">Cek Jawaban</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="resetSemuaLatihan()">Reset</button>
-            </div>
-
-            <!-- Pesan akhir -->
-            <div id="pesanAkhirLatihan" class="mt-4"></div>
+            <div id="fbLatihan3" class="mt-3"></div>
         </div>
     </div>
+
+    <div id="pesanAkhirLatihan" class="mt-4"></div>
     <script src="{{ asset('js/subbabB/subbab_gradienduatitik.js') }}"></script>
 @endsection
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else

@@ -136,335 +136,777 @@ function cekRefleksi() {
     }
 }
 
-// Latihan soal
-// titik potong
-function normalizeExpr(str) {
-    return String(str)
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .replace(/−/g, '-')
-        .trim();
+// Latihan Soal
+
+let latihan1Benar = false;
+let sketchLatihan1Instance = null;
+
+// titik potong yang benar untuk y = 2x + 4
+const expectedA1 = { x: -2, y: 0 };
+const expectedB1 = { x: 0, y: 4 };
+
+// =========================
+// HELPER
+// =========================
+function normJawaban(v) {
+    return String(v).trim().replace(/\s+/g, "").replace(",", ".");
 }
 
-function isOneOf(value, answers) {
-    const v = normalizeExpr(value);
-    return answers.includes(v);
+function cekIsian(id, jawabanBenar) {
+    const el = document.getElementById(id);
+    if (!el) return false;
+
+    const nilai = normJawaban(el.value);
+    const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
+    const cocok = daftar.map(normJawaban).includes(nilai);
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(cocok ? "is-valid" : "is-invalid");
+
+    return cocok;
 }
 
-function renderKatex(targets) {
-    if (typeof renderMathInElement !== 'function') return;
+function setFeedback(id, ok, pesan) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    targets.forEach(function (target) {
-        if (!target) return;
-
-        renderMathInElement(target, {
-            delimiters: [
-                { left: '$$', right: '$$', display: true },
-                { left: '\\(', right: '\\)', display: false },
-                { left: '$', right: '$', display: false }
-            ],
-            throwOnError: false
-        });
-    });
+    el.innerHTML = pesan;
+    el.className = ok
+        ? "feedback-box feedback-ok"
+        : "feedback-box feedback-bad";
+    el.style.display = "block";
 }
 
-function lockSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (!section) return;
+function tampilkanCanvasLatihan1() {
+    const wrap = document.getElementById("canvas-latihan1-wrap");
+    if (wrap) wrap.style.display = "block";
 
-    section.classList.add('step-success');
-    section.classList.add('step-locked');
+    if (sketchLatihan1Instance) {
+        sketchLatihan1Instance.remove();
+        sketchLatihan1Instance = null;
+    }
 
-    section.querySelectorAll('input').forEach(function (input) {
-        input.setAttribute('readonly', true);
-    });
+    const holder = document.getElementById("canvas-latihan1");
+    if (holder) holder.innerHTML = "";
 
-    const button = section.querySelector('button');
-    if (button) {
-        button.disabled = true;
-        button.classList.remove('btn-warning');
-        button.classList.add('btn-success');
-        button.textContent = 'Sudah Benar';
+    sketchLatihan1Instance = new p5(sketchLatihan1, "canvas-latihan1");
+}
+
+function resetCanvasLatihan1() {
+    if (sketchLatihan1Instance) {
+        sketchLatihan1Instance.remove();
+        sketchLatihan1Instance = null;
+    }
+
+    const holder = document.getElementById("canvas-latihan1");
+    if (holder) holder.innerHTML = "";
+
+    const wrap = document.getElementById("canvas-latihan1-wrap");
+    if (wrap) wrap.style.display = "none";
+}
+
+// =========================
+// CEK LATIHAN 1
+// y = 2x + 4
+// titik potong x = (-2, 0)
+// titik potong y = (0, 4)
+// =========================
+function cekLatihan1() {
+    const benar1 = cekIsian("l1_x_value", "-2");
+    const benar2 = cekIsian("l1_x_point_x", "-2");
+    const benar3 = cekIsian("l1_x_point_y", "0");
+
+    const benar4 = cekIsian("l1_y_value", "4");
+    const benar5 = cekIsian("l1_y_point_x", "0");
+    const benar6 = cekIsian("l1_y_point_y", "4");
+
+    const semuaBenar = benar1 && benar2 && benar3 && benar4 && benar5 && benar6;
+
+    if (semuaBenar) {
+        latihan1Benar = true;
+
+        setFeedback(
+            "feedbackLatihan1",
+            true,
+            "Benar! Sekarang klik titik <b>(-2,0)</b> dan <b>(0,4)</b> pada bidang koordinat untuk membentuk garis.",
+        );
+
+        tampilkanCanvasLatihan1();
+    } else {
+        latihan1Benar = false;
+
+        setFeedback(
+            "feedbackLatihan1",
+            false,
+            "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
+        );
+
+        resetCanvasLatihan1();
     }
 }
 
-function unlockSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (!section) return;
+// =========================
+// P5 SKETCH LATIHAN 1
+// =========================
+const sketchLatihan1 = (p) => {
+    const gridSize = 500;
+    const leftMargin = 40;
+    const topMargin = 40;
 
-    section.style.display = 'block';
-    section.classList.remove('step-locked');
-}
+    let originX, originY, scaleUnit;
+    let titikA = null;
+    let titikB = null;
 
-function resetFeedback(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.style.display = 'none';
-    el.innerHTML = '';
-}
+    let plottingSelesai = false;
+    let plottingBenar = false;
+    let waktuReset = null;
 
-/* =========================
-   BAGIAN A
-========================= */
-const btnA = document.getElementById('btn-cek-a');
-if (btnA) {
-    btnA.addEventListener('click', function () {
-        const L1 = document.getElementById('L1').value;
-        const L2 = document.getElementById('L2').value;
-        const L3 = document.getElementById('L3').value;
+    let feedbackPlot =
+        "Klik dua titik potong yang benar pada bidang koordinat.";
 
-        const feedbackA = document.getElementById('feedback-a');
+    p.setup = function () {
+        p.createCanvas(760, 600);
 
-        let pesan = [];
-        let benar = true;
+        scaleUnit = gridSize / 20; // rentang -10 sampai 10
+        originX = leftMargin + gridSize / 2;
+        originY = topMargin + gridSize / 2;
+    };
 
-        if (!isOneOf(L1, ['8-4x', '-4x+8'])) {
-            benar = false;
-            pesan.push('Langkah 1 belum tepat. Perhatikan kembali bentuk \\(-2y = ...\\).');
+    p.draw = function () {
+        p.background(255);
+
+        drawGrid();
+        drawPanelKanan();
+
+        if (titikA) drawPoint(titikA.x, titikA.y, "A");
+        if (titikB) drawPoint(titikB.x, titikB.y, "B");
+
+        if (titikA && titikB) {
+            drawLineThroughPoints(titikA, titikB);
         }
 
-        if (!isOneOf(L2, ['-4+2x', '2x-4'])) {
-            benar = false;
-            pesan.push('Langkah 2 belum tepat. Tuliskan nilai \\(y\\) dari bentuk sebelumnya.');
+        // reset otomatis setelah salah
+        if (waktuReset !== null && p.millis() >= waktuReset) {
+            resetPlot();
+            waktuReset = null;
+        }
+    };
+
+    p.mousePressed = function () {
+        if (!latihan1Benar) return;
+
+        const pt = pixelToCoord(p.mouseX, p.mouseY);
+        if (!pt) return;
+
+        // kalau sedang menunggu reset, abaikan klik
+        if (waktuReset !== null) return;
+
+        if (!titikA) {
+            titikA = pt;
+            feedbackPlot = `Titik A dipilih di ${formatPoint(pt)}. Sekarang klik titik kedua.`;
+            return;
         }
 
-        if (!isOneOf(L3, ['2x-4'])) {
-            benar = false;
-            pesan.push('Langkah 3 belum tepat. Susun hasilnya ke bentuk \\(y = mx + c\\).');
+        if (!titikB) {
+            if (isSamePoint(pt, titikA)) {
+                feedbackPlot =
+                    "Titik kedua tidak boleh sama dengan titik pertama.";
+                return;
+            }
+
+            titikB = pt;
+            plottingSelesai = true;
+
+            if (isCorrectPair(titikA, titikB, expectedA1, expectedB1)) {
+                plottingBenar = true;
+                feedbackPlot =
+                    "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
+            } else {
+                plottingBenar = false;
+                feedbackPlot = "Garis belum sesuai. Coba lagi sampai benar.";
+                waktuReset = p.millis() + 1200;
+            }
+        }
+    };
+
+    function resetPlot() {
+        titikA = null;
+        titikB = null;
+        plottingSelesai = false;
+        plottingBenar = false;
+        feedbackPlot =
+            "Klik dua titik potong yang benar pada bidang koordinat.";
+    }
+
+    function isSamePoint(p1, p2) {
+        return p1 && p2 && p1.x === p2.x && p1.y === p2.y;
+    }
+
+    function isPointEqual(p1, p2) {
+        return p1.x === p2.x && p1.y === p2.y;
+    }
+
+    function isCorrectPair(a, b, expected1, expected2) {
+        return (
+            (isPointEqual(a, expected1) && isPointEqual(b, expected2)) ||
+            (isPointEqual(a, expected2) && isPointEqual(b, expected1))
+        );
+    }
+
+    function formatPoint(pt) {
+        return `(${pt.x},${pt.y})`;
+    }
+
+    function drawGrid() {
+        p.stroke(230);
+        p.strokeWeight(1);
+
+        for (let x = -10; x <= 10; x++) {
+            const px = originX + x * scaleUnit;
+            p.line(px, topMargin, px, topMargin + gridSize);
         }
 
-        feedbackA.style.display = 'block';
+        for (let y = -10; y <= 10; y++) {
+            const py = originY - y * scaleUnit;
+            p.line(leftMargin, py, leftMargin + gridSize, py);
+        }
 
-        if (benar) {
-            feedbackA.innerHTML = `
-                <div class="alert alert-success mb-0">
-                    <b>Bagus!</b> Kamu sudah memperoleh bentuk persamaan <b>\\(y = 2x - 4\\)</b>.
-                </div>
-            `;
+        p.stroke(0);
+        p.strokeWeight(2);
+        p.line(leftMargin, originY, leftMargin + gridSize, originY);
+        p.line(originX, topMargin, originX, topMargin + gridSize);
 
-            lockSection('bagianA');
-            unlockSection('bagianB');
+        p.noStroke();
+        p.fill(0);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.textSize(12);
+
+        for (let i = -10; i <= 10; i++) {
+            const px = originX + i * scaleUnit;
+            if (i !== 0) p.text(i, px, originY + 16);
+        }
+
+        for (let j = -10; j <= 10; j++) {
+            const py = originY - j * scaleUnit;
+            if (j !== 0) p.text(j, originX - 16, py);
+        }
+
+        p.text("0", originX - 10, originY + 16);
+
+        p.textSize(16);
+        p.text("X", leftMargin + gridSize + 15, originY);
+        p.text("Y", originX, topMargin - 15);
+    }
+
+    function drawPanelKanan() {
+        const panelX = 565;
+        const panelW = 170;
+
+        p.noStroke();
+        p.fill(0);
+        p.textAlign(p.LEFT, p.TOP);
+
+        p.textSize(16);
+        p.text("Petunjuk", panelX, 40);
+
+        p.textSize(14);
+        const petunjuk =
+            "1. Klik titik potong pertama.\n" +
+            "2. Klik titik potong kedua.\n" +
+            "3. Setelah dua titik dipilih, garis akan terbentuk.\n" +
+            "4. Sistem akan memeriksa apakah garis sudah benar.";
+        p.text(petunjuk, panelX, 70, panelW, 150);
+
+        p.text(feedbackPlot, panelX, 250, panelW, 120);
+    }
+
+    function drawPoint(x, y, label) {
+        const px = toPixelX(x);
+        const py = toPixelY(y);
+
+        p.fill(220, 0, 0);
+        p.noStroke();
+        p.circle(px, py, 10);
+
+        p.fill(0);
+        p.textAlign(p.LEFT, p.BOTTOM);
+        p.textSize(13);
+        p.text(label, px + 8, py - 4);
+    }
+
+    function drawLineThroughPoints(p1, p2) {
+        if (p1.x === p2.x && p1.y === p2.y) return;
+
+        const seg = getClippedLineSegmentInBox(p1.x, p1.y, p2.x, p2.y);
+        if (!seg) return;
+
+        p.stroke(
+            plottingSelesai
+                ? plottingBenar
+                    ? p.color(30, 150, 70)
+                    : p.color(220, 80, 80)
+                : p.color(30, 120, 255),
+        );
+        p.strokeWeight(3);
+
+        p.line(
+            toPixelX(seg.p1.x),
+            toPixelY(seg.p1.y),
+            toPixelX(seg.p2.x),
+            toPixelY(seg.p2.y),
+        );
+    }
+
+    function getClippedLineSegmentInBox(x1, y1, x2, y2) {
+        if (x1 === x2) {
+            if (x1 < -10 || x1 > 10) return null;
+            return {
+                p1: { x: x1, y: -10 },
+                p2: { x: x1, y: 10 },
+            };
+        }
+
+        const m = (y2 - y1) / (x2 - x1);
+        const c = y1 - m * x1;
+
+        const candidates = [
+            { x: -10, y: m * -10 + c },
+            { x: 10, y: m * 10 + c },
+        ];
+
+        if (m !== 0) {
+            candidates.push({ x: (-10 - c) / m, y: -10 });
+            candidates.push({ x: (10 - c) / m, y: 10 });
         } else {
-            feedbackA.innerHTML = `
-                <div class="alert alert-warning mb-0">
-                    <b>Coba perhatikan kembali bagian A.</b><br><br>
-                    ${pesan.join('<br><br>')}
-                </div>
-            `;
+            if (c < -10 || c > 10) return null;
+            return {
+                p1: { x: -10, y: c },
+                p2: { x: 10, y: c },
+            };
         }
 
-        renderKatex([feedbackA]);
-    });
+        const inside = candidates.filter(
+            (pt) => pt.x >= -10 && pt.x <= 10 && pt.y >= -10 && pt.y <= 10,
+        );
+
+        if (inside.length < 2) return null;
+
+        let bestPair = [inside[0], inside[1]];
+        let bestDist = -1;
+
+        for (let i = 0; i < inside.length; i++) {
+            for (let j = i + 1; j < inside.length; j++) {
+                const dx = inside[i].x - inside[j].x;
+                const dy = inside[i].y - inside[j].y;
+                const d2 = dx * dx + dy * dy;
+
+                if (d2 > bestDist) {
+                    bestDist = d2;
+                    bestPair = [inside[i], inside[j]];
+                }
+            }
+        }
+
+        return {
+            p1: bestPair[0],
+            p2: bestPair[1],
+        };
+    }
+
+    function pixelToCoord(px, py) {
+        if (
+            px < leftMargin ||
+            px > leftMargin + gridSize ||
+            py < topMargin ||
+            py > topMargin + gridSize
+        ) {
+            return null;
+        }
+
+        let x = Math.round((px - originX) / scaleUnit);
+        let y = Math.round((originY - py) / scaleUnit);
+
+        x = p.constrain(x, -10, 10);
+        y = p.constrain(y, -10, 10);
+
+        return { x, y };
+    }
+
+    function toPixelX(x) {
+        return originX + x * scaleUnit;
+    }
+
+    function toPixelY(y) {
+        return originY - y * scaleUnit;
+    }
+};
+
+// Latihan 2
+let latihan2Benar = false;
+let sketchLatihan2Instance = null;
+
+// titik potong benar untuk 3x + 4y - 24 = 0
+const expectedA2 = { x: 8, y: 0 };
+const expectedB2 = { x: 0, y: 6 };
+
+// =========================
+// CEK LATIHAN 2
+// =========================
+function cekLatihan2() {
+    const benar1 = cekIsian("l2_x_value", "8");
+    const benar2 = cekIsian("l2_x_point_x", "8");
+    const benar3 = cekIsian("l2_x_point_y", "0");
+
+    const benar4 = cekIsian("l2_y_value", "6");
+    const benar5 = cekIsian("l2_y_point_x", "0");
+    const benar6 = cekIsian("l2_y_point_y", "6");
+
+    const semuaBenar = benar1 && benar2 && benar3 && benar4 && benar5 && benar6;
+
+    if (semuaBenar) {
+        latihan2Benar = true;
+
+        setFeedback(
+            "feedbackLatihan2",
+            true,
+            "Benar! Sekarang klik titik <b>(8,0)</b> dan <b>(0,6)</b> pada bidang koordinat.",
+        );
+
+        tampilkanCanvasLatihan2();
+    } else {
+        latihan2Benar = false;
+
+        setFeedback(
+            "feedbackLatihan2",
+            false,
+            "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
+        );
+
+        resetCanvasLatihan2();
+    }
 }
 
-/* =========================
-   BAGIAN B
-========================= */
-const btnB = document.getElementById('btn-cek-b');
-if (btnB) {
-    btnB.addEventListener('click', function () {
-        const sx1_left = document.getElementById('sx1_left').value;
-        const sx1_right = document.getElementById('sx1_right').value;
+function tampilkanCanvasLatihan2() {
+    const wrap = document.getElementById("canvas-latihan2-wrap");
+    if (wrap) wrap.style.display = "block";
 
-        const sx2_left = document.getElementById('sx2_left').value;
-        const sx2_right = document.getElementById('sx2_right').value;
+    if (sketchLatihan2Instance) {
+        sketchLatihan2Instance.remove();
+        sketchLatihan2Instance = null;
+    }
 
-        const sx3 = document.getElementById('sx3').value;
-        const sx4x = document.getElementById('sx4x').value;
-        const sx4y = document.getElementById('sx4y').value;
+    const holder = document.getElementById("canvas-latihan2");
+    if (holder) holder.innerHTML = "";
 
-        const feedbackB = document.getElementById('feedback-b');
+    sketchLatihan2Instance = new p5(sketchLatihan2, "canvas-latihan2");
+}
 
-        let pesan = [];
-        let benar = true;
+function resetCanvasLatihan2() {
+    if (sketchLatihan2Instance) {
+        sketchLatihan2Instance.remove();
+        sketchLatihan2Instance = null;
+    }
 
-        const langkah1Benar =
-            isOneOf(sx1_left, ['0', '0.0']) &&
-            isOneOf(sx1_right, ['2x-4', '-4+2x']);
+    const holder = document.getElementById("canvas-latihan2");
+    if (holder) holder.innerHTML = "";
 
-        if (!langkah1Benar) {
-            benar = false;
-            pesan.push('Langkah 1 belum tepat. Substitusikan nilai \\(y = 0\\) ke persamaan \\(y = 2x - 4\\).');
+    const wrap = document.getElementById("canvas-latihan2-wrap");
+    if (wrap) wrap.style.display = "none";
+}
+
+// =========================
+// P5 SKETCH LATIHAN 2
+// =========================
+const sketchLatihan2 = (p) => {
+    const gridSize = 500;
+    const leftMargin = 40;
+    const topMargin = 40;
+
+    let originX, originY, scaleUnit;
+    let titikA = null;
+    let titikB = null;
+
+    let plottingSelesai = false;
+    let plottingBenar = false;
+    let waktuReset = null;
+
+    let feedbackPlot =
+        "Klik dua titik potong yang benar pada bidang koordinat.";
+
+    p.setup = function () {
+        p.createCanvas(760, 600);
+
+        scaleUnit = gridSize / 20;
+        originX = leftMargin + gridSize / 2;
+        originY = topMargin + gridSize / 2;
+    };
+
+    p.draw = function () {
+        p.background(255);
+
+        drawGrid();
+        drawPanelKanan();
+
+        if (titikA) drawPoint(titikA.x, titikA.y, "A");
+        if (titikB) drawPoint(titikB.x, titikB.y, "B");
+
+        if (titikA && titikB) {
+            drawLineThroughPoints(titikA, titikB);
         }
 
-        const left2 = normalizeExpr(sx2_left);
-        const right2 = normalizeExpr(sx2_right);
+        // reset otomatis setelah salah
+        if (waktuReset !== null && p.millis() >= waktuReset) {
+            resetPlot();
+            waktuReset = null;
+        }
+    };
 
-        const langkah2Benar =
-            (left2 === '2x' && right2 === '4') ||
-            (left2 === '-2x' && right2 === '-4');
+    p.mousePressed = function () {
+        if (!latihan2Benar) return;
 
-        if (!langkah2Benar) {
-            benar = false;
-            pesan.push('Langkah 2 belum tepat. Sederhanakan persamaan yang sudah diperoleh.');
+        const pt = pixelToCoord(p.mouseX, p.mouseY);
+        if (!pt) return;
+
+        // kalau sedang menunggu reset, abaikan klik
+        if (waktuReset !== null) return;
+
+        if (!titikA) {
+            titikA = pt;
+            feedbackPlot = `Titik A dipilih di ${formatPoint(pt)}. Sekarang klik titik kedua.`;
+            return;
         }
 
-        if (!isOneOf(sx3, ['2', '2.0'])) {
-            benar = false;
-            pesan.push('Langkah 3 belum tepat. Tentukan nilai \\(x\\) dari persamaan sederhana tersebut.');
+        if (!titikB) {
+            if (isSamePoint(pt, titikA)) {
+                feedbackPlot =
+                    "Titik kedua tidak boleh sama dengan titik pertama.";
+                return;
+            }
+
+            titikB = pt;
+            plottingSelesai = true;
+
+            if (isCorrectPair(titikA, titikB, expectedA2, expectedB2)) {
+                plottingBenar = true;
+                feedbackPlot =
+                    "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
+            } else {
+                plottingBenar = false;
+                feedbackPlot =
+                    "Garis belum sesuai. Coba lagi sampai benar.";
+                waktuReset = p.millis() + 1200;
+            }
+        }
+    };
+
+    function resetPlot() {
+        titikA = null;
+        titikB = null;
+        plottingSelesai = false;
+        plottingBenar = false;
+        feedbackPlot =
+            "Klik dua titik potong yang benar pada bidang koordinat.";
+    }
+
+    function isSamePoint(p1, p2) {
+        return p1 && p2 && p1.x === p2.x && p1.y === p2.y;
+    }
+
+    function isPointEqual(p1, p2) {
+        return p1.x === p2.x && p1.y === p2.y;
+    }
+
+    function isCorrectPair(a, b, expected1, expected2) {
+        return (
+            (isPointEqual(a, expected1) && isPointEqual(b, expected2)) ||
+            (isPointEqual(a, expected2) && isPointEqual(b, expected1))
+        );
+    }
+
+    function formatPoint(pt) {
+        return `(${pt.x},${pt.y})`;
+    }
+
+    function drawGrid() {
+        p.stroke(230);
+        p.strokeWeight(1);
+
+        for (let x = -10; x <= 10; x++) {
+            const px = originX + x * scaleUnit;
+            p.line(px, topMargin, px, topMargin + gridSize);
         }
 
-        if (!(isOneOf(sx4x, ['2', '2.0']) && isOneOf(sx4y, ['0', '0.0']))) {
-            benar = false;
-            pesan.push('Langkah 4 belum tepat. Tuliskan titik potong sumbu \\(x\\) dalam bentuk \\((x,y)\\).');
+        for (let y = -10; y <= 10; y++) {
+            const py = originY - y * scaleUnit;
+            p.line(leftMargin, py, leftMargin + gridSize, py);
         }
 
-        feedbackB.style.display = 'block';
+        p.stroke(0);
+        p.strokeWeight(2);
+        p.line(leftMargin, originY, leftMargin + gridSize, originY);
+        p.line(originX, topMargin, originX, topMargin + gridSize);
 
-        if (benar) {
-            feedbackB.innerHTML = `
-                <div class="alert alert-success mb-0">
-                    <b>Bagus!</b> Kamu sudah menemukan titik potong sumbu \\(x\\), yaitu <b>\\((2, 0)\\)</b>.
-                </div>
-            `;
+        p.noStroke();
+        p.fill(0);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.textSize(12);
 
-            lockSection('bagianB');
-            unlockSection('bagianC');
+        for (let i = -10; i <= 10; i++) {
+            const px = originX + i * scaleUnit;
+            if (i !== 0) p.text(i, px, originY + 16);
+        }
+
+        for (let j = -10; j <= 10; j++) {
+            const py = originY - j * scaleUnit;
+            if (j !== 0) p.text(j, originX - 16, py);
+        }
+
+        p.text("0", originX - 10, originY + 16);
+
+        p.textSize(16);
+        p.text("X", leftMargin + gridSize + 15, originY);
+        p.text("Y", originX, topMargin - 15);
+    }
+
+    function drawPanelKanan() {
+        const panelX = 565;
+        const panelW = 170;
+
+        p.noStroke();
+        p.fill(0);
+        p.textAlign(p.LEFT, p.TOP);
+
+        p.textSize(16);
+        p.text("Petunjuk", panelX, 40);
+
+        p.textSize(14);
+        const petunjuk =
+            "1. Klik titik potong pertama.\n" +
+            "2. Klik titik potong kedua.\n" +
+            "3. Setelah dua titik dipilih, garis akan terbentuk.\n" +
+            "4. Sistem akan memeriksa apakah garis sudah benar.";
+        p.text(petunjuk, panelX, 70, panelW, 150);
+
+        p.text(feedbackPlot, panelX, 250, panelW, 120);
+    }
+
+    function drawPoint(x, y, label) {
+        const px = toPixelX(x);
+        const py = toPixelY(y);
+
+        p.fill(220, 0, 0);
+        p.noStroke();
+        p.circle(px, py, 10);
+
+        p.fill(0);
+        p.textAlign(p.LEFT, p.BOTTOM);
+        p.textSize(13);
+        p.text(label, px + 8, py - 4);
+    }
+
+    function drawLineThroughPoints(p1, p2) {
+        if (p1.x === p2.x && p1.y === p2.y) return;
+
+        const seg = getClippedLineSegmentInBox(p1.x, p1.y, p2.x, p2.y);
+        if (!seg) return;
+
+        p.stroke(
+            plottingSelesai
+                ? plottingBenar
+                    ? p.color(30, 150, 70)
+                    : p.color(220, 80, 80)
+                : p.color(30, 120, 255)
+        );
+        p.strokeWeight(3);
+
+        p.line(
+            toPixelX(seg.p1.x),
+            toPixelY(seg.p1.y),
+            toPixelX(seg.p2.x),
+            toPixelY(seg.p2.y)
+        );
+    }
+
+    function getClippedLineSegmentInBox(x1, y1, x2, y2) {
+        if (x1 === x2) {
+            if (x1 < -10 || x1 > 10) return null;
+            return {
+                p1: { x: x1, y: -10 },
+                p2: { x: x1, y: 10 }
+            };
+        }
+
+        const m = (y2 - y1) / (x2 - x1);
+        const c = y1 - m * x1;
+
+        const candidates = [
+            { x: -10, y: m * -10 + c },
+            { x: 10, y: m * 10 + c }
+        ];
+
+        if (m !== 0) {
+            candidates.push({ x: (-10 - c) / m, y: -10 });
+            candidates.push({ x: (10 - c) / m, y: 10 });
         } else {
-            feedbackB.innerHTML = `
-                <div class="alert alert-warning mb-0">
-                    <b>Coba perhatikan kembali bagian B.</b><br><br>
-                    ${pesan.join('<br><br>')}
-                </div>
-            `;
+            if (c < -10 || c > 10) return null;
+            return {
+                p1: { x: -10, y: c },
+                p2: { x: 10, y: c }
+            };
         }
 
-        renderKatex([feedbackB]);
-    });
-}
+        const inside = candidates.filter(
+            (pt) => pt.x >= -10 && pt.x <= 10 && pt.y >= -10 && pt.y <= 10
+        );
 
-/* =========================
-   BAGIAN C
-========================= */
-const btnC = document.getElementById('btn-cek-c');
-if (btnC) {
-    btnC.addEventListener('click', function () {
-        const sy1 = document.getElementById('sy1').value;
-        const sy2 = document.getElementById('sy2').value;
-        const sy3x = document.getElementById('sy3x').value;
-        const sy3y = document.getElementById('sy3y').value;
+        if (inside.length < 2) return null;
 
-        const feedbackC = document.getElementById('feedback-c');
-        const canvasHolder = document.getElementById('canvas-holder');
+        let bestPair = [inside[0], inside[1]];
+        let bestDist = -1;
 
-        let pesan = [];
-        let benar = true;
+        for (let i = 0; i < inside.length; i++) {
+            for (let j = i + 1; j < inside.length; j++) {
+                const dx = inside[i].x - inside[j].x;
+                const dy = inside[i].y - inside[j].y;
+                const d2 = dx * dx + dy * dy;
 
-        if (!isOneOf(sy1, ['0', '0.0'])) {
-            benar = false;
-            pesan.push('Langkah 1 belum tepat. Masukkan nilai \\(x = 0\\) ke bentuk \\(y = 2(x) - 4\\).');
-        }
-
-        if (!isOneOf(sy2, ['-4', '-4.0'])) {
-            benar = false;
-            pesan.push('Langkah 2 belum tepat. Sederhanakan hasil substitusi untuk memperoleh nilai \\(y\\).');
-        }
-
-        if (!(isOneOf(sy3x, ['0', '0.0']) && isOneOf(sy3y, ['-4', '-4.0']))) {
-            benar = false;
-            pesan.push('Langkah 3 belum tepat. Tuliskan titik potong sumbu \\(y\\) dalam bentuk \\((x,y)\\).');
-        }
-
-        feedbackC.style.display = 'block';
-
-        if (benar) {
-            feedbackC.innerHTML = `
-                <div class="alert alert-success mb-0">
-                    <b>Bagus!</b> Kamu sudah menemukan titik potong sumbu \\(y\\), yaitu <b>\\((0, -4)\\)</b>.
-                </div>
-            `;
-
-            lockSection('bagianC');
-
-            if (canvasHolder) {
-                canvasHolder.style.display = 'block';
-            }
-
-            if (typeof resetAllP5 === 'function') {
-                resetAllP5();
-            }
-
-            if (typeof windowResized === 'function') {
-                try { windowResized(); } catch (e) {}
-            }
-        } else {
-            feedbackC.innerHTML = `
-                <div class="alert alert-warning mb-0">
-                    <b>Coba perhatikan kembali bagian C.</b><br><br>
-                    ${pesan.join('<br><br>')}
-                </div>
-            `;
-
-            if (canvasHolder) {
-                canvasHolder.style.display = 'none';
+                if (d2 > bestDist) {
+                    bestDist = d2;
+                    bestPair = [inside[i], inside[j]];
+                }
             }
         }
 
-        renderKatex([feedbackC]);
-    });
-}
+        return {
+            p1: bestPair[0],
+            p2: bestPair[1]
+        };
+    }
 
-/* =========================
-   RESET SEMUA
-========================= */
-const btnResetAll = document.getElementById('btn-reset-all');
-if (btnResetAll) {
-    btnResetAll.addEventListener('click', function () {
-        document.querySelectorAll('.input-step').forEach(function (el) {
-            el.value = '';
-            el.removeAttribute('readonly');
-        });
-
-        const bagianA = document.getElementById('bagianA');
-        const bagianB = document.getElementById('bagianB');
-        const bagianC = document.getElementById('bagianC');
-
-        if (bagianA) bagianA.classList.remove('step-success', 'step-locked');
-        if (bagianB) {
-            bagianB.classList.remove('step-success', 'step-locked');
-            bagianB.style.display = 'none';
-        }
-        if (bagianC) {
-            bagianC.classList.remove('step-success', 'step-locked');
-            bagianC.style.display = 'none';
+    function pixelToCoord(px, py) {
+        if (
+            px < leftMargin ||
+            px > leftMargin + gridSize ||
+            py < topMargin ||
+            py > topMargin + gridSize
+        ) {
+            return null;
         }
 
-        const btnA = document.getElementById('btn-cek-a');
-        const btnB = document.getElementById('btn-cek-b');
-        const btnC = document.getElementById('btn-cek-c');
+        let x = Math.round((px - originX) / scaleUnit);
+        let y = Math.round((originY - py) / scaleUnit);
 
-        if (btnA) {
-            btnA.disabled = false;
-            btnA.classList.remove('btn-success');
-            btnA.classList.add('btn-warning');
-            btnA.textContent = 'Cek Bagian A';
-        }
+        x = p.constrain(x, -10, 10);
+        y = p.constrain(y, -10, 10);
 
-        if (btnB) {
-            btnB.disabled = false;
-            btnB.classList.remove('btn-success');
-            btnB.classList.add('btn-warning');
-            btnB.textContent = 'Cek Bagian B';
-        }
+        return { x, y };
+    }
 
-        if (btnC) {
-            btnC.disabled = false;
-            btnC.classList.remove('btn-success');
-            btnC.classList.add('btn-warning');
-            btnC.textContent = 'Cek Bagian C';
-        }
+    function toPixelX(x) {
+        return originX + x * scaleUnit;
+    }
 
-        resetFeedback('feedback-a');
-        resetFeedback('feedback-b');
-        resetFeedback('feedback-c');
-
-        const canvasHolder = document.getElementById('canvas-holder');
-        if (canvasHolder) {
-            canvasHolder.style.display = 'none';
-        }
-
-        if (typeof resetAllP5 === 'function') {
-            resetAllP5();
-        }
-    });
-}
+    function toPixelY(y) {
+        return originY - y * scaleUnit;
+    }
+};

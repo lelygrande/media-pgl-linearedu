@@ -212,7 +212,7 @@
                     Cek Jawaban
                 </button>
 
-                <div id="feedback-x1"></div>
+                <div id="feedback-x1" style="width: fit-content"></div>
             </div>
 
             <div id="step-x-2" class="d-none mt-3">
@@ -221,7 +221,7 @@
                     perhatikan nilai gradien yang diperoleh. Menurutmu, bagaimana hubungan ketiga gradien itu?
                 </p>
 
-                <select id="banding-x" class="form-select inline-select">
+                <select id="banding-x" class="form-select inline-select" style="width: 250px">
                     <option value="">Pilih</option>
                     <option value="sama">Semua gradien sama</option>
                     <option value="beda">Gradiennya berbeda</option>
@@ -231,7 +231,7 @@
                     Cek
                 </button>
 
-                <div id="feedback-x2"></div>
+                <div id="feedback-x2" style="width: fit-content"></div>
             </div>
 
             <div id="step-x-3" class="d-none mt-3">
@@ -241,7 +241,7 @@
                     Jika digambarkan pada bidang koordinat, maka bentuk garis-garis tersebut adalah ....
                 </p>
 
-                <select id="bentuk-x" class="form-select inline-select">
+                <select id="bentuk-x" class="form-select inline-select" style="width: 200px">
                     <option value="">Pilih</option>
                     <option value="mendatar">Mendatar</option>
                     <option value="tegak">Tegak</option>
@@ -252,7 +252,7 @@
                     Cek
                 </button>
 
-                <div id="feedback-x3"></div>
+                <div id="feedback-x3" style="width: fit-content"></div>
             </div>
 
             <div id="step-x-4" class="d-none mt-3">
@@ -262,14 +262,14 @@
 
                 <p class="mb-3">
                     Jika beberapa garis memiliki titik-titik dengan nilai $y$ yang sama, maka garis tersebut
-                    <select id="simpulan-x1" class="form-select inline-select mx-1">
+                    <select id="simpulan-x1" class="form-select inline-select mx-1" style="width: 200px">
                         <option value="">Pilih</option>
                         <option value="mendatar">mendatar</option>
                         <option value="tegak">tegak</option>
                         <option value="miring">miring</option>
                     </select>
                     dan gradiennya
-                    <select id="simpulan-x2" class="form-select inline-select mx-1">
+                    <select id="simpulan-x2" class="form-select inline-select mx-1" style="width: 200px">
                         <option value="">Pilih</option>
                         <option value="0">0</option>
                         <option value="tdk">tidak terdefinisi</option>
@@ -281,7 +281,7 @@
                     Simpan Kesimpulan
                 </button>
 
-                <div id="feedback-x4"></div>
+                <div id="feedback-x4" style="width: fit-content"></div>
             </div>
 
             <div class="box-kesimpulan d-none mt-3" id="kesimpulan-x">

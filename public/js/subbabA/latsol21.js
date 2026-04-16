@@ -22,15 +22,12 @@ function setup() {
     // ambil holder dari HTML
     holder = select("#canvas-holder");
     if (!holder) {
-        // kalau gak ketemu, fallback biar gak blank total
         holder = createDiv();
     }
 
-    // bikin canvas dan taruh di holder
     const c = createCanvas(840, 560);
     c.parent(holder);
 
-    // bikin baris UI (tombol) dan taruh diholder
     uiRow = createDiv();
     uiRow.parent(holder);
     uiRow.style("margin-top", "10px");
@@ -38,24 +35,20 @@ function setup() {
     uiRow.style("gap", "10px");
     uiRow.style("align-items", "center");
 
-    // Tombol
     btnSubmit = createButton("Submit");
     btnSubmit.parent(uiRow);
     btnSubmit.mousePressed(checkAnswers);
+    btnSubmit.addClass("btn-palet");
 
     btnReset = createButton("Reset");
     btnReset.parent(uiRow);
     btnReset.mousePressed(resetAll);
-
-    btnSubmit.style("padding", "8px 14px");
-    btnReset.style("padding", "8px 14px");
-
-    // setup koordinat
-    scaleUnit = gridSize / 20; // -10 sampai 10 -> 20 satuan
+    btnReset.addClass("btn-palet");
+    
+    scaleUnit = gridSize / 20;
     originX = leftMargin + gridSize / 2;
     originY = topMargin + gridSize / 2;
 
-    // ============ TARGET KOORDINAT (kunci jawaban) ============
     tokens = [];
     tokens.push(new DraggableToken("A", -4, -3, 640, 180));
     tokens.push(new DraggableToken("B", -2, 1, 640, 260));
@@ -63,6 +56,8 @@ function setup() {
     tokens.push(new DraggableToken("D", 2, 9, 640, 420));
 
     resultColor = color(0);
+
+    sembunyikanKesimpulanLat2();
 }
 
 function draw() {
@@ -144,15 +139,14 @@ class DraggableToken {
     endDrag() {
         // kalau dipindah setelah submit, garis hilang dulu
         showLine = false;
+        sembunyikanKesimpulanLat2();
 
-        // cek apakah dilepas di dalam area grid
         if (
             this.x >= leftMargin &&
             this.x <= leftMargin + gridSize &&
             this.y >= topMargin &&
             this.y <= topMargin + gridSize
         ) {
-            // snap ke koordinat terdekat
             let cx = Math.round((this.x - originX) / scaleUnit);
             let cy = Math.round((originY - this.y) / scaleUnit);
 
@@ -162,11 +156,9 @@ class DraggableToken {
             this.coordX = cx;
             this.coordY = cy;
 
-            // snap pixel
             this.x = originX + cx * scaleUnit;
             this.y = originY - cy * scaleUnit;
 
-            // reset status benar/salah setelah pindah
             this.isCorrect = null;
             resultMessage = "";
             resultColor = color(0);
@@ -252,6 +244,15 @@ function allTokensPlaced() {
 function getToken(name) {
     return tokens.find((t) => t.name === name);
 }
+function tampilkanKesimpulanLat2() {
+    const box = document.getElementById("kesimpulanLat2");
+    if (box) box.style.display = "block";
+}
+
+function sembunyikanKesimpulanLat2() {
+    const box = document.getElementById("kesimpulanLat2");
+    if (box) box.style.display = "none";
+}
 
 function drawAutoLineIfReady() {
     if (!allTokensPlaced()) return;
@@ -334,6 +335,7 @@ function checkAnswers() {
         resultMessage = "Masih ada titik yang belum ditempatkan.";
         resultColor = color(200, 120, 0);
         showLine = false;
+        sembunyikanKesimpulanLat2();
         return;
     }
 
@@ -353,10 +355,12 @@ function checkAnswers() {
     if (allCorrect) {
         resultMessage = "Hebat! Semua titik sudah tepat. Garis muncul!";
         resultColor = color(0, 160, 0);
+        tampilkanKesimpulanLat2();
     } else {
         resultMessage =
             "Masih ada titik yang salah.\nCoba periksa lagi posisi A, B, C, dan D.";
         resultColor = color(200, 0, 0);
+        sembunyikanKesimpulanLat2();
     }
 }
 
@@ -365,6 +369,7 @@ function resetAll() {
     resultMessage = "";
     resultColor = color(0);
     showLine = false;
+    sembunyikanKesimpulanLat2();
 }
 
 // ---------------------- MOUSE EVENTS -----------------------

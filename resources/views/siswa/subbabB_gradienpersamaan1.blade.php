@@ -37,26 +37,6 @@
             font-size: 20px;
         }
 
-        .badge-contoh {
-            display: inline-block;
-            background: #2E75B6;
-            color: #fff;
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .badge-latihan {
-            display: inline-block;
-            background: #22b969;
-            color: #fff;
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
         .badge-sub {
             display: inline-block;
             background: #eef4ff;
@@ -145,6 +125,55 @@
             height: 2px;
             background: #222;
         }
+
+        /* pecahan */
+        .frac,
+        .frac-input {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+
+        /* garis pecahan */
+        .frac .top,
+        .frac-input .top {
+            border-bottom: 2px solid #222;
+            padding: 3px 6px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .frac .bottom,
+        .frac-input .bottom {
+            padding: 6px 6px 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        /* Slider */
+
+        .latihan-slider {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .latihan-track {
+            display: flex;
+            transition: transform 0.4s ease;
+            width: 100%;
+        }
+
+        .latihan-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 
     <h1 class="mb-3" style="font-weight: 600;">B. Gradien (Kemiringan Garis)</h1>
@@ -160,8 +189,122 @@
 
     <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Gradien dari Suatu Persamaan Garis Lurus</h2>
 
+    <div class="box-eksplorasi mt-4">
+
+        <div class="title-box">
+            Eksplorasi
+        </div>
+
+        <p class="mb-3" style="line-height:1.7;">
+            Perhatikan gambar di samping. Terdapat sebuah garis dengan persamaan
+            <b>\(y=-x+4\)</b> yang melalui titik <b>A</b>, <b>B</b>, dan <b>C</b>.
+        </p>
+
+        <div class="text-center mb-2">
+            <img src="{{ asset('img/gradien/eksplorasipersamaan.png') }}"
+                alt="Grafik garis y = -x + 4 melalui titik A, B, dan C"
+                style="max-width:420px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
+        </div>
+
+        <div class="text-center text-muted mb-3" style="font-size:13px;">
+            Gambar garis \(y=-x+4\) yang melalui titik A, B, dan C
+        </div>
+
+        <p class="mb-3">
+            Isilah tabel berikut berdasarkan gambar yang diberikan.
+        </p>
+
+        <div class="table-responsive mb-3" style="max-width: 500px">
+            <table class="table table-bordered text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th></th>
+                        <th>Ruas AB</th>
+                        <th>Ruas BC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Komponen \(x\)</th>
+                        <td class="text-center">
+                            <input type="text" id="xAB" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                        <td class="text-center">
+                            <input type="text" id="xBC" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Komponen \(y\)</th>
+                        <td class="text-center">
+                            <input type="text" id="yAB" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                        <td class="text-center">
+                            <input type="text" id="yBC" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>\(\frac{\Delta y}{\Delta x}\)</th>
+                        <td class="text-center">
+                            <input type="text" id="mAB" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                        <td class="text-center">
+                            <input type="text" id="mBC" class="form-control text-center mx-auto"
+                                style="width:70px;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap mb-3">
+            <button class="btn btn-palet btn-sm" onclick="cekTabelEksplorasi()">Cek Jawaban</button>
+            <button class="btn btn-outline-secondary btn-sm" onclick="resetEksplorasiPersamaan()">Reset</button>
+        </div>
+
+        <div id="feedbackTabelEksplorasi" class="mb-3"></div>
+
+        <div class="p-3 border rounded-4 mb-3">
+            <div class="fw-semibold mb-2">
+                Jawablah pertanyaan berikut.
+            </div>
+
+            <div class="mb-3">
+                <label for="q1" class="form-label">
+                    1. Berdasarkan tabel, apakah nilai gradien pada ruas AB dan BC sama?
+                </label>
+                <select id="q1" class="form-select" style="max-width:260px;">
+                    <option value="">-- Pilih jawaban --</option>
+                    <option value="sama">Sama</option>
+                    <option value="berbeda">Berbeda</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="q2" class="form-label">
+                    2. Gradien garis dengan persamaan \(y = mx + c\) adalah ....
+                </label>
+                <input type="text" id="q2" class="form-control" style="max-width:120px;">
+            </div>
+
+            <button class="btn btn-palet btn-sm" onclick="cekPertanyaanEksplorasi()">Cek Pertanyaan</button>
+            <div id="feedbackPertanyaanEksplorasi" class="mt-2"></div>
+        </div>
+
+        <div id="kesimpulanEksplorasiPersamaan" class="box-kesimpulan d-none">
+            <div class="alert alert-success mb-0">
+                Berdasarkan tabel, perbandingan komponen \(y\) terhadap komponen \(x\) mempunyai nilai gradien yang
+                sama pada setiap ruas garis. Jadi, gradien garis dengan persamaan \(y = mx + c\) adalah \(m\).
+            </div>
+        </div>
+    </div>
+
     {{-- Pengantar kontekstual --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body p-4">
             <p class="mb-2" style="line-height:1.8; text-align:justify;">
                 Pada bagian sebelumnya, kita telah mempelajari bahwa gradien menunjukkan perbandingan perubahan nilai
@@ -220,9 +363,9 @@
     </div>
 
     {{-- Amati pola --}}
-    <div class="card card-materi mb-4">
+    <div class="box-eksplorasi mt-5">
         <div class="card-body p-4">
-            <span class="badge-contoh">Ayo Amati</span>
+            <span class="title-box">Ayo Amati</span>
 
             <p class="mb-2" style="line-height:1.8;">
                 Perhatikan beberapa persamaan berikut.
@@ -247,9 +390,9 @@
     </div>
 
     {{-- Contoh kontekstual y=mx --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+            <span class="title-box">Contoh</span>
 
             <p class="mb-3" style="line-height:1.8; text-align:justify;">
                 Sebuah jalan menanjak dinyatakan oleh persamaan berikut.
@@ -275,35 +418,33 @@
     </div>
 
     {{-- Bentuk umum y = mx + c --}}
-    <div class="card card-materi mb-4">
-        <div class="card-body p-4">
-            <span class="badge-sub">2. Bentuk Umum: $y = mx + c$</span>
+    <div class="box-contoh mb-4 mt-5">
+        <span class="badge-sub">2. Bentuk Umum: $y = mx + c$</span>
 
-            <p class="mb-2" style="line-height:1.8; text-align:justify;">
-                Sekarang perhatikan persamaan berikut.
-            </p>
+        <p class="mb-2" style="line-height:1.8; text-align:justify;">
+            Sekarang perhatikan persamaan berikut.
+        </p>
 
-            <div class="rumus-box text-center mb-3">
-                \[
-                y = mx + c
-                \]
-            </div>
-
-            <p class="mb-2" style="line-height:1.8; text-align:justify;">
-                Pada bentuk ini, <b>m</b> tetap menyatakan gradien, sedangkan <b>c</b> adalah konstanta.
-            </p>
-
-            <p class="mb-0" style="line-height:1.8; text-align:justify;">
-                Jadi, meskipun ada tambahan $c$, cara menentukan gradien tetap sama, yaitu dengan melihat angka yang berada
-                di depan $x$.
-            </p>
+        <div class="rumus-box text-center mb-3">
+            \[
+            y = mx + c
+            \]
         </div>
+
+        <p class="mb-2" style="line-height:1.8; text-align:justify;">
+            Pada bentuk ini, <b>m</b> tetap menyatakan gradien, sedangkan <b>c</b> adalah konstanta.
+        </p>
+
+        <p class="mb-0" style="line-height:1.8; text-align:justify;">
+            Jadi, meskipun ada tambahan $c$, cara menentukan gradien tetap sama, yaitu dengan melihat angka yang berada
+            di depan $x$.
+        </p>
     </div>
 
     {{-- Contoh kontekstual y=mx+c --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+            <span class="title-box">Contoh</span>
 
             <p class="mb-3" style="line-height:1.8; text-align:justify;">
                 Ketinggian air dalam sebuah tangki dinyatakan oleh persamaan berikut.
@@ -332,9 +473,9 @@
     </div>
 
     {{-- Contoh bertahap mengubah bentuk --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+            <span class="title-box">Contoh</span>
 
             <p class="mb-3" style="line-height:1.8;">
                 Tentukan gradien dari persamaan berikut.
@@ -378,6 +519,128 @@
         </div>
     </div>
 
+    {{-- Eksplorasi Bentuk Ax + By + C = 0  --}}
+
+    <div class="box-eksplorasi mt-5 mb-4">
+        <div class="card-body p-4">
+            <span class="title-box">Eksplorasi</span>
+
+            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                Gradien garis pada bentuk <b>\(Ax + By + C = 0\)</b> dapat ditentukan dengan cara
+                mengubah persamaan tersebut ke bentuk <b>\(y = mx + c\)</b>, dengan <b>\(m\)</b>
+                adalah gradien garis.
+            </p>
+
+            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                Perhatikan langkah-langkah berikut, lalu lengkapi bagian yang kosong.
+            </p>
+
+            <div class="rumus-box text-center mb-4">
+                \(Ax + By + C = 0\)
+            </div>
+
+            <div class="quiz-card p-3">
+
+                {{-- Langkah 1 --}}
+                <div class="mb-4">
+                    <div class="fw-bold mb-2">Langkah 1</div>
+                    <p class="mb-2">Pindahkan suku \(Ax\) ke ruas kanan.</p>
+
+                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                        <span>\(By + C =\)</span>
+                        <input type="text" id="eks1"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
+                    </div>
+                </div>
+
+                {{-- Langkah 2 --}}
+                <div class="mb-4">
+                    <div class="fw-bold mb-2">Langkah 2</div>
+                    <p class="mb-2">Pindahkan suku \(C\) ke ruas kanan.</p>
+
+                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                        <span>\(By =\)</span>
+                        <input type="text" id="eks2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:140px;">
+                    </div>
+                </div>
+
+                {{-- Langkah 3 --}}
+                <div class="mb-4">
+                    <div class="fw-bold mb-2">Langkah 3</div>
+                    <p class="mb-2">Bagilah kedua ruas dengan \(B\), sehingga diperoleh bentuk \(y = mx + c\).</p>
+
+                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-1 flex-wrap">
+                        <span>\(y=\)</span>
+
+                        <span style="font-size:22px; font-weight:600;">−</span>
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="eks3atas1"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="eks3bawah1"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                        </div>
+
+                        <span>\(x\)</span>
+
+                        <span style="font-size:22px; font-weight:600;">−</span>
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="eks3atas2"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="eks3bawah2"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Langkah 4 --}}
+                <div class="mb-3">
+                    <div class="fw-bold mb-2">Langkah 4</div>
+                    <p class="mb-2">Karena gradien adalah koefisien \(x\), maka gradien garis tersebut adalah</p>
+
+                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-1 flex-wrap">
+                        <span>\(m=\)</span>
+                        <span style="font-size:22px; font-weight:600;">−</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="eks4atas"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="eks4bawah"
+                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 flex-wrap mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekEksplorasiGradienUmum()">Cek Jawaban</button>
+                </div>
+
+                <div id="fbEksplorasiGradienUmum" class="mt-3"></div>
+
+                <div id="kesimpulanEksplorasiGradienUmum" class="box-kesimpulan d-none mt-3">
+                    <div class="alert alert-success mb-0">
+                        Bagus! Setelah persamaan \(Ax + By + C = 0\) diubah ke bentuk \(y = mx + c\),
+                        diperoleh bahwa koefisien \(x\) bernilai \(-\frac{A}{B}\).
+                        Karena gradien adalah koefisien \(x\), maka gradien garis tersebut adalah
+                        \(m = -\frac{A}{B}\).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Bentuk umum Ax + By + C = 0 --}}
     <div class="card card-materi mb-4">
         <div class="card-body p-4">
@@ -414,10 +677,9 @@
     </div>
 
     {{-- Contoh Ax + By + C = 0 --}}
-    {{-- Contoh interaktif langsung gradien --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh Interaktif</span>
+            <span class="title-box">Contoh</span>
 
             <p class="mb-3">
                 Diketahui persamaan garis berikut.
@@ -474,9 +736,9 @@
 
 
     {{-- Contoh 1 --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+            <span class="title-box">Contoh</span>
 
             <p style="line-height:1.8; text-align:justify;">
                 Perhatikan persamaan berikut. Klik bagian persamaan yang menunjukkan gradien garis.
@@ -495,9 +757,9 @@
     </div>
 
     {{-- Contoh 2 --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+            <span class="title-box">Contoh</span>
 
             <p style="line-height:1.8; text-align:justify;">
                 Perhatikan persamaan <b>$4y = 2x - 8$</b>. Susunlah potongan langkah berikut agar menjadi urutan yang benar
@@ -527,147 +789,94 @@
         </div>
     </div>
 
-    {{-- Latihan --}}
-    <div class="card card-materi mb-4">
+    <div class="box-latihan mt-5 mb-4" id="latihanGradienSlider">
         <div class="card-body p-4">
-            <span class="badge-latihan">Latihan</span>
+            <span class="title-box">Latihan</span>
 
-            <p style="line-height:1.8; text-align:justify;">
-                Kerjakan latihan berikut dengan cermat. Pada beberapa soal, kamu perlu mengenali gradien dari persamaan
-                yang sudah sederhana, sedangkan pada soal lain kamu perlu berpikir lebih jauh dengan membandingkan dua
-                situasi yang berbeda.
+            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                Kerjakan latihan berikut dengan cermat. Jika jawaban berupa pecahan, tuliskan dalam bentuk
+                $a/b$, misalnya $1/2$.
             </p>
 
-            <div class="matching-wrap mb-3">
-                <div>
-                    <p class="mb-2"><b>1.</b> Cocokkan setiap persamaan dengan gradien yang benar.</p>
+            <div class="latihan-slider" id="latihanSliderGradien">
+                <div class="latihan-track" id="latihanTrackGradien">
 
-                    <div class="match-card mb-2">$y = 5x + 1$</div>
-                    <div class="drop-zone match-target mb-3" data-answer="5" id="match1">Letakkan gradien di sini
-                    </div>
+                    <!-- Slide 1 -->
+                    <section class="latihan-slide">
+                        <div class="context-card">
+                            <p class="mb-3"><b>1.</b> Tentukan gradien dari persamaan berikut.</p>
 
-                    <div class="match-card mb-2">$y = -2x + 4$</div>
-                    <div class="drop-zone match-target mb-3" data-answer="-2" id="match2">Letakkan gradien di sini
-                    </div>
+                            <div class="mb-3">
+                                <label class="form-label">a. \(y=-5x+7\)</label>
+                                <input type="text" id="lat1a" class="form-control mini-input">
+                            </div>
 
-                    <div class="match-card mb-2">$3y = 6x - 9$</div>
-                    <div class="drop-zone match-target" data-answer="2" id="match3">Letakkan gradien di sini</div>
-                </div>
+                            <div class="mb-3">
+                                <label class="form-label">b. \(4y=10x-12\)</label>
+                                <input type="text" id="lat1b" class="form-control mini-input">
+                            </div>
 
-                <div>
-                    <p class="mb-2"><b>Pilihan gradien</b></p>
-                    <div class="sort-bank">
-                        <div class="drag-item match-item" draggable="true" data-label="2">$2$</div>
-                        <div class="drag-item match-item" draggable="true" data-label="5">$5$</div>
-                        <div class="drag-item match-item" draggable="true" data-label="3">$3$</div>
-                        <div class="drag-item match-item" draggable="true" data-label="-2">$-2$</div>
-                        <div class="drag-item match-item" draggable="true" data-label="-3">$-3$</div>
-                    </div>
-                </div>
-            </div>
-            <hr class="soft">
-            <div class="choice-card mb-3">
-                <p class="mb-2"><b>2.</b> Persamaan manakah yang memiliki gradien paling besar?</p>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1Gradien()">Cek
+                                Jawaban</button>
+                            <div id="feedbackLatihan1Gradien" class="mt-3"></div>
+                        </div>
+                    </section>
 
-                <label>
-                    <input type="radio" name="pilihAnalisis" value="a">
-                    $y = 2x + 5$
-                </label>
+                    <!-- Slide 2 -->
+                    <section class="latihan-slide">
+                        <div class="context-card">
+                            <p class="mb-3"><b>2.</b> Tentukan gradien dari persamaan berikut.</p>
 
-                <label>
-                    <input type="radio" name="pilihAnalisis" value="b">
-                    $2y = 10x - 4$
-                </label>
+                            <div class="mb-3">
+                                <label class="form-label">a. \(6x+3y-9=0\)</label>
+                                <input type="text" id="lat2a" class="form-control mini-input">
+                            </div>
 
-                <label>
-                    <input type="radio" name="pilihAnalisis" value="c">
-                    $y = -3x + 8$
-                </label>
+                            <div class="mb-3">
+                                <label class="form-label">b. \(9x-6y+15=0\)</label>
+                                <input type="text" id="lat2b" class="form-control mini-input">
+                            </div>
 
-                <div class="mt-2">
-                    <label class="form-label">Tuliskan gradien persamaan yang kamu pilih.</label>
-                    <input type="text" id="analisisGradien" class="form-control mini-input">
-                </div>
-            </div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2Gradien()">Cek
+                                Jawaban</button>
+                            <div id="feedbackLatihan2Gradien" class="mt-3"></div>
+                        </div>
+                    </section>
 
-            <hr class="soft">
+                    <!-- Slide 3 -->
+                    <section class="latihan-slide">
+                        <div class="context-card">
+                            <p class="mb-3"><b>3.</b> Perhatikan dua jalan berikut.</p>
 
-            <div class="highlight-box mb-3">
-                <p class="mb-0" style="line-height:1.8; text-align:justify;">
-                    Dua jalan menanjak dinyatakan oleh persamaan <b>$2y = 4x + 2$</b> dan
-                    <b>$3y = 12x + 3$</b>. Kedua persamaan tersebut menunjukkan hubungan antara
-                    jarak mendatar ($x$) dan ketinggian ($y$) suatu jalan.
-                </p>
-            </div>
+                            <p style="line-height:1.8; text-align:justify;">
+                                Jalan A dinyatakan oleh persamaan \(3y=9x+6\), sedangkan Jalan B dinyatakan oleh
+                                persamaan \(4x+2y-8=0\). Nilai \(x\) menyatakan jarak mendatar dan nilai \(y\)
+                                menyatakan ketinggian.
+                            </p>
 
-            <div class="context-card">
-                <p class="mb-2"><b>3.</b> Berdasarkan persamaan tersebut, tentukan jalan yang lebih curam.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Gradien Jalan A adalah ...</label>
+                                <input type="text" id="lat3a" class="form-control mini-input">
+                            </div>
 
-                <label class="d-block mb-2">
-                    <input type="radio" name="pilihLatsol3" value="a">
-                    Jalan dengan persamaan $2y = 4x + 2$
-                </label>
+                            <div class="mb-3">
+                                <label class="form-label">Gradien Jalan B adalah ...</label>
+                                <input type="text" id="lat3b" class="form-control mini-input">
+                            </div>
 
-                <label class="d-block mb-3">
-                    <input type="radio" name="pilihLatsol3" value="b">
-                    Jalan dengan persamaan $3y = 12x + 3$
-                </label>
+                            <div class="mb-3">
+                                <label class="form-label">Jalan yang lebih curam adalah ...</label>
+                                <input type="text" id="lat3c" class="form-control mini-input">
+                            </div>
 
-                <hr class="soft">
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3Gradien()">Cek
+                                Jawaban</button>
+                            <div id="feedbackLatihan3Gradien" class="mt-3"></div>
+                        </div>
+                    </section>
 
-                <div class="mb-3">
-                    <label class="form-label">Persamaan $2y = 4x + 2$ diubah menjadi ...</label>
-                    <input type="text" id="latsol3_bentuk1" class="form-control mini-input"
-                        placeholder="contoh: y = ...">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Persamaan $3y = 12x + 3$ diubah menjadi ...</label>
-                    <input type="text" id="latsol3_bentuk2" class="form-control mini-input"
-                        placeholder="contoh: y = ...">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Gradien dari persamaan pertama adalah ...</label>
-                    <input type="text" id="latsol3_grad1" class="form-control mini-input">
-                </div>
-
-                <div class="mb-0">
-                    <label class="form-label">Gradien dari persamaan kedua adalah ...</label>
-                    <input type="text" id="latsol3_grad2" class="form-control mini-input">
                 </div>
             </div>
-
-            <hr class="soft">
-
-            <div class="context-card">
-                <p class="mb-2"><b>4.</b> Sebuah jalan menanjak dinyatakan oleh persamaan:</p>
-
-                <div class="rumus-box text-center mb-2">
-                    $$ 5x + 2y - 8 = 0 $$
-                </div>
-
-                <p>
-                    Persamaan tersebut menunjukkan hubungan antara jarak mendatar ($x$) dan ketinggian ($y$).
-                </p>
-
-                <p>
-                    Tentukan gradien jalan tersebut.
-                </p>
-
-                <div class="pecahan-tabel mt-2">
-                    <input type="number" id="lat4_atas" class="input-pecahan">
-                    <div class="garis-pecahan-kecil"></div>
-                    <input type="number" id="lat4_bawah" class="input-pecahan">
-                </div>
-            </div>
-
-            <div class="d-flex gap-2 mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekSemuaLatihan()">Cek Jawaban</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="resetSemuaLatihan()">Reset</button>
-            </div>
-
-            <div id="fbHasilAkhir" class="mt-3"></div>
         </div>
     </div>
 
@@ -676,39 +885,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

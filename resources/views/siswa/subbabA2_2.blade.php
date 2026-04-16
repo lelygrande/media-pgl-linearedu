@@ -50,6 +50,17 @@
             margin-bottom: 10px;
         }
 
+        .badge-sub {
+            display: inline-block;
+            background: #eef4ff;
+            color: #2E75B6;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            border: 1px solid #dbe5f1;
+        }
+
         /* Contoh 2 */
 
         /* contoh 2 */
@@ -253,8 +264,7 @@
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Menggambar Grafik Persamaan Garis Lurus</h2>
 
     <div class="box-info mb-3">
-        <h5 class="mb-2" style="font-weight:700;">2.2 Menggambar Grafik Persamaan menggunakan Dua Titik</h5>
-
+        <h5 class="mb-2" style="font-weight:700;">Menggambar Grafik Persamaan menggunakan Dua Titik</h5>
         <p class="mb-3" style="line-height:1.7;">
             Dalam menggambar grafik persamaan garis lurus, kita tidak selalu membutuhkan banyak titik.
             Secara matematis, <b>sebuah garis lurus dapat ditentukan hanya oleh dua titik</b>.
@@ -265,7 +275,7 @@
 
     {{-- Konsep Titik Potong --}}
     <div class="box-info mb-3">
-        <h5 class="mb-2" style="font-weight:700;">Menentukan Titik Potong dengan Sumbu Koordinat</h5>
+        <span class="badge-sub">Menentukan Titik Potong dengan Sumbu Koordinat</span>
 
         <p class="mb-2" style="line-height:1.7;">
             <b>Titik potong</b> adalah titik pertemuan antara suatu garis dengan sumbu koordinat pada bidang Kartesius.
@@ -309,8 +319,8 @@
     </div>
 
     {{-- Contoh --}}
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
+    <div class="box-contoh mb-4">
+        <span class="title-box">Contoh</span>
 
         <p class="mt-2 mb-2">Gambarlah grafik persamaan garis lurus:</p>
         <p class="text-center mb-3" style="font-weight:700;">
@@ -487,9 +497,8 @@
         </div>
     </div>
 
-    <div class="position-relative p-4 mt-5" style="border:2px solid #4a76b8; border-radius:6px; background:white;">
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+    <div class="box-eksplorasi mt-5">
+        <div class="title-box">
             Eksplorasi Titik Potong
         </div>
 
@@ -630,120 +639,153 @@
         </div>
     </div>
 
-    <div class="box-border-blue mt-3 mb-4">
-        <span class="badge-latihan">Latihan Soal</span>
+    {{-- Latihan Soal --}}
+    <div class="box-latihan mt-5 mb-4">
+        <span class="title-box">Latihan 1</span>
+        <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk \(y = mx + c\)</h5>
 
-        <p class="mb-3" style="max-width:720px;">
-            Diketahui persamaan: <b>\(4x - 2y = 8\)</b>. <br>
-            Lengkapilah langkah-langkah berikut untuk menentukan bentuk persamaan dan titik potongnya.
+        <p class="mb-3">
+            Diketahui persamaan garis:
+            <b>\( y = 2x + 4 \)</b>
         </p>
 
-        <!-- BAGIAN A -->
-        <div id="bagianA" class="step-box">
-            <h6 style="font-weight:700;">A. Menentukan Bentuk \(y = mx + c\)</h6>
+        <div class="box-info mb-3">
+            <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
+            <p>Untuk mencari titik potong dengan sumbu x, substitusikan <b>\(y = 0\)</b>.</p>
 
-            <p class="mb-2">1) Lengkapi bentuk berikut.</p>
-            <p class="mb-3">
-                \(-2y =\)
-                <input type="text" id="L1" class="input-step" style="width:100px;">
+            <p>
+                \(0 = 2x + 4\)
             </p>
 
-            <p class="mb-2">2) Dari bentuk tersebut, diperoleh</p>
-            <p class="mb-3">
-                \(y =\)
-                <input type="text" id="L2" class="input-step" style="width:100px;">
-            </p>
-
-            <p class="mb-2">3) Susun hasilnya ke bentuk \(y = mx + c\).</p>
-            <p class="mb-3">
-                \(y =\)
-                <input type="text" id="L3" class="input-step" style="width:100px;">
-            </p>
-
-            <button type="button" class="btn btn-warning" id="btn-cek-a">Cek Bagian A</button>
-            <div id="feedback-a" class="feedback-box mt-3" style="display:none;"></div>
-        </div>
-
-        <!-- BAGIAN B -->
-        <div id="bagianB" class="step-box step-locked mt-4" style="display:none;">
-            <h6 style="font-weight:700;">B. Menentukan Titik Potong Sumbu \(x\)</h6>
-
-            <p class="mb-2">
-                Dari bagian A diperoleh persamaan <b>\(y = 2x - 4\)</b>. <br>
-                Untuk menentukan titik potong sumbu \(x\), substitusikan nilai <b>\(y = 0\)</b>.
-            </p>
-
-            <p class="mb-2">1) Lengkapi bentuk berikut.</p>
-            <p class="mb-3">
-                <input type="text" id="sx1_left" class="input-step" style="width:90px;" placeholder="...">
-                <span>=</span>
-                <input type="text" id="sx1_right" class="input-step" style="width:140px;" placeholder="...">
-            </p>
-
-            <p class="mb-2">2) Sederhanakan persamaan tersebut.</p>
-            <p class="mb-3">
-                <input type="text" id="sx2_left" class="input-step" style="width:90px;" placeholder="...">
-                <span>=</span>
-                <input type="text" id="sx2_right" class="input-step" style="width:140px;" placeholder="...">
-            </p>
-
-            <p class="mb-2">3) Tentukan nilai \(x\).</p>
-            <p class="mb-3">
+            <p>
                 \(x =\)
-                <input type="text" id="sx3" class="input-step" style="width:90px;" placeholder="...">
+                <input type="text" id="l1_x_value"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
             </p>
 
-            <p class="mb-2">4) Dengan demikian, titik potong sumbu \(x\) adalah</p>
-            <p class="mb-3">
+            <p>
+                Titik potong sumbu x:
                 (
-                <input type="text" id="sx4x" class="input-step" style="width:70px;" placeholder="x">
+                <input type="text" id="l1_x_point_x"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
                 ,
-                <input type="text" id="sx4y" class="input-step" style="width:70px;" placeholder="y">
+                <input type="text" id="l1_x_point_y"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
                 )
             </p>
-
-            <button type="button" class="btn btn-warning" id="btn-cek-b">Cek Bagian B</button>
-            <div id="feedback-b" class="feedback-box mt-3" style="display:none;"></div>
         </div>
 
-        <!-- BAGIAN C -->
-        <div id="bagianC" class="step-box step-locked mt-4" style="display:none;">
-            <h6 style="font-weight:700;">C. Menentukan Titik Potong Sumbu \(y\)</h6>
+        <div class="box-info mb-3">
+            <h6 class="fw-bold">B. Titik potong dengan sumbu y</h6>
+            <p>Untuk mencari titik potong dengan sumbu y, substitusikan <b>\(x = 0\)</b>.</p>
 
-            <p class="mb-2">
-                Dari bagian A diperoleh persamaan <b>\(y = 2x - 4\)</b>. <br>
-                Untuk menentukan titik potong sumbu \(y\), substitusikan nilai <b>\(x = 0\)</b>.
+            <p>
+                \(y = 2(0) + 4\)
             </p>
 
-            <p class="mb-2">1) Lengkapi bentuk berikut.</p>
-            <p class="mb-3">
-                \(y = 2(\)
-                <input type="text" id="sy1" class="input-step" style="width:70px;" placeholder="...">
-                \() - 4\)
-            </p>
-
-            <p class="mb-2">2) Sederhanakan hasilnya.</p>
-            <p class="mb-3">
+            <p>
                 \(y =\)
-                <input type="text" id="sy2" class="input-step" style="width:90px;" placeholder="...">
+                <input type="text" id="l1_y_value"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
             </p>
 
-            <p class="mb-2">3) Dengan demikian, titik potong sumbu \(y\) adalah</p>
-            <p class="mb-3">
+            <p>
+                Titik potong sumbu y:
                 (
-                <input type="text" id="sy3x" class="input-step" style="width:70px;" placeholder="x">
+                <input type="text" id="l1_y_point_x"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
                 ,
-                <input type="text" id="sy3y" class="input-step" style="width:70px;" placeholder="y">
+                <input type="text" id="l1_y_point_y"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
                 )
             </p>
-
-            <button type="button" class="btn btn-warning" id="btn-cek-c">Cek Bagian C</button>
-            <div id="feedback-c" class="feedback-box mt-3" style="display:none;"></div>
         </div>
 
-        <div id="canvas-holder" style="display:none;" class="mt-4"></div>
-        <button type="button" class="btn btn-outline-secondary mt-3" id="btn-reset-all">Reset Semua</button>
+        <button class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek Jawaban</button>
+        <div id="feedbackLatihan1" class="mt-3"></div>
+
+        <div id="canvas-latihan1-wrap" class="mt-4" style="display:none;">
+            <div id="canvas-latihan1"></div>
+        </div>
     </div>
+
+    <div class="box-latihan mt-5 mb-4">
+        <span class="title-box">Latihan 2</span>
+
+        <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk \(Ax + By + C = 0\)</h5>
+
+        <p class="mb-3">
+            Diketahui persamaan garis:
+            <b>\(3x + 4y - 24 = 0\)</b>
+        </p>
+
+        <div class="box-info mb-3">
+            <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
+            <p>
+                Untuk mencari titik potong dengan sumbu x, substitusikan <b>\(y = 0\)</b>.
+            </p>
+
+            <p>
+                \(3x + 4(0) - 24 = 0\)
+            </p>
+
+            <p>
+                \(x =\)
+                <input type="text" id="l2_x_value"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+            </p>
+
+            <p>
+                Titik potong sumbu x:
+                (
+                <input type="text" id="l2_x_point_x"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+                ,
+                <input type="text" id="l2_x_point_y"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+                )
+            </p>
+        </div>
+
+        <div class="box-info mb-3">
+            <h6 class="fw-bold">B. Titik potong dengan sumbu y</h6>
+            <p>
+                Untuk mencari titik potong dengan sumbu y, substitusikan <b>\(x = 0\)</b>.
+            </p>
+
+            <p>
+                \(3(0) + 4y - 24 = 0\)
+            </p>
+
+            <p>
+                \(y =\)
+                <input type="text" id="l2_y_value"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+            </p>
+
+            <p>
+                Titik potong sumbu y:
+                (
+                <input type="text" id="l2_y_point_x"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+                ,
+                <input type="text" id="l2_y_point_y"
+                    class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+                )
+            </p>
+        </div>
+
+        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2()">
+            Cek Jawaban
+        </button>
+
+        <div id="feedbackLatihan2" class="mt-3"></div>
+
+        <div id="canvas-latihan2-wrap" class="mt-4" style="display:none;">
+            <div id="canvas-latihan2"></div>
+        </div>
+    </div>
+
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabA/latsol2_2.js') }}"></script>
@@ -752,35 +794,30 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else

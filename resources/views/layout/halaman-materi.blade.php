@@ -18,14 +18,15 @@
     {{-- KaTeX --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-                                                                                                        delimiters: [
-                                                                                                          {left: '$$', right: '$$', display: true},
-                                                                                                          {left: '$', right: '$', display: false},
-                                                                                                          {left: '\\\\[', right: '\\\\]', display: true},
-                                                                                                          {left: '\\\\(', right: '\\\\)', display: false}
-                                                                                                        ]
-                                                                                                      });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+                                                                                                                                    delimiters: [
+                                                                                                                                      {left: '$$', right: '$$', display: true},
+                                                                                                                                      {left: '$', right: '$', display: false},
+                                                                                                                                      {left: '\\\\[', right: '\\\\]', display: true},
+                                                                                                                                      {left: '\\\\(', right: '\\\\)', display: false}
+                                                                                                                                    ]
+                                                                                                                                  });"></script>
 
     <style>
         :root {
@@ -211,6 +212,106 @@
             font-family: "Times New Roman", "Cambria Math", "STIX Two Text", "Latin Modern Roman", serif;
             font-style: italic;
             font-size: 18px;
+        }
+
+        /* BOX */
+        /* =========================
+            BOX EKSPLORASI (BIRU)
+        ========================= */
+        .box-eksplorasi {
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+            border: 2px solid #2E75B6;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(46, 117, 182, 0.15);
+            position: relative;
+            padding: 28px 20px 20px 20px;
+        }
+
+        .box-eksplorasi .title-box {
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            background: linear-gradient(135deg, #2E75B6, #5a9be0);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* =========================
+            BOX CONTOH (UNGU/BIRU TUA)
+        ========================= */
+        .box-contoh {
+            position: relative;
+            border: 2px solid #7b61c7;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f6f3ff, #fbfaff);
+            box-shadow: 0 8px 20px rgba(123, 97, 199, 0.15);
+
+            padding: 28px 20px 20px 20px;
+        }
+
+        .box-contoh .title-box {
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            background: linear-gradient(135deg, #6f42c1, #9b7be0);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* =========================
+        BOX LATIHAN (HIJAU)
+        ========================= */
+        .box-latihan {
+            background: linear-gradient(135deg, #f0fff5, #f8fffb);
+            border: 2px solid #22b969;
+            border-radius: 26px;
+            box-shadow: 0 8px 20px rgba(34, 185, 105, 0.15);
+            position: relative;
+            padding: 28px 20px 20px 20px;
+        }
+
+        .box-latihan .title-box {
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            background: linear-gradient(135deg, #22b969, #4cd38a);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* BOX MATERI */
+
+        .card-materi {
+            border-radius: 16px;
+            border: 1.5px solid #dbe5f1;
+            background: linear-gradient(180deg, #ffffff, #f9fbff);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+        }
+
+        .card-materi:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .badge-sub {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef4ff, #f4f8ff);
+            color: #2E75B6;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+            border: 1px solid #dbe5f1;
         }
     </style>
 </head>
@@ -531,6 +632,11 @@
                     {
                         left: "$",
                         right: "$",
+                        display: false
+                    },
+                    {
+                        left: "\\(",
+                        right: "\\)",
                         display: false
                     }
                 ]

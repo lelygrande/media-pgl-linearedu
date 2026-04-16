@@ -307,10 +307,8 @@
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-4" style="font-weight: 600;">1. Bentuk Umum Persamaan Garis Lurus</h2>
 
-    <div class="position-relative p-4 mt-5" style="border:2px solid #4a76b8; border-radius:6px; background-color:white;">
-
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+    <div class="p-4 mt-5 box-eksplorasi">
+        <div class="title-box">
             Eksplorasi Garis
         </div>
 
@@ -535,8 +533,8 @@
     </p>
 
     {{-- Contoh mengubah eksplisit ke implisit --}}
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
+    <div class="box-contoh mt-5 mb-4">
+        <span class="title-box">Contoh</span>
 
         <p class="mt-2 mb-3" style="text-align: justify;">
             Nyatakan persamaan garis berikut ke dalam bentuk umum <b>$Ax + By + C = 0$</b>.
@@ -612,8 +610,8 @@
 
     {{-- Contoh mengubah implisit ke eksplisit --}}
 
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
+    <div class="box-contoh mt-5 mb-4">
+        <span class="title-box">Contoh</span>
 
         <p class="mt-2 mb-3" style="text-align: justify;">
             Mari kita ubah persamaan berikut dari bentuk implisit ke bentuk eksplisit secara bertahap.
@@ -688,8 +686,8 @@
     </div>
 
     {{-- ===== Contoh ===== --}}
-    <div class="box-border-blue mb-4">
-        <span class="badge-judul">Contoh</span>
+    <div class="box-contoh mt-5 mb-4">
+        <span class="title-box">Contoh</span>
 
         <p class="mt-2 mb-3" style="text-align: justify;">
             Sekarang, cobalah perhatikan beberapa persamaan berikut.
@@ -762,82 +760,78 @@
         </div>
 
     </div>
+    <div class="box-contoh mt-5">
+        <span class="title-box">Contoh</span>
 
+        <p class="mt-2 mb-3">
+            Tentukan apakah persamaan <b>$2y + 4^2 = x$</b> merupakan persamaan garis lurus!
+        </p>
 
-    <div class="card card-materi mb-4">
-        <div class="card-body">
-            <span class="badge-contoh">Contoh</span>
-
-            <p class="mt-2 mb-3">
-                Tentukan apakah persamaan <b>$2y + 4^2 = x$</b> merupakan persamaan garis lurus!
-            </p>
-
-            <div class="step-stack">
-                <div class="step-item">
-                    <div class="step-row">
-                        <div class="step-eq">$2y + 4^2 = x$</div>
-                        <div class="step-note">
-                            Mulai dari persamaan awal. Hitung dulu nilai <b>$4^2$</b>.
-                        </div>
+        <div class="step-stack">
+            <div class="step-item">
+                <div class="step-row">
+                    <div class="step-eq">$2y + 4^2 = x$</div>
+                    <div class="step-note">
+                        Mulai dari persamaan awal. Hitung dulu nilai <b>$4^2$</b>.
                     </div>
-
-                    <button class="btn-arrow" type="button" onclick="openStep(2, this)">
-                        ↓ Tampilkan langkah berikutnya
-                    </button>
                 </div>
 
-                <div id="step2" class="step-item" style="display:none;">
-                    <div class="step-row">
-                        <div class="step-eq">$2y + 16 = x$</div>
-                        <div class="step-note">
-                            Karena <b>$4^2 = 16$</b>, persamaan menjadi <b>$2y + 16 = x$</b>.
-                        </div>
-                    </div>
+                <button class="btn-arrow" type="button" onclick="openStep(2, this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
 
-                    <button class="btn-arrow" type="button" onclick="openStep(3, this)">
-                        ↓ Tampilkan langkah berikutnya
-                    </button>
+            <div id="step2" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$2y + 16 = x$</div>
+                    <div class="step-note">
+                        Karena <b>$4^2 = 16$</b>, persamaan menjadi <b>$2y + 16 = x$</b>.
+                    </div>
                 </div>
 
-                <div id="step3" class="step-item" style="display:none;">
-                    <div class="step-row">
-                        <div class="step-eq">$2y = x - 16$</div>
-                        <div class="step-note">
-                            <b>Pindahkan 16</b> ke ruas kanan. Karena awalnya <b>+16</b>, saat pindah jadi <b>−16</b>.
-                        </div>
-                    </div>
+                <button class="btn-arrow" type="button" onclick="openStep(3, this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
 
-                    <button class="btn-arrow" type="button" onclick="openStep(4, this)">
-                        ↓ Tampilkan langkah berikutnya
-                    </button>
+            <div id="step3" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$2y = x - 16$</div>
+                    <div class="step-note">
+                        <b>Pindahkan 16</b> ke ruas kanan. Karena awalnya <b>+16</b>, saat pindah jadi <b>−16</b>.
+                    </div>
                 </div>
 
-                <div id="step4" class="step-item" style="display:none;">
-                    <div class="step-row">
-                        <div class="step-eq">$y = \frac{x - 16}{2}$</div>
-                        <div class="step-note">
-                            Koefisien di depan $y$ adalah <b>2</b>. Agar $y$ sendiri, kedua ruas <b>dibagi 2</b>.
-                        </div>
-                    </div>
+                <button class="btn-arrow" type="button" onclick="openStep(4, this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
 
-                    <button class="btn-arrow" type="button" onclick="openStep(5, this)">
-                        ↓ Tampilkan langkah berikutnya
-                    </button>
+            <div id="step4" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$y = \frac{x - 16}{2}$</div>
+                    <div class="step-note">
+                        Koefisien di depan $y$ adalah <b>2</b>. Agar $y$ sendiri, kedua ruas <b>dibagi 2</b>.
+                    </div>
                 </div>
 
-                <div id="step5" class="step-item" style="display:none;">
-                    <div class="step-row">
-                        <div class="step-eq">$y = \frac{1}{2}x - 8$</div>
-                        <div class="step-note">
-                            Sederhanakan: $\frac{x}{2}=\frac{1}{2}x$ dan $\frac{-16}{2}=-8$.
-                            Bentuk ini sudah sesuai $y=mx+c$.
-                        </div>
-                    </div>
+                <button class="btn-arrow" type="button" onclick="openStep(5, this)">
+                    ↓ Tampilkan langkah berikutnya
+                </button>
+            </div>
 
-                    <div class="final-box mt-3">
-                        <b>Kesimpulan:</b> Persamaan dapat ditulis dalam bentuk <b>$y = mx + c$</b>,
-                        sehingga merupakan persamaan garis lurus.
+            <div id="step5" class="step-item" style="display:none;">
+                <div class="step-row">
+                    <div class="step-eq">$y = \frac{1}{2}x - 8$</div>
+                    <div class="step-note">
+                        Sederhanakan: $\frac{x}{2}=\frac{1}{2}x$ dan $\frac{-16}{2}=-8$.
+                        Bentuk ini sudah sesuai $y=mx+c$.
                     </div>
+                </div>
+
+                <div class="final-box mt-3">
+                    <b>Kesimpulan:</b> Persamaan dapat ditulis dalam bentuk <b>$y = mx + c$</b>,
+                    sehingga merupakan persamaan garis lurus.
                 </div>
             </div>
         </div>
@@ -852,9 +846,9 @@
             <!-- LATIHAN 1 -->
             <!-- ===================== -->
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="mt-5 box-latihan">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 1</span>
+                        <span class="title-box">Latihan 1</span>
 
                         <p>
                             <b>1.</b> Seret persamaan yang merupakan <b>persamaan garis lurus</b> ke dalam kotak jawaban.
@@ -896,9 +890,9 @@
             <!-- LATIHAN 2 -->
             <!-- ===================== -->
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="mt-5 box-latihan">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 2</span>
+                        <span class="title-box">Latihan 2</span>
 
                         <p>
                             <b>2.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
@@ -953,9 +947,9 @@
             <!-- LATIHAN 3 -->
             <!-- ===================== -->
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="card card-materi mt-5 box-latihan">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 3</span>
+                        <span class="title-box">Latihan 3</span>
 
                         <p>
                             <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
@@ -1013,11 +1007,11 @@
     </div>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {
-                                                                                                                                                                                    delimiters: [
-                                                                                                                                                                                        {left: '$$', right: '$$', display: true},
-                                                                                                                                                                                        {left: '$', right: '$', display: false}
-                                                                                                                                                                                    ]
-                                                                                                                                                                                });"></script>
+                                                                                                                                                                                            delimiters: [
+                                                                                                                                                                                                {left: '$$', right: '$$', display: true},
+                                                                                                                                                                                                {left: '$', right: '$', display: false}
+                                                                                                                                                                                            ]
+                                                                                                                                                                                        });"></script>
 
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
@@ -1034,35 +1028,30 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
