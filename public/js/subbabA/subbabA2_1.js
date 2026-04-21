@@ -1,5 +1,9 @@
 function normJawaban(teks) {
-    return String(teks).toLowerCase().replace(/\s+/g, "").trim();
+    return String(teks ?? "")
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .trim();
 }
 
 function cekIsian(id, jawabanBenar) {
@@ -16,8 +20,34 @@ function cekIsian(id, jawabanBenar) {
     return cocok;
 }
 
-// Latihan
+// =========================
+// SLIDER LATIHAN
+// =========================
+let currentLatihan = 0;
 
+document.addEventListener("DOMContentLoaded", function () {
+    updateLatihanSlide();
+});
+
+function updateLatihanSlide() {
+    const track = document.getElementById("latihanTrack");
+    if (!track) return;
+    track.style.transform = `translateX(-${currentLatihan * 100}%)`;
+}
+
+function nextLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
+function prevLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
+// =========================
+// LATIHAN 1
+// =========================
 function cekLatihan1() {
     const hasil = [
         cekIsian("lat1_y1", "-5"),
@@ -31,22 +61,18 @@ function cekLatihan1() {
         cekIsian("lat1_pair4", ["(4,1)", "4,1"]),
     ];
 
+    const nextBtn = document.getElementById("nextBtnLat1");
+    const feedback = document.getElementById("feedbackLatihan1");
     const boxKesimpulan = document.getElementById("kesimpulanLat1");
 
     if (hasil.every(Boolean)) {
-        document.getElementById("feedbackLatihan1").innerHTML =
-            `<span style="color:#15803d;">Bagus! Semua jawaban benar.</span>`;
-
-        if (boxKesimpulan) {
-            boxKesimpulan.style.display = "block";
-        }
+        feedback.innerHTML = `<span style="color:#15803d;">Bagus! Semua jawaban benar.</span>`;
+        if (boxKesimpulan) boxKesimpulan.style.display = "block";
+        if (nextBtn) nextBtn.disabled = false;
     } else {
-        document.getElementById("feedbackLatihan1").innerHTML =
-            `<span style="color:#b91c1c;">Masih ada yang salah.</span>`;
-
-        if (boxKesimpulan) {
-            boxKesimpulan.style.display = "none";
-        }
+        feedback.innerHTML = `<span style="color:#b91c1c;">Masih ada yang salah.</span>`;
+        if (boxKesimpulan) boxKesimpulan.style.display = "none";
+        if (nextBtn) nextBtn.disabled = true;
     }
 }
 
@@ -68,26 +94,36 @@ function resetLatihan1() {
         }
     });
 
-    document.getElementById("feedbackLatihan1").innerHTML = "";
-
+    const feedback = document.getElementById("feedbackLatihan1");
     const boxKesimpulan = document.getElementById("kesimpulanLat1");
-    if (boxKesimpulan) {
-        boxKesimpulan.style.display = "none";
-    }
+    const nextBtn = document.getElementById("nextBtnLat1");
+
+    if (feedback) feedback.innerHTML = "";
+    if (boxKesimpulan) boxKesimpulan.style.display = "none";
+    if (nextBtn) nextBtn.disabled = true;
 }
 
-// Latihan 2
-// Latihan 2
+// =========================
+// LATIHAN 2
+// =========================
 function cekTabel() {
-    // cek input kosong
-    if (
-        document.getElementById("y1").value.trim() === "" ||
-        document.getElementById("y2").value.trim() === "" ||
-        document.getElementById("y3").value.trim() === "" ||
-        document.getElementById("y4").value.trim() === ""
-    ) {
-        document.getElementById("feedbackTabel").innerHTML =
-            `<span style="color:#b45309;">Isi semua nilai y dulu ya.</span>`;
+    const inputIds = ["y1", "y2", "y3", "y4"];
+    const kosong = inputIds.some((id) => {
+        const el = document.getElementById(id);
+        return !el || el.value.trim() === "";
+    });
+
+    const feedbackTabel = document.getElementById("feedbackTabel");
+    const grafikSection = document.getElementById("grafikSection");
+    const boxKesimpulan = document.getElementById("kesimpulanLat2");
+
+    if (kosong) {
+        if (feedbackTabel) {
+            feedbackTabel.innerHTML =
+                `<span style="color:#b45309;">Isi semua nilai y dulu ya.</span>`;
+        }
+        if (grafikSection) grafikSection.style.display = "none";
+        if (boxKesimpulan) boxKesimpulan.style.display = "none";
         return;
     }
 
@@ -96,30 +132,31 @@ function cekTabel() {
     const benar3 = cekIsian("y3", "5");
     const benar4 = cekIsian("y4", "9");
 
-    const y1 = document.getElementById("y1").value.trim();
-    const y2 = document.getElementById("y2").value.trim();
-    const y3 = document.getElementById("y3").value.trim();
-    const y4 = document.getElementById("y4").value.trim();
+    const y1 = document.getElementById("y1")?.value.trim() ?? "";
+    const y2 = document.getElementById("y2")?.value.trim() ?? "";
+    const y3 = document.getElementById("y3")?.value.trim() ?? "";
+    const y4 = document.getElementById("y4")?.value.trim() ?? "";
 
-    // update pasangan titik (x,y)
-    document.getElementById("pair1").innerHTML = `$(-4, ${y1})$`;
-    document.getElementById("pair2").innerHTML = `$(-2, ${y2})$`;
-    document.getElementById("pair3").innerHTML = `$(0, ${y3})$`;
-    document.getElementById("pair4").innerHTML = `$(2, ${y4})$`;
+    const pair1 = document.getElementById("pair1");
+    const pair2 = document.getElementById("pair2");
+    const pair3 = document.getElementById("pair3");
+    const pair4 = document.getElementById("pair4");
+
+    if (pair1) pair1.innerHTML = `$(-4, ${y1})$`;
+    if (pair2) pair2.innerHTML = `$(-2, ${y2})$`;
+    if (pair3) pair3.innerHTML = `$(0, ${y3})$`;
+    if (pair4) pair4.innerHTML = `$(2, ${y4})$`;
 
     if (window.renderMathInElement) {
-        renderMathInElement(document.getElementById("latihan-garis"), {
+        const target =
+            document.getElementById("latihan-garis-2") ||
+            document.getElementById("grafikSection") ||
+            document.body;
+
+        renderMathInElement(target, {
             delimiters: [
-                {
-                    left: "$$",
-                    right: "$$",
-                    display: true,
-                },
-                {
-                    left: "$",
-                    right: "$",
-                    display: false,
-                },
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
             ],
         });
     }
@@ -127,52 +164,43 @@ function cekTabel() {
     const ok = benar1 && benar2 && benar3 && benar4;
 
     if (ok) {
-        // kirim data titik target dari tabel ke p5
         window.tablePairs = [
-            {
-                label: "A",
-                x: -4,
-                y: Number(y1),
-            },
-            {
-                label: "B",
-                x: -2,
-                y: Number(y2),
-            },
-            {
-                label: "C",
-                x: 0,
-                y: Number(y3),
-            },
-            {
-                label: "D",
-                x: 2,
-                y: Number(y4),
-            },
+            { label: "A", x: -4, y: Number(y1) },
+            { label: "B", x: -2, y: Number(y2) },
+            { label: "C", x: 0, y: Number(y3) },
+            { label: "D", x: 2, y: Number(y4) },
         ];
 
         if (window.loadTargetsFromTable) {
             window.loadTargetsFromTable(window.tablePairs);
         }
 
-        document.getElementById("feedbackTabel").innerHTML =
-            `<span style="color:#15803d;">Tabel benar! Sekarang seret titik A–D pada grafik.</span>`;
+        if (feedbackTabel) {
+            feedbackTabel.innerHTML =
+                `<span style="color:#15803d;">Tabel benar! Sekarang seret titik A–D pada grafik.</span>`;
+        }
 
-        document.getElementById("grafikSection").style.display = "block";
+        if (grafikSection) {
+            grafikSection.style.display = "block";
+        }
 
-        // kesimpulan disembunyikan dulu
-        const boxKesimpulan = document.getElementById("kesimpulanLat2");
         if (boxKesimpulan) {
             boxKesimpulan.style.display = "none";
         }
 
-        if (window.resetPointsToStart) window.resetPointsToStart();
+        if (window.resetPointsToStart) {
+            window.resetPointsToStart();
+        }
     } else {
-        document.getElementById("feedbackTabel").innerHTML =
-            `<span style="color:#b91c1c;">Masih ada yang salah. Coba cek lagi pakai y = 2x + 5.</span>`;
-        document.getElementById("grafikSection").style.display = "none";
+        if (feedbackTabel) {
+            feedbackTabel.innerHTML =
+                `<span style="color:#b91c1c;">Masih ada yang salah. Coba cek lagi pakai y = 2x + 5.</span>`;
+        }
 
-        const boxKesimpulan = document.getElementById("kesimpulanLat2");
+        if (grafikSection) {
+            grafikSection.style.display = "none";
+        }
+
         if (boxKesimpulan) {
             boxKesimpulan.style.display = "none";
         }
@@ -188,19 +216,40 @@ function resetLatihan() {
         }
     });
 
-    document.getElementById("pair1").innerHTML = "$(-4, …)$";
-    document.getElementById("pair2").innerHTML = "$(-2, …)$";
-    document.getElementById("pair3").innerHTML = "$(0, …)$";
-    document.getElementById("pair4").innerHTML = "$(2, …)$";
+    const pair1 = document.getElementById("pair1");
+    const pair2 = document.getElementById("pair2");
+    const pair3 = document.getElementById("pair3");
+    const pair4 = document.getElementById("pair4");
 
-    document.getElementById("feedbackTabel").innerHTML = "";
-    document.getElementById("feedbackGrafik").innerHTML = "";
-    document.getElementById("grafikSection").style.display = "none";
+    if (pair1) pair1.innerHTML = "$(-4, \\dots)$";
+    if (pair2) pair2.innerHTML = "$(-2, \\dots)$";
+    if (pair3) pair3.innerHTML = "$(0, \\dots)$";
+    if (pair4) pair4.innerHTML = "$(2, \\dots)$";
 
+    const feedbackTabel = document.getElementById("feedbackTabel");
+    const feedbackGrafik = document.getElementById("feedbackGrafik");
+    const grafikSection = document.getElementById("grafikSection");
     const boxKesimpulan = document.getElementById("kesimpulanLat2");
-    if (boxKesimpulan) {
-        boxKesimpulan.style.display = "none";
+
+    if (feedbackTabel) feedbackTabel.innerHTML = "";
+    if (feedbackGrafik) feedbackGrafik.innerHTML = "";
+    if (grafikSection) grafikSection.style.display = "none";
+    if (boxKesimpulan) boxKesimpulan.style.display = "none";
+
+    if (window.renderMathInElement) {
+        const target =
+            document.getElementById("latihan-garis-2") ||
+            document.body;
+
+        renderMathInElement(target, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+            ],
+        });
     }
 
-    if (window.resetPointsToStart) window.resetPointsToStart();
+    if (window.resetPointsToStart) {
+        window.resetPointsToStart();
+    }
 }

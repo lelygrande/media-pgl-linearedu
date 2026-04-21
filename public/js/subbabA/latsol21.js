@@ -8,18 +8,13 @@ let draggingToken = null;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 
-let btnSubmit, btnReset;
 let resultMessage = "";
 let resultColor;
 
 // FLAG: garis hanya tampil kalau semua benar setelah Submit
 let showLine = false;
 
-// DOM container
-let holder, uiRow;
-
 function setup() {
-    // ambil holder dari HTML
     holder = select("#canvas-holder");
     if (!holder) {
         holder = createDiv();
@@ -28,23 +23,6 @@ function setup() {
     const c = createCanvas(840, 560);
     c.parent(holder);
 
-    uiRow = createDiv();
-    uiRow.parent(holder);
-    uiRow.style("margin-top", "10px");
-    uiRow.style("display", "flex");
-    uiRow.style("gap", "10px");
-    uiRow.style("align-items", "center");
-
-    btnSubmit = createButton("Submit");
-    btnSubmit.parent(uiRow);
-    btnSubmit.mousePressed(checkAnswers);
-    btnSubmit.addClass("btn-palet");
-
-    btnReset = createButton("Reset");
-    btnReset.parent(uiRow);
-    btnReset.mousePressed(resetAll);
-    btnReset.addClass("btn-palet");
-    
     scaleUnit = gridSize / 20;
     originX = leftMargin + gridSize / 2;
     originY = topMargin + gridSize / 2;

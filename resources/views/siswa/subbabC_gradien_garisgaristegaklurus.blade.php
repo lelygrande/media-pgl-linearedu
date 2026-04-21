@@ -129,6 +129,46 @@
             justify-content: center;
             gap: 4px;
         }
+
+        /* Opsi kotak */
+        .opsi-kotak-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .opsi-kotak {
+            border: 2px solid #cfd8e3;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opsi-kotak:hover {
+            border-color: #2E75B6;
+            background: #eef5ff;
+        }
+
+        .opsi-kotak.active {
+            background: #2E75B6;
+            color: #fff;
+            border-color: #2E75B6;
+        }
+
+        .opsi-kotak.benar {
+            background: #198754 !important;
+            color: #fff !important;
+            border-color: #198754 !important;
+        }
+
+        .opsi-kotak.salah {
+            background: #dc3545 !important;
+            color: #fff !important;
+            border-color: #dc3545 !important;
+        }
     </style>
 
     {{-- Judul --}}
@@ -149,11 +189,9 @@
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">3. Gradien Garis-garis yang Saling Tegak Lurus</h2>
 
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
+    <div class="box-eksplorasi mt-5">
 
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+        <div class="title-box">
             Eksplorasi
         </div>
 
@@ -180,7 +218,7 @@
                     Hitung gradien masing-masing garis pada grafik tersebut.
                 </p>
 
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3" style="max-width: 550px;">
                     <table class="table table-bordered text-center align-middle">
                         <thead class="table-light">
                             <tr>
@@ -193,29 +231,37 @@
                             <tr>
                                 <td>$AB$</td>
                                 <td>$A(-4,-2)$ dan $B(-2,2)$</td>
-                                <td><input type="text" id="tm1" class="form-control text-center"></td>
+                                <td>
+                                    <input type="text" id="tm1" class="form-control text-center mx-auto"
+                                        style="width: 70px">
+                                </td>
                             </tr>
                             <tr>
                                 <td>$CD$</td>
                                 <td>$C(-4,2)$ dan $D(0,0)$</td>
-                                <td><input type="text" id="tm2" class="form-control text-center"></td>
+                                <td>
+                                    <input type="text" id="tm2" class="form-control text-center mx-auto"
+                                        style="width: 70px">
+                                </td>
                             </tr>
                             <tr>
                                 <td>$EF$</td>
                                 <td>$E(1,-1)$ dan $F(5,1)$</td>
-                                <td><input type="text" id="tm3" class="form-control text-center"></td>
+                                <td>
+                                    <input type="text" id="tm3" class="form-control text-center mx-auto"
+                                        style="width: 70px">
+                                </td>
                             </tr>
                             <tr>
                                 <td>$GH$</td>
                                 <td>$G(2,3)$ dan $H(4,-1)$</td>
-                                <td><input type="text" id="tm4" class="form-control text-center"></td>
+                                <td>
+                                    <input type="text" id="tm4" class="form-control text-center mx-auto"
+                                        style="width: 70px">
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="rumus-box text-center mb-3">
-                    $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
                 </div>
 
                 <button class="btn btn-palet" onclick="cekStepT1()">Cek Jawaban</button>
@@ -239,11 +285,13 @@
                         <tbody>
                             <tr>
                                 <td>$m_{AB} \times m_{CD}$</td>
-                                <td><input type="text" id="kali1" class="form-control text-center"></td>
+                                <td><input type="text" id="kali1" class="form-control text-center mx-auto"
+                                        style="width: 70px"></td>
                             </tr>
                             <tr>
                                 <td>$m_{EF} \times m_{GH}$</td>
-                                <td><input type="text" id="kali2" class="form-control text-center"></td>
+                                <td><input type="text" id="kali2" class="form-control text-center mx-auto"
+                                        style="width: 70px"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -285,7 +333,7 @@
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Konsep Gradien Garis-Garis Saling Tegak Lurus</span>
 
@@ -310,7 +358,7 @@
                 Dari hasil perhitungan, diperoleh bahwa hasil kali kedua gradien tersebut selalu memenuhi:
             </p>
 
-            <div class="rumus-box text-center my-3">
+            <div class="rumus-box text-center my-3 mx-auto" style="width: fit-content">
                 $$m_1 \times m_2 = -1$$
             </div>
 
@@ -318,72 +366,92 @@
                 Jadi, dapat disimpulkan bahwa:
             </p>
 
-            <div class="box-kesimpulan mt-3">
+            <div class="box-kesimpulan mt-3 mx-auto" style="width: fit-content;">
                 Dua garis saling tegak lurus jika hasil kali gradien kedua garis tersebut sama dengan <b>$-1$</b>.
             </div>
 
             <p class="mt-4 mb-2" style="line-height:1.8;">
-                Hubungan ini juga dapat dinyatakan sebagai berikut.
-                Jika suatu garis memiliki gradien <b>$m$</b>, maka gradien garis yang tegak lurus terhadapnya adalah:
+                Jika suatu garis memiliki gradien <b>$m_1$</b>, maka gradien garis yang tegak lurus
+                terhadapnya adalah:
             </p>
 
-            <div class="rumus-box text-center my-3">
-                $$-\frac{1}{m}$$
+            <div class="rumus-box text-center my-3 mx-auto" style="width: fit-content; min-width: 180px;">
+                $$m_2=-\frac{1}{m_1}$$
             </div>
 
             <p style="line-height:1.8;">
-                Artinya, gradien garis yang tegak lurus diperoleh dengan cara
-                <b>membalik gradien</b> lalu <b>mengubah tandanya</b>.
+                Artinya, gradien garis yang tegak lurus diperoleh dengan cara <b>membalik gradien</b>,
+                kemudian <b>mengubah tandanya</b>.
             </p>
         </div>
     </div>
 
     {{-- Contoh Soal --}}
-    <div class="card card-materi mb-4">
-        <div class="card-body p-4">
-            <span class="badge-contoh">Contoh</span>
+    <div class="box-contoh mt-5 mb-4">
+        <div class="card-body">
+            <span class="title-box">Contoh</span>
 
             <p class="mt-3" style="line-height:1.8;">
-                Tentukan gradien garis yang tegak lurus dengan garis
-                <b>$y = 2x + 3$</b>.
+                Diketahui ada dua buah garis:
+            </p>
+            <ul style="line-height:1.8;">
+                <li>Garis $a$ melalui titik $(1,2)$ dan $(5,6)$.</li>
+                <li>Garis $b$ melalui titik $(3,4)$ dan $(7,0)$.</li>
+            </ul>
+            <p style="line-height:1.8;">
+                Tentukan apakah kedua garis tersebut saling tegak lurus.
             </p>
 
             <div class="border rounded-4 p-3 mb-3" style="background:#f7f9fc;">
-                <p class="mb-2"><b>Ayo mencoba terlebih dahulu:</b></p>
+                <p><b>Penyelesaian:</b></p>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Dari persamaan <b>$y = 2x + 3$</b>, gradien garis tersebut adalah</span>
-                    <input type="text" id="c1_m1" class="form-control form-control-sm text-center"
-                        style="width:90px;">
+                <p>
+                    Untuk menentukan apakah dua garis saling tegak lurus, kita perlu mencari gradien masing-masing garis.
+                </p>
+
+                <p><b>Gradien garis $a$</b></p>
+                <div class="rumus-box text-center mb-3">
+                    $$m_a=\frac{6-2}{5-1}=\frac{4}{4}=1$$
                 </div>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Karena kedua garis saling tegak lurus, maka berlaku</span>
-                    <input type="text" id="c1_relasi" class="form-control form-control-sm text-center"
-                        style="width:140px;">
+                <p><b>Gradien garis $b$</b></p>
+                <div class="rumus-box text-center mb-3">
+                    $$m_b=\frac{0-4}{7-3}=\frac{-4}{4}=-1$$
                 </div>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Substitusi nilai gradien menghasilkan</span>
-                    <input type="text" id="c1_subs" class="form-control form-control-sm text-center"
-                        style="width:120px;">
+                <p>
+                    Selanjutnya, kalikan kedua gradien tersebut.
+                </p>
+                <div class="rumus-box text-center mb-3">
+                    $$m_a \times m_b = 1 \times (-1) = -1$$
                 </div>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Jadi gradien garis yang dicari adalah</span>
-                    <input type="text" id="c1_hasil" class="form-control form-control-sm text-center"
-                        style="width:100px;">
+                <div class="box-kesimpulan">
+                    <b>Kesimpulan:</b><br>
+                    Karena hasil kali gradien kedua garis adalah $-1$, maka garis $a$ dan garis $b$
+                    <b>saling tegak lurus</b>.
                 </div>
+            </div>
 
-                <button class="btn btn-palet btn-sm" onclick="cekContoh1()">Cek Jawaban</button>
-                <div id="fbContoh1" class="mt-3"></div>
+            {{-- Contoh --}}
+            <div class="quiz-card p-3 mt-3">
+                <p>
+                    Jika gradien suatu garis adalah <b>2</b>, berapakah gradien garis yang tegak lurus dengannya?
+                </p>
+
+                <input type="text" id="cek-cepat-tegak" class="form-control w-25 text-center"
+                    placeholder="Isi jawaban">
+
+                <button class="btn btn-palet btn-sm mt-2" onclick="cekCepatTegak()">Cek Jawaban</button>
+
+                <div id="fb-cek-cepat-tegak" class="mt-2"></div>
             </div>
         </div>
     </div>
 
-    <div class="card card-materi mb-4">
-        <div class="card-body p-4">
-            <span class="badge-latihan">Latihan</span>
+    <div class="box-latihan mt-5 mb-4">
+        <div class="card-body">
+            <span class="title-box">Latihan</span>
 
             <p class="mt-3" style="line-height:1.8;">
                 1. Tentukan persamaan garis yang tegak lurus dengan garis <b>$y = 3x - 2$</b>.
@@ -446,7 +514,8 @@
                             </div>
 
                             <div class="mb-4">
-                                <p class="mb-2">Jadi, persamaan garis yang tegak lurus dengan garis $y = 3x - 2$ adalah:</p>
+                                <p class="mb-2">Jadi, persamaan garis yang tegak lurus dengan garis $y = 3x - 2$ adalah:
+                                </p>
                                 <input type="text" id="l_jawaban" class="form-control form-control-sm"
                                     style="max-width:220px;" placeholder="Tulis persamaan lengkap">
                             </div>
@@ -546,39 +615,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

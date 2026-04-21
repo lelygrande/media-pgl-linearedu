@@ -129,6 +129,46 @@
             justify-content: center;
             gap: 4px;
         }
+
+        /* Opsi kotak */
+        .opsi-kotak-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .opsi-kotak {
+            border: 2px solid #cfd8e3;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opsi-kotak:hover {
+            border-color: #2E75B6;
+            background: #eef5ff;
+        }
+
+        .opsi-kotak.active {
+            background: #2E75B6;
+            color: #fff;
+            border-color: #2E75B6;
+        }
+
+        .opsi-kotak.benar {
+            background: #198754 !important;
+            color: #fff !important;
+            border-color: #198754 !important;
+        }
+
+        .opsi-kotak.salah {
+            background: #dc3545 !important;
+            color: #fff !important;
+            border-color: #dc3545 !important;
+        }
     </style>
 
     {{-- Judul --}}
@@ -149,11 +189,9 @@
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien Garis-garis yang saling Sejajar</h2>
 
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
+    <div class="box-eksplorasi mt-5">
 
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+        <div class="title-box">
             Eksplorasi
         </div>
 
@@ -170,7 +208,7 @@
                     Perhatikan empat garis berikut.
                 </p>
 
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3" style="max-width: 550px">
                     <table class="table table-bordered text-center align-middle">
                         <thead class="table-light">
                             <tr>
@@ -218,14 +256,16 @@
                     Bagaimana hubungan nilai gradien dari keempat garis tersebut?
                 </p>
 
-                <select id="pilih1" class="form-select">
-                    <option value="">Pilih</option>
-                    <option value="sama">Semua gradien sama</option>
-                    <option value="beda">Gradien berbeda</option>
-                </select>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekStep2('sama', this)">
+                        Semua gradien sama
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekStep2('beda', this)">
+                        Gradien berbeda
+                    </button>
+                </div>
 
-                <button class="btn btn-palet mt-2" onclick="cekStep2()">Cek</button>
-                <div id="fb2"></div>
+                <div id="fb2" class="mt-2"></div>
             </div>
 
             {{-- STEP 3 --}}
@@ -235,40 +275,31 @@
                     bagaimana kedudukannya?
                 </p>
 
-                <select id="pilih2" class="form-select">
-                    <option value="">Pilih</option>
-                    <option value="sejajar">Sejajar</option>
-                    <option value="potong">Berpotongan</option>
-                    <option value="tegak">Tegak lurus</option>
-                </select>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekStep3('sejajar', this)">
+                        Sejajar
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekStep3('potong', this)">
+                        Berpotongan
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekStep3('tegak', this)">
+                        Tegak lurus
+                    </button>
+                </div>
 
-                <button class="btn btn-palet mt-2" onclick="cekStep3()">Cek</button>
-                <div id="fb3"></div>
+                <div id="fb3" class="mt-2"></div>
             </div>
 
             {{-- STEP 4 --}}
             <div id="step4" class="d-none mt-3">
                 <p>
-                    Berdasarkan hasil tersebut, lengkapilah kesimpulan berikut.
+                    Berdasarkan hasil tersebut, apa yang dapat kamu simpulkan?
                 </p>
 
-                <p>
-                    Jika dua garis atau lebih memiliki gradien yang
-                    <select id="pilih3" class="form-select d-inline w-auto">
-                        <option value="">Pilih</option>
-                        <option value="sama">sama</option>
-                        <option value="beda">berbeda</option>
-                    </select>,
-                    maka garis-garis tersebut
-                    <select id="pilih4" class="form-select d-inline w-auto">
-                        <option value="">Pilih</option>
-                        <option value="sejajar">sejajar</option>
-                        <option value="tegak">tegak lurus</option>
-                    </select>.
-                </p>
-
-                <button class="btn btn-palet" onclick="cekStep4()">Simpan Kesimpulan</button>
-                <div id="fb4"></div>
+                <button class="btn btn-palet" onclick="cekStep4()">
+                    Tampilkan Kesimpulan
+                </button>
+                <div id="fb4" class="mt-2"></div>
             </div>
 
             {{-- KESIMPULAN --}}
@@ -291,7 +322,7 @@
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Konsep Gradien Garis-Garis Sejajar</span>
 
@@ -362,9 +393,9 @@
     {{-- ========================================================= --}}
     {{-- CONTOH SOAL --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="badge-contoh">Contoh Soal</span>
+            <span class="title-box">Contoh Soal</span>
 
             <p>
                 Diketahui garis <b>$k$</b> melalui titik $A(2,3)$ dan $B(6,7)$,
@@ -428,9 +459,9 @@
         </div>
     </div>
 
-    <div class="card card-materi mb-4">
-        <div class="card-body p-4">
-            <span class="badge-latihan">Latihan</span>
+    <div class="box-latihan mt-5 mb-4">
+        <div class="card-body">
+            <span class="title-box">Latihan</span>
 
             <p class="mb-3 mt-3" style="line-height:1.8;">
                 <b>1.</b> Diketahui suatu garis <b>$p$</b> sejajar dengan garis
@@ -439,24 +470,6 @@
 
             <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
                 <p class="mb-3"><b>Penyelesaian:</b></p>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Gradien garis $p$ =</span>
-                    <input type="text" id="l1_m1" class="form-control form-control-sm text-center"
-                        style="width:70px;">
-                </div>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Gradien garis $20x - 2y + 5 = 0$ =</span>
-                    <input type="text" id="l1_m2" class="form-control form-control-sm text-center"
-                        style="width:70px;">
-                </div>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Karena kedua garis sejajar, maka</span>
-                    <input type="text" id="l1_relasi" class="form-control form-control-sm text-center"
-                        style="width:120px;">
-                </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
                     <span>Pada persamaan diperoleh</span>
@@ -470,7 +483,8 @@
                 </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
-                    <span>$m_2 = -\dfrac{A}{B} =$</span>
+                    <span>Gradien garis $20x - 2y + 5 = 0$ adalah</span>
+                    <span>$m = -\dfrac{A}{B} =$</span>
 
                     <div class="frac-input">
                         <div class="top">
@@ -485,14 +499,13 @@
                 </div>
 
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>$m_2 =$</span>
+                    <span>Jadi, gradien garis $20x - 2y + 5 = 0$ =</span>
                     <input type="text" id="l1_hasil" class="form-control form-control-sm text-center"
                         style="width:80px;">
                 </div>
-
                 <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>maka gradien garis $p$ adalah</span>
-                    <span>$m_1 =$</span>
+                    <span>Maka gradien garis $p$ adalah</span>
+                    <span>$m_p =$</span>
                     <input type="text" id="l1_final" class="form-control form-control-sm text-center"
                         style="width:80px;">
                 </div>
@@ -563,10 +576,12 @@
                 </div>
 
                 <div class="mb-3 d-flex align-items-center gap-2">
-                    <span>Karena sejajar, maka</span>
+                    <span>Karena sejajar, maka (tuliskan rumus persamaannya)</span>
                     <input type="text" id="l3_relasi" class="form-control form-control-sm text-center"
                         style="width:120px;">
                 </div>
+
+                <p>Substitusikan ke persamaannya</p>
 
                 <div class="mb-3 d-flex align-items-center gap-2" style="line-height:2;">
                     <div class="frac-input">
@@ -603,39 +618,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

@@ -83,64 +83,150 @@ function tampilkanGrafik() {
     sudahLoad = true;
 }
 
+function tampilkanStep(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("d-none");
+}
+
+function disableMany(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = true;
+    });
+}
+
+function resetOpsiKotak(containerSelector) {
+    const opsi = document.querySelectorAll(`${containerSelector} .opsi-kotak`);
+    opsi.forEach((item) => {
+        item.classList.remove("active", "benar", "salah");
+    });
+}
+
+function tandaiOpsi(element, status) {
+    if (!element) return;
+    element.classList.add("active");
+    if (status === "benar") {
+        element.classList.add("benar");
+    } else if (status === "salah") {
+        element.classList.add("salah");
+    }
+}
+
+function disableOpsiKotak(containerSelector) {
+    const opsi = document.querySelectorAll(`${containerSelector} .opsi-kotak`);
+    opsi.forEach((item) => {
+        item.disabled = true;
+        item.style.pointerEvents = "none";
+    });
+}
+
 // =========================
 // Eksplorasi
 // =========================
 function cekStep1() {
-    const m1 = document.getElementById("m1").value;
-    const m2 = document.getElementById("m2").value;
-    const m3 = document.getElementById("m3").value;
-    const m4 = document.getElementById("m4").value;
+    const m1 = document.getElementById("m1").value.trim();
+    const m2 = document.getElementById("m2").value.trim();
+    const m3 = document.getElementById("m3").value.trim();
+    const m4 = document.getElementById("m4").value.trim();
+    const fb = document.getElementById("fb1");
 
-    if (m1 == 3 && m2 == 3 && m3 == 3 && m4 == 3) {
-        document.getElementById("fb1").innerHTML = "Benar!";
-        document.getElementById("step2").classList.remove("d-none");
+    let pesan = [];
+
+    if (m1 !== "3") pesan.push("Gradien garis <b>AB</b> belum tepat.");
+    if (m2 !== "3") pesan.push("Gradien garis <b>CD</b> belum tepat.");
+    if (m3 !== "3") pesan.push("Gradien garis <b>EF</b> belum tepat.");
+    if (m4 !== "3") pesan.push("Gradien garis <b>GH</b> belum tepat.");
+
+    if (pesan.length === 0) {
+        fb.innerHTML = `
+            <div class="alert alert-success mt-2">
+                Bagus! Semua gradien sudah benar. Sekarang bandingkan hasilnya.
+            </div>
+        `;
+        disableMany(["m1", "m2", "m3", "m4"]);
+        tampilkanStep("step2");
     } else {
-        document.getElementById("fb1").innerHTML = "Coba cek lagi.";
+        fb.innerHTML = `
+            <div class="alert alert-warning mt-2">
+                <b>Masih ada jawaban yang belum tepat:</b><br><br>
+                ${pesan.join("<br>")}
+                <br><br>
+                <b>Petunjuk:</b> Gunakan rumus gradien
+                <b>m = (y₂ - y₁)/(x₂ - x₁)</b>.
+            </div>
+        `;
+        renderKatexById("fb1");
     }
 }
 
-function cekStep2() {
-    const val = document.getElementById("pilih1").value;
+function cekStep2(jawaban, el) {
+    const fb = document.getElementById("fb2");
+    const container = "#step2";
 
-    if (val === "sama") {
-        document.getElementById("fb2").innerHTML = "Tepat!";
-        document.getElementById("step3").classList.remove("d-none");
+    resetOpsiKotak(container);
+
+    if (jawaban === "sama") {
+        tandaiOpsi(el, "benar");
+        fb.innerHTML = `
+            <div class="alert alert-success mt-2">
+                Tepat. Keempat garis memiliki gradien yang sama.
+            </div>
+        `;
+        disableOpsiKotak(container);
+        tampilkanStep("step3");
     } else {
-        document.getElementById("fb2").innerHTML =
-            "Coba perhatikan lagi hasil gradiennya.";
+        tandaiOpsi(el, "salah");
+        fb.innerHTML = `
+            <div class="alert alert-warning mt-2">
+                Coba perhatikan kembali hasil gradien pada tabel. Apakah semuanya menunjukkan nilai yang sama?
+            </div>
+        `;
     }
 }
 
-function cekStep3() {
-    const val = document.getElementById("pilih2").value;
+function cekStep3(jawaban, el) {
+    const fb = document.getElementById("fb3");
+    const container = "#step3";
 
-    if (val === "sejajar") {
-        document.getElementById("fb3").innerHTML = "Benar!";
-        document.getElementById("step4").classList.remove("d-none");
+    resetOpsiKotak(container);
+
+    if (jawaban === "sejajar") {
+        tandaiOpsi(el, "benar");
+        fb.innerHTML = `
+            <div class="alert alert-success mt-2">
+                Benar. Jika gradiennya sama, garis-garis tersebut saling sejajar.
+            </div>
+        `;
+        disableOpsiKotak(container);
+        tampilkanStep("step4");
     } else {
-        document.getElementById("fb3").innerHTML = "Coba bayangkan grafiknya.";
+        tandaiOpsi(el, "salah");
+        fb.innerHTML = `
+            <div class="alert alert-warning mt-2">
+                Coba bayangkan: jika beberapa garis memiliki kemiringan yang sama, apakah mereka akan saling berpotongan?
+            </div>
+        `;
     }
 }
 
 function cekStep4() {
-    const v1 = document.getElementById("pilih3").value;
-    const v2 = document.getElementById("pilih4").value;
+    const fb = document.getElementById("fb4");
 
-    if (v1 === "sama" && v2 === "sejajar") {
-        document.getElementById("fb4").innerHTML = "Kesimpulanmu benar!";
-        document.getElementById("kesimpulan").classList.remove("d-none");
-        document
-            .getElementById("ggb-wrapper-sejajar")
-            .classList.remove("d-none");
+    fb.innerHTML = `
+        <div class="alert alert-success mt-2">
+            Kesimpulanmu benar! Sekarang perhatikan grafik dan kesimpulannya.
+        </div>
+    `;
 
-        setTimeout(function () {
-            tampilkanGrafik();
-        }, 200);
-    } else {
-        document.getElementById("fb4").innerHTML =
-            "Perhatikan lagi hubungan gradien dan garis.";
-    }
+    document.getElementById("kesimpulan").classList.remove("d-none");
+    document.getElementById("ggb-wrapper-sejajar").classList.remove("d-none");
+
+    setTimeout(function () {
+        tampilkanGrafik();
+    }, 200);
+
+    renderKatexById("fb4");
+    renderKatexById("kesimpulan");
 }
 
 // Contoh Soal
@@ -222,61 +308,50 @@ function renderMathTarget(el) {
 
 function cekSemuaLatihan() {
     let totalBenar = 0;
-    let totalSoal = 18;
+    let totalSoal = 15;
     let hasilHTML = "";
 
     // LATIHAN 1
     let pesan1 = [];
     let benar1 = 0;
 
-    let c1 = cekField("l1_m1", "m1", "l1_m1");
+    let c1 = cekField("l1_A", "20", "l1_A");
     if (c1.benar) benar1++;
-    else pesan1.push("Tuliskan simbol gradien untuk garis $p$.");
-
-    let c2 = cekField("l1_m2", "m2", "l1_m2");
-    if (c2.benar) benar1++;
-    else pesan1.push("Tuliskan simbol gradien untuk garis yang diketahui.");
-
-    let c3 = cekField("l1_relasi", "m1=m2", "l1_relasi");
-    if (c3.benar) benar1++;
-    else pesan1.push("Ingat hubungan gradien dua garis yang sejajar.");
-
-    let c4 = cekField("l1_A", "20", "l1_A");
-    if (c4.benar) benar1++;
     else pesan1.push("Koefisien $x$ pada persamaan belum tepat.");
 
-    let c5 = cekField("l1_B", "-2", "l1_B");
-    if (c5.benar) benar1++;
+    let c2 = cekField("l1_B", "-2", "l1_B");
+    if (c2.benar) benar1++;
     else pesan1.push("Koefisien $y$ pada persamaan belum tepat.");
 
-    let c6a = cekField("l1_subAtas", "-20", "l1_subAtas");
-    let c6b = cekField("l1_subBawah", "-2", "l1_subBawah");
-    if (c6a.benar && c6b.benar) benar1++;
-    else
+    let c3a = cekField("l1_subAtas", "-20", "l1_subAtas");
+    let c3b = cekField("l1_subBawah", "-2", "l1_subBawah");
+    if (c3a.benar && c3b.benar) benar1++;
+    else {
         pesan1.push(
             "Gunakan rumus $m = -\\frac{A}{B}$ dengan tanda yang benar.",
         );
+    }
 
-    let c7 = cekField("l1_hasil", "10", "l1_hasil");
-    if (c7.benar) benar1++;
-    else pesan1.push("Sederhanakan hasil gradiennya lagi.");
+    let c4 = cekField("l1_hasil", "10", "l1_hasil");
+    if (c4.benar) benar1++;
+    else pesan1.push("Sederhanakan hasil gradien garis yang diketahui lagi.");
 
-    let c8 = cekField("l1_final", "10", "l1_final");
-    if (c8.benar) benar1++;
+    let c5 = cekField("l1_final", "10", "l1_final");
+    if (c5.benar) benar1++;
     else
         pesan1.push(
-            "Karena sejajar, gradien garis $p$ sama dengan gradien garis diketahui.",
+            "Karena sejajar, gradien garis $p$ sama dengan gradien garis yang diketahui.",
         );
 
     totalBenar += benar1;
 
     hasilHTML += `
-        <div class="alert ${benar1 === 8 ? "alert-success" : "alert-warning"}">
-            <b>Latihan 1:</b> ${benar1}/8 benar
-            ${pesan1.length ? `<br><br>${pesan1.join("<br>")}` : "<br><br>Semua jawaban benar."}
-        </div>
+    <div class="alert ${benar1 === 5 ? "alert-success" : "alert-warning"}">
+        <b>Latihan 1:</b> ${benar1}/5 benar
+        ${pesan1.length ? `<br><br>${pesan1.join("<br>")}` : "<br><br>Semua jawaban benar."}
+    </div>
     `;
-
+    
     // LATIHAN 2
     let l2_a = document.getElementById("l2_a").checked;
     let l2_b = document.getElementById("l2_b").checked;

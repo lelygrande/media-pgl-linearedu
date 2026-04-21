@@ -205,6 +205,28 @@ function resetCanvasLatihan1() {
     if (wrap) wrap.style.display = "none";
 }
 
+let currentLatihan = 0;
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateLatihanSlide();
+});
+
+function updateLatihanSlide() {
+    const track = document.getElementById("latihanTrack");
+    if (!track) return;
+    track.style.transform = `translateX(-${currentLatihan * 100}%)`;
+}
+
+function nextLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
+function prevLatihan(index) {
+    currentLatihan = index;
+    updateLatihanSlide();
+}
+
 // =========================
 // CEK LATIHAN 1
 // y = 2x + 4
@@ -221,6 +243,7 @@ function cekLatihan1() {
     const benar6 = cekIsian("l1_y_point_y", "4");
 
     const semuaBenar = benar1 && benar2 && benar3 && benar4 && benar5 && benar6;
+    const nextBtn = document.getElementById("nextBtnLatihan1");
 
     if (semuaBenar) {
         latihan1Benar = true;
@@ -242,7 +265,40 @@ function cekLatihan1() {
         );
 
         resetCanvasLatihan1();
+
+        if (nextBtn) nextBtn.disabled = true;
     }
+}
+
+function resetLatihan1() {
+    [
+        "l1_x_value",
+        "l1_x_point_x",
+        "l1_x_point_y",
+        "l1_y_value",
+        "l1_y_point_x",
+        "l1_y_point_y",
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("feedbackLatihan1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (fb) {
+        fb.innerHTML = "";
+        fb.className = "";
+        fb.style.display = "none";
+    }
+
+    if (nextBtn) nextBtn.disabled = true;
+
+    latihan1Benar = false;
+    resetCanvasLatihan1();
 }
 
 // =========================
@@ -321,6 +377,8 @@ const sketchLatihan1 = (p) => {
                 plottingBenar = true;
                 feedbackPlot =
                     "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
+                const nextBtn = document.getElementById("nextBtnLatihan1");
+                if (nextBtn) nextBtn.disabled = false;
             } else {
                 plottingBenar = false;
                 feedbackPlot = "Garis belum sesuai. Coba lagi sampai benar.";
@@ -586,6 +644,33 @@ function cekLatihan2() {
     }
 }
 
+function resetLatihan2() {
+    [
+        "l2_x_value",
+        "l2_x_point_x",
+        "l2_x_point_y",
+        "l2_y_value",
+        "l2_y_point_x",
+        "l2_y_point_y",
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("feedbackLatihan2");
+    if (fb) {
+        fb.innerHTML = "";
+        fb.className = "";
+        fb.style.display = "none";
+    }
+
+    latihan2Benar = false;
+    resetCanvasLatihan2();
+}
+
 function tampilkanCanvasLatihan2() {
     const wrap = document.getElementById("canvas-latihan2-wrap");
     if (wrap) wrap.style.display = "block";
@@ -692,8 +777,7 @@ const sketchLatihan2 = (p) => {
                     "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
             } else {
                 plottingBenar = false;
-                feedbackPlot =
-                    "Garis belum sesuai. Coba lagi sampai benar.";
+                feedbackPlot = "Garis belum sesuai. Coba lagi sampai benar.";
                 waktuReset = p.millis() + 1200;
             }
         }
@@ -815,7 +899,7 @@ const sketchLatihan2 = (p) => {
                 ? plottingBenar
                     ? p.color(30, 150, 70)
                     : p.color(220, 80, 80)
-                : p.color(30, 120, 255)
+                : p.color(30, 120, 255),
         );
         p.strokeWeight(3);
 
@@ -823,7 +907,7 @@ const sketchLatihan2 = (p) => {
             toPixelX(seg.p1.x),
             toPixelY(seg.p1.y),
             toPixelX(seg.p2.x),
-            toPixelY(seg.p2.y)
+            toPixelY(seg.p2.y),
         );
     }
 
@@ -832,7 +916,7 @@ const sketchLatihan2 = (p) => {
             if (x1 < -10 || x1 > 10) return null;
             return {
                 p1: { x: x1, y: -10 },
-                p2: { x: x1, y: 10 }
+                p2: { x: x1, y: 10 },
             };
         }
 
@@ -841,7 +925,7 @@ const sketchLatihan2 = (p) => {
 
         const candidates = [
             { x: -10, y: m * -10 + c },
-            { x: 10, y: m * 10 + c }
+            { x: 10, y: m * 10 + c },
         ];
 
         if (m !== 0) {
@@ -851,12 +935,12 @@ const sketchLatihan2 = (p) => {
             if (c < -10 || c > 10) return null;
             return {
                 p1: { x: -10, y: c },
-                p2: { x: 10, y: c }
+                p2: { x: 10, y: c },
             };
         }
 
         const inside = candidates.filter(
-            (pt) => pt.x >= -10 && pt.x <= 10 && pt.y >= -10 && pt.y <= 10
+            (pt) => pt.x >= -10 && pt.x <= 10 && pt.y >= -10 && pt.y <= 10,
         );
 
         if (inside.length < 2) return null;
@@ -879,7 +963,7 @@ const sketchLatihan2 = (p) => {
 
         return {
             p1: bestPair[0],
-            p2: bestPair[1]
+            p2: bestPair[1],
         };
     }
 

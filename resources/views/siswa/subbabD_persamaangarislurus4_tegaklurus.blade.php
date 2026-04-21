@@ -536,9 +536,9 @@
             {{-- LATIHAN 1 --}}
             {{-- ===================== --}}
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="box-latihan mt-4 mb-4">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 1</span>
+                        <span class="title-box">Latihan 1</span>
 
                         <p>
                             1. Pada sebuah peta koordinat, seorang siswa ingin menggambar jalan kecil yang melalui titik
@@ -644,9 +644,9 @@
             {{-- LATIHAN 2 --}}
             {{-- ===================== --}}
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="box-latihan mt-4 mb-4">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 2</span>
+                        <span class="title-box">Latihan 2</span>
 
                         <p>
                             2. Seorang siswa menggambar garis bantu pada bidang koordinat. Garis itu harus melalui titik
@@ -755,9 +755,9 @@
             {{-- LATIHAN 3 --}}
             {{-- ===================== --}}
             <section class="latihan-slide">
-                <div class="card card-materi mb-4">
+                <div class="box-latihan mt-4 mb-4">
                     <div class="card-body">
-                        <span class="badge-latihan">Latihan 3</span>
+                        <span class="title-box">Latihan 3</span>
 
                         <p>
                             3. Pada denah sekolah, terdapat sebuah jalur utama yang melalui titik <span>$(1,14)$</span> dan

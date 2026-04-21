@@ -188,19 +188,22 @@
 
     <style>
         .latihan-slider {
-            overflow: hidden;
             width: 100%;
         }
 
         .latihan-track {
-            display: flex;
-            transition: transform 0.4s ease;
+            display: block;
             width: 100%;
         }
 
         .latihan-slide {
-            min-width: 100%;
+            display: none;
+            width: 100%;
             box-sizing: border-box;
+        }
+
+        .latihan-slide.active {
+            display: block;
         }
 
         .latihan-dnd-wrap {
@@ -464,32 +467,32 @@
                         Fokuslah pada koefisien di depan <b>$x$</b>, koefisien di depan <b>$y$</b>, dan bilangan tetapnya.
                     </p>
 
-                    <p>Pada bentuk $ax + by + c = 0$:</p>
+                    <p>Pada bentuk $Ax + By + C = 0$:</p>
 
                     <ul>
-                        <li>$a$ adalah koefisien dari $x$</li>
-                        <li>$b$ adalah koefisien dari $y$</li>
-                        <li>$c$ adalah konstanta</li>
+                        <li>$A$ adalah koefisien dari $x$</li>
+                        <li>$B$ adalah koefisien dari $y$</li>
+                        <li>$C$ adalah konstanta</li>
                     </ul>
 
                     <p class="mb-2" style="text-align: justify;">
                         Sekarang, coba perhatikan contoh berikut: $3x + 2y - 6 = 0$.
-                        Tuliskan terlebih dahulu nilai $a$, $b$, dan $c$ pada kotak berikut.
+                        Tuliskan terlebih dahulu nilai $A$, $B$, dan $C$ pada kotak berikut.
                     </p>
 
                     <div class="abc-grid">
                         <div class="abc-row">
-                            <label class="abc-label" for="inputA">$a =$</label>
+                            <label class="abc-label" for="inputA">$A =$</label>
                             <input type="text" id="inputA" class="abc-input" placeholder="Isi jawaban">
                         </div>
 
                         <div class="abc-row">
-                            <label class="abc-label" for="inputB">$b =$</label>
+                            <label class="abc-label" for="inputB">$B =$</label>
                             <input type="text" id="inputB" class="abc-input" placeholder="Isi jawaban">
                         </div>
 
                         <div class="abc-row">
-                            <label class="abc-label" for="inputC">$c =$</label>
+                            <label class="abc-label" for="inputC">$C =$</label>
                             <input type="text" id="inputC" class="abc-input" placeholder="Isi jawaban">
                         </div>
                     </div>
@@ -760,6 +763,7 @@
         </div>
 
     </div>
+
     <div class="box-contoh mt-5">
         <span class="title-box">Contoh</span>
 
@@ -837,182 +841,162 @@
         </div>
     </div>
 
-
     {{-- ===== Latihan Soal ===== --}}
-    <div class="latihan-slider">
-        <div class="latihan-track" id="latihanTrack">
+    <div class="box-latihan mt-5">
+        <div class="card-body">
+            <span class="title-box">Latihan Soal</span>
 
             <!-- ===================== -->
             <!-- LATIHAN 1 -->
             <!-- ===================== -->
-            <section class="latihan-slide">
-                <div class="mt-5 box-latihan">
-                    <div class="card-body">
-                        <span class="title-box">Latihan 1</span>
+            <div class="latihan-step" id="latihanStep1">
+                <p>
+                    <b>1.</b> Seret persamaan yang merupakan <b>persamaan garis lurus</b> ke dalam kotak jawaban.
+                </p>
 
-                        <p>
-                            <b>1.</b> Seret persamaan yang merupakan <b>persamaan garis lurus</b> ke dalam kotak jawaban.
-                        </p>
-
-                        <div class="latihan-dnd-wrap mb-3">
-                            <div class="opsi-wrap" id="opsiLinear">
-                                <div class="opsi-item" draggable="true" data-linear="true">$x + 3y = 9$</div>
-                                <div class="opsi-item" draggable="true" data-linear="false">$x^2 + y = 4$</div>
-                                <div class="opsi-item" draggable="true" data-linear="true">$2x - y + 5 = 0$</div>
-                                <div class="opsi-item" draggable="true" data-linear="false">$\sqrt{y} + x = 2$</div>
-                                <div class="opsi-item" draggable="true" data-linear="true">$y = -3x + 1$</div>
-                                <div class="opsi-item" draggable="true" data-linear="false">$xy = 6$</div>
-                            </div>
-
-                            <div class="dropzone-linear mt-3" id="dropLinear">
-                                Seret jawaban ke sini
-                            </div>
-
-                            <div class="mt-3">
-                                <button class="btn btn-palet btn-sm" onclick="cekLatihan1A1()">Cek</button>
-                                <button class="btn btn-outline-secondary btn-sm"
-                                    onclick="resetLatihan1A1()">Reset</button>
-                            </div>
-
-                            <div id="feedbackLatihan1A1" class="mt-2"></div>
-                        </div>
-
-                        <div class="mt-3 text-end">
-                            <button id="nextBtn1" class="btn btn-palet btn-sm" onclick="nextLatihan(1)" disabled>
-                                Lanjut ke Latihan 2
-                            </button>
-                        </div>
+                <div class="latihan-dnd-wrap mb-3">
+                    <div class="opsi-wrap" id="opsiLinear">
+                        <div class="opsi-item" draggable="true" data-linear="true">$x + 3y = 9$</div>
+                        <div class="opsi-item" draggable="true" data-linear="false">$x^2 + y = 4$</div>
+                        <div class="opsi-item" draggable="true" data-linear="true">$2x - y + 5 = 0$</div>
+                        <div class="opsi-item" draggable="true" data-linear="false">$\sqrt{y} + x = 2$</div>
+                        <div class="opsi-item" draggable="true" data-linear="true">$y = -3x + 1$</div>
+                        <div class="opsi-item" draggable="true" data-linear="false">$xy = 6$</div>
                     </div>
+
+                    <div class="dropzone-linear mt-3" id="dropLinear">
+                        Seret jawaban ke sini
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-palet btn-sm" onclick="cekLatihan1A1()">Cek Jawaban</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="resetLatihan1A1()">Reset</button>
+                    </div>
+
+                    <div id="feedbackLatihan1A1" class="mt-2"></div>
                 </div>
-            </section>
+
+                <div class="mt-3 text-end">
+                    <button id="nextBtn1" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
+                        Lanjut ke Latihan 2
+                    </button>
+                </div>
+            </div>
 
             <!-- ===================== -->
             <!-- LATIHAN 2 -->
             <!-- ===================== -->
-            <section class="latihan-slide">
-                <div class="mt-5 box-latihan">
-                    <div class="card-body">
-                        <span class="title-box">Latihan 2</span>
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
+                <p>
+                    <b>2.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
+                </p>
 
-                        <p>
-                            <b>2.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
-                        </p>
-
-                        <div class="mb-3">
-                            <p><b>a.</b> $y = 2x - 5$</p>
-                            <input type="text" id="lat2a"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:220px;">
-                            <span>$= 0$</span>
-                            <div id="fb-lat2a" class="mt-1"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <p><b>b.</b> $y = -3x + 4$</p>
-                            <input type="text" id="lat2b"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:220px;">
-                            <span>$= 0$</span>
-                            <div id="fb-lat2b" class="mt-1"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <p><b>c.</b> $2y = x + 6$</p>
-                            <input type="text" id="lat2c"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:220px;">
-                            <span>$= 0$</span>
-                            <div id="fb-lat2c" class="mt-1"></div>
-                        </div>
-
-                        <div class="mt-3">
-                            <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">Cek</button>
-                        </div>
-
-                        <div id="feedbackLatihan2A1" class="mt-2"></div>
-
-                        <div class="mt-3 d-flex justify-content-between">
-                            <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(0)">
-                                Kembali
-                            </button>
-                            <button id="nextBtn2" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
-                                Lanjut ke Latihan 3
-                            </button>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <p><b>a.</b> $y = 2x - 5$</p>
+                    <input type="text" id="lat2a"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:220px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat2a" class="mt-1"></div>
                 </div>
-            </section>
+
+                <div class="mb-3">
+                    <p><b>b.</b> $y = -3x + 4$</p>
+                    <input type="text" id="lat2b"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:220px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat2b" class="mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <p><b>c.</b> $2y = x + 6$</p>
+                    <input type="text" id="lat2c"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:220px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat2c" class="mt-1"></div>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">Cek Jawaban</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="resetLatihan2A1()">Reset</button>
+                </div>
+
+                <div id="feedbackLatihan2A1" class="mt-2"></div>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+
+                    <button id="nextBtn2" class="btn btn-palet btn-sm" onclick="nextLatihan(3)" disabled>
+                        Lanjut ke Latihan 3
+                    </button>
+                </div>
+                <div id="feedbackLatihan2A1" class="mt-2"></div>
+            </div>
 
             <!-- ===================== -->
             <!-- LATIHAN 3 -->
             <!-- ===================== -->
-            <section class="latihan-slide">
-                <div class="card card-materi mt-5 box-latihan">
-                    <div class="card-body">
-                        <span class="title-box">Latihan 3</span>
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
+                <p>
+                    <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
+                </p>
 
-                        <p>
-                            <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
-                        </p>
-
-                        <div class="mb-3">
-                            <p><b>a.</b> $3x + y - 7 = 0$</p>
-                            <p>
-                                <span>$y =$</span>
-                                <input type="text" id="lat3a"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:220px;">
-                            </p>
-                            <div id="fb-lat3a" class="mt-1"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <p><b>b.</b> $2x - 4y + 8 = 0$</p>
-                            <p>
-                                <span>$y =$</span>
-                                <input type="text" id="lat3b"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:220px;">
-                            </p>
-                            <div id="fb-lat3b" class="mt-1"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <p><b>c.</b> $5x + 2y - 6 = 0$</p>
-                            <p>
-                                <span>$y =$</span>
-                                <input type="text" id="lat3c"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:220px;">
-                            </p>
-                            <div id="fb-lat3c" class="mt-1"></div>
-                        </div>
-
-                        <div class="mt-3">
-                            <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">Cek</button>
-                        </div>
-
-                        <div id="feedbackLatihan3A1" class="mt-2"></div>
-
-                        <div class="mt-3 d-flex justify-content-between">
-                            <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(1)">
-                                Kembali
-                            </button>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <p><b>a.</b> $3x + y - 7 = 0$</p>
+                    <p>
+                        <span>$y =$</span>
+                        <input type="text" id="lat3a"
+                            class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                            style="width:220px;">
+                    </p>
+                    <div id="fb-lat3a" class="mt-1"></div>
                 </div>
-            </section>
 
+                <div class="mb-3">
+                    <p><b>b.</b> $2x - 4y + 8 = 0$</p>
+                    <p>
+                        <span>$y =$</span>
+                        <input type="text" id="lat3b"
+                            class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                            style="width:220px;">
+                    </p>
+                    <div id="fb-lat3b" class="mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <p><b>c.</b> $5x + 2y - 6 = 0$</p>
+                    <p>
+                        <span>$y =$</span>
+                        <input type="text" id="lat3c"
+                            class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                            style="width:220px;">
+                    </p>
+                    <div id="fb-lat3c" class="mt-1"></div>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">Cek</button>
+                </div>
+
+                <div id="feedbackLatihan3A1" class="mt-2"></div>
+            </div>
         </div>
     </div>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body, {
-                                                                                                                                                                                            delimiters: [
-                                                                                                                                                                                                {left: '$$', right: '$$', display: true},
-                                                                                                                                                                                                {left: '$', right: '$', display: false}
-                                                                                                                                                                                            ]
-                                                                                                                                                                                        });"></script>
 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, { delimiters: [
+                                        {left: '$$', right: '$$', display: true},
+                                        {left: '$', right: '$', display: false}
+                                    ]
+                                });"></script>
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>

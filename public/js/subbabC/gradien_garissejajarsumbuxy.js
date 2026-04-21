@@ -1,156 +1,209 @@
 // Materi awal
-// GeoGebra
-var params2 = {
-    appName: "graphing",
-    width: 700,
-    height: 500,
-    showToolBar: false,
-    showAlgebraInput: false,
-    showMenuBar: false,
-    enableShiftDragZoom: true,
-    enableRightClick: false,
-    showResetIcon: true,
-};
+// =========================
+// GeoGebra Eksplorasi Sumbu-X
+// =========================
+let appletEksSumbuX = null;
+let sudahLoadSumbuX = false;
 
-var applet2 = new GGBApplet(params2, true);
+function ggbOnLoadEksSumbuX(api) {
+    api.setPerspective("G");
+
+    api.setAxesVisible(true, true);
+    api.setGridVisible(true);
+
+    api.setGraphicsOptions(1, {
+        gridDistance: [1, 1],
+        minorGrid: false,
+    });
+
+    api.setGraphicsOptions(1, {
+        gridType: 0,
+    });
+
+    api.setCoordSystem(-6, 8, -4, 7);
+    api.setAxisSteps(1, 1, 1, 1);
+
+    // Titik-titik
+    api.evalCommand("A=(-2,2)");
+    api.evalCommand("B=(4,2)");
+    api.evalCommand("C=(1,5)");
+    api.evalCommand("D=(6,5)");
+    api.evalCommand("E=(-3,-1)");
+    api.evalCommand("F=(2,-1)");
+
+    // Ruas garis
+    api.evalCommand("a=Segment(A,B)");
+    api.evalCommand("b=Segment(C,D)");
+    api.evalCommand("c=Segment(E,F)");
+
+    // Titik
+    ["A", "B", "C", "D", "E", "F"].forEach(function (obj) {
+        api.setLabelVisible(obj, true);
+        api.setFixed(obj, true, false);
+        api.setPointSize(obj, 5);
+        api.setColor(obj, 30, 110, 200);
+    });
+
+    // Ruas garis a, b, c
+    api.setLineThickness("a", 5);
+    api.setLineThickness("b", 5);
+    api.setLineThickness("c", 5);
+
+    api.setColor("a", 46, 117, 182); // biru
+    api.setColor("b", 34, 185, 105); // hijau
+    api.setColor("c", 220, 53, 69); // merah
+
+    api.evalCommand('ta=Text("a", (1.2, 2.3))');
+    api.evalCommand('tb=Text("b", (3.5, 5.3))');
+    api.evalCommand('tc=Text("c", (0.4,-1.5))');
+
+    api.setFixed("ta", true, false);
+    api.setFixed("tb", true, false);
+    api.setFixed("tc", true, false);
+
+    api.setColor("ta", 46, 117, 182);
+    api.setColor("tb", 34, 185, 105);
+    api.setColor("tc", 220, 53, 69);
+
+    // Sembunyikan label ruas kalau mau bersih
+    api.setLabelVisible("a", false);
+    api.setLabelVisible("b", false);
+    api.setLabelVisible("c", false);
+
+    api.setAxesVisible(true, true);
+    api.setGridVisible(true);
+    api.setCoordSystem(-6, 8, -4, 7);
+}
+
+function tampilkanGrafikSumbuX() {
+    if (sudahLoadSumbuX) return;
+
+    const paramsEksSumbuX = {
+        appName: "classic",
+        id: "ggbAppletEksSumbuX",
+        width: 700,
+        height: 420,
+        showToolBar: false,
+        showAlgebraInput: false,
+        showMenuBar: false,
+        enableRightClick: false,
+        showResetIcon: true,
+        appletOnLoad: ggbOnLoadEksSumbuX,
+    };
+
+    appletEksSumbuX = new GGBApplet(paramsEksSumbuX, true);
+    appletEksSumbuX.inject("ggb-sumbu-x");
+
+    sudahLoadSumbuX = true;
+}
 
 window.addEventListener("load", function () {
-    applet2.inject("ggb-sumbu-x");
-
-    setTimeout(function () {
-        var ggb = applet2.getAppletObject();
-
-        // Titik-titik untuk garis a
-        ggb.evalCommand("A=(-2,2)");
-        ggb.evalCommand("B=(4,2)");
-        ggb.evalCommand("a=Line(A,B)");
-
-        // Titik-titik untuk garis b
-        ggb.evalCommand("C=(1,5)");
-        ggb.evalCommand("D=(6,5)");
-        ggb.evalCommand("b=Line(C,D)");
-
-        // Titik-titik untuk garis c
-        ggb.evalCommand("E=(-3,-1)");
-        ggb.evalCommand("F=(2,-1)");
-        ggb.evalCommand("c=Line(E,F)");
-
-        // Tampilkan label titik
-        ggb.setLabelVisible("A", true);
-        ggb.setLabelVisible("B", true);
-        ggb.setLabelVisible("C", true);
-        ggb.setLabelVisible("D", true);
-        ggb.setLabelVisible("E", true);
-        ggb.setLabelVisible("F", true);
-
-        // Tampilkan label garis
-        ggb.setLabelVisible("a", true);
-        ggb.setLabelVisible("b", true);
-        ggb.setLabelVisible("c", true);
-
-        // Supaya titik tidak bisa digeser
-        ggb.setFixed("A", true, false);
-        ggb.setFixed("B", true, false);
-        ggb.setFixed("C", true, false);
-        ggb.setFixed("D", true, false);
-        ggb.setFixed("E", true, false);
-        ggb.setFixed("F", true, false);
-
-        // Atur warna garis biar mudah dibedakan
-        ggb.setColor("a", 46, 117, 182); // biru
-        ggb.setColor("b", 34, 185, 105); // hijau
-        ggb.setColor("c", 220, 53, 69); // merah
-
-        // Tebalkan garis
-        ggb.setLineThickness("a", 6);
-        ggb.setLineThickness("b", 6);
-        ggb.setLineThickness("c", 6);
-
-        // Ukuran titik
-        ggb.setPointSize("A", 5);
-        ggb.setPointSize("B", 5);
-        ggb.setPointSize("C", 5);
-        ggb.setPointSize("D", 5);
-        ggb.setPointSize("E", 5);
-        ggb.setPointSize("F", 5);
-
-        // Tampilkan sumbu dan grid
-        ggb.setAxesVisible(true, true);
-        ggb.setGridVisible(true);
-
-        // Atur tampilan agar semua objek kelihatan
-        ggb.setCoordSystem(-6, 8, -4, 7);
-    }, 1000);
+    tampilkanGrafikSumbuX();
 });
 
-// GeoGebra sumbu-y
-var params3 = {
-    appName: "graphing",
-    width: 700,
-    height: 500,
-    showToolBar: false,
-    showAlgebraInput: false,
-    showMenuBar: false,
-    enableShiftDragZoom: true,
-    enableRightClick: false,
-    showResetIcon: true,
-};
+// =========================
+// GeoGebra Eksplorasi Sumbu-Y
+// =========================
+let appletEksSumbuY = null;
+let sudahLoadSumbuY = false;
 
-var applet3 = new GGBApplet(params3, true);
+function ggbOnLoadEksSumbuY(api) {
+    api.setPerspective("G");
+
+    api.setAxesVisible(true, true);
+    api.setGridVisible(true);
+
+    api.setGraphicsOptions(1, {
+        gridDistance: [1, 1],
+        minorGrid: false,
+    });
+
+    api.setGraphicsOptions(1, {
+        gridType: 0,
+    });
+
+    api.setCoordSystem(-5, 7, -5, 7);
+    api.setAxisSteps(1, 1, 1, 1);
+
+    // Titik-titik
+    api.evalCommand("P=(2,3)");
+    api.evalCommand("Q=(2,-4)");
+    api.evalCommand("R=(-1,5)");
+    api.evalCommand("S=(-1,-2)");
+    api.evalCommand("T=(4,1)");
+    api.evalCommand("U=(4,6)");
+
+    // Ruas garis
+    api.evalCommand("p=Segment(P,Q)");
+    api.evalCommand("q=Segment(R,S)");
+    api.evalCommand("r=Segment(T,U)");
+
+    // Sembunyikan label default ruas
+    api.setLabelVisible("p", false);
+    api.setLabelVisible("q", false);
+    api.setLabelVisible("r", false);
+
+    // Label manual
+    api.evalCommand('tp=Text("p",(2.2, 0.5))');
+    api.evalCommand('tq=Text("q",(-1.3, 0.4))');
+    api.evalCommand('tr=Text("r",(4.2,4))');
+
+    // Warna label manual
+    api.setColor("tp", 46, 117, 182);
+    api.setColor("tq", 34, 185, 105);
+    api.setColor("tr", 220, 53, 69);
+
+    // Supaya teks tidak bisa digeser
+    ["tp", "tq", "tr"].forEach(function (obj) {
+        api.setFixed(obj, true, false);
+    });
+
+    // Titik
+    ["P", "Q", "R", "S", "T", "U"].forEach(function (pt) {
+        api.setLabelVisible(pt, true);
+        api.setFixed(pt, true, false);
+        api.setPointSize(pt, 5);
+        api.setColor(pt, 30, 110, 200);
+    });
+
+    // Ruas garis
+    api.setLineThickness("p", 5);
+    api.setLineThickness("q", 5);
+    api.setLineThickness("r", 5);
+
+    api.setColor("p", 46, 117, 182); // biru
+    api.setColor("q", 34, 185, 105); // hijau
+    api.setColor("r", 220, 53, 69); // merah
+
+    api.setAxesVisible(true, true);
+    api.setGridVisible(true);
+    api.setCoordSystem(-5, 7, -5, 7);
+}
+
+function tampilkanGrafikSumbuY() {
+    if (sudahLoadSumbuY) return;
+
+    const paramsEksSumbuY = {
+        appName: "classic",
+        id: "ggbAppletEksSumbuY",
+        width: 700,
+        height: 420,
+        showToolBar: false,
+        showAlgebraInput: false,
+        showMenuBar: false,
+        enableRightClick: false,
+        showResetIcon: true,
+        appletOnLoad: ggbOnLoadEksSumbuY,
+    };
+
+    appletEksSumbuY = new GGBApplet(paramsEksSumbuY, true);
+    appletEksSumbuY.inject("ggb-sumbu-y");
+
+    sudahLoadSumbuY = true;
+}
 
 window.addEventListener("load", function () {
-    applet3.inject("ggb-sumbu-y");
-
-    setTimeout(function () {
-        var ggb = applet3.getAppletObject();
-
-        // Garis p
-        ggb.evalCommand("P=(2,3)");
-        ggb.evalCommand("Q=(2,-4)");
-        ggb.evalCommand("p=Line(P,Q)");
-
-        // Garis q
-        ggb.evalCommand("R=(-1,5)");
-        ggb.evalCommand("S=(-1,-2)");
-        ggb.evalCommand("q=Line(R,S)");
-
-        // Garis r
-        ggb.evalCommand("T=(4,1)");
-        ggb.evalCommand("U=(4,6)");
-        ggb.evalCommand("r=Line(T,U)");
-
-        // Sembunyikan label default garis
-        ggb.setLabelVisible("p", false);
-        ggb.setLabelVisible("q", false);
-        ggb.setLabelVisible("r", false);
-
-        // Label manual
-        ggb.evalCommand('tp = Text("p", (2.2,4))');
-        ggb.evalCommand('tq = Text("q", (-0.8,4))');
-        ggb.evalCommand('tr = Text("r", (4.2,4))');
-
-        // Warna garis
-        ggb.setColor("p", 46, 117, 182);
-        ggb.setColor("q", 34, 185, 105);
-        ggb.setColor("r", 220, 53, 69);
-
-        // Tebal garis
-        ggb.setLineThickness("p", 6);
-        ggb.setLineThickness("q", 6);
-        ggb.setLineThickness("r", 6);
-
-        // Fix titik
-        ["P", "Q", "R", "S", "T", "U"].forEach((pt) => {
-            ggb.setFixed(pt, true, false);
-            ggb.setPointSize(pt, 5);
-        });
-
-        // Grid & axis
-        ggb.setAxesVisible(true, true);
-        ggb.setGridVisible(true);
-
-        ggb.setCoordSystem(-5, 7, -5, 7);
-    }, 1000);
+    tampilkanGrafikSumbuY();
 });
 
 function tampilkanFeedback(id, tipe, pesan) {
@@ -196,6 +249,30 @@ function disableMany(ids) {
     ids.forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.disabled = true;
+    });
+}
+
+function resetOpsiKotak(containerSelector) {
+    const opsi = document.querySelectorAll(`${containerSelector} .opsi-kotak`);
+    opsi.forEach((item) => {
+        item.classList.remove("active", "benar", "salah");
+    });
+}
+
+function tandaiOpsi(element, status) {
+    element.classList.add("active");
+    if (status === "benar") {
+        element.classList.add("benar");
+    } else if (status === "salah") {
+        element.classList.add("salah");
+    }
+}
+
+function disableOpsiKotak(containerSelector) {
+    const opsi = document.querySelectorAll(`${containerSelector} .opsi-kotak`);
+    opsi.forEach((item) => {
+        item.disabled = true;
+        item.style.pointerEvents = "none";
     });
 }
 
@@ -251,89 +328,68 @@ function cekTabelX() {
     }
 }
 
-function cekBandingX() {
-    const jawaban = document.getElementById("banding-x").value;
+function cekBandingX(jawaban, el) {
     const fb = document.getElementById("feedback-x2");
+    const container = "#step-x-2";
+
+    resetOpsiKotak(container);
 
     if (jawaban === "sama") {
+        tandaiOpsi(el, "benar");
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
                 Tepat. Ketiga garis memiliki gradien yang sama.
             </div>
         `;
-        disableElement("banding-x");
-        sembunyikanTombol("btn-banding-x");
+        disableOpsiKotak(container);
         tampilkanStep("step-x-3");
     } else {
+        tandaiOpsi(el, "salah");
         fb.innerHTML = `
             <div class="alert alert-warning mt-2">
-                Jawaban belum tepat. Coba lihat kembali hasil gradien pada tabel. Apakah semuanya bernilai <b>0</b> atau berbeda-beda?
+                Coba lihat kembali hasil gradien pada tabel. Apakah ketiganya menunjukkan pola yang sama?
             </div>
         `;
     }
 }
 
-function cekBentukX() {
-    const jawaban = document.getElementById("bentuk-x").value;
+function cekBentukX(jawaban, el) {
     const fb = document.getElementById("feedback-x3");
+    const container = "#step-x-3";
+
+    resetOpsiKotak(container);
 
     if (jawaban === "mendatar") {
+        tandaiOpsi(el, "benar");
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
                 Benar. Karena nilai <b>y</b> tetap, garis yang terbentuk adalah garis mendatar.
             </div>
         `;
-        disableElement("bentuk-x");
-        sembunyikanTombol("btn-bentuk-x");
+        disableOpsiKotak(container);
         tampilkanStep("step-x-4");
     } else {
+        tandaiOpsi(el, "salah");
         fb.innerHTML = `
             <div class="alert alert-warning mt-2">
-                Coba perhatikan lagi. Jika pasangan titik memiliki nilai <b>y</b> yang sama, garisnya tidak naik dan tidak turun, sehingga bentuknya <b>mendatar</b>.
+                Coba perhatikan lagi. Jika nilai <b>y</b> sama, garisnya tidak naik dan tidak turun.
             </div>
         `;
     }
 }
 
 function cekSimpulanX() {
-    const s1 = document.getElementById("simpulan-x1").value;
-    const s2 = document.getElementById("simpulan-x2").value;
     const fb = document.getElementById("feedback-x4");
 
-    let pesan = [];
+    fb.innerHTML = `
+        <div class="alert alert-success mt-2">
+            Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
+        </div>
+    `;
 
-    if (s1 !== "mendatar") {
-        pesan.push(
-            "Bentuk garisnya belum tepat. Garis dengan nilai <b>y</b> yang sama berbentuk <b>mendatar</b>.",
-        );
-    }
-
-    if (s2 !== "0") {
-        pesan.push(
-            "Gradiennya belum tepat. Karena <b>y₂ - y₁ = 0</b>, maka gradien garis tersebut adalah <b>0</b>.",
-        );
-    }
-
-    if (pesan.length === 0) {
-        fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Bagus! Kamu sudah berhasil menyimpulkan hubungan garis sejajar <b>sumbu-x</b> dengan gradiennya.
-            </div>
-        `;
-        disableMany(["simpulan-x1", "simpulan-x2"]);
-        sembunyikanTombol("btn-simpulan-x");
-        tampilkanStep("kesimpulan-x");
-        tampilkanStep("ggb-wrapper-x");
-        renderKatexById("kesimpulan-x");
-    } else {
-        fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                <b>Simpulanmu belum lengkap dengan tepat:</b><br><br>
-                ${pesan.join("<br><br>")}
-            </div>
-        `;
-        renderKatexById("feedback-x4");
-    }
+    tampilkanStep("kesimpulan-x");
+    tampilkanStep("ggb-wrapper-x");
+    renderKatexById("kesimpulan-x");
 }
 
 /* =========================
@@ -359,7 +415,7 @@ function cekTabelY() {
 
     if (!(py2Atas === "-7" && py2Bawah === "0")) {
         pesan.push(
-            "Gradien garis <b>q</b> belum tepat. Pada titik R(-1,5) dan S(-1,-2), nilai <b>x</b> sama sehingga penyebutnya <b>0</b>.",
+            "Gradien garis <b>q</b> belum tepat. Dari titik R(-1,5) dan S(-1,-2), diperoleh <b>y₂ - y₁ = -7</b> dan <b>x₂ - x₁ = 0</b>.",
         );
     }
 
@@ -372,7 +428,7 @@ function cekTabelY() {
     if (pesan.length === 0) {
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
-                Bagus! Bentuk gradien yang kamu isi sudah benar. Sekarang amati penyebut dari ketiga gradien itu.
+                Bagus! Bentuk gradien yang kamu isi sudah benar. Sekarang amati apa yang sama dari ketiga garis tersebut.
             </div>
         `;
         disableMany([
@@ -391,118 +447,107 @@ function cekTabelY() {
                 <b>Masih ada jawaban yang belum tepat:</b><br><br>
                 ${pesan.join("<br><br>")}
                 <br><br>
-                <b>Petunjuk:</b> Jika nilai <b>x</b> kedua titik sama, maka <b>x₂ - x₁ = 0</b>.
+                <b>Petunjuk:</b> Gunakan rumus <b>m = (y₂ - y₁)/(x₂ - x₁)</b>, lalu perhatikan selisih nilai <b>x</b>.
             </div>
         `;
         renderKatexById("feedback-y1");
     }
 }
 
-function cekBandingY() {
-    const jawaban = document.getElementById("banding-y").value;
+function cekBandingY(jawaban, el) {
     const fb = document.getElementById("feedback-y2");
+    const container = "#step-y-2";
 
-    if (jawaban === "nol") {
+    resetOpsiKotak(container);
+
+    if (jawaban === "x-sama") {
+        tandaiOpsi(el, "benar");
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
-                Tepat. Semua penyebut pada bentuk gradien tersebut bernilai <b>0</b>.
+                Tepat. Pada setiap pasangan titik, nilai <b>x</b> selalu sama. Karena itu, <b>x₂ - x₁ = 0</b>.
             </div>
         `;
-        disableElement("banding-y");
-        sembunyikanTombol("btn-banding-y");
+        disableOpsiKotak(container);
         tampilkanStep("step-y-3");
     } else {
+        tandaiOpsi(el, "salah");
         fb.innerHTML = `
             <div class="alert alert-warning mt-2">
-                Jawaban belum tepat. Coba lihat lagi nilai <b>x</b> pada setiap pasangan titik. Karena sama, maka hasil <b>x₂ - x₁</b> selalu <b>0</b>.
+                Coba perhatikan lagi koordinat titik pada setiap garis. Nilai mana yang tetap, <b>x</b> atau <b>y</b>?
             </div>
         `;
     }
+
+    renderKatexById("feedback-y2");
 }
 
-function cekKeadaanY() {
-    const jawaban = document.getElementById("keadaan-y").value;
+function cekKeadaanY(jawaban, el) {
     const fb = document.getElementById("feedback-y3");
+    const container = "#step-y-3";
+
+    resetOpsiKotak(container);
 
     if (jawaban === "tdk") {
+        tandaiOpsi(el, "benar");
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
-                Benar. Karena penyebutnya <b>0</b>, gradien garis tersebut <b>tidak terdefinisi</b>.
+                Benar. Karena penyebut pada gradien bernilai <b>0</b>, pembagian tidak dapat dilakukan, sehingga gradiennya <b>tidak terdefinisi</b>.
             </div>
         `;
-        disableElement("keadaan-y");
-        sembunyikanTombol("btn-keadaan-y");
+        disableOpsiKotak(container);
         tampilkanStep("step-y-4");
     } else {
+        tandaiOpsi(el, "salah");
         fb.innerHTML = `
             <div class="alert alert-warning mt-2">
-                Coba ingat kembali: pembagian dengan <b>0</b> tidak dapat dilakukan. Karena itu, gradiennya bukan 0 atau 1, tetapi <b>tidak terdefinisi</b>.
+                Coba ingat kembali: apakah pembagian dengan <b>0</b> dapat dilakukan?
             </div>
         `;
     }
+
+    renderKatexById("feedback-y3");
 }
 
-function cekBentukY() {
-    const jawaban = document.getElementById("bentuk-y").value;
+function cekBentukY(jawaban, el) {
     const fb = document.getElementById("feedback-y4");
+    const container = "#step-y-4";
+
+    resetOpsiKotak(container);
 
     if (jawaban === "tegak") {
+        tandaiOpsi(el, "benar");
         fb.innerHTML = `
             <div class="alert alert-success mt-2">
-                Tepat. Jika nilai <b>x</b> pada pasangan titik sama, garisnya berbentuk <b>tegak</b>.
+                Tepat. Jika nilai <b>x</b> pada pasangan titik sama, garis yang terbentuk berbentuk <b>tegak</b> atau vertikal.
             </div>
         `;
-        disableElement("bentuk-y");
-        sembunyikanTombol("btn-bentuk-y");
+        disableOpsiKotak(container);
         tampilkanStep("step-y-5");
     } else {
+        tandaiOpsi(el, "salah");
         fb.innerHTML = `
             <div class="alert alert-warning mt-2">
-                Jawaban belum tepat. Coba bayangkan titik-titik dengan nilai <b>x</b> yang sama pada bidang koordinat. Titik-titik itu membentuk garis <b>tegak</b>.
+                Coba bayangkan titik-titik yang memiliki nilai <b>x</b> sama pada bidang koordinat. Garisnya akan bergerak ke arah mana?
             </div>
         `;
     }
+
+    renderKatexById("feedback-y4");
 }
 
 function cekSimpulanY() {
-    const s1 = document.getElementById("simpulan-y1").value;
-    const s2 = document.getElementById("simpulan-y2").value;
     const fb = document.getElementById("feedback-y5");
 
-    let pesan = [];
+    fb.innerHTML = `
+        <div class="alert alert-success mt-2">
+            Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
+        </div>
+    `;
 
-    if (s1 !== "tegak") {
-        pesan.push(
-            "Bentuk garisnya belum tepat. Garis dengan nilai <b>x</b> yang sama berbentuk <b>tegak</b>.",
-        );
-    }
-
-    if (s2 !== "tdk") {
-        pesan.push(
-            "Gradiennya belum tepat. Karena penyebut pada rumus gradien bernilai <b>0</b>, gradien garis tersebut <b>tidak terdefinisi</b>.",
-        );
-    }
-
-    if (pesan.length === 0) {
-        fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Bagus! Kamu sudah berhasil menyimpulkan hubungan garis sejajar <b>sumbu-y</b> dengan gradiennya.
-            </div>
-        `;
-        disableMany(["simpulan-y1", "simpulan-y2"]);
-        sembunyikanTombol("btn-simpulan-y");
-        tampilkanStep("kesimpulan-y");
-        tampilkanStep("ggb-wrapper-y");
-        renderKatexById("kesimpulan-y");
-    } else {
-        fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                <b>Simpulanmu belum lengkap dengan tepat:</b><br><br>
-                ${pesan.join("<br><br>")}
-            </div>
-        `;
-        renderKatexById("feedback-y5");
-    }
+    tampilkanStep("kesimpulan-y");
+    tampilkanStep("ggb-wrapper-y");
+    renderKatexById("feedback-y5");
+    renderKatexById("kesimpulan-y");
 }
 
 // Contoh Sumbu x
@@ -625,6 +670,51 @@ function cekContoh1Step4(pilihan) {
 // Latihan Soal
 //
 
+// Helper Umum
+function normJawaban(teks) {
+    return String(teks || "")
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-");
+}
+
+function cekIsian(id, jawabanBenar) {
+    const el = document.getElementById(id);
+    if (!el) return false;
+
+    const nilai = normJawaban(el.value);
+    const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
+    const cocok = daftar.map(normJawaban).includes(nilai);
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(cocok ? "is-valid" : "is-invalid");
+
+    return cocok;
+}
+
+function isiPesan(id, pesan, tipe = "info") {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const kelas =
+        tipe === "success"
+            ? "alert-success"
+            : tipe === "warning"
+              ? "alert-warning"
+              : "alert-info";
+
+    el.innerHTML = `<div class="alert ${kelas} py-2 mb-0">${pesan}</div>`;
+}
+
+function tampilkanPetunjukLatihan3(pesan) {
+    isiPesan("petunjukLatihan3", pesan, "info");
+}
+
+function kosongkanPetunjukLatihan3() {
+    const el = document.getElementById("petunjukLatihan3");
+    if (el) el.innerHTML = "";
+}
+
 function cekLatihan1() {
     const k = document.getElementById("lat1-k").checked;
     const l = document.getElementById("lat1-l").checked;
@@ -676,91 +766,118 @@ function cekLatihan2() {
     }
 }
 
-function norm(teks) {
-    return teks.toLowerCase().replace(/\s+/g, "");
-}
-
 function cekLatihan3() {
-    const x1 = norm(document.getElementById("x1_3").value);
-    const y1 = norm(document.getElementById("y1_3").value);
-    const x2 = norm(document.getElementById("x2_3").value);
-    const y2 = norm(document.getElementById("y2_3").value);
-    const m = norm(document.getElementById("m_3").value);
+    const benarX1 = cekIsian("x1_3", ["3a"]);
+    const benarY1 = cekIsian("y1_3", ["8a"]);
+    const benarX2 = cekIsian("x2_3", ["2a"]);
+    const benarY2 = cekIsian("y2_3", ["4"]);
 
-    const kiri1 = norm(document.getElementById("kiri1_3").value);
-    const subY2 = norm(document.getElementById("subY2_3").value);
-    const subY1 = norm(document.getElementById("subY1_3").value);
-    const subX2 = norm(document.getElementById("subX2_3").value);
-    const subX1 = norm(document.getElementById("subX1_3").value);
+    const benarM = cekIsian("m_3", ["0"]);
 
-    const kiri2 = norm(document.getElementById("kiri2_3").value);
-    const hasilAtas = norm(document.getElementById("hasilAtas_3").value);
-    const hasilBawah = norm(document.getElementById("hasilBawah_3").value);
+    const benarKiri1 = cekIsian("kiri1_3", ["0"]);
+    const benarSubY2 = cekIsian("subY2_3", ["4"]);
+    const benarSubY1 = cekIsian("subY1_3", ["8a"]);
+    const benarSubX2 = cekIsian("subX2_3", ["2a"]);
+    const benarSubX1 = cekIsian("subX1_3", ["3a"]);
 
-    const pers1Kiri = norm(document.getElementById("pers1Kiri_3").value);
-    const pers1Kanan = norm(document.getElementById("pers1Kanan_3").value);
+    const benarKiri2 = cekIsian("kiri2_3", ["0"]);
+    const benarHasilAtas = cekIsian("hasilAtas_3", ["4-8a", "-8a+4"]);
+    const benarHasilBawah = cekIsian("hasilBawah_3", ["-a", "2a-3a"]);
 
-    const hasilA = norm(document.getElementById("hasilA_3").value);
+    const benarPers1Kiri = cekIsian("pers1Kiri_3", ["0", "0(-a)", "-0a"]);
+    const benarPers1Kanan = cekIsian("pers1Kanan_3", ["4-8a", "-8a+4"]);
 
-    const fb = document.getElementById("fbLatihan3");
+    const benarHasilA = cekIsian("hasilA_3", ["1/2", "0.5", "½"]);
 
-    let pesan = [];
+    const semuaBenar =
+        benarX1 &&
+        benarY1 &&
+        benarX2 &&
+        benarY2 &&
+        benarM &&
+        benarKiri1 &&
+        benarSubY2 &&
+        benarSubY1 &&
+        benarSubX2 &&
+        benarSubX1 &&
+        benarKiri2 &&
+        benarHasilAtas &&
+        benarHasilBawah &&
+        benarPers1Kiri &&
+        benarPers1Kanan &&
+        benarHasilA;
 
-    if (x1 !== "3a") pesan.push("$x_1$ belum tepat.");
-    if (y1 !== "8a") pesan.push("$y_1$ belum tepat.");
-    if (x2 !== "2a") pesan.push("$x_2$ belum tepat.");
-    if (y2 !== "4") pesan.push("$y_2$ belum tepat.");
-
-    if (m !== "0") {
-        pesan.push("Karena garis sejajar sumbu-x, gradiennya harus $0$.");
-    }
-
-    if (kiri1 !== "0") pesan.push("Ruas kiri substitusi belum tepat.");
-    if (subY2 !== "4") pesan.push("Bagian $y_2$ belum tepat.");
-    if (subY1 !== "8a") pesan.push("Bagian $y_1$ belum tepat.");
-    if (subX2 !== "2a") pesan.push("Bagian $x_2$ belum tepat.");
-    if (subX1 !== "3a") pesan.push("Bagian $x_1$ belum tepat.");
-
-    if (kiri2 !== "0") pesan.push("Ruas kiri bentuk sederhana belum tepat.");
-    if (!(hasilAtas === "4-8a" || hasilAtas === "-8a+4")) {
-        pesan.push("Pembilang hasil substitusi belum tepat.");
-    }
-    if (!(hasilBawah === "-a" || hasilBawah === "2a-3a")) {
-        pesan.push("Penyebut hasil substitusi belum tepat.");
-    }
-
-    if (!(pers1Kiri === "0" || pers1Kiri === "0(-a)" || pers1Kiri === "-0a")) {
-        pesan.push("Ruas kiri setelah menghilangkan pecahan belum tepat.");
-    }
-    if (!(pers1Kanan === "4-8a" || pers1Kanan === "-8a+4")) {
-        pesan.push("Ruas kanan setelah menghilangkan pecahan belum tepat.");
-    }
-
-    if (!(hasilA === "1/2" || hasilA === "0.5" || hasilA === "½")) {
-        pesan.push("Nilai $a$ belum tepat.");
-    }
-
-    if (pesan.length === 0) {
-        fb.innerHTML = `
-            <div class="alert alert-success">
-                Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>
-                Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$.
-            </div>
-        `;
-
+    if (semuaBenar) {
+        isiPesan(
+            "fbLatihan3",
+            "Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$.",
+            "success",
+        );
+        kosongkanPetunjukLatihan3();
         renderKatexById("fbLatihan3");
-    } else {
-        fb.innerHTML = `
-            <div class="alert alert-warning">
-                <b>Masih ada bagian yang belum tepat:</b><br><br>
-                ${pesan.join("<br>")}
-                <br><br>
-                <b>Petunjuk:</b> Karena garis sejajar sumbu-x, fokus utama ada pada nilai ordinat, yaitu $y_1$ dan $y_2$.
-            </div>
-        `;
+        return;
     }
 
+    isiPesan(
+        "fbLatihan3",
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali isian yang berwarna merah.",
+        "warning",
+    );
     renderKatexById("fbLatihan3");
+
+    if (!benarX1 || !benarY1 || !benarX2 || !benarY2) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
+
+    if (!benarM) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
+
+    if (
+        !benarKiri1 ||
+        !benarSubY2 ||
+        !benarSubY1 ||
+        !benarSubX2 ||
+        !benarSubX1
+    ) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
+
+    if (!benarKiri2 || !benarHasilAtas || !benarHasilBawah) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
+
+    if (!benarPers1Kiri || !benarPers1Kanan) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
+
+    if (!benarHasilA) {
+        tampilkanPetunjukLatihan3(
+            "Petunjuk: dari $4-8a=0$, pindahkan $8a$ ke ruas kanan atau $4$ ke ruas kiri, lalu cari nilai $a$.",
+        );
+        renderKatexById("petunjukLatihan3");
+        return;
+    }
 }
 
 function cekLat4() {

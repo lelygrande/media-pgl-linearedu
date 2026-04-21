@@ -18,6 +18,8 @@ window.addEventListener("load", function () {
 
     setTimeout(function () {
         var ggb = applet2.getAppletObject();
+        if (!ggb) return;
+
         ggb.evalCommand("A=(0,1)");
         ggb.evalCommand("B=(3,2)");
         ggb.evalCommand("g=Line(A,B)");
@@ -39,6 +41,7 @@ function cekEksplorasiGaris() {
     for (let key in kunci) {
         const jawaban = document.querySelector(`input[name="${key}"]:checked`);
         const hasil = document.getElementById("hasil" + key);
+        if (!hasil) continue;
 
         if (!jawaban) {
             hasil.innerHTML =
@@ -52,19 +55,19 @@ function cekEksplorasiGaris() {
         }
     }
 
-    if (benarSemua) {
-        document.getElementById("kesimpulanGaris").style.display = "block";
-    } else {
-        document.getElementById("kesimpulanGaris").style.display = "none";
+    const kesimpulan = document.getElementById("kesimpulanGaris");
+    if (kesimpulan) {
+        kesimpulan.style.display = benarSemua ? "block" : "none";
     }
 }
 
 // Memahami bentuk implisit
 function cekJawabanABC() {
-    const inputA = document.getElementById("inputA").value.trim();
-    const inputB = document.getElementById("inputB").value.trim();
-    const inputC = document.getElementById("inputC").value.trim();
+    const inputA = document.getElementById("inputA")?.value.trim() || "";
+    const inputB = document.getElementById("inputB")?.value.trim() || "";
+    const inputC = document.getElementById("inputC")?.value.trim() || "";
     const hasil = document.getElementById("hasilABC");
+    if (!hasil) return;
 
     const benarA = "3";
     const benarB = "2";
@@ -92,31 +95,30 @@ function cekJawabanABC() {
     hasil.innerHTML = feedback;
     hasil.style.display = "block";
 
-    if (window.renderMathInElement) {
-        renderMathInElement(hasil, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-            ],
-        });
-    }
+    renderMathSafe(hasil);
 }
 
 function resetKotakABC() {
-    document.getElementById("inputA").value = "";
-    document.getElementById("inputB").value = "";
-    document.getElementById("inputC").value = "";
-
+    const inputA = document.getElementById("inputA");
+    const inputB = document.getElementById("inputB");
+    const inputC = document.getElementById("inputC");
     const hasil = document.getElementById("hasilABC");
-    hasil.innerHTML = "";
-    hasil.style.display = "none";
+
+    if (inputA) inputA.value = "";
+    if (inputB) inputB.value = "";
+    if (inputC) inputC.value = "";
+    if (hasil) {
+        hasil.innerHTML = "";
+        hasil.style.display = "none";
+    }
 }
 
 // Contoh menentukan persamaan garis lurus atau tidak
 function toggleSolution(id, btn) {
     const el = document.getElementById(id);
-    const isHidden = el.style.display === "none";
+    if (!el || !btn) return;
 
+    const isHidden = el.style.display === "none" || el.style.display === "";
     el.style.display = isHidden ? "block" : "none";
     btn.textContent = isHidden
         ? "Sembunyikan Penyelesaian"
@@ -126,81 +128,128 @@ function toggleSolution(id, btn) {
 // Contoh implisit klik kotak abc
 function tampilABC(huruf) {
     const hasil = document.getElementById("hasilABC");
+    if (!hasil) return;
 
     if (huruf === "a") hasil.innerHTML = "$a = 3$";
     if (huruf === "b") hasil.innerHTML = "$b = 2$";
     if (huruf === "c") hasil.innerHTML = "$c = -6$";
 
-    // Re-render KaTeX untuk konten yang baru dimasukkan
-    if (window.renderMathInElement) {
-        renderMathInElement(hasil, {
-            delimiters: [
-                {
-                    left: "$$",
-                    right: "$$",
-                    display: true,
-                },
-                {
-                    left: "$",
-                    right: "$",
-                    display: false,
-                },
-            ],
-        });
-    }
+    renderMathSafe(hasil);
 }
 
 // Contoh mengubah persamaan eksplisit ke implisit
-// Contoh 1
 function openStepUmum(id, btn) {
-    document.getElementById(id).style.display = "block";
+    const el = document.getElementById(id);
+    if (!el || !btn) return;
+
+    el.style.display = "block";
     btn.style.display = "none";
 }
 
-// contoh cara mengubah persamaan ke eksplisit
 function openStepS(id, btn) {
     const next = document.getElementById(id);
-    if (!next) return;
+    if (!next || !btn) return;
 
     next.style.display = "block";
     btn.style.display = "none";
 }
 
-// contoh menentukan 2y + 4 = x merupakan persamaan lurus
 function openStep(n, btn) {
     const next = document.getElementById("step" + n);
-    if (!next) return;
+    if (!next || !btn) return;
 
     next.style.display = "block";
     btn.style.display = "none";
 }
 
-// Latihan Soal
-let currentLatihan = 0;
+// =========================
+// HELPER
+// =========================
+function renderMathSafe(target) {
+    if (!target || !window.renderMathInElement) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+        ],
+    });
+}
+
+function norm(expr) {
+    return String(expr || "")
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .trim();
+}
+
+// =========================
+// LATIHAN SOAL
+// =========================
 let draggedItem = null;
 
 document.addEventListener("DOMContentLoaded", function () {
     initDragDropA1();
-    updateLatihanSlide();
 });
 
-function updateLatihanSlide() {
-    const track = document.getElementById("latihanTrack");
-    track.style.transform = `translateX(-${currentLatihan * 100}%)`;
+function getContentWrapper() {
+    return document.querySelector(".content-wrapper");
 }
 
-function nextLatihan(index) {
-    currentLatihan = index;
-    updateLatihanSlide();
+function renderMathSafe(target) {
+    if (!target || !window.renderMathInElement) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+        ],
+    });
 }
 
-function prevLatihan(index) {
-    currentLatihan = index;
-    updateLatihanSlide();
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+    if (!content || !step) return;
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMathSafe(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
 }
 
 function norm(expr) {
-    return expr.toLowerCase().replace(/\s+/g, "").replace(/−/g, "-");
+    return String(expr || "")
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .trim();
 }
 
 // =========================
@@ -210,6 +259,8 @@ function initDragDropA1() {
     const items = document.querySelectorAll(".opsi-item");
     const dropzone = document.getElementById("dropLinear");
     const opsiWrap = document.getElementById("opsiLinear");
+
+    if (!items.length || !dropzone || !opsiWrap) return;
 
     items.forEach((item) => {
         item.addEventListener("dragstart", function () {
@@ -230,6 +281,7 @@ function initDragDropA1() {
         area.addEventListener("drop", function (e) {
             e.preventDefault();
             this.classList.remove("over");
+
             if (draggedItem) {
                 this.appendChild(draggedItem);
                 draggedItem = null;
@@ -240,9 +292,12 @@ function initDragDropA1() {
 
 function cekLatihan1A1() {
     const dropzone = document.getElementById("dropLinear");
-    const items = dropzone.querySelectorAll(".opsi-item");
     const fb = document.getElementById("feedbackLatihan1A1");
     const nextBtn = document.getElementById("nextBtn1");
+
+    if (!dropzone || !fb || !nextBtn) return;
+
+    const items = dropzone.querySelectorAll(".opsi-item");
 
     if (items.length === 0) {
         fb.innerHTML = "Belum ada jawaban yang diseret ke kotak.";
@@ -253,6 +308,7 @@ function cekLatihan1A1() {
 
     let semuaBenar = true;
     let jumlahBenar = 0;
+
     items.forEach((item) => {
         if (item.dataset.linear === "true") {
             jumlahBenar++;
@@ -276,25 +332,23 @@ function cekLatihan1A1() {
         fb.style.color = "red";
         nextBtn.disabled = true;
     }
-
-    if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-            ],
-        });
-    }
 }
 
 function resetLatihan1A1() {
     const opsiWrap = document.getElementById("opsiLinear");
     const dropzone = document.getElementById("dropLinear");
+    const feedback = document.getElementById("feedbackLatihan1A1");
+    const nextBtn = document.getElementById("nextBtn1");
+
+    if (!opsiWrap || !dropzone || !feedback || !nextBtn) return;
+
     const items = Array.from(dropzone.querySelectorAll(".opsi-item"));
     items.forEach((item) => opsiWrap.appendChild(item));
 
-    document.getElementById("feedbackLatihan1A1").innerHTML = "";
-    document.getElementById("nextBtn1").disabled = true;
+    feedback.innerHTML = "";
+    nextBtn.disabled = true;
+
+    resetStepSetelah(2);
 }
 
 // =========================
@@ -303,39 +357,44 @@ function resetLatihan1A1() {
 function cekLatihan2A1() {
     let skor = 0;
 
-    const a = norm(document.getElementById("lat2a").value);
-    const b = norm(document.getElementById("lat2b").value);
-    const c = norm(document.getElementById("lat2c").value);
+    const a = norm(document.getElementById("lat2a")?.value);
+    const b = norm(document.getElementById("lat2b")?.value);
+    const c = norm(document.getElementById("lat2c")?.value);
+
+    const fba = document.getElementById("fb-lat2a");
+    const fbb = document.getElementById("fb-lat2b");
+    const fbc = document.getElementById("fb-lat2c");
+    const fb = document.getElementById("feedbackLatihan2A1");
+    const nextBtn = document.getElementById("nextBtn2");
+
+    if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
 
     if (["2x-y-5", "-2x+y+5"].includes(a)) {
-        document.getElementById("fb-lat2a").innerHTML = "Benar.";
-        document.getElementById("fb-lat2a").style.color = "green";
+        fba.innerHTML = "Benar.";
+        fba.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat2a").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat2a").style.color = "red";
+        fba.innerHTML = "Belum tepat.";
+        fba.style.color = "red";
     }
 
     if (["3x+y-4", "-3x-y+4"].includes(b)) {
-        document.getElementById("fb-lat2b").innerHTML = "Benar.";
-        document.getElementById("fb-lat2b").style.color = "green";
+        fbb.innerHTML = "Benar.";
+        fbb.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat2b").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat2b").style.color = "red";
+        fbb.innerHTML = "Belum tepat.";
+        fbb.style.color = "red";
     }
 
     if (["x-2y+6", "-x+2y-6"].includes(c)) {
-        document.getElementById("fb-lat2c").innerHTML = "Benar.";
-        document.getElementById("fb-lat2c").style.color = "green";
+        fbc.innerHTML = "Benar.";
+        fbc.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat2c").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat2c").style.color = "red";
+        fbc.innerHTML = "Belum tepat.";
+        fbc.style.color = "red";
     }
-
-    const fb = document.getElementById("feedbackLatihan2A1");
-    const nextBtn = document.getElementById("nextBtn2");
 
     if (skor === 3) {
         fb.innerHTML = "Bagus. Semua jawabanmu benar.";
@@ -348,44 +407,67 @@ function cekLatihan2A1() {
     }
 }
 
+function resetLatihan2A1() {
+    ["lat2a", "lat2b", "lat2c"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+
+    ["fb-lat2a", "fb-lat2b", "fb-lat2c", "feedbackLatihan2A1"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = "";
+    });
+
+    const nextBtn = document.getElementById("nextBtn2");
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
+}
+
 // =========================
 // LATIHAN 3
 // =========================
 function cekLatihan3A1() {
     let skor = 0;
 
-    const a = norm(document.getElementById("lat3a").value);
-    const b = norm(document.getElementById("lat3b").value);
-    const c = norm(document.getElementById("lat3c").value);
+    const a = norm(document.getElementById("lat3a")?.value);
+    const b = norm(document.getElementById("lat3b")?.value);
+    const c = norm(document.getElementById("lat3c")?.value);
+
+    const fba = document.getElementById("fb-lat3a");
+    const fbb = document.getElementById("fb-lat3b");
+    const fbc = document.getElementById("fb-lat3c");
+    const fb = document.getElementById("feedbackLatihan3A1");
+
+    if (!fba || !fbb || !fbc || !fb) return;
 
     if (["-3x+7"].includes(a)) {
-        document.getElementById("fb-lat3a").innerHTML = "Benar.";
-        document.getElementById("fb-lat3a").style.color = "green";
+        fba.innerHTML = "Benar.";
+        fba.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat3a").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat3a").style.color = "red";
+        fba.innerHTML = "Belum tepat.";
+        fba.style.color = "red";
     }
 
     if (["1/2x+2", "0.5x+2"].includes(b)) {
-        document.getElementById("fb-lat3b").innerHTML = "Benar.";
-        document.getElementById("fb-lat3b").style.color = "green";
+        fbb.innerHTML = "Benar.";
+        fbb.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat3b").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat3b").style.color = "red";
+        fbb.innerHTML = "Belum tepat.";
+        fbb.style.color = "red";
     }
 
     if (["-5/2x+3", "-2.5x+3"].includes(c)) {
-        document.getElementById("fb-lat3c").innerHTML = "Benar.";
-        document.getElementById("fb-lat3c").style.color = "green";
+        fbc.innerHTML = "Benar.";
+        fbc.style.color = "green";
         skor++;
     } else {
-        document.getElementById("fb-lat3c").innerHTML = "Belum tepat.";
-        document.getElementById("fb-lat3c").style.color = "red";
+        fbc.innerHTML = "Belum tepat.";
+        fbc.style.color = "red";
     }
 
-    const fb = document.getElementById("feedbackLatihan3A1");
     if (skor === 3) {
         fb.innerHTML = "Bagus. Semua jawabanmu benar.";
         fb.style.color = "green";
@@ -393,4 +475,16 @@ function cekLatihan3A1() {
         fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
         fb.style.color = "black";
     }
+}
+
+function resetLatihan3A1() {
+    ["lat3a", "lat3b", "lat3c"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+
+    ["fb-lat3a", "fb-lat3b", "fb-lat3c", "feedbackLatihan3A1"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = "";
+    });
 }

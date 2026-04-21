@@ -114,6 +114,46 @@
             border: 1px solid #e5e7eb;
             background: #fff;
         }
+
+        /* Opsi kotak */
+        .opsi-kotak-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .opsi-kotak {
+            border: 2px solid #cfd8e3;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opsi-kotak:hover {
+            border-color: #2E75B6;
+            background: #eef5ff;
+        }
+
+        .opsi-kotak.active {
+            background: #2E75B6;
+            color: #fff;
+            border-color: #2E75B6;
+        }
+
+        .opsi-kotak.benar {
+            background: #198754 !important;
+            color: #fff !important;
+            border-color: #198754 !important;
+        }
+
+        .opsi-kotak.salah {
+            background: #dc3545 !important;
+            color: #fff !important;
+            border-color: #dc3545 !important;
+        }
     </style>
 
     {{-- Judul --}}
@@ -137,10 +177,8 @@
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
     {{-- ========================================================= --}}
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+    <div class="box-eksplorasi mt-4">
+        <div class="title-box">
             Eksplorasi
         </div>
 
@@ -162,7 +200,7 @@
                     Perhatikan tiga garis berikut.
                 </p>
 
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3" style="width: 500px">
                     <table class="table table-bordered text-center align-middle">
                         <thead class="table-light">
                             <tr>
@@ -217,68 +255,50 @@
 
             <div id="step-x-2" class="d-none mt-3">
                 <p>
-                    <b>Bagus,</b> perhitungan gradien sudah benar. Setelah kamu mengisi tabel tersebut,
-                    perhatikan nilai gradien yang diperoleh. Menurutmu, bagaimana hubungan ketiga gradien itu?
+                    Setelah kamu mengisi tabel, bagaimana hubungan ketiga gradien tersebut?
                 </p>
 
-                <select id="banding-x" class="form-select inline-select" style="width: 250px">
-                    <option value="">Pilih</option>
-                    <option value="sama">Semua gradien sama</option>
-                    <option value="beda">Gradiennya berbeda</option>
-                </select>
-
-                <button type="button" id="btn-banding-x" class="btn btn-palet mt-2" onclick="cekBandingX()">
-                    Cek
-                </button>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" id="bandingx-sama" onclick="cekBandingX('sama', this)">
+                        Semua gradien sama
+                    </button>
+                    <button type="button" class="opsi-kotak" id="bandingx-beda" onclick="cekBandingX('beda', this)">
+                        Gradiennya berbeda
+                    </button>
+                </div>
 
                 <div id="feedback-x2" style="width: fit-content"></div>
             </div>
 
             <div id="step-x-3" class="d-none mt-3">
                 <p>
-                    Sekarang perhatikan kembali pasangan titik pada setiap garis. Nilai $y$ pada setiap pasangan titik
+                    Sekarang perhatikan kembali pasangan titik pada setiap garis. Nilai <b>y</b> pada setiap pasangan titik
                     tetap.
                     Jika digambarkan pada bidang koordinat, maka bentuk garis-garis tersebut adalah ....
                 </p>
 
-                <select id="bentuk-x" class="form-select inline-select" style="width: 200px">
-                    <option value="">Pilih</option>
-                    <option value="mendatar">Mendatar</option>
-                    <option value="tegak">Tegak</option>
-                    <option value="miring">Miring</option>
-                </select>
-
-                <button type="button" id="btn-bentuk-x" class="btn btn-palet mt-2" onclick="cekBentukX()">
-                    Cek
-                </button>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekBentukX('mendatar', this)">
+                        Mendatar
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekBentukX('tegak', this)">
+                        Tegak
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekBentukX('miring', this)">
+                        Miring
+                    </button>
+                </div>
 
                 <div id="feedback-x3" style="width: fit-content"></div>
             </div>
 
             <div id="step-x-4" class="d-none mt-3">
                 <p>
-                    Berdasarkan hasil perhitungan dan pengamatanmu, lengkapilah kesimpulan berikut.
+                    Berdasarkan hasil perhitungan dan pengamatanmu, apa yang dapat kamu simpulkan?
                 </p>
 
-                <p class="mb-3">
-                    Jika beberapa garis memiliki titik-titik dengan nilai $y$ yang sama, maka garis tersebut
-                    <select id="simpulan-x1" class="form-select inline-select mx-1" style="width: 200px">
-                        <option value="">Pilih</option>
-                        <option value="mendatar">mendatar</option>
-                        <option value="tegak">tegak</option>
-                        <option value="miring">miring</option>
-                    </select>
-                    dan gradiennya
-                    <select id="simpulan-x2" class="form-select inline-select mx-1" style="width: 200px">
-                        <option value="">Pilih</option>
-                        <option value="0">0</option>
-                        <option value="tdk">tidak terdefinisi</option>
-                        <option value="1">1</option>
-                    </select>.
-                </p>
-
-                <button type="button" id="btn-simpulan-x" class="btn btn-palet" onclick="cekSimpulanX()">
-                    Simpan Kesimpulan
+                <button type="button" class="btn btn-palet" onclick="cekSimpulanX()">
+                    Tampilkan Kesimpulan
                 </button>
 
                 <div id="feedback-x4" style="width: fit-content"></div>
@@ -313,11 +333,7 @@
                     dalam bentuk pecahan pada tabel berikut.
                 </p>
 
-                <div class="rumus-box text-center mb-3">
-                    $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
-                </div>
-
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3" style="max-width: 550px;">
                     <table class="table table-bordered text-center align-middle" style="table-layout: fixed;">
                         <thead class="table-light">
                             <tr>
@@ -364,6 +380,10 @@
                     </table>
                 </div>
 
+                <div class="rumus-box text-center mb-3">
+                    $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
+                </div>
+
                 <button type="button" id="btn-tabel-y" class="btn btn-palet" onclick="cekTabelY()">
                     Cek Jawaban
                 </button>
@@ -373,88 +393,69 @@
 
             <div id="step-y-2" class="d-none mt-3">
                 <p>
-                    <b>Bagus,</b> bentuk gradien yang kamu isi sudah benar.
-                    Sekarang perhatikan nilai penyebut pada ketiga gradien tersebut.
-                    Bagaimana nilai penyebut pada ketiganya?
+                    Setelah kamu menuliskan bentuk gradiennya, apa yang sama dari ketiga garis tersebut?
                 </p>
 
-                <select id="banding-y" class="form-select inline-select">
-                    <option value="">Pilih</option>
-                    <option value="nol">Semua penyebut bernilai 0</option>
-                    <option value="beda">Penyebutnya berbeda</option>
-                </select>
-
-                <button type="button" id="btn-banding-y" class="btn btn-palet mt-2" onclick="cekBandingY()">
-                    Cek
-                </button>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekBandingY('x-sama', this)">
+                        Semua garis memiliki nilai $x$ yang sama pada tiap pasangan titik
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekBandingY('y-sama', this)">
+                        Semua garis memiliki nilai $y$ yang sama pada tiap pasangan titik
+                    </button>
+                </div>
 
                 <div id="feedback-y2"></div>
             </div>
 
             <div id="step-y-3" class="d-none mt-3">
                 <p>
-                    Jika penyebut pada ketiga gradien bernilai $0$, menurutmu bagaimana keadaan gradien garis tersebut?
+                    Karena nilai $x$ pada setiap pasangan titik sama, maka pada rumus gradien penyebutnya bernilai $0$.
+                    Akibatnya, gradien garis tersebut ....
                 </p>
 
-                <select id="keadaan-y" class="form-select inline-select">
-                    <option value="">Pilih</option>
-                    <option value="tdk">Tidak terdefinisi</option>
-                    <option value="nol">Bernilai 0</option>
-                    <option value="satu">Bernilai 1</option>
-                </select>
-
-                <button type="button" id="btn-keadaan-y" class="btn btn-palet mt-2" onclick="cekKeadaanY()">
-                    Cek
-                </button>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('tdk', this)">
+                        Tidak terdefinisi
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('nol', this)">
+                        Bernilai 0
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('satu', this)">
+                        Bernilai 1
+                    </button>
+                </div>
 
                 <div id="feedback-y3"></div>
             </div>
 
             <div id="step-y-4" class="d-none mt-3">
                 <p>
-                    Sekarang perhatikan kembali pasangan titik pada setiap garis. Karena nilai $x$ pada setiap pasangan
-                    titik sama,
-                    maka jika digambar pada bidang koordinat, bentuk garis-garis tersebut adalah ....
+                    Jika digambar pada bidang koordinat, bentuk garis-garis tersebut adalah ....
                 </p>
 
-                <select id="bentuk-y" class="form-select inline-select">
-                    <option value="">Pilih</option>
-                    <option value="tegak">Tegak</option>
-                    <option value="mendatar">Mendatar</option>
-                    <option value="miring">Miring</option>
-                </select>
-
-                <button type="button" id="btn-bentuk-y" class="btn btn-palet mt-2" onclick="cekBentukY()">
-                    Cek
-                </button>
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" onclick="cekBentukY('tegak', this)">
+                        Tegak
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekBentukY('mendatar', this)">
+                        Mendatar
+                    </button>
+                    <button type="button" class="opsi-kotak" onclick="cekBentukY('miring', this)">
+                        Miring
+                    </button>
+                </div>
 
                 <div id="feedback-y4"></div>
             </div>
 
             <div id="step-y-5" class="d-none mt-3">
                 <p>
-                    Berdasarkan hasil yang kamu peroleh, lengkapilah kesimpulan berikut.
+                    Berdasarkan hasil yang kamu peroleh, apa yang dapat kamu simpulkan?
                 </p>
 
-                <p class="mb-3">
-                    Jika beberapa garis memiliki titik-titik dengan nilai $x$ yang sama, maka garis tersebut
-                    <select id="simpulan-y1" class="form-select inline-select mx-1">
-                        <option value="">Pilih</option>
-                        <option value="tegak">tegak</option>
-                        <option value="mendatar">mendatar</option>
-                        <option value="miring">miring</option>
-                    </select>
-                    dan gradiennya
-                    <select id="simpulan-y2" class="form-select inline-select mx-1">
-                        <option value="">Pilih</option>
-                        <option value="tdk">tidak terdefinisi</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                    </select>.
-                </p>
-
-                <button type="button" id="btn-simpulan-y" class="btn btn-palet" onclick="cekSimpulanY()">
-                    Simpan Kesimpulan
+                <button type="button" class="btn btn-palet" onclick="cekSimpulanY()">
+                    Tampilkan Kesimpulan
                 </button>
 
                 <div id="feedback-y5"></div>
@@ -481,7 +482,7 @@
     {{-- ========================================================= --}}
 
     {{-- Materi sejajar sumbu-x --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Gradien Garis Sejajar $Sumbu\text{-}x$</span>
 
@@ -606,9 +607,10 @@
         </div>
     </div>
 
-    <div class="card card-materi mb-4">
+    {{-- Contoh --}}
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="badge-contoh">Contoh Soal</span>
+            <span class="title-box">Contoh</span>
 
             <p>
                 Rina berjalan di jalan lurus dari titik $A(-2,3)$ ke $B(4,3)$.
@@ -716,9 +718,10 @@
         </div>
     </div>
 
-    <div class="card card-materi mb-4">
+    {{-- Latihan --}}
+    <div class="box-latihan mt-5">
         <div class="card-body">
-            <span class="badge-latihan">Latihan</span>
+            <span class="title-box">Latihan</span>
 
             <p>
                 Kerjakan latihan berikut berdasarkan pemahamanmu tentang garis yang sejajar dengan sumbu-x dan sumbu-y.
@@ -891,6 +894,7 @@
                     <button type="button" class="btn btn-palet mt-2" onclick="cekLatihan3()">Cek Jawaban</button>
 
                     <div id="fbLatihan3" class="mt-3"></div>
+                    <div id="petunjukLatihaan3" class="mt-2"></div>
                 </div>
             </div>
 
@@ -924,39 +928,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-
