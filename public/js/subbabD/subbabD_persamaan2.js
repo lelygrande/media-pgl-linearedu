@@ -14,42 +14,77 @@ function cekInput(id, daftarJawaban) {
     return benar;
 }
 
+function renderKatexById(id) {
+    const el = document.getElementById(id);
+    if (el && window.renderMathInElement) {
+        renderMathInElement(el, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+            ],
+            throwOnError: false,
+        });
+    }
+}
+
+function tampilkanPetunjukEksplorasi(pesan) {
+    const el = document.getElementById("petunjukEksplorasiDuaTitik");
+    if (!el) return;
+
+    el.innerHTML = '<div class="alert alert-info py-2 mb-0">' + pesan + "</div>";
+    renderKatexById("petunjukEksplorasiDuaTitik");
+}
+
 function cekEksplorasiDuaTitik() {
-    let semuaBenar = true;
+    const benarKali1 = cekInput("kali_eks_1", ["x2-x1", "x_2-x_1"]);
+    const benarKali2 = cekInput("kali_eks_2", ["y2-y1", "y_2-y_1"]);
 
-    const kunci = {
-        m_atas1: ["y2", "y_2"],
-        m_atas2: ["y1", "y_1"],
-        m_bawah1: ["x2", "x_2"],
-        m_bawah2: ["x1", "x_1"],
+    const benarAkhir1 = cekInput("akhir1", ["y2", "y_2"]);
+    const benarAkhir2 = cekInput("akhir2", ["y1", "y_1"]);
+    const benarAkhir3 = cekInput("akhir3", ["x2", "x_2"]);
+    const benarAkhir4 = cekInput("akhir4", ["x1", "x_1"]);
 
-        sub_atas1: ["y2", "y_2"],
-        sub_atas2: ["y1", "y_1"],
-        sub_bawah1: ["x2", "x_2"],
-        sub_bawah2: ["x1", "x_1"],
-
-        akhir1: ["y2", "y_2"],
-        akhir2: ["y1", "y_1"],
-        akhir3: ["x2", "x_2"],
-        akhir4: ["x1", "x_1"],
-    };
-
-    Object.keys(kunci).forEach(function (id) {
-        const benar = cekInput(id, kunci[id]);
-        if (!benar) semuaBenar = false;
-    });
+    const semuaBenar =
+        benarKali1 &&
+        benarKali2 &&
+        benarAkhir1 &&
+        benarAkhir2 &&
+        benarAkhir3 &&
+        benarAkhir4;
 
     const feedback = document.getElementById("feedbackEksplorasiDuaTitik");
+    const petunjuk = document.getElementById("petunjukEksplorasiDuaTitik");
     const kesimpulan = document.getElementById("kesimpulanEksplorasiDuaTitik");
 
     if (semuaBenar) {
         feedback.innerHTML =
             '<div class="alert alert-success py-2 mb-0">Bagus, semua jawabanmu benar. Sekarang kamu sudah menemukan bentuk persamaan garis melalui dua titik.</div>';
+        petunjuk.innerHTML = "";
         kesimpulan.classList.remove("d-none");
-    } else {
-        feedback.innerHTML =
-            '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa lagi bentuk gradien, hasil substitusi, dan bentuk akhirnya.</div>';
-        kesimpulan.classList.add("d-none");
+
+        renderKatexById("feedbackEksplorasiDuaTitik");
+        renderKatexById("kesimpulanEksplorasiDuaTitik");
+        return;
+    }
+
+    feedback.innerHTML =
+        '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa lagi langkah-langkahnya.</div>';
+    kesimpulan.classList.add("d-none");
+
+    renderKatexById("feedbackEksplorasiDuaTitik");
+
+    if (!benarKali1 || !benarKali2) {
+        tampilkanPetunjukEksplorasi(
+            'Petunjuk: dari bentuk <b>$y-y_1=\\dfrac{y_2-y_1}{x_2-x_1}(x-x_1)$</b>, kalikan kedua ruas dengan <b>$(x_2-x_1)$</b>. Hasilnya menjadi <b>$(x_2-x_1)(y-y_1)=(y_2-y_1)(x-x_1)$</b>.'
+        );
+        return;
+    }
+
+    if (!benarAkhir1 || !benarAkhir2 || !benarAkhir3 || !benarAkhir4) {
+        tampilkanPetunjukEksplorasi(
+            'Petunjuk: dari bentuk <b>$(x_2-x_1)(y-y_1)=(y_2-y_1)(x-x_1)$</b>, susun kembali ke bentuk perbandingan sehingga pembilang kiri menjadi <b>$y-y_1$</b> dan pembilang kanan menjadi <b>$x-x_1$</b>.'
+        );
+        return;
     }
 }
 
@@ -164,6 +199,7 @@ function cekContohSoal1() {
         );
         return;
     }
+    renderKatexById(petunjuk);
 }
 
 // =========================
@@ -293,7 +329,7 @@ function cekLatihan1() {
     ) {
         tampilkanPetunjuk(
             petunjukId,
-            "Petunjuk: tuliskan rumus persamaan garis lurus melalui dua titik yang diperoleh pada bagian eksplorasi.",
+            "Petunjuk: tuliskan rumus persamaan garis lurus melalui dua titik.",
         );
         return;
     }
@@ -425,7 +461,7 @@ function cekLatihan3() {
     const benarKali4 = cekIsian("lat3_kali4", ["1"]);
 
     const benarPersamaan = cekIsian("lat3_persamaan", ["2x+3", "2x + 3"]);
-    const benarA = cekIsian("lat3_a", ["9"]);
+    const benarY = cekIsian("lat3_y", ["9"]);
 
     const semuaBenar =
         benarSub1 &&
@@ -439,7 +475,7 @@ function cekLatihan3() {
         benarKali3 &&
         benarKali4 &&
         benarPersamaan &&
-        benarA;
+        benarY;
 
     const feedback = document.getElementById("feedbackLatihan3");
     const petunjukId = "petunjukLatihan3";
@@ -464,7 +500,7 @@ function cekLatihan3() {
     ) {
         tampilkanPetunjuk(
             petunjukId,
-            "Petunjuk: gunakan titik A(1,5) dan B(5,13) untuk menggantikan x1, y1, x2, dan y2.",
+            "Petunjuk: gunakan titik A(1,5) dan B(5,13) untuk menggantikan x1, y1, x2, dan y2."
         );
         return;
     }
@@ -472,7 +508,7 @@ function cekLatihan3() {
     if (!benarKali1 || !benarKali2 || !benarKali3 || !benarKali4) {
         tampilkanPetunjuk(
             petunjukId,
-            "Petunjuk: sederhanakan dulu 13 - 5 dan 5 - 1, lalu lakukan kali silang.",
+            "Petunjuk: sederhanakan dulu 13 - 5 dan 5 - 1, lalu lakukan kali silang."
         );
         return;
     }
@@ -480,15 +516,15 @@ function cekLatihan3() {
     if (!benarPersamaan) {
         tampilkanPetunjuk(
             petunjukId,
-            "Petunjuk: dari 4(y - 5) = 8(x - 1), uraikan lalu sederhanakan.",
+            "Petunjuk: dari 4(y - 5) = 8(x - 1), uraikan lalu sederhanakan."
         );
         return;
     }
 
-    if (!benarA) {
+    if (!benarY) {
         tampilkanPetunjuk(
             petunjukId,
-            "Petunjuk: substitusikan x = 3 ke persamaan garis yang sudah kamu peroleh.",
+            "Petunjuk: substitusikan x = 3 ke persamaan garis yang sudah kamu peroleh."
         );
     }
 }

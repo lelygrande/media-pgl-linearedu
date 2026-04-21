@@ -192,7 +192,11 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Menentukan persamaan garis lurus dari dua titik atau satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
+                </li>
             </ol>
         </div>
     </div>
@@ -203,11 +207,8 @@
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
     {{-- ========================================================= --}}
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
-
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+    <div class="box-eksplorasi mt-5">
+        <div class="title-box">
             Eksplorasi
         </div>
 
@@ -215,67 +216,44 @@
             <p>
                 Misalkan suatu garis melalui dua titik <span>$(x_1, y_1)$</span> dan
                 <span>$(x_2, y_2)$</span>. Untuk menemukan persamaan garis yang melalui dua titik tersebut,
-                kita mulai dengan menentukan gradien garisnya terlebih dahulu.
+                kita mulai dari rumus gradien garis:
             </p>
 
-            <p>
-                Gradien garis yang melalui dua titik itu adalah:
-            </p>
-
-            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                <span>$m =$</span>
-                <div class="frac-input">
-                    <div class="top">
-                        <input type="text" id="m_atas1"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                        <span>$-$</span>
-                        <input type="text" id="m_atas2"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                    </div>
-                    <div class="bottom">
-                        <input type="text" id="m_bawah1"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                        <span>$-$</span>
-                        <input type="text" id="m_bawah2"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                    </div>
-                </div>
+            <div class="rumus-box mb-3 text-center" style="width: fit-content;">
+                <span>$m=\dfrac{y_2-y_1}{x_2-x_1}$</span>
             </div>
 
             <p>
-                Setelah gradien diperoleh, substitusikan bentuk gradien tersebut ke persamaan garis melalui titik
-                <span>$(x_1, y_1)$</span>, yaitu <span>$y - y_1 = m(x - x_1)$</span>.
+                Substitusikan bentuk gradien tersebut ke persamaan garis melalui titik
+                <span>$(x_1,y_1)$</span>, yaitu <span>$y-y_1=m(x-x_1)$</span>.
             </p>
 
-            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                <span>$y - y_1 =$</span>
-                <div class="frac-input">
-                    <div class="top">
-                        <input type="text" id="sub_atas1"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                        <span>$-$</span>
-                        <input type="text" id="sub_atas2"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                    </div>
-                    <div class="bottom">
-                        <input type="text" id="sub_bawah1"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                        <span>$-$</span>
-                        <input type="text" id="sub_bawah2"
-                            class="form-control form-control-sm text-center jawaban-latihan">
-                    </div>
-                </div>
-                <span>$(x - x_1)$</span>
+            <div class="rumus-box mb-3 text-center" style="width: fit-content;">
+                <span>$y-y_1=\dfrac{y_2-y_1}{x_2-x_1}(x-x_1)$</span>
             </div>
 
             <p>
-                Selanjutnya, susun persamaan tersebut menjadi bentuk perbandingan berikut.
+                Agar bentuk pecahannya hilang, kalikan kedua ruas dengan <span>$(x_2-x_1)$</span>.
+                Lengkapilah bentuk berikut.
+            </p>
+
+            <div class="rumus-box mb-3" style="width: fit-content;">
+                <input type="text" id="kali_eks_1"
+                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:100px;">
+                <span>$(y-y_1)=$</span>
+                <input type="text" id="kali_eks_2"
+                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:100px;">
+                <span>$(x-x_1)$</span>
+            </div>
+
+            <p>
+                Sekarang, susun kembali persamaan tersebut ke dalam bentuk perbandingan berikut.
             </p>
 
             <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
                 <div class="frac-static">
                     <div class="top">
-                        <span>$y - y_1$</span>
+                        <span>$y-y_1$</span>
                     </div>
                     <div class="bottom">
                         <input type="text" id="akhir1"
@@ -290,7 +268,7 @@
 
                 <div class="frac-static">
                     <div class="top">
-                        <span>$x - x_1$</span>
+                        <span>$x-x_1$</span>
                     </div>
                     <div class="bottom">
                         <input type="text" id="akhir3"
@@ -305,6 +283,7 @@
             <div class="mt-3">
                 <button class="btn btn-palet btn-sm" onclick="cekEksplorasiDuaTitik()">Cek</button>
                 <div id="feedbackEksplorasiDuaTitik" class="mt-2"></div>
+                <div id="petunjukEksplorasiDuaTitik" class="mt-2"></div>
             </div>
 
             <div id="kesimpulanEksplorasiDuaTitik" class="box-kesimpulan mt-3 d-none">
@@ -335,14 +314,26 @@
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Persamaan Garis Lurus Melalui Dua Titik</span>
 
             <p>
                 Untuk menyusun persamaan garis yang melalui titik <span>$A(x_1, y_1)$</span> dan
                 <span>$B(x_2, y_2)$</span>, langkah pertama yang dilakukan adalah menentukan gradien garis yang
-                melalui kedua titik tersebut. Nilai gradien diperoleh dari perbandingan perubahan nilai koordinat
+                melalui kedua titik tersebut.
+            </p>
+
+            {{-- GAMBAR --}}
+            <div class="text-center my-4">
+                <img src="{{ asset('img/pgl/pgl_2titik.png') }}" alt="Garis melalui titik (x1,y1)" class="img-fluid"
+                    style="max-width:350px;">
+                <div class="small text-muted mt-2">
+                    Gambar: Garis yang melalui titik $(x_1, y_1)$ dan $(x_2, y_2)$
+                </div>
+            </div>
+
+            <p>Nilai gradien diperoleh dari perbandingan perubahan nilai koordinat
                 <span>$y$</span> terhadap perubahan nilai koordinat <span>$x$</span>, yaitu:
             </p>
 
@@ -385,10 +376,9 @@
     </div>
 
     {{-- Contoh Soal --}}
-
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="badge-contoh">Contoh Soal</span>
+            <span class="title-box">Contoh</span>
 
             <p>
                 Tentukan persamaan garis yang melalui titik <span>$A(1,3)$</span> dan <span>$B(5,11)$</span>.
@@ -542,7 +532,6 @@
     </div>
 
     {{-- Latihan --}}
-
     <div class="latihan-slider">
         <div class="latihan-track" id="latihanTrack">
 
@@ -591,7 +580,7 @@
                             )
                         </p>
 
-                        <p>Tuliskan langsung rumus persamaan garis lurus melalui dua titik.</p>
+                        <p>Tuliskan rumus persamaan garis lurus melalui dua titik.</p>
 
                         <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
                             <div class="frac-static">
@@ -817,15 +806,14 @@
                             3. Seorang siswa mengamati hubungan antara banyak buku tulis yang dibeli dan jumlah uang yang
                             harus dibayar.
                             Data tersebut dinyatakan pada dua titik, yaitu <span>$A(1,5)$</span> dan <span>$B(5,13)$</span>.
-                            Jika hubungan itu membentuk garis lurus dan terdapat titik <span>$(3,a)$</span> pada garis yang
-                            sama,
-                            tentukan nilai <span>$a$</span>.
+                            Jika hubungan itu membentuk garis lurus, tentukan jumlah uang yang harus dibayar saat membeli
+                            <span>$3$</span> buku tulis.
                         </p>
 
                         <p>
                             Substitusikan titik <span>$A(1,5)$</span> dan <span>$B(5,13)$</span> ke rumus persamaan garis
-                            lurus melalui
-                            dua titik.
+                            lurus
+                            melalui dua titik.
                         </p>
 
                         <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
@@ -895,13 +883,13 @@
                         </p>
 
                         <p>
-                            Karena titik <span>$(3,a)$</span> terletak pada garis tersebut, maka nilai <span>$a$</span>
-                            adalah:
+                            Karena yang dibeli adalah <span>$3$</span> buku tulis, substitusikan <span>$x=3$</span> ke
+                            persamaan garis tersebut. Jadi jumlah uang yang harus dibayar adalah:
                         </p>
 
                         <p>
-                            <span>$a =$</span>
-                            <input type="text" id="lat3_a"
+                            <span>$y =$</span>
+                            <input type="text" id="lat3_y"
                                 class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                                 style="width:100px;">
                         </p>
@@ -924,39 +912,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

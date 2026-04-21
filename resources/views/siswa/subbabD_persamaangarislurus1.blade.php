@@ -161,7 +161,11 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Menentukan persamaan garis lurus dari dua titik atau satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
+                </li>
             </ol>
         </div>
     </div>
@@ -172,11 +176,9 @@
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
     {{-- ========================================================= --}}
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
+    <div class="box-eksplorasi mt-5">
 
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+        <div class="title-box">
             Eksplorasi
         </div>
 
@@ -280,7 +282,7 @@
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Persamaan Garis Lurus Melalui Satu Titik dengan Gradien</span>
 
@@ -334,9 +336,9 @@
         </div>
     </div>
 
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="badge-contoh">Contoh Soal</span>
+            <span class="title-box">Contoh</span>
 
             {{-- ======================= --}}
             {{-- CONTOH 1 --}}
@@ -531,247 +533,315 @@
         </div>
     </div>
 
-<div class="card card-materi mb-4">
-    <div class="card-body">
-        <span class="badge-latihan">Latihan</span>
+    <div class="box-latihan mt-5 mb-4">
+        <div class="card-body">
+            <span class="title-box">Latihan</span>
 
-        {{-- ======================= --}}
-        {{-- LATIHAN NO 1 --}}
-        {{-- ======================= --}}
-        <div id="latihan1" class="latihan-step">
-            <p class="mt-3">
-                <b>1.</b> Tentukan persamaan garis yang melalui titik <b>$(3, -2)$</b> dan memiliki gradien <b>$2$</b>.
-            </p>
-
-            <p class="mb-2"><b>Penyelesaian:</b></p>
-
-            <div class="mb-3">
-                <p>
-                    Diketahui:
-                    $(x_1, y_1) = ($
-                    <input type="text" id="x1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    ,
-                    <input type="text" id="y1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
+            {{-- ======================= --}}
+            {{-- LATIHAN NO 1 --}}
+            {{-- ======================= --}}
+            <div id="latihan1" class="latihan-step">
+                <p class="mt-3">
+                    <b>1.</b> Tentukan persamaan garis yang melalui titik <b>$(3, -2)$</b> dan memiliki gradien <b>$2$</b>.
                 </p>
 
-                <p>
-                    Gradien $m =$
-                    <input type="text" id="m_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
+                <p class="mb-2"><b>Penyelesaian:</b></p>
+
+                <div class="mb-3">
+                    <p>
+                        Diketahui:
+                        $(x_1, y_1) = ($
+                        <input type="text" id="x1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        ,
+                        <input type="text" id="y1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+
+                    <p>
+                        Gradien $m =$
+                        <input type="text" id="m_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Gunakan rumus:</p>
+                    <p>$y - y_1 = m(x - x_1)$</p>
+
+                    <p>Substitusi:</p>
+                    <p>
+                        $y - ($
+                        <input type="text" id="sub_y1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $) =$
+                        <input type="text" id="sub_m_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $(x -$
+                        <input type="text" id="sub_x1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Sederhanakan:</p>
+                    <p>
+                        $y +$
+                        <input type="text" id="hasil1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $=$
+                        <input type="text" id="hasil2_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $x$
+                        <input type="text" id="hasil3_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Jadi, persamaan garisnya adalah:</p>
+                    <p>
+                        $y =$
+                        <input type="text" id="akhir1_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $x$
+                        <input type="text" id="akhir2_1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek</button>
+                    <div id="feedbackLatihan1" class="mt-2"></div>
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+            {{-- LATIHAN NO 2 --}}
+            {{-- ======================= --}}
+            <div id="latihan2" class="latihan-step d-none">
+                <p class="mt-4">
+                    <b>2.</b> Suhu udara di suatu kota berubah secara teratur setiap jam.
+                    Diketahui bahwa pada pukul tertentu suhu adalah $-2^\circ C$ dan laju perubahan suhu adalah $-2^\circ C$
+                    per jam. Jika pada pukul tersebut dinyatakan sebagai <b>$x = 3$</b>, dan suhu pada waktu lain dinyatakan
+                    sebagai <b>$(x, y)$</b>, tentukan suhu saat <b>$x = -5$</b>.
                 </p>
+
+                <p><b>Penyelesaian:</b></p>
+
+                <div class="mb-3">
+                    <p>
+                        Diketahui:
+                        $(x_1, y_1) = ($
+                        <input type="text" id="l2_x1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        ,
+                        <input type="text" id="l2_y1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+
+                    <p>
+                        Gradien $m =$
+                        <input type="text" id="l2_m"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Gunakan rumus:</p>
+                    <p>$y - y_1 = m(x - x_1)$</p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Substitusi:</p>
+                    <p>
+                        $y - ($
+                        <input type="text" id="l2_sub_y1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $) =$
+                        <input type="text" id="l2_sub_m"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $(x -$
+                        <input type="text" id="l2_sub_x1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Sederhanakan:</p>
+                    <p>
+                        $y =$
+                        <input type="text" id="l2_h1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $x$
+                        <input type="text" id="l2_h2"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Substitusikan $x = -5$:</p>
+                    <p>
+                        $y =$
+                        <input type="text" id="l2_s1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $(\,$
+                        <input type="text" id="l2_s2"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                        <input type="text" id="l2_s3"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Jadi, suhu saat $x = -5$ adalah:</p>
+                    <p>
+                        $y =$
+                        <input type="text" id="l2_final"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $^\circ C$
+                    </p>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan2()">Cek</button>
+                    <div id="feedbackLatihan2" class="mt-2"></div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <p>Gunakan rumus:</p>
-                <p>$y - y_1 = m(x - x_1)$</p>
-
-                <p>Substitusi:</p>
-                <p>
-                    $y - ($
-                    <input type="text" id="sub_y1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $) =$
-                    <input type="text" id="sub_m_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $(x -$
-                    <input type="text" id="sub_x1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
+            {{-- ======================= --}}
+            {{-- LATIHAN NO 3 --}}
+            {{-- ======================= --}}
+            <div id="latihan3" class="latihan-step d-none">
+                <p class="mt-4">
+                    <b>3.</b> Sebuah benda bergerak dari titik awal koordinat $(0,0)$ dengan laju perubahan posisi
+                    sebesar <b>$-\dfrac{3}{5}$</b> setiap satu satuan waktu.
+                    Tentukan persamaan garis yang menggambarkan hubungan antara posisi $x$ dan $y$ benda tersebut.
                 </p>
+
+                <p><b>Penyelesaian:</b></p>
+
+                <div class="mb-3">
+                    <p>
+                        Diketahui:
+                        $(x_1, y_1) = ($
+                        <input type="text" id="l3_x1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        ,
+                        <input type="text" id="l3_y1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+
+                    <p>
+                        $m =$
+                        <input type="text" id="l3_m"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Gunakan rumus:</p>
+                    <p>$y - y_1 = m(x - x_1)$</p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Substitusi:</p>
+                    <p>
+                        $y - ($
+                        <input type="text" id="l3_sub_y1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $) =$
+                        <input type="text" id="l3_sub_m"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:90px;">
+                        $(x -$
+                        <input type="text" id="l3_sub_x1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $)$
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Sederhanakan:</p>
+                    <p>
+                        $y =$
+                        <input type="text" id="l3_h1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:90px;">
+                        $x$
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Ubah ke bentuk tanpa pecahan:</p>
+                    <p>
+                        <input type="text" id="l3_kiri"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $y =$
+                        <input type="text" id="l3_kanan"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:90px;">
+                        $x$
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <p>Susun menjadi bentuk umum:</p>
+                    <p>
+                        <input type="text" id="l3_final1"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $x +$
+                        <input type="text" id="l3_final2"
+                            class="form-control form-control-sm d-inline-block text-center input-matematika"
+                            style="width:70px;">
+                        $y = 0$
+                    </p>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3()">Cek</button>
+                    <div id="feedbackLatihan3" class="mt-2"></div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <p>Sederhanakan:</p>
-                <p>
-                    $y +$
-                    <input type="text" id="hasil1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $=$
-                    <input type="text" id="hasil2_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $x$
-                    <input type="text" id="hasil3_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Jadi, persamaan garisnya adalah:</p>
-                <p>
-                    $y =$
-                    <input type="text" id="akhir1_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $x$
-                    <input type="text" id="akhir2_1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek</button>
-                <div id="feedbackLatihan1" class="mt-2"></div>
-            </div>
         </div>
-
-        {{-- ======================= --}}
-        {{-- LATIHAN NO 2 --}}
-        {{-- ======================= --}}
-        <div id="latihan2" class="latihan-step d-none">
-            <p class="mt-4">
-                <b>2.</b> Suhu udara di suatu kota berubah secara teratur setiap jam.
-                Diketahui bahwa pada pukul tertentu suhu adalah $-2^\circ C$ dan laju perubahan suhu adalah $-2^\circ C$
-                per jam. Jika pada pukul tersebut dinyatakan sebagai <b>$x = 3$</b>, dan suhu pada waktu lain dinyatakan
-                sebagai <b>$(x, y)$</b>, tentukan suhu saat <b>$x = -5$</b>.
-            </p>
-
-            <p><b>Penyelesaian:</b></p>
-
-            <div class="mb-3">
-                <p>
-                    Diketahui:
-                    $(x_1, y_1) = ($
-                    <input type="text" id="l2_x1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    ,
-                    <input type="text" id="l2_y1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
-                </p>
-
-                <p>
-                    Gradien $m =$
-                    <input type="text" id="l2_m" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Gunakan rumus:</p>
-                <p>$y - y_1 = m(x - x_1)$</p>
-            </div>
-
-            <div class="mb-3">
-                <p>Substitusi:</p>
-                <p>
-                    $y - ($
-                    <input type="text" id="l2_sub_y1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $) =$
-                    <input type="text" id="l2_sub_m" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $(x -$
-                    <input type="text" id="l2_sub_x1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Sederhanakan:</p>
-                <p>
-                    $y =$
-                    <input type="text" id="l2_h1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $x$
-                    <input type="text" id="l2_h2" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Substitusikan $x = -5$:</p>
-                <p>
-                    $y =$
-                    <input type="text" id="l2_s1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $(\,$
-                    <input type="text" id="l2_s2" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
-                    <input type="text" id="l2_s3" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Jadi, suhu saat $x = -5$ adalah:</p>
-                <p>
-                    $y =$
-                    <input type="text" id="l2_final" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $^\circ C$
-                </p>
-            </div>
-
-            <div class="mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekLatihan2()">Cek</button>
-                <div id="feedbackLatihan2" class="mt-2"></div>
-            </div>
-        </div>
-
-        {{-- ======================= --}}
-        {{-- LATIHAN NO 3 --}}
-        {{-- ======================= --}}
-        <div id="latihan3" class="latihan-step d-none">
-            <p class="mt-4">
-                <b>3.</b> Sebuah benda bergerak dari titik awal koordinat $(0,0)$ dengan laju perubahan posisi
-                sebesar <b>$-\dfrac{3}{5}$</b> setiap satu satuan waktu.
-                Tentukan persamaan garis yang menggambarkan hubungan antara posisi $x$ dan $y$ benda tersebut.
-            </p>
-
-            <p><b>Penyelesaian:</b></p>
-
-            <div class="mb-3">
-                <p>
-                    Diketahui:
-                    $(x_1, y_1) = ($
-                    <input type="text" id="l3_x1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    ,
-                    <input type="text" id="l3_y1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
-                </p>
-
-                <p>
-                    $m =$
-                    <input type="text" id="l3_m" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Gunakan rumus:</p>
-                <p>$y - y_1 = m(x - x_1)$</p>
-            </div>
-
-            <div class="mb-3">
-                <p>Substitusi:</p>
-                <p>
-                    $y - ($
-                    <input type="text" id="l3_sub_y1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $) =$
-                    <input type="text" id="l3_sub_m" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:90px;">
-                    $(x -$
-                    <input type="text" id="l3_sub_x1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $)$
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Sederhanakan:</p>
-                <p>
-                    $y =$
-                    <input type="text" id="l3_h1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:90px;">
-                    $x$
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Ubah ke bentuk tanpa pecahan:</p>
-                <p>
-                    <input type="text" id="l3_kiri" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $y =$
-                    <input type="text" id="l3_kanan" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:90px;">
-                    $x$
-                </p>
-            </div>
-
-            <div class="mb-3">
-                <p>Susun menjadi bentuk umum:</p>
-                <p>
-                    <input type="text" id="l3_final1" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $x +$
-                    <input type="text" id="l3_final2" class="form-control form-control-sm d-inline-block text-center input-matematika" style="width:70px;">
-                    $y = 0$
-                </p>
-            </div>
-
-            <div class="mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekLatihan3()">Cek</button>
-                <div id="feedbackLatihan3" class="mt-2"></div>
-            </div>
-        </div>
-
     </div>
-</div>
 
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
@@ -780,39 +850,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

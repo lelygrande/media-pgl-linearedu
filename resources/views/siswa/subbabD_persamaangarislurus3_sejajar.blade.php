@@ -192,7 +192,11 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Menentukan persamaan garis lurus dari dua titik atau satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
+                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
+                </li>
             </ol>
         </div>
     </div>
@@ -204,13 +208,12 @@
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
     {{-- ========================================================= --}}
-    <div class="position-relative p-4 mt-4 mb-4"
-        style="border:2px solid #4a76b8; border-radius:12px; background-color:white;">
+    <div class="box-eksplorasi mt-5">
 
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+        <div class="title-box">
             Eksplorasi
         </div>
+
 
         <div class="mt-3">
             <p>
@@ -301,7 +304,7 @@
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
     {{-- ========================================================= --}}
-    <div class="card card-materi mb-4">
+    <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain</span>
 
@@ -352,9 +355,9 @@
 
     {{-- Contoh Soal --}}
 
-    <div class="card card-materi mb-4">
+    <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="badge-contoh">Contoh Soal</span>
+            <span class="title-box">Contoh</span>
 
             <p>
                 Tentukan persamaan garis yang melalui titik <span>$A(2,3)$</span> dan sejajar dengan garis
@@ -423,8 +426,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Latihan --}}
 
     {{-- Latihan --}}
     <div class="latihan-slider">
@@ -643,39 +644,33 @@
 
 @section('nav')
     {{-- PREV --}}
-    @if($previousMateri)
-        <a href="{{ route('materi.show', $previousMateri->slug) }}"
-           class="btn btn-prev px-4 rounded-pill">
+    @if ($previousMateri)
+        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
 
-    {{-- KHUSUS MATERI PERTAMA --}}
+        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
-        <a href="{{ route('apersepsi1') }}"
-           class="btn btn-prev px-4 rounded-pill">
+        <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
     @else
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
 
     {{-- NEXT --}}
-    @if($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+    @if ($nextMateri)
+        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
 
-    {{-- MATERI TERAKHIR → KUIS --}}
+        {{-- MATERI TERAKHIR → KUIS --}}
     @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}"
-           class="btn btn-next px-4 rounded-pill fw-semibold">
+        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
 @endsection
-

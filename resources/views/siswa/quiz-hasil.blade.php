@@ -63,13 +63,33 @@
 
             <div class="result-actions">
                 @if ($lulus)
-                    <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-primary">
-                        Lanjut ke Materi Berikutnya
-                    </a>
+                    @if ($quiz->id == 4)
+                        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-secondary">
+                            Kembali ke Halaman Materi
+                        </a>
+
+                        <a href="{{ route('quiz.show', 5) }}" class="btn btn-primary">
+                            Kerjakan Evaluasi
+                        </a>
+                    @elseif ($quiz->id == 5)
+                        <a href="{{ route('peta-konsep') }}" class="btn btn-primary">
+                            Kembali ke Peta Konsep
+                        </a>
+                    @elseif ($nextMateri)
+                        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-primary">
+                            Lanjut ke Materi Berikutnya
+                        </a>
+                    @endif
                 @else
-                    <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-secondary">
-                        Kembali ke Materi Sebelumnya
-                    </a>
+                    @if ($quiz->id == 5)
+                        <a href="{{ route('peta-konsep') }}" class="btn btn-secondary">
+                            Kembali ke Peta Konsep
+                        </a>
+                    @elseif ($previousMateri)
+                        <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-secondary">
+                            Kembali ke Materi Sebelumnya
+                        </a>
+                    @endif
 
                     <a href="{{ route('quiz.show', $quiz->id) }}" class="btn btn-danger">
                         Ulangi Kuis
@@ -77,6 +97,7 @@
                 @endif
             </div>
         </div>
+    </div>
     </div>
 </body>
 

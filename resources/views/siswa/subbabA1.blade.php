@@ -992,11 +992,8 @@
         </div>
     </div>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, { delimiters: [
-                                        {left: '$$', right: '$$', display: true},
-                                        {left: '$', right: '$', display: false}
-                                    ]
-                                });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
