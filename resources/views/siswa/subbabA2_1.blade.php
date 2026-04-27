@@ -345,174 +345,209 @@
         </div>
     </div>
 
-    {{-- LATIHAN SOAL --}}
+    {{-- ===== Latihan Soal A2.1 ===== --}}
+    <div class="box-latihan mt-5">
+        <div class="card-body">
+            <span class="title-box">Latihan Soal</span>
 
-    <div class="latihan-slider">
-        <div class="latihan-track" id="latihanTrack">
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <p class="mb-2" style="max-width: 720px;">
+                    <b>1.</b> Diketahui persamaan garis lurus:<br>
+                    <b>$y = x - 3$</b><br><br>
+                    Isi tabel nilai $y$ lalu tuliskan pasangan $(x,y)$.
+                </p>
 
-            <!-- STEP 1 -->
-            <section class="latihan-slide">
-                <div class="box-latihan mt-5" id="latihan-garis-1">
-                    <span class="title-box">Latihan</span>
+                <table class="tabel-garis" style="width: 500px">
+                    <tr>
+                        <th>$x$</th>
+                        <th>$y = x - 3$</th>
+                        <th>$(x,y)$</th>
+                    </tr>
+                    <tr>
+                        <td>$-2$</td>
+                        <td>
+                            <input type="text" id="lat1_y1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td>
+                            <input type="text" id="lat1_pair1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>$0$</td>
+                        <td>
+                            <input type="text" id="lat1_y2"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td>
+                            <input type="text" id="lat1_pair2"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>$2$</td>
+                        <td>
+                            <input type="text" id="lat1_y3"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td>
+                            <input type="text" id="lat1_pair3"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>$4$</td>
+                        <td>
+                            <input type="text" id="lat1_y4"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td>
+                            <input type="text" id="lat1_pair4"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                    </tr>
+                </table>
 
-                    <p class="mb-2" style="max-width: 720px;">
-                        <b>1.</b> Diketahui persamaan garis lurus:<br>
-                        <b>$y = x - 3$</b><br><br>
-                        Isi tabel nilai $y$ lalu tuliskan pasangan $(x,y)$.
-                    </p>
-
-                    <table class="tabel-garis" style="width: 500px">
-                        <tr>
-                            <th>$x$</th>
-                            <th>$y = x - 3$</th>
-                            <th>$(x,y)$</th>
-                        </tr>
-                        <tr>
-                            <td>$-2$</td>
-                            <td><input type="text" id="lat1_y1"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td><input type="text" id="lat1_pair1"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                        </tr>
-                        <tr>
-                            <td>$0$</td>
-                            <td><input type="text" id="lat1_y2"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td><input type="text" id="lat1_pair2"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                        </tr>
-                        <tr>
-                            <td>$2$</td>
-                            <td><input type="text" id="lat1_y3"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td><input type="text" id="lat1_pair3"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                        </tr>
-                        <tr>
-                            <td>$4$</td>
-                            <td><input type="text" id="lat1_y4"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td><input type="text" id="lat1_pair4"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                        </tr>
-                    </table>
-
-                    <div class="mt-3 d-flex justify-content-between ">
-                        <div>
-                            <button class="btn-palet" onclick="cekLatihan1()">Cek Jawaban</button>
-                            <button class="btn-palet" onlick="resetLatihan1()">Reset</button>
-                        </div>
-                        <button id="nextBtnLat1" class="btn btn-palet" onclick="nextLatihan(1)" disabled>
-                            Lanjut ke Latihan 2
-                        </button>
+                <div class="mt-3 d-flex justify-content-between">
+                    <div>
+                        <button class="btn btn-palet btn-sm" onclick="cekLatihan1A21()">Cek Jawaban</button>
+                        <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan1A21()">Reset</button>
                     </div>
 
-                    <div id="feedbackLatihan1" style="margin-top:10px;font-weight:600;"></div>
-                    <div class="box-kesimpulan mt-3" id="kesimpulanLat1" style="display:none;">
-                        <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
-                        <p class="mb-0">
-                            Untuk menentukan pasangan berurutan $(x,y)$ pada persamaan garis lurus:
-                            <br>1. Pilih nilai $x$ terlebih dahulu.
-                            <br>2. Substitusikan nilai $x$ ke dalam persamaan untuk mendapatkan $y$.
-                            <br>3. Tuliskan pasangan berurutan dalam bentuk $(x,y)$.
-                        </p>
+                    <button id="nextBtnLat1" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
+                        Lanjut ke Latihan 2
+                    </button>
+                </div>
+
+                <div id="feedbackLatihan1" class="mt-2 fw-semibold"></div>
+
+                <div class="box-kesimpulan mt-3" id="kesimpulanLat1" style="display:none;">
+                    <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
+                    <p class="mb-0">
+                        Untuk menentukan pasangan berurutan $(x,y)$ pada persamaan garis lurus:
+                        <br>1. Pilih nilai $x$ terlebih dahulu.
+                        <br>2. Substitusikan nilai $x$ ke dalam persamaan untuk mendapatkan $y$.
+                        <br>3. Tuliskan pasangan berurutan dalam bentuk $(x,y)$.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
+
+                <p class="mb-2" style="max-width: 720px;">
+                    <b>2.</b> Diketahui persamaan garis lurus:<br>
+                    <b>$y = 2x + 5$</b><br><br>
+                    Isi tabel, lalu tampilkan grafik.
+                </p>
+
+                <table class="tabel-garis" style="width: 500px">
+                    <tr>
+                        <th>$x$</th>
+                        <th>$y = 2x + 5$</th>
+                        <th>$(x,y)$</th>
+                    </tr>
+                    <tr>
+                        <td>$-4$</td>
+                        <td>
+                            <input type="text" id="y1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td id="pair1">$(-4, \dots)$</td>
+                    </tr>
+                    <tr>
+                        <td>$-2$</td>
+                        <td>
+                            <input type="text" id="y2"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td id="pair2">$(-2, \dots)$</td>
+                    </tr>
+                    <tr>
+                        <td>$0$</td>
+                        <td>
+                            <input type="text" id="y3"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td id="pair3">$(0, \dots)$</td>
+                    </tr>
+                    <tr>
+                        <td>$2$</td>
+                        <td>
+                            <input type="text" id="y4"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:90px;">
+                        </td>
+                        <td id="pair4">$(2, \dots)$</td>
+                    </tr>
+                </table>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+
+                    <div>
+                        <button class="btn btn-palet btn-sm" onclick="cekTabelA21()">Cek Tabel</button>
+                        <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan2A21()">Reset</button>
                     </div>
                 </div>
-            </section>
 
-            <!-- STEP 2 -->
-            <section class="latihan-slide">
-                <div class="box-latihan mt-5" id="latihan-garis-2">
-                    <span class="title-box">Latihan</span>
+                <div id="feedbackTabel" class="mt-2 fw-semibold"></div>
 
-                    <p class="mb-2" style="max-width: 720px;">
-                        <b>2.</b> Diketahui persamaan garis lurus:<br>
-                        <b>$y = 2x + 5$</b><br><br>
-                        Isi tabel, lalu tampilkan grafik.
-                    </p>
-
-                    <table class="tabel-garis" style="width: 500px">
-                        <tr>
-                            <th>$x$</th>
-                            <th>$y = 2x + 5$</th>
-                            <th>$(x,y)$</th>
-                        </tr>
-                        <tr>
-                            <td>$-4$</td>
-                            <td><input type="text" id="y1"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td id="pair1">$(-4, \dots)$</td>
-                        </tr>
-                        <tr>
-                            <td>$-2$</td>
-                            <td><input type="text" id="y2"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td id="pair2">$(-2, \dots)$</td>
-                        </tr>
-                        <tr>
-                            <td>$0$</td>
-                            <td><input type="text" id="y3"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td id="pair3">$(0, \dots)$</td>
-                        </tr>
-                        <tr>
-                            <td>$2$</td>
-                            <td><input type="text" id="y4"
-                                    class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                    style="width:90px;"></td>
-                            <td id="pair4">$(2, \dots)$</td>
-                        </tr>
-                    </table>
-
-                    <div class="mt-3 d-flex justify-content-between">
-                        <button class="btn-palet" onclick="prevLatihan(0)">Sebelumnya</button>
-                        <div>
-                            <button class="btn-palet" onclick="cekTabel()">Cek Tabel</button>
-                            <button class="btn-palet" onclick="resetLatihan()">Reset</button>
-                        </div>
+                <div id="grafikSection" style="display:none; margin-top:20px;">
+                    <div class="grafik-wrapper">
+                        <div id="canvas-holder"></div>
                     </div>
 
-                    <div id="feedbackTabel" style="margin-top:10px;font-weight:600;"></div>
-
-                    <div id="grafikSection" style="display:none; margin-top:20px;">
-                        <div class="grafik-wrapper">
-                            <div id="canvas-holder"></div>
-                        </div>
-
-                        <div class="grafik-actions">
-                            <button class="btn-palet" onclick="checkAnswers()">Submit</button>
-                            <button class="btn-palet" onclick="resetAll()">Reset</button>
-                        </div>
-
-                        <div id="feedbackGrafik" style="margin-top:10px;font-weight:600;"></div>
+                    <div class="grafik-actions mt-3">
+                        <button class="btn btn-palet btn-sm" onclick="checkAnswersA21()">Submit</button>
+                        <button class="btn btn-palet btn-sm ms-2" onclick="resetGrafikA21()">Reset Grafik</button>
                     </div>
-                    <div class="box-kesimpulan mt-3" id="kesimpulanLat2" style="display:none;">
-                        <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
-                        <p class="mb-0">
-                            Untuk menggambar grafik persamaan garis lurus:
-                            <br>1. Tentukan beberapa nilai $x$.
-                            <br>2. Hitung nilai $y$ yang sesuai.
-                            <br>3. Tuliskan pasangan berurutan $(x,y)$.
-                            <br>4. Plot titik-titik tersebut pada bidang koordinat.
-                            <br>5. Hubungkan titik-titiknya sehingga membentuk garis lurus.
-                        </p>
-                    </div>
+
+                    <div id="feedbackGrafik" class="mt-2 fw-semibold"></div>
                 </div>
-            </section>
 
+                <div class="box-kesimpulan mt-3" id="kesimpulanLat2" style="display:none;">
+                    <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
+                    <p class="mb-0">
+                        Untuk menggambar grafik persamaan garis lurus:
+                        <br>1. Tentukan beberapa nilai $x$.
+                        <br>2. Hitung nilai $y$ yang sesuai.
+                        <br>3. Tuliskan pasangan berurutan $(x,y)$.
+                        <br>4. Plot titik-titik tersebut pada bidang koordinat.
+                        <br>5. Hubungkan titik-titiknya sehingga membentuk garis lurus.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
@@ -521,13 +556,16 @@
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -536,18 +574,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

@@ -129,6 +129,8 @@ class QuizSiswaController extends Controller
             'wrong_answers' => $salah,
             'unanswered' => $kosong,
             'score' => $nilai,
+            'is_passed' => $lulus ? 1 : 0,
+            'passed_at' => $lulus ? now() : null,
         ]);
 
         $attempt->refresh();

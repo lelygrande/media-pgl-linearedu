@@ -136,20 +136,45 @@ function cekRefleksi() {
     }
 }
 
-// Latihan Soal
+// =========================
+// LATIHAN SOAL A2.2
+// =========================
 
-let latihan1Benar = false;
+let latihan1BenarA22 = false;
+let latihan2BenarA22 = false;
+
 let sketchLatihan1Instance = null;
+let sketchLatihan2Instance = null;
 
 // titik potong yang benar untuk y = 2x + 4
 const expectedA1 = { x: -2, y: 0 };
 const expectedB1 = { x: 0, y: 4 };
 
+// titik potong benar untuk 3x + 4y - 24 = 0
+const expectedA2 = { x: 8, y: 0 };
+const expectedB2 = { x: 0, y: 6 };
+
 // =========================
 // HELPER
 // =========================
+function renderMathSafe(target) {
+    if (!target || !window.renderMathInElement) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+    });
+}
+
 function normJawaban(v) {
-    return String(v).trim().replace(/\s+/g, "").replace(",", ".");
+    return String(v || "")
+        .trim()
+        .replace(/\s+/g, "")
+        .replace(",", ".");
 }
 
 function cekIsian(id, jawabanBenar) {
@@ -172,68 +197,117 @@ function setFeedback(id, ok, pesan) {
 
     el.innerHTML = pesan;
     el.className = ok
-        ? "feedback-box feedback-ok"
-        : "feedback-box feedback-bad";
+        ? "feedback-box feedback-ok mt-3"
+        : "feedback-box feedback-bad mt-3";
     el.style.display = "block";
 }
 
-function tampilkanCanvasLatihan1() {
-    const wrap = document.getElementById("canvas-latihan1-wrap");
-    if (wrap) wrap.style.display = "block";
+function resetFeedback(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    if (sketchLatihan1Instance) {
-        sketchLatihan1Instance.remove();
-        sketchLatihan1Instance = null;
+    el.innerHTML = "";
+    el.className = "mt-3";
+    el.style.display = "none";
+}
+
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
     }
 
-    const holder = document.getElementById("canvas-latihan1");
-    if (holder) holder.innerHTML = "";
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
 
-    sketchLatihan1Instance = new p5(sketchLatihan1, "canvas-latihan1");
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
 }
 
-function resetCanvasLatihan1() {
-    if (sketchLatihan1Instance) {
-        sketchLatihan1Instance.remove();
-        sketchLatihan1Instance = null;
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMathSafe(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 2; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
     }
-
-    const holder = document.getElementById("canvas-latihan1");
-    if (holder) holder.innerHTML = "";
-
-    const wrap = document.getElementById("canvas-latihan1-wrap");
-    if (wrap) wrap.style.display = "none";
-}
-
-let currentLatihan = 0;
-
-document.addEventListener("DOMContentLoaded", function () {
-    updateLatihanSlide();
-});
-
-function updateLatihanSlide() {
-    const track = document.getElementById("latihanTrack");
-    if (!track) return;
-    track.style.transform = `translateX(-${currentLatihan * 100}%)`;
-}
-
-function nextLatihan(index) {
-    currentLatihan = index;
-    updateLatihanSlide();
-}
-
-function prevLatihan(index) {
-    currentLatihan = index;
-    updateLatihanSlide();
 }
 
 // =========================
-// CEK LATIHAN 1
+// SAVE PROGRESS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaQuizButton() {
+    const quizBtn = document.getElementById("quizBabBtn");
+    if (!quizBtn) return;
+
+    const url = quizBtn.dataset.quizUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "quizBabBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Kuis →";
+
+    quizBtn.replaceWith(link);
+}
+
+// =========================
+// LATIHAN 1 A2.2
 // y = 2x + 4
 // titik potong x = (-2, 0)
 // titik potong y = (0, 4)
 // =========================
-function cekLatihan1() {
+function cekLatihan1A22() {
     const benar1 = cekIsian("l1_x_value", "-2");
     const benar2 = cekIsian("l1_x_point_x", "-2");
     const benar3 = cekIsian("l1_x_point_y", "0");
@@ -246,20 +320,20 @@ function cekLatihan1() {
     const nextBtn = document.getElementById("nextBtnLatihan1");
 
     if (semuaBenar) {
-        latihan1Benar = true;
+        latihan1BenarA22 = true;
 
         setFeedback(
-            "feedbackLatihan1",
+            "feedbackLatihan1A22",
             true,
             "Benar! Sekarang klik titik <b>(-2,0)</b> dan <b>(0,4)</b> pada bidang koordinat untuk membentuk garis.",
         );
 
         tampilkanCanvasLatihan1();
     } else {
-        latihan1Benar = false;
+        latihan1BenarA22 = false;
 
         setFeedback(
-            "feedbackLatihan1",
+            "feedbackLatihan1A22",
             false,
             "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
         );
@@ -267,10 +341,12 @@ function cekLatihan1() {
         resetCanvasLatihan1();
 
         if (nextBtn) nextBtn.disabled = true;
+
+        resetStepSetelah(2);
     }
 }
 
-function resetLatihan1() {
+function resetLatihan1A22() {
     [
         "l1_x_value",
         "l1_x_point_x",
@@ -286,19 +362,147 @@ function resetLatihan1() {
         }
     });
 
-    const fb = document.getElementById("feedbackLatihan1");
     const nextBtn = document.getElementById("nextBtnLatihan1");
 
-    if (fb) {
-        fb.innerHTML = "";
-        fb.className = "";
-        fb.style.display = "none";
-    }
+    resetFeedback("feedbackLatihan1A22");
 
     if (nextBtn) nextBtn.disabled = true;
 
-    latihan1Benar = false;
+    latihan1BenarA22 = false;
     resetCanvasLatihan1();
+    resetStepSetelah(2);
+}
+
+function tampilkanCanvasLatihan1() {
+    const wrap = document.getElementById("canvas-latihan1-wrap");
+    if (wrap) wrap.style.display = "block";
+
+    if (sketchLatihan1Instance) {
+        sketchLatihan1Instance.remove();
+        sketchLatihan1Instance = null;
+    }
+
+    const holder = document.getElementById("canvas-latihan1");
+    if (holder) holder.innerHTML = "";
+
+    sketchLatihan1Instance = new p5(sketchLatihan1, "canvas-latihan1");
+
+    setTimeout(() => {
+        scrollKeStep("canvas-latihan1-wrap");
+    }, 100);
+}
+
+function resetCanvasLatihan1() {
+    if (sketchLatihan1Instance) {
+        sketchLatihan1Instance.remove();
+        sketchLatihan1Instance = null;
+    }
+
+    const holder = document.getElementById("canvas-latihan1");
+    if (holder) holder.innerHTML = "";
+
+    const wrap = document.getElementById("canvas-latihan1-wrap");
+    if (wrap) wrap.style.display = "none";
+}
+
+// =========================
+// LATIHAN 2 A2.2
+// 3x + 4y - 24 = 0
+// titik potong x = (8, 0)
+// titik potong y = (0, 6)
+// =========================
+function cekLatihan2A22() {
+    const benar1 = cekIsian("l2_x_value", "8");
+    const benar2 = cekIsian("l2_x_point_x", "8");
+    const benar3 = cekIsian("l2_x_point_y", "0");
+
+    const benar4 = cekIsian("l2_y_value", "6");
+    const benar5 = cekIsian("l2_y_point_x", "0");
+    const benar6 = cekIsian("l2_y_point_y", "6");
+
+    const semuaBenar = benar1 && benar2 && benar3 && benar4 && benar5 && benar6;
+
+    if (semuaBenar) {
+        latihan2BenarA22 = true;
+
+        setFeedback(
+            "feedbackLatihan2A22",
+            true,
+            "Benar! Sekarang klik titik <b>(8,0)</b> dan <b>(0,6)</b> pada bidang koordinat.",
+        );
+
+        tampilkanCanvasLatihan2();
+    } else {
+        latihan2BenarA22 = false;
+
+        setFeedback(
+            "feedbackLatihan2A22",
+            false,
+            "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
+        );
+
+        resetCanvasLatihan2();
+
+        const kesimpulan = document.getElementById("kesimpulanLatihan2A22");
+        if (kesimpulan) kesimpulan.style.display = "none";
+    }
+}
+
+function resetLatihan2A22() {
+    [
+        "l2_x_value",
+        "l2_x_point_x",
+        "l2_x_point_y",
+        "l2_y_value",
+        "l2_y_point_x",
+        "l2_y_point_y",
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    resetFeedback("feedbackLatihan2A22");
+
+    latihan2BenarA22 = false;
+    resetCanvasLatihan2();
+
+    const kesimpulan = document.getElementById("kesimpulanLatihan2A22");
+    if (kesimpulan) kesimpulan.style.display = "none";
+}
+
+function tampilkanCanvasLatihan2() {
+    const wrap = document.getElementById("canvas-latihan2-wrap");
+    if (wrap) wrap.style.display = "block";
+
+    if (sketchLatihan2Instance) {
+        sketchLatihan2Instance.remove();
+        sketchLatihan2Instance = null;
+    }
+
+    const holder = document.getElementById("canvas-latihan2");
+    if (holder) holder.innerHTML = "";
+
+    sketchLatihan2Instance = new p5(sketchLatihan2, "canvas-latihan2");
+
+    setTimeout(() => {
+        scrollKeStep("canvas-latihan2-wrap");
+    }, 100);
+}
+
+function resetCanvasLatihan2() {
+    if (sketchLatihan2Instance) {
+        sketchLatihan2Instance.remove();
+        sketchLatihan2Instance = null;
+    }
+
+    const holder = document.getElementById("canvas-latihan2");
+    if (holder) holder.innerHTML = "";
+
+    const wrap = document.getElementById("canvas-latihan2-wrap");
+    if (wrap) wrap.style.display = "none";
 }
 
 // =========================
@@ -323,7 +527,7 @@ const sketchLatihan1 = (p) => {
     p.setup = function () {
         p.createCanvas(760, 600);
 
-        scaleUnit = gridSize / 20; // rentang -10 sampai 10
+        scaleUnit = gridSize / 20;
         originX = leftMargin + gridSize / 2;
         originY = topMargin + gridSize / 2;
     };
@@ -341,7 +545,6 @@ const sketchLatihan1 = (p) => {
             drawLineThroughPoints(titikA, titikB);
         }
 
-        // reset otomatis setelah salah
         if (waktuReset !== null && p.millis() >= waktuReset) {
             resetPlot();
             waktuReset = null;
@@ -349,12 +552,11 @@ const sketchLatihan1 = (p) => {
     };
 
     p.mousePressed = function () {
-        if (!latihan1Benar) return;
+        if (!latihan1BenarA22) return;
 
         const pt = pixelToCoord(p.mouseX, p.mouseY);
         if (!pt) return;
 
-        // kalau sedang menunggu reset, abaikan klik
         if (waktuReset !== null) return;
 
         if (!titikA) {
@@ -377,8 +579,16 @@ const sketchLatihan1 = (p) => {
                 plottingBenar = true;
                 feedbackPlot =
                     "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
+
                 const nextBtn = document.getElementById("nextBtnLatihan1");
-                if (nextBtn) nextBtn.disabled = false;
+                if (nextBtn) {
+                    nextBtn.disabled = false;
+                    nextBtn.style.display = "inline-block";
+                }
+
+                setTimeout(() => {
+                    scrollKeStep("nextBtnLatihan1");
+                }, 300);
             } else {
                 plottingBenar = false;
                 feedbackPlot = "Garis belum sesuai. Coba lagi sampai benar.";
@@ -599,106 +809,6 @@ const sketchLatihan1 = (p) => {
     }
 };
 
-// Latihan 2
-let latihan2Benar = false;
-let sketchLatihan2Instance = null;
-
-// titik potong benar untuk 3x + 4y - 24 = 0
-const expectedA2 = { x: 8, y: 0 };
-const expectedB2 = { x: 0, y: 6 };
-
-// =========================
-// CEK LATIHAN 2
-// =========================
-function cekLatihan2() {
-    const benar1 = cekIsian("l2_x_value", "8");
-    const benar2 = cekIsian("l2_x_point_x", "8");
-    const benar3 = cekIsian("l2_x_point_y", "0");
-
-    const benar4 = cekIsian("l2_y_value", "6");
-    const benar5 = cekIsian("l2_y_point_x", "0");
-    const benar6 = cekIsian("l2_y_point_y", "6");
-
-    const semuaBenar = benar1 && benar2 && benar3 && benar4 && benar5 && benar6;
-
-    if (semuaBenar) {
-        latihan2Benar = true;
-
-        setFeedback(
-            "feedbackLatihan2",
-            true,
-            "Benar! Sekarang klik titik <b>(8,0)</b> dan <b>(0,6)</b> pada bidang koordinat.",
-        );
-
-        tampilkanCanvasLatihan2();
-    } else {
-        latihan2Benar = false;
-
-        setFeedback(
-            "feedbackLatihan2",
-            false,
-            "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
-        );
-
-        resetCanvasLatihan2();
-    }
-}
-
-function resetLatihan2() {
-    [
-        "l2_x_value",
-        "l2_x_point_x",
-        "l2_x_point_y",
-        "l2_y_value",
-        "l2_y_point_x",
-        "l2_y_point_y",
-    ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.value = "";
-            el.classList.remove("is-valid", "is-invalid");
-        }
-    });
-
-    const fb = document.getElementById("feedbackLatihan2");
-    if (fb) {
-        fb.innerHTML = "";
-        fb.className = "";
-        fb.style.display = "none";
-    }
-
-    latihan2Benar = false;
-    resetCanvasLatihan2();
-}
-
-function tampilkanCanvasLatihan2() {
-    const wrap = document.getElementById("canvas-latihan2-wrap");
-    if (wrap) wrap.style.display = "block";
-
-    if (sketchLatihan2Instance) {
-        sketchLatihan2Instance.remove();
-        sketchLatihan2Instance = null;
-    }
-
-    const holder = document.getElementById("canvas-latihan2");
-    if (holder) holder.innerHTML = "";
-
-    sketchLatihan2Instance = new p5(sketchLatihan2, "canvas-latihan2");
-}
-
-function resetCanvasLatihan2() {
-    if (sketchLatihan2Instance) {
-        sketchLatihan2Instance.remove();
-        sketchLatihan2Instance = null;
-    }
-
-    const holder = document.getElementById("canvas-latihan2");
-    if (holder) holder.innerHTML = "";
-
-    const wrap = document.getElementById("canvas-latihan2-wrap");
-    if (wrap) wrap.style.display = "none";
-}
-
 // =========================
 // P5 SKETCH LATIHAN 2
 // =========================
@@ -739,20 +849,18 @@ const sketchLatihan2 = (p) => {
             drawLineThroughPoints(titikA, titikB);
         }
 
-        // reset otomatis setelah salah
         if (waktuReset !== null && p.millis() >= waktuReset) {
             resetPlot();
             waktuReset = null;
         }
     };
 
-    p.mousePressed = function () {
-        if (!latihan2Benar) return;
+    p.mousePressed = async function () {
+        if (!latihan2BenarA22) return;
 
         const pt = pixelToCoord(p.mouseX, p.mouseY);
         if (!pt) return;
 
-        // kalau sedang menunggu reset, abaikan klik
         if (waktuReset !== null) return;
 
         if (!titikA) {
@@ -775,6 +883,23 @@ const sketchLatihan2 = (p) => {
                 plottingBenar = true;
                 feedbackPlot =
                     "Bagus! Garis yang kamu buat sudah melalui dua titik potong yang benar.";
+
+                const kesimpulan = document.getElementById(
+                    "kesimpulanLatihan2A22",
+                );
+                if (kesimpulan) kesimpulan.style.display = "block";
+
+                const saved = await saveProgressMateri();
+
+                if (saved) {
+                    bukaNextButton();
+                } else {
+                    setFeedback(
+                        "feedbackLatihan2A22",
+                        true,
+                        "Grafik benar, tetapi progres belum tersimpan. Coba refresh atau cek koneksi.",
+                    );
+                }
             } else {
                 plottingBenar = false;
                 feedbackPlot = "Garis belum sesuai. Coba lagi sampai benar.";

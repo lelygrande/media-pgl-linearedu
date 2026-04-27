@@ -184,6 +184,50 @@ function norm(expr) {
         .trim();
 }
 
+// SAVE PROGRESS
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// BUKA TOMBOL NEXT
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
+
 // =========================
 // LATIHAN SOAL
 // =========================
@@ -427,7 +471,7 @@ function resetLatihan2A1() {
 // =========================
 // LATIHAN 3
 // =========================
-function cekLatihan3A1() {
+async function cekLatihan3A1() {
     let skor = 0;
 
     const a = norm(document.getElementById("lat3a")?.value);
@@ -469,8 +513,18 @@ function cekLatihan3A1() {
     }
 
     if (skor === 3) {
-        fb.innerHTML = "Bagus. Semua jawabanmu benar.";
-        fb.style.color = "green";
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            fb.innerHTML =
+                "Bagus. Semua jawabanmu benar. Silakan lanjut ke materi berikutnya.";
+            fb.style.color = "green";
+
+            bukaNextButton();
+        } else {
+            fb.innerHTML = "Jawaban benar, tapi progres belum tersimpan.";
+            fb.style.color = "orange";
+        }
     } else {
         fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
         fb.style.color = "black";

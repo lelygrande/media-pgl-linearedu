@@ -19,14 +19,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body, {
-                                                                                                                                    delimiters: [
-                                                                                                                                      {left: '$$', right: '$$', display: true},
-                                                                                                                                      {left: '$', right: '$', display: false},
-                                                                                                                                      {left: '\\\\[', right: '\\\\]', display: true},
-                                                                                                                                      {left: '\\\\(', right: '\\\\)', display: false}
-                                                                                                                                    ]
-                                                                                                                                  });"></script>
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false},{left: '\\\\[', right: '\\\\]', display: true},{left: '\\\\(', right: '\\\\)', display: false}]});">
+    </script>
 
     <style>
         :root {
@@ -314,6 +308,81 @@
             border: 1px solid #dbe5f1;
         }
     </style>
+
+    {{-- CSS Input Matematika --}}
+    <style>
+        .math-host {
+            position: relative;
+        }
+
+        .math-preview {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #212529;
+            z-index: 2;
+            padding: .375rem .75rem;
+
+            font-family: "Times New Roman", "Cambria Math", "STIX Two Text", "Latin Modern Roman", serif !important;
+            font-style: italic;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .math-preview.is-hidden {
+            display: none;
+        }
+
+
+        .math-real-input.previewing {
+            color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
+            caret-color: transparent;
+        }
+
+        .math-real-input.previewing:-webkit-autofill {
+            -webkit-text-fill-color: transparent !important;
+            transition: background-color 9999s ease-in-out 0s;
+        }
+
+        /* pecahan */
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1px;
+            line-height: 1;
+            font-family: "Times New Roman", "Cambria Math", "STIX Two Text", "Latin Modern Roman", serif !important;
+            font-style: normal;
+            font-weight: 200;
+        }
+
+        .frac .top {
+            border-bottom: 1px solid currentColor;
+            padding: 0 3px 1px;
+            font-size: 0.78em;
+            line-height: 1;
+            margin-bottom: -1px;
+            font-style: normal;
+        }
+
+        .frac .bottom {
+            padding: 1px 3px 0;
+            font-size: 0.78em;
+            line-height: 1;
+            margin-top: -1px;
+            font-style: normal;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -365,6 +434,25 @@
                     <button id="closeSidebarBtn" type="button" class="burger-mini mb-3">
                         ☰
                     </button>
+
+                    {{-- Lock/Unlock --}}
+                    @php
+                        $unlockedSlugs = $unlockedSlugs ?? [];
+                        $passedQuizIds = $passedQuizIds ?? [];
+
+                        $canAccessQuizA = $canAccessQuizA ?? false;
+                        $canAccessQuizB = $canAccessQuizB ?? false;
+                        $canAccessQuizC = $canAccessQuizC ?? false;
+                        $canAccessQuizD = $canAccessQuizD ?? false;
+
+                        $isUnlocked = function ($slug) use ($unlockedSlugs) {
+                            return in_array($slug, $unlockedSlugs);
+                        };
+
+                        $isQuizPassed = function ($quizId) use ($passedQuizIds) {
+                            return in_array($quizId, $passedQuizIds);
+                        };
+                    @endphp
 
                     @php
                         $currentSlug = request()->route('slug');
@@ -438,20 +526,44 @@
                                 Pengertian dan Bentuk Umum
                             </a>
 
-                            <a href="{{ route('materi.show', 'subbab-a2-1') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-1' ? 'active' : '' }}">
-                                Menggambar Grafik Persamaan Garis Lurus 1
-                            </a>
+                            @if ($isUnlocked('subbab-a2-1'))
+                                <a href="{{ route('materi.show', 'subbab-a2-1') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-1' ? 'active' : '' }}">
+                                    Menggambar Grafik Persamaan Garis Lurus 1
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Menggambar Grafik Persamaan Garis Lurus 1</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-a2-2') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-2' ? 'active' : '' }}">
-                                Menggambar Grafik Persamaan Garis Lurus 2
-                            </a>
+                            @if ($isUnlocked('subbab-a2-2'))
+                                <a href="{{ route('materi.show', 'subbab-a2-2') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-a2-2' ? 'active' : '' }}">
+                                    Menggambar Grafik Persamaan Garis Lurus 2
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Menggambar Grafik Persamaan Garis Lurus 2</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('quiz.show', 1) }}"
-                                class="dropdown-item-custom {{ request()->is('quiz/1') ? 'active' : '' }}">
-                                Kuis A
-                            </a>
+                            @if ($canAccessQuizA)
+                                <a href="{{ route('quiz.show', 1) }}"
+                                    class="dropdown-item-custom {{ request()->is('quiz/1') ? 'active' : '' }}">
+                                    Kuis A
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Kuis A</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -524,7 +636,7 @@
                         <button class="btn btn-primary btn-sub dropdown-toggle {{ $openD ? '' : 'collapsed' }}"
                             data-bs-toggle="collapse" data-bs-target="#subD"
                             aria-expanded="{{ $openD ? 'true' : 'false' }}">
-                            Persamaan Garis Lurus
+                            Menentukan Persamaan Garis Lurus
                         </button>
 
                         <div id="subD" class="collapse mt-2 {{ $openD ? 'show' : '' }}">
@@ -642,6 +754,105 @@
                 ]
             });
         });
+    </script>
+
+    {{-- Input Matematika --}}
+    <script>
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function renderMathPreview(text) {
+            const safe = escapeHtml(text);
+
+            return safe.replace(/(-?\d+)\s*\/\s*(-?\d+)/g, function(_, a, b) {
+                return `
+                <span class="frac">
+                    <span class="top">${a}</span>
+                    <span class="bar"></span>
+                    <span class="bottom">${b}</span>
+                </span>
+            `;
+            });
+        }
+
+        function enhanceMathInput(input) {
+            if (!input || input.dataset.mathEnhanced === 'true') return;
+
+            const parent = input.parentElement;
+            if (!parent) return;
+
+            // parent jadi anchor overlay, tanpa ubah inline/block input
+            if (getComputedStyle(parent).position === 'static') {
+                parent.classList.add('math-host');
+            }
+
+            const preview = document.createElement('span');
+            preview.className = 'math-preview is-hidden';
+
+            parent.appendChild(preview);
+
+            input.classList.add('math-real-input');
+            input.dataset.mathEnhanced = 'true';
+
+            function update() {
+                const value = input.value || '';
+                preview.innerHTML = renderMathPreview(value);
+
+                const hasFraction = /-?\d+\s*\/\s*-?\d+/.test(value);
+                const isFocused = document.activeElement === input;
+                const isEmpty = value.trim() === '';
+
+                if (!isEmpty && hasFraction && !isFocused) {
+                    preview.classList.remove('is-hidden');
+                    input.classList.add('previewing');
+                } else {
+                    preview.classList.add('is-hidden');
+                    input.classList.remove('previewing');
+                }
+
+                syncPreviewBox();
+            }
+
+            function syncPreviewBox() {
+                const style = getComputedStyle(input);
+                const rect = input.getBoundingClientRect();
+
+                preview.style.left = input.offsetLeft + 'px';
+                preview.style.top = input.offsetTop + 'px';
+                preview.style.width = rect.width + 'px';
+                preview.style.height = rect.height + 'px';
+                preview.style.fontSize = style.fontSize;
+                preview.style.fontFamily = style.fontFamily;
+                preview.style.borderRadius = style.borderRadius;
+
+                preview.style.textAlign = 'center';
+                preview.style.justifyContent = 'center';
+            }
+
+            input.addEventListener('input', update);
+            input.addEventListener('change', update);
+            input.addEventListener('focus', update);
+            input.addEventListener('blur', update);
+            window.addEventListener('resize', syncPreviewBox);
+
+            // untuk menangkap autofill setelah halaman selesai load
+            setTimeout(update, 100);
+            setTimeout(update, 500);
+            setTimeout(update, 1000);
+
+            update();
+            syncPreviewBox();
+        }
+
+        function initAllMathInputs() {
+            document.querySelectorAll('input[type="text"]').forEach(enhanceMathInput);
+        }
+
+        document.addEventListener('DOMContentLoaded', initAllMathInputs);
     </script>
 </body>
 

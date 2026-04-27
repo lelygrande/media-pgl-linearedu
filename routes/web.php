@@ -69,6 +69,10 @@ Route::middleware('auth:siswa')->group(function () {
     Route::post('/quiz/{id}/submit', [QuizSiswaController::class, 'submit'])->name('quiz.submit');
 });
 
+// Progress
+Route::post('/materi/{id}/complete', [MateriController::class, 'complete'])
+    ->name('materi.complete');
+
 // ====================
 // GURU
 // ====================

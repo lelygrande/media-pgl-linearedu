@@ -612,7 +612,6 @@
     </div>
 
     {{-- Contoh mengubah implisit ke eksplisit --}}
-
     <div class="box-contoh mt-5 mb-4">
         <span class="title-box">Contoh</span>
 
@@ -764,83 +763,6 @@
 
     </div>
 
-    <div class="box-contoh mt-5">
-        <span class="title-box">Contoh</span>
-
-        <p class="mt-2 mb-3">
-            Tentukan apakah persamaan <b>$2y + 4^2 = x$</b> merupakan persamaan garis lurus!
-        </p>
-
-        <div class="step-stack">
-            <div class="step-item">
-                <div class="step-row">
-                    <div class="step-eq">$2y + 4^2 = x$</div>
-                    <div class="step-note">
-                        Mulai dari persamaan awal. Hitung dulu nilai <b>$4^2$</b>.
-                    </div>
-                </div>
-
-                <button class="btn-arrow" type="button" onclick="openStep(2, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step2" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$2y + 16 = x$</div>
-                    <div class="step-note">
-                        Karena <b>$4^2 = 16$</b>, persamaan menjadi <b>$2y + 16 = x$</b>.
-                    </div>
-                </div>
-
-                <button class="btn-arrow" type="button" onclick="openStep(3, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step3" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$2y = x - 16$</div>
-                    <div class="step-note">
-                        <b>Pindahkan 16</b> ke ruas kanan. Karena awalnya <b>+16</b>, saat pindah jadi <b>−16</b>.
-                    </div>
-                </div>
-
-                <button class="btn-arrow" type="button" onclick="openStep(4, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step4" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$y = \frac{x - 16}{2}$</div>
-                    <div class="step-note">
-                        Koefisien di depan $y$ adalah <b>2</b>. Agar $y$ sendiri, kedua ruas <b>dibagi 2</b>.
-                    </div>
-                </div>
-
-                <button class="btn-arrow" type="button" onclick="openStep(5, this)">
-                    ↓ Tampilkan langkah berikutnya
-                </button>
-            </div>
-
-            <div id="step5" class="step-item" style="display:none;">
-                <div class="step-row">
-                    <div class="step-eq">$y = \frac{1}{2}x - 8$</div>
-                    <div class="step-note">
-                        Sederhanakan: $\frac{x}{2}=\frac{1}{2}x$ dan $\frac{-16}{2}=-8$.
-                        Bentuk ini sudah sesuai $y=mx+c$.
-                    </div>
-                </div>
-
-                <div class="final-box mt-3">
-                    <b>Kesimpulan:</b> Persamaan dapat ditulis dalam bentuk <b>$y = mx + c$</b>,
-                    sehingga merupakan persamaan garis lurus.
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- ===== Latihan Soal ===== --}}
     <div class="box-latihan mt-5">
         <div class="card-body">
@@ -870,7 +792,7 @@
 
                     <div class="mt-3">
                         <button class="btn btn-palet btn-sm" onclick="cekLatihan1A1()">Cek Jawaban</button>
-                        <button class="btn btn-outline-secondary btn-sm" onclick="resetLatihan1A1()">Reset</button>
+                        <button class="btn btn-palet btn-sm" onclick="resetLatihan1A1()">Reset</button>
                     </div>
 
                     <div id="feedbackLatihan1A1" class="mt-2"></div>
@@ -896,7 +818,7 @@
                     <p><b>a.</b> $y = 2x - 5$</p>
                     <input type="text" id="lat2a"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:220px;">
+                        style="width:100px;">
                     <span>$= 0$</span>
                     <div id="fb-lat2a" class="mt-1"></div>
                 </div>
@@ -905,7 +827,7 @@
                     <p><b>b.</b> $y = -3x + 4$</p>
                     <input type="text" id="lat2b"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:220px;">
+                        style="width:100px;">
                     <span>$= 0$</span>
                     <div id="fb-lat2b" class="mt-1"></div>
                 </div>
@@ -914,20 +836,20 @@
                     <p><b>c.</b> $2y = x + 6$</p>
                     <input type="text" id="lat2c"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:220px;">
+                        style="width:100px;">
                     <span>$= 0$</span>
                     <div id="fb-lat2c" class="mt-1"></div>
                 </div>
 
                 <div class="mt-3">
                     <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">Cek Jawaban</button>
-                    <button class="btn btn-outline-secondary btn-sm ms-2" onclick="resetLatihan2A1()">Reset</button>
+                    <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan2A1()">Reset</button>
                 </div>
 
                 <div id="feedbackLatihan2A1" class="mt-2"></div>
 
                 <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(1)">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
                         Kembali ke Latihan 1
                     </button>
 
@@ -953,7 +875,7 @@
                         <span>$y =$</span>
                         <input type="text" id="lat3a"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                            style="width:220px;">
+                            style="width:100px;">
                     </p>
                     <div id="fb-lat3a" class="mt-1"></div>
                 </div>
@@ -964,7 +886,7 @@
                         <span>$y =$</span>
                         <input type="text" id="lat3b"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                            style="width:220px;">
+                            style="width:100px;">
                     </p>
                     <div id="fb-lat3b" class="mt-1"></div>
                 </div>
@@ -975,16 +897,18 @@
                         <span>$y =$</span>
                         <input type="text" id="lat3c"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                            style="width:220px;">
+                            style="width:100px;">
                     </p>
                     <div id="fb-lat3c" class="mt-1"></div>
                 </div>
 
-                <div class="mt-3 d-flex justify-content-between">
-                    <button class="btn btn-outline-secondary btn-sm" onclick="prevLatihan(2)">
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
                         Kembali ke Latihan 2
                     </button>
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">Cek</button>
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">
+                        Cek Jawaban
+                    </button>
                 </div>
 
                 <div id="feedbackLatihan3A1" class="mt-2"></div>
@@ -992,11 +916,28 @@
         </div>
     </div>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});">
+    </script>
+
+    <script type="module">
+        import 'https://esm.run/mathlive';
+    </script>
 
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
+
+    {{-- js --}}
     <script src="{{ asset('js/subbabA/subbabA1.js') }}"></script>
     <script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script>
     <script>
@@ -1008,13 +949,16 @@
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -1023,18 +967,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
