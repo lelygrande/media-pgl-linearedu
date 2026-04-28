@@ -203,17 +203,135 @@ function cekContohSoal1() {
 }
 
 // =========================
+// LATIHAN SOAL SUBBAB D2
+// Sistem turun ke bawah
+// =========================
+
+// =========================
 // Helper umum
 // =========================
 function normJawaban(teks) {
-    return (teks || "")
-        .toString()
+    return String(teks || "")
         .trim()
         .toLowerCase()
         .replace(/\s+/g, "")
-        .replace(/[()]/g, "");
+        .replace(/[()]/g, "")
+        .replace(/−/g, "-");
 }
 
+function renderMathSafe(target) {
+    if (!window.renderMathInElement || !target) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderMathSafe(document.getElementById("latihanD2Box") || document.body);
+});
+
+// =========================
+// Navigasi latihan
+// =========================
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMathSafe(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
+}
+
+// =========================
+// Save progress
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
+
+// =========================
+// Validasi umum
+// =========================
 function cekIsian(id, jawabanBenar) {
     const el = document.getElementById(id);
     if (!el) return false;
@@ -228,17 +346,48 @@ function cekIsian(id, jawabanBenar) {
     return cocok;
 }
 
+function resetInput(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+}
+
 function tampilkanPetunjuk(idElemen, pesan) {
     const el = document.getElementById(idElemen);
     if (!el) return;
-    el.innerHTML =
-        '<div class="alert alert-info py-2 mb-0">' + pesan + "</div>";
+
+    el.innerHTML = `
+        <div class="alert alert-info py-2 mb-0">
+            ${pesan}
+        </div>
+    `;
+
+    renderMathSafe(el);
 }
 
-function pindahLatihan(index) {
-    const track = document.getElementById("latihanTrack");
-    if (!track) return;
-    track.style.transform = `translateX(-${index * 100}%)`;
+function kosongkanPetunjuk(idElemen) {
+    const el = document.getElementById(idElemen);
+    if (el) el.innerHTML = "";
+}
+
+function isiFeedback(idElemen, tipe, pesan) {
+    const el = document.getElementById(idElemen);
+    if (!el) return;
+
+    const kelas = tipe === "success" ? "alert-success" : "alert-warning";
+
+    el.innerHTML = `
+        <div class="alert ${kelas} py-2 mb-0">
+            ${pesan}
+        </div>
+    `;
+
+    renderMathSafe(el);
 }
 
 // =========================
@@ -294,27 +443,33 @@ function cekLatihan1() {
         benarKali4 &&
         benarAkhir;
 
-    const feedback = document.getElementById("feedbackLatihan1");
-    const petunjukId = "petunjukLatihan1";
+    const nextBtn = document.getElementById("nextBtnLatihan1");
 
     if (semuaBenar) {
-        feedback.innerHTML =
-            '<div class="alert alert-success py-2 mb-0">Bagus, jawabanmu sudah benar. Lanjut ke soal berikutnya.</div>';
-        document.getElementById(petunjukId).innerHTML = "";
+        isiFeedback(
+            "feedbackLatihan1",
+            "success",
+            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = 2x + 2$. Silakan lanjut ke soal berikutnya."
+        );
+        kosongkanPetunjuk("petunjukLatihan1");
 
-        setTimeout(() => {
-            pindahLatihan(1);
-        }, 700);
+        if (nextBtn) nextBtn.disabled = false;
         return;
     }
 
-    feedback.innerHTML =
-        '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.</div>';
+    isiFeedback(
+        "feedbackLatihan1",
+        "warning",
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu."
+    );
+
+    if (nextBtn) nextBtn.disabled = true;
+    resetStepSetelah(2);
 
     if (!benarTitik1x || !benarTitik1y || !benarTitik2x || !benarTitik2y) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: hari pertama berarti x = 1. Setelah 3 hari dari hari pertama berarti hari ke-4.",
+            "petunjukLatihan1",
+            "Petunjuk: hari pertama berarti $x = 1$. Setelah 3 hari dari hari pertama berarti hari ke-4."
         );
         return;
     }
@@ -328,8 +483,8 @@ function cekLatihan1() {
         !benarRumus6
     ) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: tuliskan rumus persamaan garis lurus melalui dua titik.",
+            "petunjukLatihan1",
+            "Petunjuk: tuliskan rumus persamaan garis lurus melalui dua titik."
         );
         return;
     }
@@ -343,26 +498,48 @@ function cekLatihan1() {
         !benarSub6
     ) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: gunakan titik (1,4) dan (4,10) untuk menggantikan x1, y1, x2, dan y2.",
+            "petunjukLatihan1",
+            "Petunjuk: gunakan titik $(1,4)$ dan $(4,10)$ untuk menggantikan $x_1$, $y_1$, $x_2$, dan $y_2$."
         );
         return;
     }
 
     if (!benarKali1 || !benarKali2 || !benarKali3 || !benarKali4) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: sederhanakan dulu 10 - 4 dan 4 - 1, lalu lakukan kali silang.",
+            "petunjukLatihan1",
+            "Petunjuk: sederhanakan dulu $10 - 4$ dan $4 - 1$, lalu lakukan kali silang."
         );
         return;
     }
 
     if (!benarAkhir) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: dari 3(y - 4) = 6(x - 1), uraikan lalu sederhanakan ke bentuk y = mx + c.",
+            "petunjukLatihan1",
+            "Petunjuk: dari $3(y - 4) = 6(x - 1)$, uraikan lalu sederhanakan ke bentuk $y = mx + c$."
         );
     }
+}
+
+function resetLatihan1() {
+    resetInput([
+        "lat_x1", "lat_y1", "lat_x2", "lat_y2",
+        "lat_rumus1", "lat_rumus2", "lat_rumus3",
+        "lat_rumus4", "lat_rumus5", "lat_rumus6",
+        "lat_sub1", "lat_sub2", "lat_sub3",
+        "lat_sub4", "lat_sub5", "lat_sub6",
+        "lat_kali1", "lat_kali2", "lat_kali3", "lat_kali4",
+        "lat_akhir"
+    ]);
+
+    const feedback = document.getElementById("feedbackLatihan1");
+    const petunjuk = document.getElementById("petunjukLatihan1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (feedback) feedback.innerHTML = "";
+    if (petunjuk) petunjuk.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
 }
 
 // =========================
@@ -396,22 +573,28 @@ function cekLatihan2() {
         benarKali4 &&
         benarAkhir;
 
-    const feedback = document.getElementById("feedbackLatihan2");
-    const petunjukId = "petunjukLatihan2";
+    const nextBtn = document.getElementById("nextBtnLatihan2");
 
     if (semuaBenar) {
-        feedback.innerHTML =
-            '<div class="alert alert-success py-2 mb-0">Bagus, jawabanmu sudah benar. Lanjut ke soal berikutnya.</div>';
-        document.getElementById(petunjukId).innerHTML = "";
+        isiFeedback(
+            "feedbackLatihan2",
+            "success",
+            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = -x + 7$. Silakan lanjut ke soal berikutnya."
+        );
+        kosongkanPetunjuk("petunjukLatihan2");
 
-        setTimeout(() => {
-            pindahLatihan(2);
-        }, 700);
+        if (nextBtn) nextBtn.disabled = false;
         return;
     }
 
-    feedback.innerHTML =
-        '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.</div>';
+    isiFeedback(
+        "feedbackLatihan2",
+        "warning",
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu."
+    );
+
+    if (nextBtn) nextBtn.disabled = true;
+    resetStepSetelah(3);
 
     if (
         !benarSub1 ||
@@ -422,32 +605,51 @@ function cekLatihan2() {
         !benarSub6
     ) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: baca koordinat titik A dan C dari gambar, lalu substitusikan ke rumus dua titik.",
+            "petunjukLatihan2",
+            "Petunjuk: baca koordinat titik $A$ dan $C$ dari gambar, lalu substitusikan ke rumus dua titik."
         );
         return;
     }
 
     if (!benarKali1 || !benarKali2 || !benarKali3 || !benarKali4) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: sederhanakan dulu 1 - 5 dan 6 - 2, lalu lakukan kali silang.",
+            "petunjukLatihan2",
+            "Petunjuk: sederhanakan dulu $1 - 5$ dan $6 - 2$, lalu lakukan kali silang."
         );
         return;
     }
 
     if (!benarAkhir) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: dari 4(y - 5) = -4(x - 2), uraikan lalu sederhanakan.",
+            "petunjukLatihan2",
+            "Petunjuk: dari $4(y - 5) = -4(x - 2)$, uraikan lalu sederhanakan."
         );
     }
+}
+
+function resetLatihan2() {
+    resetInput([
+        "lat2_sub1", "lat2_sub2", "lat2_sub3",
+        "lat2_sub4", "lat2_sub5", "lat2_sub6",
+        "lat2_kali1", "lat2_kali2", "lat2_kali3", "lat2_kali4",
+        "lat2_akhir"
+    ]);
+
+    const feedback = document.getElementById("feedbackLatihan2");
+    const petunjuk = document.getElementById("petunjukLatihan2");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (feedback) feedback.innerHTML = "";
+    if (petunjuk) petunjuk.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
 }
 
 // =========================
 // Latihan 3
 // =========================
-function cekLatihan3() {
+async function cekLatihan3() {
     const benarSub1 = cekIsian("lat3_sub1", ["5"]);
     const benarSub2 = cekIsian("lat3_sub2", ["13"]);
     const benarSub3 = cekIsian("lat3_sub3", ["5"]);
@@ -478,17 +680,48 @@ function cekLatihan3() {
         benarY;
 
     const feedback = document.getElementById("feedbackLatihan3");
-    const petunjukId = "petunjukLatihan3";
+    const akhir = document.getElementById("pesanAkhirLatihan");
 
     if (semuaBenar) {
-        feedback.innerHTML =
-            '<div class="alert alert-success py-2 mb-0">Bagus, jawabanmu sudah benar.</div>';
-        document.getElementById(petunjukId).innerHTML = "";
+        isiFeedback(
+            "feedbackLatihan3",
+            "success",
+            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = 2x + 3$, sehingga saat $x=3$ diperoleh $y=9$."
+        );
+        kosongkanPetunjuk("petunjukLatihan3");
+
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami cara menentukan persamaan garis melalui dua titik.
+                    Silakan lanjut ke materi berikutnya.
+                </div>
+            `;
+            renderMathSafe(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
+
         return;
     }
 
-    feedback.innerHTML =
-        '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.</div>';
+    isiFeedback(
+        "feedbackLatihan3",
+        "warning",
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu."
+    );
+
+    if (akhir) akhir.innerHTML = "";
 
     if (
         !benarSub1 ||
@@ -499,32 +732,49 @@ function cekLatihan3() {
         !benarSub6
     ) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: gunakan titik A(1,5) dan B(5,13) untuk menggantikan x1, y1, x2, dan y2."
+            "petunjukLatihan3",
+            "Petunjuk: gunakan titik $A(1,5)$ dan $B(5,13)$ untuk menggantikan $x_1$, $y_1$, $x_2$, dan $y_2$."
         );
         return;
     }
 
     if (!benarKali1 || !benarKali2 || !benarKali3 || !benarKali4) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: sederhanakan dulu 13 - 5 dan 5 - 1, lalu lakukan kali silang."
+            "petunjukLatihan3",
+            "Petunjuk: sederhanakan dulu $13 - 5$ dan $5 - 1$, lalu lakukan kali silang."
         );
         return;
     }
 
     if (!benarPersamaan) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: dari 4(y - 5) = 8(x - 1), uraikan lalu sederhanakan."
+            "petunjukLatihan3",
+            "Petunjuk: dari $4(y - 5) = 8(x - 1)$, uraikan lalu sederhanakan."
         );
         return;
     }
 
     if (!benarY) {
         tampilkanPetunjuk(
-            petunjukId,
-            "Petunjuk: substitusikan x = 3 ke persamaan garis yang sudah kamu peroleh."
+            "petunjukLatihan3",
+            "Petunjuk: substitusikan $x = 3$ ke persamaan garis yang sudah kamu peroleh."
         );
     }
+}
+
+function resetLatihan3() {
+    resetInput([
+        "lat3_sub1", "lat3_sub2", "lat3_sub3",
+        "lat3_sub4", "lat3_sub5", "lat3_sub6",
+        "lat3_kali1", "lat3_kali2", "lat3_kali3", "lat3_kali4",
+        "lat3_persamaan", "lat3_y"
+    ]);
+
+    const feedback = document.getElementById("feedbackLatihan3");
+    const petunjuk = document.getElementById("petunjukLatihan3");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (feedback) feedback.innerHTML = "";
+    if (petunjuk) petunjuk.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }

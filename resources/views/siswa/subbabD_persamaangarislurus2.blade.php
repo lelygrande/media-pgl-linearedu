@@ -532,392 +532,431 @@
     </div>
 
     {{-- Latihan --}}
-    <div class="latihan-slider">
-        <div class="latihan-track" id="latihanTrack">
+    <div class="box-latihan mt-5 mb-4" id="latihanD2Box">
+        <div class="card-body">
+            <span class="title-box">Latihan</span>
 
             {{-- ===================== --}}
             {{-- LATIHAN 1 --}}
             {{-- ===================== --}}
-            <section class="latihan-slide">
-                <div class="card card-materi mb-4">
-                    <div class="card-body">
-                        <span class="badge-latihan">Latihan</span>
+            <div class="latihan-step" id="latihanStep1">
 
-                        <p>
-                            1. Pada hari pertama, tinggi sebuah tanaman adalah <span>$4$</span> cm. Setelah <span>$3$</span>
-                            hari,
-                            tinggi tanaman itu menjadi <span>$10$</span> cm. Jika pertumbuhan tinggi tanaman dianggap
-                            membentuk garis
-                            lurus,
-                            tentukan persamaan garis yang menyatakan hubungan antara banyak hari <span>$x$</span> dan tinggi
-                            tanaman
-                            <span>$y$</span>.
-                        </p>
+                <p>
+                    1. Pada hari pertama, tinggi sebuah tanaman adalah <span>$4$</span> cm. Setelah <span>$3$</span>
+                    hari, tinggi tanaman itu menjadi <span>$10$</span> cm. Jika pertumbuhan tinggi tanaman dianggap
+                    membentuk garis lurus, tentukan persamaan garis yang menyatakan hubungan antara banyak hari
+                    <span>$x$</span> dan tinggi tanaman <span>$y$</span>.
+                </p>
 
-                        <p>Dari cerita di atas, tuliskan dua titik yang diketahui.</p>
+                <p>Dari cerita di atas, tuliskan dua titik yang diketahui.</p>
 
-                        <p>
-                            Titik 1 = (
-                            <input type="text" id="lat_x1"
+                <p>
+                    Titik 1 = (
+                    <input type="text" id="lat_x1"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:70px;">
+                    ,
+                    <input type="text" id="lat_y1"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:70px;">
+                    )
+                </p>
+
+                <p>
+                    Titik 2 = (
+                    <input type="text" id="lat_x2"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:70px;">
+                    ,
+                    <input type="text" id="lat_y2"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:70px;">
+                    )
+                </p>
+
+                <p>Tuliskan rumus persamaan garis lurus melalui dua titik.</p>
+
+                <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$y-$</span>
+                            <input type="text" id="lat_rumus1"
                                 class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                                 style="width:70px;">
-                            ,
-                            <input type="text" id="lat_y1"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:70px;">
-                            )
-                        </p>
-
-                        <p>
-                            Titik 2 = (
-                            <input type="text" id="lat_x2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:70px;">
-                            ,
-                            <input type="text" id="lat_y2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:70px;">
-                            )
-                        </p>
-
-                        <p>Tuliskan rumus persamaan garis lurus melalui dua titik.</p>
-
-                        <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$y-$</span>
-                                    <input type="text" id="lat_rumus1"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat_rumus2"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat_rumus3"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
-
-                            <span>$=$</span>
-
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$x-$</span>
-                                    <input type="text" id="lat_rumus4"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat_rumus5"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat_rumus6"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
                         </div>
-
-                        <p>Substitusikan titik-titik yang sudah kamu tentukan ke rumus tersebut.</p>
-
-                        <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$y-$</span>
-                                    <input type="text" id="lat_sub1"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat_sub2"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat_sub3"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
-
-                            <span>$=$</span>
-
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$x-$</span>
-                                    <input type="text" id="lat_sub4"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat_sub5"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat_sub6"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
+                        <div class="bottom">
+                            <input type="text" id="lat_rumus2"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat_rumus3"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
+                    </div>
 
-                        <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
+                    <span>$=$</span>
 
-                        <div class="rumus-box mb-3" style="width: fit-content;">
-                            <input type="text" id="lat_kali1"
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$x-$</span>
+                            <input type="text" id="lat_rumus4"
                                 class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(y-$</span>
-                            <input type="text" id="lat_kali2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$) =$</span>
-                            <input type="text" id="lat_kali3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(x-$</span>
-                            <input type="text" id="lat_kali4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$)$</span>
+                                style="width:70px;">
                         </div>
-
-                        <p>Tuliskan persamaan garis akhirnya.</p>
-
-                        <p>
-                            <span>$y =$</span>
-                            <input type="text" id="lat_akhir"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:180px;">
-                        </p>
-
-                        <div class="mt-3">
-                            <button class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek</button>
-                            <div id="feedbackLatihan1" class="mt-2"></div>
-                            <div id="petunjukLatihan1" class="mt-2"></div>
+                        <div class="bottom">
+                            <input type="text" id="lat_rumus5"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat_rumus6"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                     </div>
                 </div>
-            </section>
+
+                <p>Substitusikan titik-titik yang sudah kamu tentukan ke rumus tersebut.</p>
+
+                <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$y-$</span>
+                            <input type="text" id="lat_sub1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:70px;">
+                        </div>
+                        <div class="bottom">
+                            <input type="text" id="lat_sub2"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat_sub3"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                        </div>
+                    </div>
+
+                    <span>$=$</span>
+
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$x-$</span>
+                            <input type="text" id="lat_sub4"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:70px;">
+                        </div>
+                        <div class="bottom">
+                            <input type="text" id="lat_sub5"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat_sub6"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                        </div>
+                    </div>
+                </div>
+
+                <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
+
+                <div class="rumus-box mb-3" style="width: fit-content;">
+                    <input type="text" id="lat_kali1"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(y-$</span>
+                    <input type="text" id="lat_kali2"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$) =$</span>
+                    <input type="text" id="lat_kali3"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(x-$</span>
+                    <input type="text" id="lat_kali4"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$)$</span>
+                </div>
+
+                <p>Tuliskan persamaan garis akhirnya.</p>
+
+                <p>
+                    <span>$y =$</span>
+                    <input type="text" id="lat_akhir"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:180px;">
+                </p>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan1()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan1()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <button id="nextBtnLatihan1" class="btn btn-palet btn-sm" type="button" onclick="nextLatihan(2)"
+                        disabled>
+                        Lanjut ke Latihan 2
+                    </button>
+                </div>
+
+                <div id="feedbackLatihan1" class="mt-2"></div>
+                <div id="petunjukLatihan1" class="mt-2"></div>
+
+            </div>
 
             {{-- ===================== --}}
             {{-- LATIHAN 2 --}}
             {{-- ===================== --}}
-            <section class="latihan-slide">
-                <div class="card card-materi mb-4">
-                    <div class="card-body">
-                        <span class="badge-latihan">Latihan 2</span>
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
 
-                        <p>
-                            2. Perhatikan gambar persegi panjang berikut. Tentukan persamaan garis yang melalui titik
-                            <span>$A$</span> dan <span>$C$</span>.
-                        </p>
 
-                        <div class="text-center mb-3">
-                            <img src="{{ asset('img/pgl/pgl2latsol2.png') }}" alt="Gambar titik A dan C"
-                                class="img-fluid rounded" style="max-width: 300px;">
+                <p>
+                    2. Perhatikan gambar persegi panjang berikut. Tentukan persamaan garis yang melalui titik
+                    <span>$A$</span> dan <span>$C$</span>.
+                </p>
+
+                <div class="text-center mb-3">
+                    <img src="{{ asset('img/pgl/pgl2latsol2.png') }}" alt="Gambar titik A dan C"
+                        class="img-fluid rounded" style="max-width: 300px;">
+                </div>
+
+                <p>
+                    Substitusikan koordinat titik <span>$A$</span> dan <span>$C$</span> dari gambar ke rumus
+                    persamaan garis melalui dua titik.
+                </p>
+
+                <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$y-$</span>
+                            <input type="text" id="lat2_sub1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:70px;">
                         </div>
-
-                        <p>
-                            Substitusikan koordinat titik <span>$A$</span> dan <span>$C$</span> dari gambar ke rumus
-                            persamaan garis
-                            melalui dua titik.
-                        </p>
-
-                        <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$y-$</span>
-                                    <input type="text" id="lat2_sub1"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat2_sub2"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat2_sub3"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
-
-                            <span>$=$</span>
-
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$x-$</span>
-                                    <input type="text" id="lat2_sub4"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat2_sub5"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat2_sub6"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
+                        <div class="bottom">
+                            <input type="text" id="lat2_sub2"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat2_sub3"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
+                    </div>
 
-                        <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
+                    <span>$=$</span>
 
-                        <div class="rumus-box mb-3" style="width: fit-content;">
-                            <input type="text" id="lat2_kali1"
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$x-$</span>
+                            <input type="text" id="lat2_sub4"
                                 class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(y-$</span>
-                            <input type="text" id="lat2_kali2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$) =$</span>
-                            <input type="text" id="lat2_kali3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(x-$</span>
-                            <input type="text" id="lat2_kali4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$)$</span>
+                                style="width:70px;">
                         </div>
-
-                        <p>Tuliskan persamaan garis akhirnya.</p>
-
-                        <p>
-                            <span>$y =$</span>
-                            <input type="text" id="lat2_akhir"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:180px;">
-                        </p>
-
-                        <div class="mt-3">
-                            <button class="btn btn-palet btn-sm" onclick="cekLatihan2()">Cek</button>
-                            <div id="feedbackLatihan2" class="mt-2"></div>
-                            <div id="petunjukLatihan2" class="mt-2"></div>
+                        <div class="bottom">
+                            <input type="text" id="lat2_sub5"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat2_sub6"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                     </div>
                 </div>
-            </section>
+
+                <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
+
+                <div class="rumus-box mb-3" style="width: fit-content;">
+                    <input type="text" id="lat2_kali1"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(y-$</span>
+                    <input type="text" id="lat2_kali2"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$) =$</span>
+                    <input type="text" id="lat2_kali3"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(x-$</span>
+                    <input type="text" id="lat2_kali4"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$)$</span>
+                </div>
+
+                <p>Tuliskan persamaan garis akhirnya.</p>
+
+                <p>
+                    <span>$y =$</span>
+                    <input type="text" id="lat2_akhir"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:180px;">
+                </p>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan2()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan2()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <button id="nextBtnLatihan2" class="btn btn-palet btn-sm" type="button" onclick="nextLatihan(3)"
+                        disabled>
+                        Lanjut ke Latihan 3
+                    </button>
+                </div>
+
+                <div id="feedbackLatihan2" class="mt-2"></div>
+                <div id="petunjukLatihan2" class="mt-2"></div>
+            </div>
 
             {{-- ===================== --}}
             {{-- LATIHAN 3 --}}
             {{-- ===================== --}}
-            <section class="latihan-slide">
-                <div class="card card-materi mb-4">
-                    <div class="card-body">
-                        <span class="badge-latihan">Latihan 3</span>
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
 
-                        <p>
-                            3. Seorang siswa mengamati hubungan antara banyak buku tulis yang dibeli dan jumlah uang yang
-                            harus dibayar.
-                            Data tersebut dinyatakan pada dua titik, yaitu <span>$A(1,5)$</span> dan <span>$B(5,13)$</span>.
-                            Jika hubungan itu membentuk garis lurus, tentukan jumlah uang yang harus dibayar saat membeli
-                            <span>$3$</span> buku tulis.
-                        </p>
+                <p>
+                    3. Seorang siswa mengamati hubungan antara banyak buku tulis yang dibeli dan jumlah uang yang
+                    harus dibayar. Data tersebut dinyatakan pada dua titik, yaitu <span>$A(1,5)$</span> dan
+                    <span>$B(5,13)$</span>. Jika hubungan itu membentuk garis lurus, tentukan jumlah uang yang
+                    harus dibayar saat membeli <span>$3$</span> buku tulis.
+                </p>
 
-                        <p>
-                            Substitusikan titik <span>$A(1,5)$</span> dan <span>$B(5,13)$</span> ke rumus persamaan garis
-                            lurus
-                            melalui dua titik.
-                        </p>
+                <p>
+                    Substitusikan titik <span>$A(1,5)$</span> dan <span>$B(5,13)$</span> ke rumus persamaan garis
+                    lurus melalui dua titik.
+                </p>
 
-                        <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$y-$</span>
-                                    <input type="text" id="lat3_sub1"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat3_sub2"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat3_sub3"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
-
-                            <span>$=$</span>
-
-                            <div class="frac-static">
-                                <div class="top">
-                                    <span>$x-$</span>
-                                    <input type="text" id="lat3_sub4"
-                                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                        style="width:70px;">
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="lat3_sub5"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                    <span>$-$</span>
-                                    <input type="text" id="lat3_sub6"
-                                        class="form-control form-control-sm text-center jawaban-latihan">
-                                </div>
-                            </div>
+                <div class="d-flex align-items-center flex-wrap gap-4 mb-3">
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$y-$</span>
+                            <input type="text" id="lat3_sub1"
+                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                style="width:70px;">
                         </div>
-
-                        <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
-
-                        <div class="rumus-box mb-3" style="width: fit-content;">
-                            <input type="text" id="lat3_kali1"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(y-$</span>
-                            <input type="text" id="lat3_kali2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$) =$</span>
-                            <input type="text" id="lat3_kali3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$(x-$</span>
-                            <input type="text" id="lat3_kali4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:80px;">
-                            <span>$)$</span>
+                        <div class="bottom">
+                            <input type="text" id="lat3_sub2"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat3_sub3"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
+                    </div>
 
-                        <p>Tuliskan persamaan garis yang diperoleh.</p>
+                    <span>$=$</span>
 
-                        <p>
-                            <span>$y =$</span>
-                            <input type="text" id="lat3_persamaan"
+                    <div class="frac-static">
+                        <div class="top">
+                            <span>$x-$</span>
+                            <input type="text" id="lat3_sub4"
                                 class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:180px;">
-                        </p>
-
-                        <p>
-                            Karena yang dibeli adalah <span>$3$</span> buku tulis, substitusikan <span>$x=3$</span> ke
-                            persamaan garis tersebut. Jadi jumlah uang yang harus dibayar adalah:
-                        </p>
-
-                        <p>
-                            <span>$y =$</span>
-                            <input type="text" id="lat3_y"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:100px;">
-                        </p>
-
-                        <div class="mt-3">
-                            <button class="btn btn-palet btn-sm" onclick="cekLatihan3()">Cek</button>
-                            <div id="feedbackLatihan3" class="mt-2"></div>
-                            <div id="petunjukLatihan3" class="mt-2"></div>
+                                style="width:70px;">
+                        </div>
+                        <div class="bottom">
+                            <input type="text" id="lat3_sub5"
+                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <span>$-$</span>
+                            <input type="text" id="lat3_sub6"
+                                class="form-control form-control-sm text-center jawaban-latihan">
                         </div>
                     </div>
                 </div>
-            </section>
 
+                <p>Sederhanakan penyebutnya, lalu lakukan kali silang.</p>
+
+                <div class="rumus-box mb-3" style="width: fit-content;">
+                    <input type="text" id="lat3_kali1"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(y-$</span>
+                    <input type="text" id="lat3_kali2"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$) =$</span>
+                    <input type="text" id="lat3_kali3"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$(x-$</span>
+                    <input type="text" id="lat3_kali4"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:80px;">
+                    <span>$)$</span>
+                </div>
+
+                <p>Tuliskan persamaan garis yang diperoleh.</p>
+
+                <p>
+                    <span>$y =$</span>
+                    <input type="text" id="lat3_persamaan"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:180px;">
+                </p>
+
+                <p>
+                    Karena yang dibeli adalah <span>$3$</span> buku tulis, substitusikan <span>$x=3$</span> ke
+                    persamaan garis tersebut. Jadi jumlah uang yang harus dibayar adalah:
+                </p>
+
+                <p>
+                    <span>$y =$</span>
+                    <input type="text" id="lat3_y"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:100px;">
+                </p>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
+
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan3()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan3()">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div id="feedbackLatihan3" class="mt-2"></div>
+                <div id="petunjukLatihan3" class="mt-2"></div>
+                <div id="pesanAkhirLatihan" class="mt-3"></div>
+            </div>
         </div>
     </div>
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabD/subbabD_persamaan2.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -926,18 +965,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

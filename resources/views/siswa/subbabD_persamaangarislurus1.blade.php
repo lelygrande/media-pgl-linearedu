@@ -623,10 +623,24 @@
                     </p>
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek</button>
-                    <div id="feedbackLatihan1" class="mt-2"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan1()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan1()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <button id="nextBtnLatihan1" class="btn btn-palet btn-sm" type="button" onclick="nextLatihan(2)"
+                        disabled>
+                        Lanjut ke Latihan 2
+                    </button>
                 </div>
+
+                <div id="feedbackLatihan1" class="mt-2"></div>
             </div>
 
             {{-- ======================= --}}
@@ -731,10 +745,28 @@
                     </p>
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan2()">Cek</button>
-                    <div id="feedbackLatihan2" class="mt-2"></div>
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan2()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan2()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <button id="nextBtnLatihan2" class="btn btn-palet btn-sm" type="button" onclick="nextLatihan(3)"
+                        disabled>
+                        Lanjut ke Latihan 3
+                    </button>
                 </div>
+
+                <div id="feedbackLatihan2" class="mt-2"></div>
             </div>
 
             {{-- ======================= --}}
@@ -834,28 +866,52 @@
                     </p>
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3()">Cek</button>
-                    <div id="feedbackLatihan3" class="mt-2"></div>
-                </div>
-            </div>
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
 
+                    <div>
+                        <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan3()">
+                            Cek Jawaban
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan3()">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div id="feedbackLatihan3" class="mt-2"></div>
+                <div id="pesanAkhirLatihan" class="mt-3"></div>
+            </div>
         </div>
     </div>
 
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabD/subbabD_persamaan1.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -864,18 +920,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif
