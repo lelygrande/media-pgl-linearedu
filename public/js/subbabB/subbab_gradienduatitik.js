@@ -385,9 +385,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Latihan Soal
+
+// =========================
+// LATIHAN SOAL SUBBAB B3
+// =========================
+
 function normalisasiNilai(teks) {
-    return (teks || "")
+    return String(teks || "")
         .trim()
         .replace(/\s+/g, "")
         .replace(/−/g, "-")
@@ -402,36 +406,108 @@ function renderMath(target) {
             { left: "$$", right: "$$", display: true },
             { left: "\\[", right: "\\]", display: true },
             { left: "\\(", right: "\\)", display: false },
-            { left: "$", right: "$", display: false }
+            { left: "$", right: "$", display: false },
         ],
-        throwOnError: false
+        throwOnError: false,
     });
-}
-
-// =========================
-// BUKA CARD BERIKUTNYA
-// =========================
-function tampilkanCardLatihan(idCard) {
-    const card = document.getElementById(idCard);
-    if (!card) return;
-
-    card.classList.remove("d-none");
-    setTimeout(() => {
-        card.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }, 150);
-
-    renderMath(card);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    ["cardLatihan1", "cardLatihan2", "cardLatihan3"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) renderMath(el);
-    });
+    renderMath(document.getElementById("latihanB3Box") || document.body);
 });
+
+// =========================
+// NAVIGASI LATIHAN
+// =========================
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMath(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
+}
+
+// =========================
+// SAVE PROGRESS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
 
 // =========================
 // VALIDASI UMUM
@@ -443,7 +519,7 @@ function cekField(id, jawabanBenar, labelTampil) {
     const nilaiUser = normalisasiNilai(el.value);
     const nilaiKunci = normalisasiNilai(jawabanBenar);
 
-    if (!isNaN(nilaiUser) && !isNaN(nilaiKunci)) {
+    if (!Number.isNaN(Number(nilaiUser)) && !Number.isNaN(Number(nilaiKunci))) {
         if (Number(nilaiUser) === Number(nilaiKunci)) {
             el.classList.remove("is-invalid");
             el.classList.add("is-valid");
@@ -503,6 +579,17 @@ function tampilkanFeedback(containerId, hasil, nomor, pesanBenar) {
     return hasil.semuaBenar;
 }
 
+function resetInput(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+}
+
 // =========================
 // LATIHAN 1
 // =========================
@@ -529,33 +616,35 @@ function cekLatihanTitik1() {
         "fbLatihan1",
         hasil,
         1,
-        "Jawaban nomor 1 benar. Lanjut ke latihan berikutnya..."
+        "Jawaban nomor 1 benar. Silakan lanjut ke latihan berikutnya."
     );
 
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
     if (benar) {
-        setTimeout(() => {
-            tampilkanCardLatihan("cardLatihan2");
-        }, 700);
+        if (nextBtn) nextBtn.disabled = false;
+    } else {
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
     }
 
     return benar;
 }
 
 function resetLatihanTitik1() {
-    [
+    resetInput([
         "l1x1", "l1y1", "l1x2", "l1y2",
         "l1_subY2", "l1_subY1", "l1_subX2", "l1_subX1",
-        "l1_hasilAtas", "l1_hasilBawah", "l1_hasilAkhirAtas", "l1_hasilAkhirBawah"
-    ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.value = "";
-            el.classList.remove("is-valid", "is-invalid");
-        }
-    });
+        "l1_hasilAtas", "l1_hasilBawah", "l1_hasilAkhirAtas", "l1_hasilAkhirBawah",
+    ]);
 
     const fb = document.getElementById("fbLatihan1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
     if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
 }
 
 // =========================
@@ -586,40 +675,42 @@ function cekLatihanTitik2() {
         "fbLatihan2",
         hasil,
         2,
-        "Jawaban nomor 2 benar. Lanjut ke latihan berikutnya..."
+        "Jawaban nomor 2 benar. Silakan lanjut ke latihan berikutnya."
     );
 
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
     if (benar) {
-        setTimeout(() => {
-            tampilkanCardLatihan("cardLatihan3");
-        }, 700);
+        if (nextBtn) nextBtn.disabled = false;
+    } else {
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
     }
 
     return benar;
 }
 
 function resetLatihanTitik2() {
-    [
+    resetInput([
         "x1_2", "y1_2", "x2_2", "y2_2", "m_2", "kiri1_2",
         "subY2_2", "subY1_2", "subX2_2", "subX1_2",
         "kiri2_2", "hasilAtas_2", "hasilBawah_2",
-        "pers1Kiri_2", "pers1Kanan_2", "hasilP_2"
-    ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.value = "";
-            el.classList.remove("is-valid", "is-invalid");
-        }
-    });
+        "pers1Kiri_2", "pers1Kanan_2", "hasilP_2",
+    ]);
 
     const fb = document.getElementById("fbLatihan2");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
     if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
 }
 
 // =========================
 // LATIHAN 3
 // =========================
-function cekLatihanTitik3() {
+async function cekLatihanTitik3() {
     const data = [
         { id: "subY2_3", jawaban: "4", label: "Nilai \\(y_2\\) pada nomor 3 belum benar." },
         { id: "subY1_3", jawaban: "1", label: "Nilai \\(y_1\\) pada nomor 3 belum benar." },
@@ -636,19 +727,32 @@ function cekLatihanTitik3() {
         "fbLatihan3",
         hasil,
         3,
-        "Jawaban nomor 3 benar. Bagus, kamu sudah memahami materi gradien."
+        "Jawaban nomor 3 benar. Gradien jalan tersebut adalah \\(\\frac{1}{2}\\)."
     );
 
     if (benar) {
         const akhir = document.getElementById("pesanAkhirLatihan");
+
         if (akhir) {
             akhir.innerHTML = `
-                <div class="alert alert-primary fw-semibold text-center mt-3">
-                    Bagus, kamu sudah memahami materi gradien.
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami cara menentukan gradien garis melalui dua titik.
+                    Silakan lanjut ke materi berikutnya.
                 </div>
             `;
             renderMath(akhir);
-            akhir.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
         }
     }
 
@@ -656,17 +760,14 @@ function cekLatihanTitik3() {
 }
 
 function resetLatihanTitik3() {
-    [
+    resetInput([
         "subY2_3", "subY1_3", "subX2_3", "subX1_3",
-        "hasilAtas_3", "hasilBawah_3", "hasilAkhirAtas_3", "hasilAkhirBawah_3"
-    ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.value = "";
-            el.classList.remove("is-valid", "is-invalid");
-        }
-    });
+        "hasilAtas_3", "hasilBawah_3", "hasilAkhirAtas_3", "hasilAkhirBawah_3",
+    ]);
 
     const fb = document.getElementById("fbLatihan3");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
     if (fb) fb.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }

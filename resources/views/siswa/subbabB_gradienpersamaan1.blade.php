@@ -789,108 +789,165 @@
         </div>
     </div>
 
-    <div class="box-latihan mt-5 mb-4" id="latihanGradienSlider">
-        <div class="card-body p-4">
+    <div class="box-latihan mt-5 mb-4" id="latihanGradienB4Box">
+        <div class="card-body">
             <span class="title-box">Latihan</span>
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <div class="context-card">
+                    <p class="mb-3"><b>1.</b> Tentukan gradien dari persamaan berikut.</p>
 
-            <p class="mb-3" style="line-height:1.8; text-align:justify;">
-                Kerjakan latihan berikut dengan cermat. Jika jawaban berupa pecahan, tuliskan dalam bentuk
-                $a/b$, misalnya $1/2$.
-            </p>
+                    <div class="mb-3">
+                        <label class="form-label">a. \(y=-5x+7\)</label>
+                        <input type="text" id="lat1a" class="form-control mini-input">
+                    </div>
 
-            <div class="latihan-slider" id="latihanSliderGradien">
-                <div class="latihan-track" id="latihanTrackGradien">
+                    <div class="mb-3">
+                        <label class="form-label">b. \(4y=10x-12\)</label>
+                        <input type="text" id="lat1b" class="form-control mini-input">
+                    </div>
 
-                    <!-- Slide 1 -->
-                    <section class="latihan-slide">
-                        <div class="context-card">
-                            <p class="mb-3"><b>1.</b> Tentukan gradien dari persamaan berikut.</p>
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1Gradien()">
+                                Cek Jawaban
+                            </button>
 
-                            <div class="mb-3">
-                                <label class="form-label">a. \(y=-5x+7\)</label>
-                                <input type="text" id="lat1a" class="form-control mini-input">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">b. \(4y=10x-12\)</label>
-                                <input type="text" id="lat1b" class="form-control mini-input">
-                            </div>
-
-                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1Gradien()">Cek
-                                Jawaban</button>
-                            <div id="feedbackLatihan1Gradien" class="mt-3"></div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan1Gradien()">
+                                Reset
+                            </button>
                         </div>
-                    </section>
 
-                    <!-- Slide 2 -->
-                    <section class="latihan-slide">
-                        <div class="context-card">
-                            <p class="mb-3"><b>2.</b> Tentukan gradien dari persamaan berikut.</p>
+                        <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(2)" disabled>
+                            Lanjut ke Latihan 2
+                        </button>
+                    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">a. \(6x+3y-9=0\)</label>
-                                <input type="text" id="lat2a" class="form-control mini-input">
-                            </div>
+                    <div id="feedbackLatihan1Gradien" class="mt-3"></div>
+                </div>
+            </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">b. \(9x-6y+15=0\)</label>
-                                <input type="text" id="lat2b" class="form-control mini-input">
-                            </div>
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
 
-                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2Gradien()">Cek
-                                Jawaban</button>
-                            <div id="feedbackLatihan2Gradien" class="mt-3"></div>
+                <div class="context-card">
+                    <p class="mb-3"><b>2.</b> Tentukan gradien dari persamaan berikut.</p>
+
+                    <div class="mb-3">
+                        <label class="form-label">a. \(6x+3y-9=0\)</label>
+                        <input type="text" id="lat2a" class="form-control mini-input">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">b. \(9x-6y+15=0\)</label>
+                        <input type="text" id="lat2b" class="form-control mini-input">
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                            Kembali ke Latihan 1
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2Gradien()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan2Gradien()">
+                                Reset
+                            </button>
                         </div>
-                    </section>
 
-                    <!-- Slide 3 -->
-                    <section class="latihan-slide">
-                        <div class="context-card">
-                            <p class="mb-3"><b>3.</b> Perhatikan dua jalan berikut.</p>
+                        <button id="nextBtnLatihan2" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(3)" disabled>
+                            Lanjut ke Latihan 3
+                        </button>
+                    </div>
 
-                            <p style="line-height:1.8; text-align:justify;">
-                                Jalan A dinyatakan oleh persamaan \(3y=9x+6\), sedangkan Jalan B dinyatakan oleh
-                                persamaan \(4x+2y-8=0\). Nilai \(x\) menyatakan jarak mendatar dan nilai \(y\)
-                                menyatakan ketinggian.
-                            </p>
+                    <div id="feedbackLatihan2Gradien" class="mt-3"></div>
+                </div>
+            </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Gradien Jalan A adalah ...</label>
-                                <input type="text" id="lat3a" class="form-control mini-input">
-                            </div>
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
 
-                            <div class="mb-3">
-                                <label class="form-label">Gradien Jalan B adalah ...</label>
-                                <input type="text" id="lat3b" class="form-control mini-input">
-                            </div>
+                <div class="context-card">
+                    <p class="mb-3"><b>3.</b> Perhatikan dua jalan berikut.</p>
 
-                            <div class="mb-3">
-                                <label class="form-label">Jalan yang lebih curam adalah ...</label>
-                                <input type="text" id="lat3c" class="form-control mini-input">
-                            </div>
+                    <p style="line-height:1.8; text-align:justify;">
+                        Jalan A dinyatakan oleh persamaan \(3y=9x+6\), sedangkan Jalan B dinyatakan oleh
+                        persamaan \(4x+2y-8=0\). Nilai \(x\) menyatakan jarak mendatar dan nilai \(y\)
+                        menyatakan ketinggian.
+                    </p>
 
-                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3Gradien()">Cek
-                                Jawaban</button>
-                            <div id="feedbackLatihan3Gradien" class="mt-3"></div>
+                    <div class="mb-3">
+                        <label class="form-label">Gradien Jalan A adalah ...</label>
+                        <input type="text" id="lat3a" class="form-control mini-input">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Gradien Jalan B adalah ...</label>
+                        <input type="text" id="lat3b" class="form-control mini-input">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Jalan yang lebih curam adalah ...</label>
+                        <input type="text" id="lat3c" class="form-control mini-input">
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                            Kembali ke Latihan 2
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3Gradien()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan3Gradien()">
+                                Reset
+                            </button>
                         </div>
-                    </section>
+                    </div>
 
+                    <div id="feedbackLatihan3Gradien" class="mt-3"></div>
+                    <div id="pesanAkhirLatihan" class="mt-3"></div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="{{ asset('js/subbabB/subbab_gradienpersamaan1.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -899,18 +956,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

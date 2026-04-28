@@ -130,25 +130,6 @@
             color: #fff !important;
             border-color: #dc3545 !important;
         }
-
-
-        /* Slider */
-
-        .latihan-slider {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .latihan-track {
-            display: flex;
-            transition: transform 0.4s ease;
-            width: 100%;
-        }
-
-        .latihan-slide {
-            min-width: 100%;
-            box-sizing: border-box;
-        }
     </style>
 
 
@@ -497,142 +478,167 @@
         </div>
     </div>
 
-    <div class="box-latihan mt-5 mb-4" id="latihanGradienSlider">
+    <div class="box-latihan mt-5 mb-4" id="latihanGradienBox">
         <div class="card-body p-4">
             <span class="title-box">Latihan</span>
 
-            <div class="latihan-slider">
-                <div class="latihan-track" id="latihanTrackGradien">
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <p style="line-height:1.8; text-align:justify;">
+                    1. Perhatikan beberapa bentuk garis berikut, kemudian pasangkan masing-masing
+                    garis dengan jenis gradien yang sesuai.
+                </p>
 
-                    <!-- Slide 1 -->
-                    <section class="latihan-slide">
-                        <p style="line-height:1.8; text-align:justify;">
-                            1. Perhatikan beberapa bentuk garis berikut, kemudian pasangkan masing-masing
-                            garis dengan jenis gradien yang sesuai.
-                        </p>
+                <div class="row g-3">
+                    <div class="col-lg-5">
+                        <div class="drag-bank">
+                            <div class="drag-item" draggable="true" data-value="nol">Garis datar</div>
+                            <div class="drag-item" draggable="true" data-value="positif">Garis naik</div>
+                            <div class="drag-item" draggable="true" data-value="takdef">Garis tegak</div>
+                            <div class="drag-item" draggable="true" data-value="negatif">Garis turun</div>
+                        </div>
+                    </div>
 
-                        <div class="row g-3">
-                            <div class="col-lg-5">
-                                <div class="drag-bank">
-                                    <div class="drag-item" draggable="true" data-value="nol">Garis datar</div>
-                                    <div class="drag-item" draggable="true" data-value="positif">Garis naik</div>
-                                    <div class="drag-item" draggable="true" data-value="takdef">Garis tegak</div>
-                                    <div class="drag-item" draggable="true" data-value="negatif">Garis turun</div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-7">
-                                <div class="drop-zone mb-3" data-answer="positif">
-                                    <strong>Gradien positif</strong>
-                                    <div class="drop-slot"></div>
-                                </div>
-
-                                <div class="drop-zone mb-3" data-answer="negatif">
-                                    <strong>Gradien negatif</strong>
-                                    <div class="drop-slot"></div>
-                                </div>
-
-                                <div class="drop-zone mb-3" data-answer="nol">
-                                    <strong>Gradien nol</strong>
-                                    <div class="drop-slot"></div>
-                                </div>
-
-                                <div class="drop-zone" data-answer="takdef">
-                                    <strong>Tidak terdefinisi</strong>
-                                    <div class="drop-slot"></div>
-                                </div>
-                            </div>
+                    <div class="col-lg-7">
+                        <div class="drop-zone mb-3" data-answer="positif">
+                            <strong>Gradien positif</strong>
+                            <div class="drop-slot"></div>
                         </div>
 
-                        <div class="mt-3">
-                            <button type="button" class="btn btn-palet btn-sm"
-                                onclick="cekKlasifikasiGradien()">Cek</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                onclick="resetKlasifikasiGradien()">Reset</button>
+                        <div class="drop-zone mb-3" data-answer="negatif">
+                            <strong>Gradien negatif</strong>
+                            <div class="drop-slot"></div>
                         </div>
 
-                        <div id="feedbackKlasifikasiGradien" class="mt-3"></div>
-                    </section>
-
-                    <!-- Slide 2 -->
-                    <section class="latihan-slide">
-                        <p style="line-height:1.8; text-align:justify;">
-                            2. Perhatikan gambar berikut. Jika garis dibaca dari titik A ke titik B, maka tanda perubahan
-                            koordinat yang
-                            benar adalah ...
-                        </p>
-
-                        <div class="text-center mb-3">
-                            <img src="{{ asset('img/gradien/latihan2_positif.png') }}" alt="Latihan 2 gradien positif"
-                                style="max-width: 340px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
+                        <div class="drop-zone mb-3" data-answer="nol">
+                            <strong>Gradien nol</strong>
+                            <div class="drop-slot"></div>
                         </div>
 
-                        <div class="opsi-kotak-wrap">
-                            <button type="button" class="opsi-kotak" data-soal="lat2" data-value="a">
-                                \(\Delta x\) positif dan \(\Delta y\) positif
-                            </button>
-                            <button type="button" class="opsi-kotak" data-soal="lat2" data-value="b">
-                                \(\Delta x\) positif dan \(\Delta y\) negatif
-                            </button>
-                            <button type="button" class="opsi-kotak" data-soal="lat2" data-value="c">
-                                \(\Delta x\) negatif dan \(\Delta y\) positif
-                            </button>
-                            <button type="button" class="opsi-kotak" data-soal="lat2" data-value="d">
-                                \(\Delta x\) negatif dan \(\Delta y\) negatif
-                            </button>
+                        <div class="drop-zone" data-answer="takdef">
+                            <strong>Tidak terdefinisi</strong>
+                            <div class="drop-slot"></div>
                         </div>
-
-                        <input type="hidden" id="lat2" value="">
-
-                        <div class="mt-3">
-                            <button type="button" class="btn btn-palet btn-sm"
-                                onclick="cekLatihan2Gradien()">Cek</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                onclick="resetLatihan2Gradien()">Reset</button>
-                        </div>
-
-                        <div id="feedbackLatihan2Gradien" class="mt-3"></div>
-                    </section>
-
-                    <!-- Slide 3 -->
-                    <section class="latihan-slide">
-                        <p style="line-height:1.8; text-align:justify;">
-                            3. Perhatikan gambar berikut. Tentukan nilai \(\Delta y\), \(\Delta x\), dan gradien garisnya.
-                        </p>
-
-                        <div class="text-center mb-3">
-                            <img src="{{ asset('img/gradien/latihan3_negatif.png') }}" alt="Latihan 3 gradien negatif"
-                                style="max-width: 340px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">\(\Delta y\)</label>
-                                <input type="text" id="lat3_dy" class="form-control">
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">\(\Delta x\)</label>
-                                <input type="text" id="lat3_dx" class="form-control">
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">Gradien \(m\)</label>
-                                <input type="text" id="lat3_m" class="form-control"
-                                    placeholder="contoh: -1 atau -5/5">
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <button type="button" class="btn btn-palet btn-sm"
-                                onclick="cekLatihan3Gradien()">Cek</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm"
-                                onclick="resetLatihan3Gradien()">Reset</button>
-                        </div>
-
-                        <div id="feedbackLatihan3Gradien" class="mt-3"></div>
-                    </section>
+                    </div>
                 </div>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <button type="button" class="btn btn-palet btn-sm"
+                            onclick="cekKlasifikasiGradien()">Cek</button>
+                        <button type="button" class="btn btn-palet btn-sm"
+                            onclick="resetKlasifikasiGradien()">Reset</button>
+                    </div>
+
+                    <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm" onclick="nextLatihan(2)"
+                        disabled>
+                        Lanjut ke Latihan 2
+                    </button>
+                </div>
+
+                <div id="feedbackKlasifikasiGradien" class="mt-3"></div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
+
+                <p style="line-height:1.8; text-align:justify;">
+                    2. Perhatikan gambar berikut. Jika garis dibaca dari titik A ke titik B, maka tanda perubahan
+                    koordinat yang benar adalah ...
+                </p>
+
+                <div class="text-center mb-3">
+                    <img src="{{ asset('img/gradien/latihan2_positif.png') }}" alt="Latihan 2 gradien positif"
+                        style="max-width: 340px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
+                </div>
+
+                <div class="opsi-kotak-wrap">
+                    <button type="button" class="opsi-kotak" data-soal="lat2" data-value="a">
+                        \(\Delta x\) positif dan \(\Delta y\) positif
+                    </button>
+                    <button type="button" class="opsi-kotak" data-soal="lat2" data-value="b">
+                        \(\Delta x\) positif dan \(\Delta y\) negatif
+                    </button>
+                    <button type="button" class="opsi-kotak" data-soal="lat2" data-value="c">
+                        \(\Delta x\) negatif dan \(\Delta y\) positif
+                    </button>
+                    <button type="button" class="opsi-kotak" data-soal="lat2" data-value="d">
+                        \(\Delta x\) negatif dan \(\Delta y\) negatif
+                    </button>
+                </div>
+
+                <input type="hidden" id="lat2" value="">
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+
+                    <div>
+                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2Gradien()">Cek</button>
+                        <button type="button" class="btn btn-palet btn-sm"
+                            onclick="resetLatihan2Gradien()">Reset</button>
+                    </div>
+
+                    <button id="nextBtnLatihan2" type="button" class="btn btn-palet btn-sm" onclick="nextLatihan(3)"
+                        disabled>
+                        Lanjut ke Latihan 3
+                    </button>
+                </div>
+
+                <div id="feedbackLatihan2Gradien" class="mt-3"></div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
+
+                <p style="line-height:1.8; text-align:justify;">
+                    3. Perhatikan gambar berikut. Tentukan nilai \(\Delta y\), \(\Delta x\), dan gradien garisnya.
+                </p>
+
+                <div class="text-center mb-3">
+                    <img src="{{ asset('img/gradien/latihan3_negatif.png') }}" alt="Latihan 3 gradien negatif"
+                        style="max-width: 340px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">\(\Delta y\)</label>
+                        <input type="text" id="lat3_dy" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">\(\Delta x\)</label>
+                        <input type="text" id="lat3_dx" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Gradien \(m\)</label>
+                        <input type="text" id="lat3_m" class="form-control" placeholder="contoh: -1 atau -5/5">
+                    </div>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
+
+                    <div>
+                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3Gradien()">Cek</button>
+                        <button type="button" class="btn btn-palet btn-sm"
+                            onclick="resetLatihan3Gradien()">Reset</button>
+                    </div>
+                </div>
+
+                <div id="feedbackLatihan3Gradien" class="mt-3"></div>
             </div>
         </div>
     </div>
@@ -641,16 +647,27 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="{{ asset('js/subbabB/eksplorasi_papan.js') }}"></script>
     <script src="{{ asset('js/subbabB/subbabB_gradien.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -659,18 +676,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

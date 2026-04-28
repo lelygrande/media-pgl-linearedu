@@ -541,297 +541,367 @@
 
     {{-- Latihan Soal --}}
 
-    <div class="box-latihan mt-5 mb-4" id="cardLatihan1">
-        <div class="card-body p-4">
-            <span class="title-box">Latihan 1</span>
-            <p class="mb-3" style="line-height:1.8;">
-                1. Seorang teknisi sedang mengamati jalur kabel pada peta gedung. Jalur tersebut
-                menghubungkan titik <b>\(P(-3,6)\)</b> dan <b>\(Q(5,-4)\)</b>.
-                Tentukan gradien jalur kabel tersebut.
-            </p>
+    <div class="box-latihan mt-5 mb-4" id="latihanB3Box">
+        <div class="card-body">
+            <span class="title-box">Latihan</span>
 
-            <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                <p class="mb-3"><b>Penyelesaian:</b></p>
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <p class="mb-3" style="line-height:1.8;">
+                    <b>1.</b> Seorang teknisi sedang mengamati jalur kabel pada peta gedung. Jalur tersebut
+                    menghubungkan titik <b>\(P(-3,6)\)</b> dan <b>\(Q(5,-4)\)</b>.
+                    Tentukan gradien jalur kabel tersebut.
+                </p>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(P(-3,6)\), maka</span>
-                    <span>\(x_1=\)</span>
-                    <input type="text" id="l1x1" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>dan</span>
-                    <span>\(y_1=\)</span>
-                    <input type="text" id="l1y1" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                </div>
+                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                    <p class="mb-3"><b>Penyelesaian:</b></p>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(Q(5,-4)\), maka</span>
-                    <span>\(x_2=\)</span>
-                    <input type="text" id="l1x2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>dan</span>
-                    <span>\(y_2=\)</span>
-                    <input type="text" id="l1y2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                </div>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(P(-3,6)\), maka</span>
+                        <span>\(x_1=\)</span>
+                        <input type="text" id="l1x1"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>dan</span>
+                        <span>\(y_1=\)</span>
+                        <input type="text" id="l1y1"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    </div>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
-                    <span>Jadi,</span>
-                    <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(Q(5,-4)\), maka</span>
+                        <span>\(x_2=\)</span>
+                        <input type="text" id="l1x2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>dan</span>
+                        <span>\(y_2=\)</span>
+                        <input type="text" id="l1y2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    </div>
 
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="l1_subY2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>-</span>
-                            <input type="text" id="l1_subY1"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
+                        <span>Jadi,</span>
+                        <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
+
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="l1_subY2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>-</span>
+                                <input type="text" id="l1_subY1"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="l1_subX2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>- (</span>
+                                <input type="text" id="l1_subX1"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>)</span>
+                            </div>
                         </div>
-                        <div class="bottom">
-                            <input type="text" id="l1_subX2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>- (</span>
-                            <input type="text" id="l1_subX1"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>)</span>
+
+                        <span>\(=\)</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="l1_hasilAtas"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="l1_hasilBawah"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+                        </div>
+
+                        <span>\(=\)</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="l1_hasilAkhirAtas"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="l1_hasilAkhirBawah"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
                         </div>
                     </div>
 
-                    <span>\(=\)</span>
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik1()">
+                                Cek Jawaban
+                            </button>
 
-                    <div class="frac-input single">
-                        <div class="top">
-                            <input type="text" id="l1_hasilAtas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                            <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihanTitik1()">
+                                Reset
+                            </button>
                         </div>
-                        <div class="bottom">
-                            <input type="text" id="l1_hasilBawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+
+                        <button id="nextBtnLatihan1" class="btn btn-palet btn-sm" type="button"
+                            onclick="nextLatihan(2)" disabled>
+                            Lanjut ke Latihan 2
+                        </button>
+                    </div>
+
+                    <div id="fbLatihan1" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
+
+                <p class="mb-3" style="line-height:1.8;">
+                    <b>2.</b> Seorang perencana kota akan membuat jalan baru yang menghubungkan dua titik pada peta,
+                    yaitu <b>\(A(1,2)\)</b> dan <b>\(B(5,p)\)</b>. Agar kemiringan jalan tersebut sesuai rancangan,
+                    gradiennya harus bernilai <b>\(1\)</b>. Tentukan nilai <b>\(p\)</b>.
+                </p>
+
+                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                    <p class="mb-3"><b>Penyelesaian:</b></p>
+
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(A(1,2)\), maka</span>
+                        <span>\(x_1=\)</span>
+                        <input type="text" id="x1_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>dan</span>
+                        <span>\(y_1=\)</span>
+                        <input type="text" id="y1_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    </div>
+
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(B(5,p)\), maka</span>
+                        <span>\(x_2=\)</span>
+                        <input type="text" id="x2_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>dan</span>
+                        <span>\(y_2=\)</span>
+                        <input type="text" id="y2_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    </div>
+
+                    <p class="mb-2">Karena gradiennya diketahui, maka:</p>
+
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(m=\)</span>
+                        <input type="text" id="m_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    </div>
+
+                    <p class="mb-2">Substitusikan ke rumus gradien.</p>
+
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <input type="text" id="kiri1_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>\(=\)</span>
+
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="subY2_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>\(-\)</span>
+                                <input type="text" id="subY1_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="subX2_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>\(-\)</span>
+                                <input type="text" id="subX1_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
                         </div>
                     </div>
 
-                    <span>\(=\)</span>
+                    <p class="mb-2">Sederhanakan penyebutnya.</p>
 
-                    <div class="frac-input single">
-                        <div class="top">
-                            <input type="text" id="l1_hasilAkhirAtas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="l1_hasilAkhirBawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <input type="text" id="kiri2_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        <span>\(=\)</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="hasilAtas_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="hasilBawah_2"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
                         </div>
                     </div>
+
+                    <p class="mt-3">Kalikan kedua ruas dengan penyebut agar pecahan hilang.</p>
+
+                    <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
+                        <input type="text" id="pers1Kiri_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:90px;">
+                        <span>\(=\)</span>
+                        <input type="text" id="pers1Kanan_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
+                    </div>
+
+                    <p class="mt-3">Sehingga nilai <b>\(p\)</b> adalah:</p>
+
+                    <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
+                        <span>\(p=\)</span>
+                        <input type="text" id="hasilP_2"
+                            class="form-control form-control-sm text-center jawaban-latihan" style="width:80px;">
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(1)">
+                            Kembali ke Latihan 1
+                        </button>
+
+                        <div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik2()">
+                                Cek Jawaban
+                            </button>
+
+                            <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihanTitik2()">
+                                Reset
+                            </button>
+                        </div>
+
+                        <button id="nextBtnLatihan2" class="btn btn-palet btn-sm" type="button"
+                            onclick="nextLatihan(3)" disabled>
+                            Lanjut ke Latihan 3
+                        </button>
+                    </div>
+
+                    <div id="fbLatihan2" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
+
+                <p class="mb-3" style="line-height:1.8;">
+                    <b>3.</b> Sebuah jalan menanjak pada kawasan perumahan digambarkan pada ilustrasi berikut.
+                    Titik awal jalan berada di <b>\(A(2,1)\)</b> dan titik akhir berada di <b>\(B(8,4)\)</b>.
+                    Tentukan gradien jalan tersebut.
+                </p>
+
+                <div class="text-center mb-4">
+                    <img src="{{ asset('img/gradien/jalan menanjak.png') }}" alt="Ilustrasi jalan menanjak"
+                        class="img-fluid rounded-4 border" style="max-width:200px;">
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik1()">Cek Jawaban</button>
-                    <button class="btn btn-outline-secondary btn-sm" type="button"
-                        onclick="resetLatihanTitik1()">Reset</button>
-                </div>
+                <div class="border rounded-4 p-3" style="background:#f7f9fc;">
+                    <p class="mb-3"><b>Penyelesaian:</b></p>
 
-                <div id="fbLatihan1" class="mt-3"></div>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
+                        <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
+
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="subY2_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>-</span>
+                                <input type="text" id="subY1_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="subX2_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                                <span>-</span>
+                                <input type="text" id="subX1_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+                        </div>
+
+                        <span>\(=\)</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="hasilAtas_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="hasilBawah_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+                        </div>
+
+                        <span>\(=\)</span>
+
+                        <div class="frac-input single">
+                            <div class="top">
+                                <input type="text" id="hasilAkhirAtas_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+
+                            <div class="bottom">
+                                <input type="text" id="hasilAkhirBawah_3"
+                                    class="form-control form-control-sm text-center jawaban-latihan">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(2)">
+                            Kembali ke Latihan 2
+                        </button>
+
+                        <div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik3()">
+                                Cek Jawaban
+                            </button>
+
+                            <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihanTitik3()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="fbLatihan3" class="mt-3"></div>
+                    <div id="pesanAkhirLatihan" class="mt-4"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="box-latihan mt-5 mb-4 d-none" id="cardLatihan2">
-        <div class="card-body p-4">
-            <span class="title-box">Latihan 2</span>
-            <p class="mb-3" style="line-height:1.8;">
-                2. Seorang perencana kota akan membuat jalan baru yang menghubungkan dua titik pada peta,
-                yaitu <b>\(A(1,2)\)</b> dan <b>\(B(5,p)\)</b>. Agar kemiringan jalan tersebut sesuai rancangan,
-                gradiennya harus bernilai <b>\(1\)</b>. Tentukan nilai <b>\(p\)</b>.
-            </p>
-
-            <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                <p class="mb-3"><b>Penyelesaian:</b></p>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(A(1,2)\), maka</span>
-                    <span>\(x_1=\)</span>
-                    <input type="text" id="x1_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>dan</span>
-                    <span>\(y_1=\)</span>
-                    <input type="text" id="y1_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                </div>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(B(5,p)\), maka</span>
-                    <span>\(x_2=\)</span>
-                    <input type="text" id="x2_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>dan</span>
-                    <span>\(y_2=\)</span>
-                    <input type="text" id="y2_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                </div>
-
-                <p class="mb-2">Karena gradiennya diketahui, maka:</p>
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(m=\)</span>
-                    <input type="text" id="m_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                </div>
-
-                <p class="mb-2">Substitusikan ke rumus gradien.</p>
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <input type="text" id="kiri1_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>\(=\)</span>
-
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="subY2_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>\(-\)</span>
-                            <input type="text" id="subY1_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="subX2_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>\(-\)</span>
-                            <input type="text" id="subX1_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-                </div>
-
-                <p class="mb-2">Sederhanakan penyebutnya.</p>
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <input type="text" id="kiri2_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:70px;">
-                    <span>\(=\)</span>
-
-                    <div class="frac-input single">
-                        <div class="top">
-                            <input type="text" id="hasilAtas_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="hasilBawah_2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-                </div>
-
-                <p class="mt-3">Kalikan kedua ruas dengan penyebut agar pecahan hilang.</p>
-                <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
-                    <input type="text" id="pers1Kiri_2"
-                        class="form-control form-control-sm text-center jawaban-latihan" style="width:90px;">
-                    <span>\(=\)</span>
-                    <input type="text" id="pers1Kanan_2"
-                        class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
-                </div>
-
-                <p class="mt-3">Sehingga nilai <b>\(p\)</b> adalah:</p>
-                <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
-                    <span>\(p=\)</span>
-                    <input type="text" id="hasilP_2" class="form-control form-control-sm text-center jawaban-latihan"
-                        style="width:80px;">
-                </div>
-
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik2()">Cek
-                        Jawaban</button>
-                    <button class="btn btn-outline-secondary btn-sm" type="button"
-                        onclick="resetLatihanTitik2()">Reset</button>
-                </div>
-            </div>
-            <div id="fbLatihan2" class="mt-3"></div>
-        </div>
-    </div>
-
-    <div class="box-latihan mt-5 mb-4 d-none" id="cardLatihan3">
-        <div class="card-body p-4">
-            <span class="title-box">Latihan 3</span>
-            <p class="mb-3" style="line-height:1.8;">
-                3. Sebuah jalan menanjak pada kawasan perumahan digambarkan pada ilustrasi berikut.
-                Titik awal jalan berada di <b>\(A(2,1)\)</b> dan titik akhir berada di <b>\(B(8,4)\)</b>.
-                Tentukan gradien jalan tersebut.
-            </p>
-
-            <div class="text-center mb-4">
-                <img src="{{ asset('img/gradien/jalan menanjak.png') }}" alt="Ilustrasi jalan menanjak"
-                    class="img-fluid rounded-4 border" style="max-width:200px;">
-            </div>
-
-            <div class="border rounded-4 p-3" style="background:#f7f9fc;">
-                <p class="mb-3"><b>Penyelesaian:</b></p>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
-                    <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
-
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="subY2_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>-</span>
-                            <input type="text" id="subY1_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="subX2_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>-</span>
-                            <input type="text" id="subX1_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-
-                    <span>\(=\)</span>
-
-                    <div class="frac-input single">
-                        <div class="top">
-                            <input type="text" id="hasilAtas_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="hasilBawah_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-
-                    <span>\(=\)</span>
-
-                    <div class="frac-input single">
-                        <div class="top">
-                            <input type="text" id="hasilAkhirAtas_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="hasilAkhirBawah_3"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTitik3()">Cek
-                        Jawaban</button>
-                    <button class="btn btn-outline-secondary btn-sm" type="button"
-                        onclick="resetLatihanTitik3()">Reset</button>
-                </div>
-            </div>
-            <div id="fbLatihan3" class="mt-3"></div>
-        </div>
-    </div>
-
-    <div id="pesanAkhirLatihan" class="mt-4"></div>
     <script src="{{ asset('js/subbabB/subbab_gradienduatitik.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -840,18 +910,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

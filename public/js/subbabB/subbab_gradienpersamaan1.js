@@ -464,139 +464,390 @@ function resetUrutanLangkah() {
 }
 
 // Latihan Soal
-
-let currentLatihanGradien = 0;
-
-function goToLatihanGradien(index) {
-    const track = document.getElementById("latihanTrackGradien");
-    const slider = document.getElementById("latihanSliderGradien");
-    const slides = document.querySelectorAll(
-        "#latihanTrackGradien .latihan-slide",
-    );
-
-    if (!track || !slider || !slides.length) return;
-
-    currentLatihanGradien = index;
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    setTimeout(() => {
-        slider.style.height = slides[index].offsetHeight + "px";
-    }, 50);
-}
-
-function updateTinggiLatihanGradien() {
-    const slider = document.getElementById("latihanSliderGradien");
-    const slides = document.querySelectorAll(
-        "#latihanTrackGradien .latihan-slide",
-    );
-
-    if (!slider || !slides.length) return;
-    slider.style.height = slides[currentLatihanGradien].offsetHeight + "px";
-}
+// =========================
+// LATIHAN SOAL SUBBAB B4
+// Akhir Subbab B: buka tombol Kuis
+// =========================
 
 document.addEventListener("DOMContentLoaded", function () {
-    goToLatihanGradien(0);
-    window.addEventListener("resize", updateTinggiLatihanGradien);
+    renderKatexUlang(
+        document.getElementById("latihanGradienB4Box") || document.body,
+    );
 });
 
+// =========================
+// HELPER
+// =========================
 function normGradien(teks) {
-    return (teks || "")
+    return String(teks || "")
         .toLowerCase()
         .replace(/\s+/g, "")
-        .replace(/[(){}[\]]/g, "");
+        .replace(/[(){}[\]]/g, "")
+        .replace(/−/g, "-")
+        .trim();
 }
 
 function renderKatexUlang(el) {
-    if (window.renderMathInElement && el) {
-        renderMathInElement(el, {
-            delimiters: [
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true },
-            ],
+    if (!window.renderMathInElement || !el) return;
+
+    renderMathInElement(el, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+    });
+}
+
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
         });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderKatexUlang(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
     }
 }
 
+function setValid(id, benar) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(benar ? "is-valid" : "is-invalid");
+}
+
+function clearValid(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("is-valid", "is-invalid");
+    });
+}
+
+// =========================
+// SAVE PROGRESS + BUKA KUIS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaQuizButton() {
+    const quizBtn = document.getElementById("quizBabBtn");
+    if (!quizBtn) return;
+
+    const url = quizBtn.dataset.quizUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "quizBabBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Kuis →";
+
+    quizBtn.replaceWith(link);
+}
+
+// =========================
+// LATIHAN 1
+// =========================
 function cekLatihan1Gradien() {
-    const a = normGradien(document.getElementById("lat1a").value);
-    const b = normGradien(document.getElementById("lat1b").value);
+    const a = normGradien(document.getElementById("lat1a")?.value);
+    const b = normGradien(document.getElementById("lat1b")?.value);
+
     const fb = document.getElementById("feedbackLatihan1Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (!fb) return;
+
+    clearValid(["lat1a", "lat1b"]);
 
     const benarA = a === "-5" || a === "-5/1";
     const benarB = b === "5/2";
 
-    if (benarA && benarB) {
-        fb.innerHTML = `<div class="alert alert-success">Bagus. Jawabanmu benar.</div>`;
-        renderKatexUlang(fb);
+    setValid("lat1a", benarA);
+    setValid("lat1b", benarB);
 
-        setTimeout(() => {
-            goToLatihanGradien(1);
-        }, 800);
+    if (benarA && benarB) {
+        fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Bagus. Jawabanmu benar. Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
+
+        if (nextBtn) nextBtn.disabled = false;
     } else {
-        let pesan = `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
-        if (!benarA)
+        let pesan = `
+            <div class="alert alert-warning mb-0">
+                <b>Masih ada yang perlu diperbaiki.</b>
+                <ul class="mb-0 mt-2">
+        `;
+
+        if (!benarA) {
             pesan += `<li>Soal a: gradien pada bentuk \\(y=mx+c\\) adalah koefisien di depan \\(x\\).</li>`;
-        if (!benarB)
+        }
+
+        if (!benarB) {
             pesan += `<li>Soal b: ubah dulu ke bentuk \\(y=mx+c\\), lalu sederhanakan koefisien \\(x\\).</li>`;
-        pesan += `</ul></div>`;
+        }
+
+        pesan += `
+                </ul>
+            </div>
+        `;
+
         fb.innerHTML = pesan;
-        renderKatexUlang(fb);
-        updateTinggiLatihanGradien();
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
     }
+
+    renderKatexUlang(fb);
 }
 
+function resetLatihan1Gradien() {
+    ["lat1a", "lat1b"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("feedbackLatihan1Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
+}
+
+// =========================
+// LATIHAN 2
+// =========================
 function cekLatihan2Gradien() {
-    const a = normGradien(document.getElementById("lat2a").value);
-    const b = normGradien(document.getElementById("lat2b").value);
+    const a = normGradien(document.getElementById("lat2a")?.value);
+    const b = normGradien(document.getElementById("lat2b")?.value);
+
     const fb = document.getElementById("feedbackLatihan2Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (!fb) return;
+
+    clearValid(["lat2a", "lat2b"]);
 
     const benarA = a === "-2" || a === "-2/1";
     const benarB = b === "3/2";
 
+    setValid("lat2a", benarA);
+    setValid("lat2b", benarB);
+
     if (benarA && benarB) {
-        fb.innerHTML = `<div class="alert alert-success">Bagus. Jawabanmu benar.</div>`;
-        renderKatexUlang(fb);
+        fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Bagus. Jawabanmu benar. Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
 
-        setTimeout(() => {
-            goToLatihanGradien(2);
-        }, 800);
+        if (nextBtn) nextBtn.disabled = false;
     } else {
-        let pesan = `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
-        if (!benarA)
+        let pesan = `
+            <div class="alert alert-warning mb-0">
+                <b>Masih ada yang perlu diperbaiki.</b>
+                <ul class="mb-0 mt-2">
+        `;
+
+        if (!benarA) {
             pesan += `<li>Soal a: gunakan hubungan gradien pada bentuk umum atau ubah dulu ke bentuk \\(y=mx+c\\).</li>`;
-        if (!benarB)
+        }
+
+        if (!benarB) {
             pesan += `<li>Soal b: perhatikan tanda koefisien \\(y\\), lalu sederhanakan hasil pecahannya.</li>`;
-        pesan += `</ul></div>`;
+        }
+
+        pesan += `
+                </ul>
+            </div>
+        `;
+
         fb.innerHTML = pesan;
-        renderKatexUlang(fb);
-        updateTinggiLatihanGradien();
-    }
-}
 
-function cekLatihan3Gradien() {
-    const a = normGradien(document.getElementById("lat3a").value);
-    const b = normGradien(document.getElementById("lat3b").value);
-    const c = normGradien(document.getElementById("lat3c").value);
-    const fb = document.getElementById("feedbackLatihan3Gradien");
-
-    const benarA = a === "3" || a === "3/1";
-    const benarB = b === "-2" || b === "-2/1";
-    const benarC = c === "jalana" || c === "jalan a" || c === "a";
-
-    if (benarA && benarB && benarC) {
-        fb.innerHTML = `<div class="alert alert-success">Bagus. Kamu sudah menyelesaikan semua latihan.</div>`;
-    } else {
-        let pesan = `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
-        if (!benarA)
-            pesan += `<li>Jalan A: ubah dulu persamaan sehingga \\(y\\) berada sendiri di ruas kiri.</li>`;
-        if (!benarB)
-            pesan += `<li>Jalan B: tentukan gradien dari bentuk umum dengan memperhatikan koefisien \\(x\\) dan \\(y\\).</li>`;
-        if (!benarC)
-            pesan += `<li>Bandingkan nilai mutlak gradien kedua jalan untuk menentukan jalan yang lebih curam.</li>`;
-        pesan += `</ul></div>`;
-        fb.innerHTML = pesan;
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
     }
 
     renderKatexUlang(fb);
-    updateTinggiLatihanGradien();
+}
+
+function resetLatihan2Gradien() {
+    ["lat2a", "lat2b"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("feedbackLatihan2Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
+}
+
+// =========================
+// LATIHAN 3
+// =========================
+async function cekLatihan3Gradien() {
+    const a = normGradien(document.getElementById("lat3a")?.value);
+    const b = normGradien(document.getElementById("lat3b")?.value);
+    const c = normGradien(document.getElementById("lat3c")?.value);
+
+    const fb = document.getElementById("feedbackLatihan3Gradien");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (!fb) return;
+
+    clearValid(["lat3a", "lat3b", "lat3c"]);
+
+    const benarA = a === "3" || a === "3/1";
+    const benarB = b === "-2" || b === "-2/1";
+    const benarC = c === "jalana" || c === "jalana." || c === "a";
+
+    setValid("lat3a", benarA);
+    setValid("lat3b", benarB);
+    setValid("lat3c", benarC);
+
+    if (benarA && benarB && benarC) {
+        fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Bagus. Kamu sudah menyelesaikan semua latihan.
+            </div>
+        `;
+
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami cara menentukan gradien dari suatu persamaan garis lurus.
+                    Silakan lanjut ke kuis subbab B.
+                </div>
+            `;
+            renderKatexUlang(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaQuizButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
+    } else {
+        let pesan = `
+            <div class="alert alert-warning mb-0">
+                <b>Masih ada yang perlu diperbaiki.</b>
+                <ul class="mb-0 mt-2">
+        `;
+
+        if (!benarA) {
+            pesan += `<li>Jalan A: ubah dulu persamaan sehingga \\(y\\) berada sendiri di ruas kiri.</li>`;
+        }
+
+        if (!benarB) {
+            pesan += `<li>Jalan B: tentukan gradien dari bentuk umum dengan memperhatikan koefisien \\(x\\) dan \\(y\\).</li>`;
+        }
+
+        if (!benarC) {
+            pesan += `<li>Bandingkan nilai mutlak gradien kedua jalan untuk menentukan jalan yang lebih curam.</li>`;
+        }
+
+        pesan += `
+                </ul>
+            </div>
+        `;
+        fb.innerHTML = pesan;
+        if (akhir) akhir.innerHTML = "";
+    }
+    renderKatexUlang(fb);
+}
+
+function resetLatihan3Gradien() {
+    ["lat3a", "lat3b", "lat3c"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("feedbackLatihan3Gradien");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (fb) fb.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }

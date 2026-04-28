@@ -157,22 +157,150 @@ function renderMath(target) {
     });
 }
 
-// Latihan Soal
-// No 1 Drag and Drop
+// =========================
+// LATIHAN SOAL SUBBAB B
+// =========================
+
+let draggedItemGradien = null;
+
 document.addEventListener("DOMContentLoaded", function () {
     initKlasifikasiGradien();
+    initOpsiLatihan2Gradien();
 });
 
+// =========================
+// HELPER
+// =========================
+function renderMathSafe(target) {
+    if (!target || !window.renderMathInElement) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+    });
+}
+
+function renderMath(target) {
+    renderMathSafe(target);
+}
+
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMathSafe(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
+}
+
+function normalisasiInputNilai(nilai) {
+    return String(nilai || "")
+        .replace(/\s+/g, "")
+        .toLowerCase()
+        .replace(/−/g, "-")
+        .trim();
+}
+
+// =========================
+// SAVE PROGRESS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
+
+// =========================
+// LATIHAN 1
+// Drag and Drop Klasifikasi Gradien
+// =========================
 function initKlasifikasiGradien() {
     const dragItems = document.querySelectorAll(".drag-item");
     const dropZones = document.querySelectorAll(".drop-zone");
     const dragBank = document.querySelector(".drag-bank");
 
-    let draggedItem = null;
+    if (!dragItems.length || !dropZones.length || !dragBank) return;
 
     dragItems.forEach((item) => {
         item.addEventListener("dragstart", function () {
-            draggedItem = this;
+            draggedItemGradien = this;
+
             setTimeout(() => {
                 this.style.opacity = "0.5";
             }, 0);
@@ -180,7 +308,7 @@ function initKlasifikasiGradien() {
 
         item.addEventListener("dragend", function () {
             this.style.opacity = "1";
-            draggedItem = null;
+            draggedItemGradien = null;
         });
     });
 
@@ -198,16 +326,17 @@ function initKlasifikasiGradien() {
             e.preventDefault();
             this.classList.remove("hovered");
 
-            if (!draggedItem) return;
+            if (!draggedItemGradien) return;
 
             const slot = this.querySelector(".drop-slot");
+            if (!slot) return;
 
             if (slot.children.length > 0) {
                 const existingItem = slot.children[0];
                 dragBank.appendChild(existingItem);
             }
 
-            slot.appendChild(draggedItem);
+            slot.appendChild(draggedItemGradien);
         });
     });
 
@@ -217,8 +346,9 @@ function initKlasifikasiGradien() {
 
     dragBank.addEventListener("drop", function (e) {
         e.preventDefault();
-        if (draggedItem) {
-            dragBank.appendChild(draggedItem);
+
+        if (draggedItemGradien) {
+            dragBank.appendChild(draggedItemGradien);
         }
     });
 }
@@ -226,6 +356,9 @@ function initKlasifikasiGradien() {
 function cekKlasifikasiGradien() {
     const dropZones = document.querySelectorAll(".drop-zone");
     const feedback = document.getElementById("feedbackKlasifikasiGradien");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (!feedback) return;
 
     let semuaBenar = true;
     let zonaKosong = [];
@@ -233,7 +366,7 @@ function cekKlasifikasiGradien() {
     dropZones.forEach((zone) => {
         const jawabanBenar = zone.dataset.answer;
         const slot = zone.querySelector(".drop-slot");
-        const item = slot.querySelector(".drag-item");
+        const item = slot?.querySelector(".drag-item");
         const judul = zone.querySelector("strong")?.innerText || "Zona";
 
         zone.classList.remove("correct", "wrong");
@@ -256,28 +389,33 @@ function cekKlasifikasiGradien() {
 
     if (zonaKosong.length > 0) {
         feedback.innerHTML = `
-        <div class="alert alert-warning mb-0">
-            Masih ada pasangan yang belum diisi pada: <b>${zonaKosong.join(", ")}</b>.
-        </div>
-    `;
+            <div class="alert alert-warning mb-0">
+                Masih ada pasangan yang belum diisi pada: <b>${zonaKosong.join(", ")}</b>.
+            </div>
+        `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
         return;
     }
 
     if (semuaBenar) {
         feedback.innerHTML = `
-        <div class="alert alert-success mb-0">
-            Bagus! Semua pasangan sudah tepat. Lanjut ke latihan berikutnya.
-        </div>
-    `;
-        setTimeout(() => {
-            goToLatihanGradien(1);
-        }, 900);
+            <div class="alert alert-success mb-0">
+                Bagus! Semua pasangan sudah tepat. Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
+
+        if (nextBtn) nextBtn.disabled = false;
     } else {
         feedback.innerHTML = `
-        <div class="alert alert-danger mb-0">
-            Masih ada pasangan yang belum tepat. Coba periksa lagi.
-        </div>
-    `;
+            <div class="alert alert-danger mb-0">
+                Masih ada pasangan yang belum tepat. Coba periksa lagi.
+            </div>
+        `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
     }
 }
 
@@ -285,25 +423,58 @@ function resetKlasifikasiGradien() {
     const dragBank = document.querySelector(".drag-bank");
     const dropZones = document.querySelectorAll(".drop-zone");
     const feedback = document.getElementById("feedbackKlasifikasiGradien");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (!dragBank) return;
 
     dropZones.forEach((zone) => {
         zone.classList.remove("correct", "wrong", "hovered");
 
         const slot = zone.querySelector(".drop-slot");
-        const items = slot.querySelectorAll(".drag-item");
+        const items = slot?.querySelectorAll(".drag-item") || [];
 
         items.forEach((item) => {
             dragBank.appendChild(item);
         });
     });
 
-    feedback.innerHTML = "";
+    if (feedback) feedback.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
 }
 
-// Latihan 2
+// =========================
+// LATIHAN 2
+// Pilihan tanda Delta x dan Delta y
+// =========================
+function initOpsiLatihan2Gradien() {
+    const opsi = document.querySelectorAll('.opsi-kotak[data-soal="lat2"]');
+    const input = document.getElementById("lat2");
+
+    if (!opsi.length || !input) return;
+
+    opsi.forEach((btn) => {
+        btn.addEventListener("click", function () {
+            input.value = this.dataset.value;
+
+            opsi.forEach((item) => {
+                item.classList.remove("active", "benar", "salah");
+            });
+
+            this.classList.add("active");
+        });
+    });
+}
+
 function cekLatihan2Gradien() {
-    const jawaban = document.getElementById("lat2").value;
+    const input = document.getElementById("lat2");
     const feedback = document.getElementById("feedbackLatihan2Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (!input || !feedback) return;
+
+    const jawaban = input.value;
 
     document.querySelectorAll('.opsi-kotak[data-soal="lat2"]').forEach((el) => {
         el.classList.remove("benar", "salah");
@@ -315,67 +486,82 @@ function cekLatihan2Gradien() {
                 Pilih salah satu jawaban terlebih dahulu.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
         return;
     }
 
     const benar = "a";
     const tombolAktif = document.querySelector(
-        `.opsi-kotak[data-soal="lat2"][data-value="${jawaban}"]`,
+        `.opsi-kotak[data-soal="lat2"][data-value="${jawaban}"]`
     );
 
     if (jawaban === benar) {
-        tombolAktif.classList.add("benar");
+        if (tombolAktif) tombolAktif.classList.add("benar");
+
         feedback.innerHTML = `
-        <div class="alert alert-success mb-0">
-            Benar! Karena garis bergerak ke kanan dan ke atas, maka \\(\\Delta x\\) positif dan \\(\\Delta y\\) positif.
-            Lanjut ke latihan berikutnya.
-        </div>
-    `;
+            <div class="alert alert-success mb-0">
+                Benar! Karena garis bergerak ke kanan dan ke atas, maka \\(\\Delta x\\) positif dan \\(\\Delta y\\) positif.
+                Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
+
         renderMath(feedback);
 
-        setTimeout(() => {
-            goToLatihanGradien(2);
-        }, 900);
+        if (nextBtn) nextBtn.disabled = false;
     } else {
-        tombolAktif.classList.add("salah");
+        if (tombolAktif) tombolAktif.classList.add("salah");
+
         feedback.innerHTML = `
-        <div class="alert alert-danger mb-0">
-            Belum tepat. Perhatikan lagi arah garis dari A ke B: bergerak ke kanan dan ke atas.
-        </div>
-    `;
+            <div class="alert alert-danger mb-0">
+                Belum tepat. Perhatikan lagi arah garis dari A ke B: bergerak ke kanan dan ke atas.
+            </div>
+        `;
+
         renderMath(feedback);
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
     }
 }
 
 function resetLatihan2Gradien() {
-    document.getElementById("lat2").value = "";
+    const input = document.getElementById("lat2");
+    const feedback = document.getElementById("feedbackLatihan2Gradien");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (input) input.value = "";
+
     document.querySelectorAll('.opsi-kotak[data-soal="lat2"]').forEach((el) => {
         el.classList.remove("active", "benar", "salah");
     });
-    document.getElementById("feedbackLatihan2Gradien").innerHTML = "";
+
+    if (feedback) feedback.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
 }
 
-// Latihan 3
-function normalisasiInputNilai(nilai) {
-    return nilai.replace(/\s+/g, "").toLowerCase();
-}
-
-function cekLatihan3Gradien() {
-    const dy = normalisasiInputNilai(document.getElementById("lat3_dy").value);
-    const dx = normalisasiInputNilai(document.getElementById("lat3_dx").value);
-    const m = normalisasiInputNilai(document.getElementById("lat3_m").value);
-
+// =========================
+// LATIHAN 3
+// Input Delta y, Delta x, dan Gradien
+// =========================
+async function cekLatihan3Gradien() {
+    const dyEl = document.getElementById("lat3_dy");
+    const dxEl = document.getElementById("lat3_dx");
+    const mEl = document.getElementById("lat3_m");
     const feedback = document.getElementById("feedbackLatihan3Gradien");
 
-    document
-        .getElementById("lat3_dy")
-        .classList.remove("is-valid", "is-invalid");
-    document
-        .getElementById("lat3_dx")
-        .classList.remove("is-valid", "is-invalid");
-    document
-        .getElementById("lat3_m")
-        .classList.remove("is-valid", "is-invalid");
+    if (!dyEl || !dxEl || !mEl || !feedback) return;
+
+    const dy = normalisasiInputNilai(dyEl.value);
+    const dx = normalisasiInputNilai(dxEl.value);
+    const m = normalisasiInputNilai(mEl.value);
+
+    [dyEl, dxEl, mEl].forEach((el) => {
+        el.classList.remove("is-valid", "is-invalid");
+    });
 
     if (!dy || !dx || !m) {
         feedback.innerHTML = `
@@ -388,66 +574,76 @@ function cekLatihan3Gradien() {
 
     let semuaBenar = true;
 
-    // Kunci jawaban
     const benarDy = ["-3"];
     const benarDx = ["6"];
     const benarM = ["-1/2", "-3/6"];
 
     if (benarDy.includes(dy)) {
-        document.getElementById("lat3_dy").classList.add("is-valid");
+        dyEl.classList.add("is-valid");
     } else {
-        document.getElementById("lat3_dy").classList.add("is-invalid");
+        dyEl.classList.add("is-invalid");
         semuaBenar = false;
     }
 
     if (benarDx.includes(dx)) {
-        document.getElementById("lat3_dx").classList.add("is-valid");
+        dxEl.classList.add("is-valid");
     } else {
-        document.getElementById("lat3_dx").classList.add("is-invalid");
+        dxEl.classList.add("is-invalid");
         semuaBenar = false;
     }
 
     if (benarM.includes(m)) {
-        document.getElementById("lat3_m").classList.add("is-valid");
+        mEl.classList.add("is-valid");
     } else {
-        document.getElementById("lat3_m").classList.add("is-invalid");
+        mEl.classList.add("is-invalid");
         semuaBenar = false;
     }
 
     if (semuaBenar) {
         feedback.innerHTML = `
-        <div class="alert alert-success mb-0">
-            Benar! Dari A ke B, garis bergerak ke kanan sebanyak 6 satuan dan ke bawah sebanyak 3 satuan, sehingga
-            \\[
-            \\Delta x = 6, \\quad \\Delta y = -3, \\quad m = \\frac{-3}{6} = -\\frac{1}{2}
-            \\]
-        </div>
-    `;
+            <div class="alert alert-success mb-0">
+                Benar! Dari A ke B, garis bergerak ke kanan sebanyak 6 satuan dan ke bawah sebanyak 3 satuan, sehingga
+                \\[
+                    \\Delta x = 6, \\quad \\Delta y = -3, \\quad m = \\frac{-3}{6} = -\\frac{1}{2}
+                \\]
+                Silakan lanjut ke materi berikutnya.
+            </div>
+        `;
+
         renderMath(feedback);
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else {
+            feedback.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
     } else {
         feedback.innerHTML = `
-        <div class="alert alert-danger mb-0">
-            Masih ada jawaban yang belum tepat. Hitung kembali banyak kotak ke kanan dan ke bawah dari titik A ke titik B.
-        </div>
-    `;
+            <div class="alert alert-danger mb-0">
+                Masih ada jawaban yang belum tepat. Hitung kembali banyak kotak ke kanan dan ke bawah dari titik A ke titik B.
+            </div>
+        `;
+
         renderMath(feedback);
     }
 }
 
 function resetLatihan3Gradien() {
-    document.getElementById("lat3_dy").value = "";
-    document.getElementById("lat3_dx").value = "";
-    document.getElementById("lat3_m").value = "";
+    ["lat3_dy", "lat3_dx", "lat3_m"].forEach((id) => {
+        const el = document.getElementById(id);
 
-    document
-        .getElementById("lat3_dy")
-        .classList.remove("is-valid", "is-invalid");
-    document
-        .getElementById("lat3_dx")
-        .classList.remove("is-valid", "is-invalid");
-    document
-        .getElementById("lat3_m")
-        .classList.remove("is-valid", "is-invalid");
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
 
-    document.getElementById("feedbackLatihan3Gradien").innerHTML = "";
+    const feedback = document.getElementById("feedbackLatihan3Gradien");
+    if (feedback) feedback.innerHTML = "";
 }
