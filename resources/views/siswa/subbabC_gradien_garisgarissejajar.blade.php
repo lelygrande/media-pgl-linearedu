@@ -459,171 +459,259 @@
         </div>
     </div>
 
-    <div class="box-latihan mt-5 mb-4">
+    <div class="box-latihan mt-5 mb-4" id="latihanC2Box">
         <div class="card-body">
             <span class="title-box">Latihan</span>
 
-            <p class="mb-3 mt-3" style="line-height:1.8;">
-                <b>1.</b> Diketahui suatu garis <b>$p$</b> sejajar dengan garis
-                <b>$20x - 2y + 5 = 0$</b>. Tentukan gradien garis <b>$p$</b>.
-            </p>
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <p class="mb-3 mt-3" style="line-height:1.8;">
+                    <b>1.</b> Diketahui suatu garis <b>$p$</b> sejajar dengan garis
+                    <b>$20x - 2y + 5 = 0$</b>. Tentukan gradien garis <b>$p$</b>.
+                </p>
 
-            <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                <p class="mb-3"><b>Penyelesaian:</b></p>
+                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                    <p class="mb-3"><b>Penyelesaian:</b></p>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Pada persamaan diperoleh</span>
-                    <span>$A=$</span>
-                    <input type="text" id="l1_A" class="form-control form-control-sm text-center"
-                        style="width:70px;">
-                    <span>dan</span>
-                    <span>$B=$</span>
-                    <input type="text" id="l1_B" class="form-control form-control-sm text-center"
-                        style="width:70px;">
-                </div>
-
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
-                    <span>Gradien garis $20x - 2y + 5 = 0$ adalah</span>
-                    <span>$m = -\dfrac{A}{B} =$</span>
-
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="l1_subAtas" class="form-control form-control-sm text-center"
-                                style="width:70px;">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="l1_subBawah" class="form-control form-control-sm text-center"
-                                style="width:70px;">
-                        </div>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>Pada persamaan diperoleh</span>
+                        <span>$A=$</span>
+                        <input type="text" id="l1_A" class="form-control form-control-sm text-center"
+                            style="width:70px;">
+                        <span>dan</span>
+                        <span>$B=$</span>
+                        <input type="text" id="l1_B" class="form-control form-control-sm text-center"
+                            style="width:70px;">
                     </div>
-                </div>
 
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Jadi, gradien garis $20x - 2y + 5 = 0$ =</span>
-                    <input type="text" id="l1_hasil" class="form-control form-control-sm text-center"
-                        style="width:80px;">
-                </div>
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span>Maka gradien garis $p$ adalah</span>
-                    <span>$m_p =$</span>
-                    <input type="text" id="l1_final" class="form-control form-control-sm text-center"
-                        style="width:80px;">
-                </div>
-            </div>
-            <p class="mb-3 mt-4" style="line-height:1.8;">
-                <b>2.</b> Perhatikan persamaan garis berikut. Pilih garis yang sejajar dengan
-                <b>$y = 4x + 2$</b>.
-            </p>
-            <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="l2_a">
-                    <label class="form-check-label" for="l2_a">
-                        a. $y - 4x = 0$
-                    </label>
-                </div>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
+                        <span>Gradien garis $20x - 2y + 5 = 0$ adalah</span>
+                        <span>$m = -\dfrac{A}{B} =$</span>
 
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="l2_b">
-                    <label class="form-check-label" for="l2_b">
-                        b. $y = -8x + 4$
-                    </label>
-                </div>
-
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="l2_c">
-                    <label class="form-check-label" for="l2_c">
-                        c. $2y = 8x - 5$
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="l2_d">
-                    <label class="form-check-label" for="l2_d">
-                        d. $2y = 4x + 8$
-                    </label>
-                </div>
-            </div>
-
-            <p class="mb-3 mt-4" style="line-height:1.8;">
-                <b>3.</b> Carilah nilai <b>$c$</b> agar garis <b>$4x + cy = 8$</b> sejajar dengan garis
-                <b>$x + y = 3$</b>.
-            </p>
-
-            <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                <p class="mb-3"><b>Penyelesaian:</b></p>
-
-                <div class="mb-3">
-                    Misalkan gradien garis $4x + cy = 8$ adalah $m_1$ dan gradien garis $x + y = 3$ adalah $m_2$.
-                </div>
-
-                <div class="mb-3 d-flex align-items-center gap-2" style="line-height:2;">
-                    <span>$m_1 =$</span>
-
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="l3_m1_atas" class="form-control form-control-sm text-center">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="l3_m1_bawah" class="form-control form-control-sm text-center">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3 d-flex align-items-center gap-2">
-                    <span>$m_2 =$</span>
-                    <input type="text" id="l3_m2" class="form-control form-control-sm text-center"
-                        style="width:80px;">
-                </div>
-
-                <div class="mb-3 d-flex align-items-center gap-2">
-                    <span>Karena sejajar, maka (tuliskan rumus persamaannya)</span>
-                    <input type="text" id="l3_relasi" class="form-control form-control-sm text-center"
-                        style="width:120px;">
-                </div>
-
-                <p>Substitusikan ke persamaannya</p>
-
-                <div class="mb-3 d-flex align-items-center gap-2" style="line-height:2;">
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="l3_kiri_atas" class="form-control form-control-sm text-center">
-                        </div>
-                        <div class="bottom">
-                            <input type="text" id="l3_kiri_bawah" class="form-control form-control-sm text-center">
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="l1_subAtas" class="form-control form-control-sm text-center"
+                                    style="width:70px;">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="l1_subBawah" class="form-control form-control-sm text-center"
+                                    style="width:70px;">
+                            </div>
                         </div>
                     </div>
 
-                    <span>=</span>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>Jadi, gradien garis $20x - 2y + 5 = 0$ =</span>
+                        <input type="text" id="l1_hasil" class="form-control form-control-sm text-center"
+                            style="width:80px;">
+                    </div>
 
-                    <input type="text" id="l3_kanan" class="form-control form-control-sm text-center"
-                        style="width:80px;">
-                </div>
+                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                        <span>Maka gradien garis $p$ adalah</span>
+                        <span>$m_p =$</span>
+                        <input type="text" id="l1_final" class="form-control form-control-sm text-center"
+                            style="width:80px;">
+                    </div>
 
-                <div class="mb-3 d-flex align-items-center gap-2">
-                    <span>$c =$</span>
-                    <input type="text" id="l3_c" class="form-control form-control-sm text-center"
-                        style="width:80px;">
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1()">
+                                Cek Jawaban
+                            </button>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan1()">
+                                Reset
+                            </button>
+                        </div>
+
+                        <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(2)" disabled>
+                            Lanjut ke Latihan 2
+                        </button>
+                    </div>
+
+                    <div id="fbLatihan1" class="mt-3"></div>
                 </div>
             </div>
 
-            <button class="btn btn-palet btn-sm" onclick="cekSemuaLatihan()">Cek Jawaban</button>
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
 
-            <div id="fbSemuaLatihan" class="mt-3"></div>
+                <p class="mb-3 mt-4" style="line-height:1.8;">
+                    <b>2.</b> Perhatikan persamaan garis berikut. Pilih garis yang sejajar dengan
+                    <b>$y = 4x + 2$</b>.
+                </p>
+
+                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="l2_a">
+                        <label class="form-check-label" for="l2_a">
+                            a. $y - 4x = 0$
+                        </label>
+                    </div>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="l2_b">
+                        <label class="form-check-label" for="l2_b">
+                            b. $y = -8x + 4$
+                        </label>
+                    </div>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="l2_c">
+                        <label class="form-check-label" for="l2_c">
+                            c. $2y = 8x - 5$
+                        </label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="l2_d">
+                        <label class="form-check-label" for="l2_d">
+                            d. $2y = 4x + 8$
+                        </label>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                            Kembali ke Latihan 1
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2()">
+                                Cek Jawaban
+                            </button>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan2()">
+                                Reset
+                            </button>
+                        </div>
+
+                        <button id="nextBtnLatihan2" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(3)" disabled>
+                            Lanjut ke Latihan 3
+                        </button>
+                    </div>
+
+                    <div id="fbLatihan2" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
+
+                <p class="mb-3 mt-4" style="line-height:1.8;">
+                    <b>3.</b> Carilah nilai <b>$c$</b> agar garis <b>$4x + cy = 8$</b> sejajar dengan garis
+                    <b>$x + y = 3$</b>.
+                </p>
+
+                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                    <p class="mb-3"><b>Penyelesaian:</b></p>
+
+                    <div class="mb-3">
+                        Misalkan gradien garis $4x + cy = 8$ adalah $m_1$ dan gradien garis $x + y = 3$ adalah $m_2$.
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap" style="line-height:2;">
+                        <span>$m_1 =$</span>
+
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="l3_m1_atas" class="form-control form-control-sm text-center">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="l3_m1_bawah" class="form-control form-control-sm text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+                        <span>$m_2 =$</span>
+                        <input type="text" id="l3_m2" class="form-control form-control-sm text-center"
+                            style="width:80px;">
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+                        <span>Karena sejajar, maka</span>
+                        <input type="text" id="l3_relasi" class="form-control form-control-sm text-center"
+                            style="width:120px;">
+                    </div>
+
+                    <p>Substitusikan ke persamaannya</p>
+
+                    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap" style="line-height:2;">
+                        <div class="frac-input">
+                            <div class="top">
+                                <input type="text" id="l3_kiri_atas" class="form-control form-control-sm text-center">
+                            </div>
+                            <div class="bottom">
+                                <input type="text" id="l3_kiri_bawah"
+                                    class="form-control form-control-sm text-center">
+                            </div>
+                        </div>
+
+                        <span>=</span>
+
+                        <input type="text" id="l3_kanan" class="form-control form-control-sm text-center"
+                            style="width:80px;">
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+                        <span>$c =$</span>
+                        <input type="text" id="l3_c" class="form-control form-control-sm text-center"
+                            style="width:80px;">
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                            Kembali ke Latihan 2
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3()">
+                                Cek Jawaban
+                            </button>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan3()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="fbLatihan3" class="mt-3"></div>
+                    <div id="pesanAkhirLatihan" class="mt-3"></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabC/gradien_garis2salingsejajar.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -632,18 +720,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

@@ -285,24 +285,190 @@ function cekCepatTegak() {
 }
 
 // =========================
-// Latihan 1
+// LATIHAN SUBBAB C3
+// =========================
+
+// =========================
+// HELPER
+// =========================
+function norm(v) {
+    return String(v || "")
+        .trim()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .toLowerCase();
+}
+
+function cocokJawaban(input, daftarJawaban) {
+    const nilai = norm(input);
+    return daftarJawaban.map(norm).includes(nilai);
+}
+
+function renderUlangKatex(target) {
+    if (!window.renderMathInElement || !target) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderUlangKatex(document.getElementById("latihanC3Box") || document.body);
+});
+
+// =========================
+// NAVIGASI LATIHAN
+// =========================
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderUlangKatex(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 2; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
+}
+
+function setValid(id, benar) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(benar ? "is-valid" : "is-invalid");
+}
+
+function clearInput(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+}
+
+// =========================
+// SAVE PROGRESS + BUKA KUIS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaQuizButton() {
+    const quizBtn = document.getElementById("quizBabBtn");
+    if (!quizBtn) return;
+
+    const url = quizBtn.dataset.quizUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "quizBabBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Kuis →";
+
+    quizBtn.replaceWith(link);
+}
+
+
+// =========================
+// LATIHAN 1
 // =========================
 function cekLatihanTegak() {
-    const m1 = document.getElementById("l_m1").value;
-    const ma = document.getElementById("l_ma").value;
-    const mb = document.getElementById("l_mb").value;
-    const kaliA = document.getElementById("l_kali_a").value;
-    const kaliB = document.getElementById("l_kali_b").value;
-    const jawaban = document.getElementById("l_jawaban").value;
+    const m1 = document.getElementById("l_m1")?.value;
+    const ma = document.getElementById("l_ma")?.value;
+    const mb = document.getElementById("l_mb")?.value;
+    const kaliA = document.getElementById("l_kali_a")?.value;
+    const kaliB = document.getElementById("l_kali_b")?.value;
+    const jawaban = document.getElementById("l_jawaban")?.value;
 
     const benarM1 = cocokJawaban(m1, ["3"]);
     const benarMa = cocokJawaban(ma, ["-1/3", "-0.3333", "-0.33"]);
     const benarMb = cocokJawaban(mb, ["2/3", "0.6667", "0.67"]);
     const benarKaliA = cocokJawaban(kaliA, ["-1"]);
     const benarKaliB = cocokJawaban(kaliB, ["2"]);
-    const benarJawaban = cocokJawaban(jawaban, ["x+3y-6=0", "a", "y=-2/3x"]);
+
+    const benarJawaban = cocokJawaban(jawaban, [
+        "x+3y-6=0",
+        "x+3y=6",
+        "a",
+        "persamaana",
+        "garisa",
+    ]);
 
     const feedback = document.getElementById("fbLatihanTegak");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    setValid("l_m1", benarM1);
+    setValid("l_ma", benarMa);
+    setValid("l_mb", benarMb);
+    setValid("l_kali_a", benarKaliA);
+    setValid("l_kali_b", benarKaliB);
+    setValid("l_jawaban", benarJawaban);
 
     if (
         benarM1 &&
@@ -313,73 +479,96 @@ function cekLatihanTegak() {
         benarJawaban
     ) {
         feedback.innerHTML = `
-            <div class="alert alert-success rounded-3">
-                Bagus, semua langkah sudah tepat.
+            <div class="alert alert-success rounded-3 mb-0">
+                Bagus, semua langkah sudah tepat. Persamaan yang tegak lurus adalah $x + 3y - 6 = 0$.
+                Silakan lanjut ke latihan berikutnya.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = false;
     } else {
         let petunjuk = [];
 
         if (!benarM1) {
             petunjuk.push(
-                "Periksa kembali gradien pada persamaan <b>$y = 3x - 2$</b>. Pada bentuk <b>$y = mx + c$</b>, gradien adalah koefisien <b>$x$</b>.",
+                "Periksa kembali gradien pada persamaan <b>$y = 3x - 2$</b>. Pada bentuk <b>$y = mx + c$</b>, gradien adalah koefisien <b>$x$</b>."
             );
         }
 
         if (!benarMa) {
             petunjuk.push(
-                "Untuk garis <b>(a)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>.",
+                "Untuk garis <b>(a)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>."
             );
         }
 
         if (!benarMb) {
             petunjuk.push(
-                "Untuk garis <b>(b)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>.",
+                "Untuk garis <b>(b)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>."
             );
         }
 
         if (!benarKaliA) {
             petunjuk.push(
-                "Hitung kembali hasil kali <b>$m_1 \\times m_a$</b>. Bandingkan hasilnya dengan syarat dua garis tegak lurus.",
+                "Hitung kembali hasil kali <b>$m_1 \\times m_a$</b>. Bandingkan hasilnya dengan syarat dua garis tegak lurus."
             );
         }
 
         if (!benarKaliB) {
-            petunjuk.push(
-                "Hitung kembali hasil kali <b>$m_1 \\times m_b$</b>.",
-            );
+            petunjuk.push("Hitung kembali hasil kali <b>$m_1 \\times m_b$</b>.");
         }
 
         if (!benarJawaban) {
             petunjuk.push(
-                "Pilih persamaan garis yang menghasilkan hasil kali gradien <b>$-1$</b>, lalu tuliskan persamaan garisnya dengan lengkap.",
+                "Pilih persamaan garis yang menghasilkan hasil kali gradien <b>$-1$</b>, lalu tuliskan persamaan garisnya dengan lengkap."
             );
         }
 
         feedback.innerHTML = `
-            <div class="alert alert-warning rounded-3">
+            <div class="alert alert-warning rounded-3 mb-0">
                 <b>Coba perhatikan lagi:</b>
                 <ul class="mb-0 mt-2">
                     ${petunjuk.map((item) => `<li>${item}</li>`).join("")}
                 </ul>
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
     }
 
     renderUlangKatex(feedback);
 }
 
+function resetLatihanTegak() {
+    clearInput([
+        "l_m1",
+        "l_ma",
+        "l_mb",
+        "l_kali_a",
+        "l_kali_b",
+        "l_jawaban",
+    ]);
+
+    const fb = document.getElementById("fbLatihanTegak");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
+}
+
 // =========================
-// Latihan 2
+// LATIHAN 2
 // =========================
-function cekLatihan2() {
-    const mabAtas = document.getElementById("l2_mab_atas").value;
-    const mabBawah = document.getElementById("l2_mab_bawah").value;
-    const hubungan = document.getElementById("l2_hubungan").value;
-    const atas = document.getElementById("l2_atas").value;
-    const bawah = document.getElementById("l2_bawah").value;
-    const hasilSubs = document.getElementById("l2_hasil_subs").value;
-    const jawaban = document.getElementById("l2_jawaban").value;
+async function cekLatihan2() {
+    const mabAtas = document.getElementById("l2_mab_atas")?.value;
+    const mabBawah = document.getElementById("l2_mab_bawah")?.value;
+    const hubungan = document.getElementById("l2_hubungan")?.value;
+    const atas = document.getElementById("l2_atas")?.value;
+    const bawah = document.getElementById("l2_bawah")?.value;
+    const hasilSubs = document.getElementById("l2_hasil_subs")?.value;
+    const jawaban = document.getElementById("l2_jawaban")?.value;
 
     const benarMabAtas = cocokJawaban(mabAtas, ["-1"]);
     const benarMabBawah = cocokJawaban(mabBawah, ["5"]);
@@ -390,6 +579,15 @@ function cekLatihan2() {
     const benarJawaban = cocokJawaban(jawaban, ["5"]);
 
     const feedback = document.getElementById("fbLatihan2");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    setValid("l2_mab_atas", benarMabAtas);
+    setValid("l2_mab_bawah", benarMabBawah);
+    setValid("l2_hubungan", benarHubungan);
+    setValid("l2_atas", benarAtas);
+    setValid("l2_bawah", benarBawah);
+    setValid("l2_hasil_subs", benarHasilSubs);
+    setValid("l2_jawaban", benarJawaban);
 
     if (
         benarMabAtas &&
@@ -401,52 +599,94 @@ function cekLatihan2() {
         benarJawaban
     ) {
         feedback.innerHTML = `
-            <div class="alert alert-success rounded-3">
-                Bagus, semua langkah sudah tepat.
+            <div class="alert alert-success rounded-3 mb-0">
+                Bagus, semua langkah sudah tepat. Gradien jalan $k$ adalah $5$.
             </div>
         `;
+
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami hubungan gradien dua garis yang tegak lurus.
+                    Silakan lanjut ke kuis subbab C.
+                </div>
+            `;
+            renderUlangKatex(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaQuizButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
     } else {
         let petunjuk = [];
 
         if (!benarMabAtas || !benarMabBawah) {
             petunjuk.push(
-                "Perhatikan kembali gradien jalan $AB$. Tuliskan dalam bentuk pecahan yang sudah disederhanakan.",
+                "Perhatikan kembali gradien jalan $AB$. Tuliskan dalam bentuk pecahan yang sudah disederhanakan."
             );
         }
 
         if (!benarHubungan) {
             petunjuk.push(
-                "Ingat, dua garis yang saling tegak lurus memiliki hasil kali gradien $-1$.",
+                "Ingat, dua garis yang saling tegak lurus memiliki hasil kali gradien $-1$."
             );
         }
 
         if (!benarAtas || !benarBawah) {
             petunjuk.push(
-                "Substitusikan kembali nilai gradien $AB$ ke bentuk $m_k \\times m_{AB} = -1$.",
+                "Substitusikan kembali nilai gradien $AB$ ke bentuk $m_k \\times m_{AB} = -1$."
             );
         }
 
         if (!benarHasilSubs) {
             petunjuk.push(
-                "Perhatikan ruas kanan pada hubungan dua garis tegak lurus. Nilainya tetap $-1$.",
+                "Perhatikan ruas kanan pada hubungan dua garis tegak lurus. Nilainya tetap $-1$."
             );
         }
 
         if (!benarJawaban) {
             petunjuk.push(
-                "Dari bentuk $m_k \\times \\left(-\\frac{1}{5}\\right) = -1$, cari nilai $m_k$ dengan membagi kedua ruas oleh $-\\frac{1}{5}$.",
+                "Dari bentuk $m_k \\times \\left(-\\frac{1}{5}\\right) = -1$, cari nilai $m_k$ dengan membagi kedua ruas oleh $-\\frac{1}{5}$."
             );
         }
 
         feedback.innerHTML = `
-            <div class="alert alert-warning rounded-3">
+            <div class="alert alert-warning rounded-3 mb-0">
                 <b>Coba perhatikan lagi:</b>
                 <ul class="mb-0 mt-2">
                     ${petunjuk.map((item) => `<li>${item}</li>`).join("")}
                 </ul>
             </div>
         `;
+
+        if (akhir) akhir.innerHTML = "";
     }
 
     renderUlangKatex(feedback);
+}
+
+function resetLatihan2() {
+    clearInput([
+        "l2_mab_atas",
+        "l2_mab_bawah",
+        "l2_hubungan",
+        "l2_atas",
+        "l2_bawah",
+        "l2_hasil_subs",
+        "l2_jawaban",
+    ]);
+
+    const fb = document.getElementById("fbLatihan2");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (fb) fb.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }

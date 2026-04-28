@@ -261,180 +261,373 @@ function cekContoh3() {
     }
 }
 
-// Latihan
+// =========================
+// LATIHAN SOAL SUBBAB C2
+// Sistem turun ke bawah
+// =========================
+
+// =========================
+// HELPER
+// =========================
 function norm(v) {
-    return (v || "").toString().trim().replace(/\s+/g, "").toLowerCase();
-}
-
-function cekField(id, jawabanBenar, labelTampil) {
-    const el = document.getElementById(id);
-
-    if (!el) {
-        return { benar: false, label: `Field ${id} tidak ditemukan.` };
-    }
-
-    const nilaiUser = norm(el.value);
-    const nilaiKunci = norm(jawabanBenar);
-
-    if (!isNaN(nilaiUser) && !isNaN(nilaiKunci)) {
-        if (Number(nilaiUser) === Number(nilaiKunci)) {
-            el.classList.remove("is-invalid");
-            el.classList.add("is-valid");
-            return { benar: true, label: labelTampil };
-        }
-    }
-
-    if (nilaiUser === nilaiKunci) {
-        el.classList.remove("is-invalid");
-        el.classList.add("is-valid");
-        return { benar: true, label: labelTampil };
-    }
-
-    el.classList.remove("is-valid");
-    el.classList.add("is-invalid");
-    return { benar: false, label: labelTampil };
+    return String(v || "")
+        .trim()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .toLowerCase();
 }
 
 function renderMathTarget(el) {
-    if (typeof renderMathInElement === "function") {
-        renderMathInElement(el, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-            ],
+    if (!window.renderMathInElement || !el) return;
+
+    renderMathInElement(el, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderMathTarget(document.getElementById("latihanC2Box") || document.body);
+});
+
+// =========================
+// NAVIGASI LATIHAN
+// =========================
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
         });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderMathTarget(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 3; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
     }
 }
 
-function cekSemuaLatihan() {
-    let totalBenar = 0;
-    let totalSoal = 15;
-    let hasilHTML = "";
+// =========================
+// SAVE PROGRESS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
 
-    // LATIHAN 1
-    let pesan1 = [];
-    let benar1 = 0;
+    if (!window.completeMateriUrl || !csrfToken) return false;
 
-    let c1 = cekField("l1_A", "20", "l1_A");
-    if (c1.benar) benar1++;
-    else pesan1.push("Koefisien $x$ pada persamaan belum tepat.");
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
 
-    let c2 = cekField("l1_B", "-2", "l1_B");
-    if (c2.benar) benar1++;
-    else pesan1.push("Koefisien $y$ pada persamaan belum tepat.");
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
 
-    let c3a = cekField("l1_subAtas", "-20", "l1_subAtas");
-    let c3b = cekField("l1_subBawah", "-2", "l1_subBawah");
-    if (c3a.benar && c3b.benar) benar1++;
-    else {
-        pesan1.push(
-            "Gunakan rumus $m = -\\frac{A}{B}$ dengan tanda yang benar.",
-        );
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
+
+// =========================
+// VALIDASI UMUM
+// =========================
+function cekField(id, jawabanBenar) {
+    const el = document.getElementById(id);
+
+    if (!el) {
+        return false;
     }
 
-    let c4 = cekField("l1_hasil", "10", "l1_hasil");
-    if (c4.benar) benar1++;
-    else pesan1.push("Sederhanakan hasil gradien garis yang diketahui lagi.");
+    const nilaiUser = norm(el.value);
+    const daftarJawaban = Array.isArray(jawabanBenar)
+        ? jawabanBenar.map(norm)
+        : [norm(jawabanBenar)];
 
-    let c5 = cekField("l1_final", "10", "l1_final");
-    if (c5.benar) benar1++;
-    else
-        pesan1.push(
-            "Karena sejajar, gradien garis $p$ sama dengan gradien garis yang diketahui.",
+    const cocok = daftarJawaban.includes(nilaiUser);
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(cocok ? "is-valid" : "is-invalid");
+
+    return cocok;
+}
+
+function clearFields(ids) {
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+}
+
+function isiFeedback(id, tipe, pesan) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const kelas = tipe === "success" ? "alert-success" : "alert-warning";
+
+    el.innerHTML = `
+        <div class="alert ${kelas} mb-0">
+            ${pesan}
+        </div>
+    `;
+
+    renderMathTarget(el);
+}
+
+// =========================
+// LATIHAN 1
+// =========================
+function cekLatihan1() {
+    const benarA = cekField("l1_A", "20");
+    const benarB = cekField("l1_B", "-2");
+    const benarSubAtas = cekField("l1_subAtas", "-20");
+    const benarSubBawah = cekField("l1_subBawah", "-2");
+    const benarHasil = cekField("l1_hasil", "10");
+    const benarFinal = cekField("l1_final", "10");
+
+    const semuaBenar =
+        benarA &&
+        benarB &&
+        benarSubAtas &&
+        benarSubBawah &&
+        benarHasil &&
+        benarFinal;
+
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (semuaBenar) {
+        isiFeedback(
+            "fbLatihan1",
+            "success",
+            "Benar. Gradien garis $20x - 2y + 5 = 0$ adalah $10$, sehingga gradien garis $p$ juga $10$ karena kedua garis sejajar. Silakan lanjut ke latihan berikutnya."
         );
 
-    totalBenar += benar1;
-
-    hasilHTML += `
-    <div class="alert ${benar1 === 5 ? "alert-success" : "alert-warning"}">
-        <b>Latihan 1:</b> ${benar1}/5 benar
-        ${pesan1.length ? `<br><br>${pesan1.join("<br>")}` : "<br><br>Semua jawaban benar."}
-    </div>
-    `;
-    
-    // LATIHAN 2
-    let l2_a = document.getElementById("l2_a").checked;
-    let l2_b = document.getElementById("l2_b").checked;
-    let l2_c = document.getElementById("l2_c").checked;
-    let l2_d = document.getElementById("l2_d").checked;
-
-    let benar2 = 0;
-    let pesan2 = "";
-
-    if (l2_a && l2_c && !l2_b && !l2_d) {
-        benar2 = 4;
-        pesan2 = "Semua pilihan sudah tepat.";
+        if (nextBtn) nextBtn.disabled = false;
     } else {
-        pesan2 = "Masih ada pilihan yang belum tepat.";
-    }
-
-    totalBenar += benar2;
-
-    hasilHTML += `
-        <div class="alert ${benar2 === 4 ? "alert-success" : "alert-warning"}">
-            <b>Latihan 2:</b> ${benar2}/4 benar
-            <br><br>${pesan2}
-        </div>
-    `;
-
-    // LATIHAN 3
-    let pesan3 = [];
-    let benar3 = 0;
-
-    let d1a = cekField("l3_m1_atas", "-4", "l3_m1_atas");
-    let d1b = cekField("l3_m1_bawah", "c", "l3_m1_bawah");
-    if (d1a.benar && d1b.benar) benar3++;
-    else pesan3.push("Gunakan rumus gradien dari bentuk Ax + By + C = 0.");
-
-    let d2 = cekField("l3_m2", "-1", "l3_m2");
-    if (d2.benar) benar3++;
-    else pesan3.push("Ubah dulu persamaan ke bentuk y = mx + c.");
-
-    let d3 = cekField("l3_relasi", "m1=m2", "l3_relasi");
-    if (d3.benar) benar3++;
-    else pesan3.push("Apa hubungan gradien dua garis yang sejajar?");
-
-    let d4a = cekField("l3_kiri_atas", "-4", "l3_kiri_atas");
-    let d4b = cekField("l3_kiri_bawah", "c", "l3_kiri_bawah");
-    if (d4a.benar && d4b.benar) benar3++;
-    else pesan3.push("Masukkan nilai gradien ke dalam persamaan perbandingan.");
-
-    let d5 = cekField("l3_kanan", "-1", "l3_kanan");
-    if (d5.benar) benar3++;
-    else pesan3.push("Gunakan nilai gradien dari garis kedua.");
-
-    let d6 = cekField("l3_c", "4", "l3_c");
-    if (d6.benar) benar3++;
-    else
-        pesan3.push(
-            "Selesaikan persamaan sederhana dari hasil perbandingan gradien.",
+        isiFeedback(
+            "fbLatihan1",
+            "warning",
+            "Masih ada jawaban yang belum tepat. Gunakan rumus $m = -\\frac{A}{B}$, lalu ingat bahwa garis sejajar memiliki gradien yang sama."
         );
 
-    totalBenar += benar3;
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
+    }
+}
 
-    hasilHTML += `
-        <div class="alert ${benar3 === 6 ? "alert-success" : "alert-warning"}">
-            <b>Latihan 3:</b> ${benar3}/6 benar
-            ${pesan3.length ? `<br><br>${pesan3.join("<br>")}` : "<br><br>Semua jawaban benar."}
-        </div>
-    `;
+function resetLatihan1() {
+    clearFields([
+        "l1_A",
+        "l1_B",
+        "l1_subAtas",
+        "l1_subBawah",
+        "l1_hasil",
+        "l1_final",
+    ]);
 
-    let fb = document.getElementById("fbSemuaLatihan");
-    if (!fb) return;
+    const fb = document.getElementById("fbLatihan1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
 
-    let summaryClass =
-        totalBenar === totalSoal ? "alert-success" : "alert-info";
-    let summaryText =
-        totalBenar === totalSoal
-            ? `Hebat! Semua jawaban benar. Skor kamu <b>${totalBenar}/${totalSoal}</b>.`
-            : `Skor kamu <b>${totalBenar}/${totalSoal}</b>. Coba perbaiki bagian yang masih salah ya.`;
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
 
-    fb.innerHTML = `
-        <div class="alert ${summaryClass}">
-            ${summaryText}
-        </div>
-        ${hasilHTML}
-    `;
+    resetStepSetelah(2);
+}
 
-    renderMathTarget(fb);
+// =========================
+// LATIHAN 2
+// =========================
+function cekLatihan2() {
+    const a = document.getElementById("l2_a")?.checked;
+    const b = document.getElementById("l2_b")?.checked;
+    const c = document.getElementById("l2_c")?.checked;
+    const d = document.getElementById("l2_d")?.checked;
+
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (a && c && !b && !d) {
+        isiFeedback(
+            "fbLatihan2",
+            "success",
+            "Benar. Garis a dan c sejajar dengan $y = 4x + 2$ karena memiliki gradien yang sama, yaitu $4$. Silakan lanjut ke latihan berikutnya."
+        );
+
+        if (nextBtn) nextBtn.disabled = false;
+    } else {
+        isiFeedback(
+            "fbLatihan2",
+            "warning",
+            "Masih ada pilihan yang belum tepat. Ubah setiap persamaan ke bentuk $y = mx + c$, lalu bandingkan nilai gradiennya."
+        );
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
+    }
+}
+
+function resetLatihan2() {
+    ["l2_a", "l2_b", "l2_c", "l2_d"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = false;
+    });
+
+    const fb = document.getElementById("fbLatihan2");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
+}
+
+// =========================
+// LATIHAN 3
+// =========================
+async function cekLatihan3() {
+    const benarM1Atas = cekField("l3_m1_atas", "-4");
+    const benarM1Bawah = cekField("l3_m1_bawah", "c");
+    const benarM2 = cekField("l3_m2", "-1");
+
+    const benarRelasi = cekField("l3_relasi", [
+        "m1=m2",
+        "m_1=m_2",
+        "m₁=m₂",
+    ]);
+
+    const benarKiriAtas = cekField("l3_kiri_atas", "-4");
+    const benarKiriBawah = cekField("l3_kiri_bawah", "c");
+    const benarKanan = cekField("l3_kanan", "-1");
+    const benarC = cekField("l3_c", "4");
+
+    const semuaBenar =
+        benarM1Atas &&
+        benarM1Bawah &&
+        benarM2 &&
+        benarRelasi &&
+        benarKiriAtas &&
+        benarKiriBawah &&
+        benarKanan &&
+        benarC;
+
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (semuaBenar) {
+        isiFeedback(
+            "fbLatihan3",
+            "success",
+            "Benar. Karena kedua garis sejajar, maka $m_1 = m_2$. Dari $-\\frac{4}{c} = -1$, diperoleh $c = 4$."
+        );
+
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami gradien dua garis yang sejajar.
+                    Silakan lanjut ke materi berikutnya.
+                </div>
+            `;
+            renderMathTarget(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
+    } else {
+        isiFeedback(
+            "fbLatihan3",
+            "warning",
+            "Masih ada jawaban yang belum tepat. Gunakan rumus gradien bentuk umum $Ax + By + C = 0$, yaitu $m = -\\frac{A}{B}$, lalu samakan kedua gradien karena garisnya sejajar."
+        );
+
+        if (akhir) akhir.innerHTML = "";
+    }
+}
+
+function resetLatihan3() {
+    clearFields([
+        "l3_m1_atas",
+        "l3_m1_bawah",
+        "l3_m2",
+        "l3_relasi",
+        "l3_kiri_atas",
+        "l3_kiri_bawah",
+        "l3_kanan",
+        "l3_c",
+    ]);
+
+    const fb = document.getElementById("fbLatihan3");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (fb) fb.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }

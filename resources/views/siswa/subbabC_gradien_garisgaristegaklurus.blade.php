@@ -449,178 +449,236 @@
         </div>
     </div>
 
-    <div class="box-latihan mt-5 mb-4">
+    <div class="box-latihan mt-5 mb-4" id="latihanC3Box">
         <div class="card-body">
             <span class="title-box">Latihan</span>
 
-            <p class="mt-3" style="line-height:1.8;">
-                1. Tentukan persamaan garis yang tegak lurus dengan garis <b>$y = 3x - 2$</b>.
-            </p>
+            <!-- ===================== -->
+            <!-- LATIHAN 1 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <p class="mt-3" style="line-height:1.8;">
+                    <b>1.</b> Tentukan persamaan garis yang tegak lurus dengan garis <b>$y = 3x - 2$</b>.
+                </p>
 
-            <p>
-                a. $x + 3y - 6 = 0$ <br>
-                b. $2x - 3y + 9 = 0$
-            </p>
+                <p>
+                    a. $x + 3y - 6 = 0$ <br>
+                    b. $2x - 3y + 9 = 0$
+                </p>
 
-            <div class="border rounded-4 p-4 mb-3" style="background:#f7f9fc;">
-                <p class="fw-bold mb-4">Penyelesaian:</p>
+                <div class="border rounded-4 p-4 mb-3" style="background:#f7f9fc;">
+                    <p class="fw-bold mb-4">Penyelesaian:</p>
 
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="pe-md-3 border-end">
-                            <div class="mb-4">
-                                <p class="mb-2">Gradien garis $y = 3x - 2$ adalah:</p>
-                                <div class="d-inline-flex align-items-center gap-2">
-                                    <span>$m_1 =$</span>
-                                    <input type="text" id="l_m1" class="form-control form-control-sm text-center"
-                                        style="width:90px;">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="pe-md-3 border-end">
+                                <div class="mb-4">
+                                    <p class="mb-2">Gradien garis $y = 3x - 2$ adalah:</p>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <span>$m_1 =$</span>
+                                        <input type="text" id="l_m1"
+                                            class="form-control form-control-sm text-center" style="width:90px;">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mb-4">
-                                <p class="mb-2">Ubah persamaan (a) ke bentuk $y = mx + c$, gradiennya adalah:</p>
-                                <div class="d-inline-flex align-items-center gap-2">
-                                    <span>$m_a =$</span>
-                                    <input type="text" id="l_ma" class="form-control form-control-sm text-center"
-                                        style="width:90px;">
+                                <div class="mb-4">
+                                    <p class="mb-2">Ubah persamaan (a) ke bentuk $y = mx + c$, gradiennya adalah:</p>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <span>$m_a =$</span>
+                                        <input type="text" id="l_ma"
+                                            class="form-control form-control-sm text-center" style="width:90px;">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mb-4">
-                                <p class="mb-2">Ubah persamaan (b) ke bentuk $y = mx + c$, gradiennya adalah:</p>
-                                <div class="d-inline-flex align-items-center gap-2">
-                                    <span>$m_b =$</span>
-                                    <input type="text" id="l_mb" class="form-control form-control-sm text-center"
-                                        style="width:90px;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="ps-md-3">
-                            <p class="mb-3">Karena dua garis tegak lurus memiliki hasil kali gradien $-1$, maka:</p>
-
-                            <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
-                                <span>$m_1 \times m_a =$</span>
-                                <input type="text" id="l_kali_a" class="form-control form-control-sm text-center"
-                                    style="width:90px;">
-                            </div>
-
-                            <div class="mb-4 d-flex align-items-center gap-2 flex-wrap">
-                                <span>$m_1 \times m_b =$</span>
-                                <input type="text" id="l_kali_b" class="form-control form-control-sm text-center"
-                                    style="width:90px;">
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2">Jadi, persamaan garis yang tegak lurus dengan garis $y = 3x - 2$ adalah:
-                                </p>
-                                <input type="text" id="l_jawaban" class="form-control form-control-sm"
-                                    style="max-width:220px;" placeholder="Tulis persamaan lengkap">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-palet btn-sm mt-2" onclick="cekLatihanTegak()">Cek Jawaban</button>
-            <div id="fbLatihanTegak" class="mt-3"></div>
-
-            <p class="mt-3" style="line-height:1.8;">
-                2. Seorang perencana kota akan membuat jalan <b>$k$</b> yang tegak lurus terhadap jalan lama.
-                Pada peta, jalan lama melalui titik <b>$A(200, 150)$</b> dan <b>$B(700, 50)$</b>.
-                Tentukan gradien jalan <b>$k$</b>.
-            </p>
-
-            <div class="border rounded-4 p-4 mb-3" style="background:#f7f9fc;">
-                <p class="fw-bold mb-4">Penyelesaian:</p>
-
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="pe-md-3 border-end">
-                            <div class="mb-4">
-                                <p class="mb-2">Gradien jalan yang melalui titik $A(200,150)$ dan $B(700,50)$ adalah:</p>
-                                <div class="d-inline-flex align-items-center gap-2" style="line-height:2;">
-                                    <span>$m_{AB} =$</span>
-
-                                    <div class="frac-input">
-                                        <div class="top">
-                                            <input type="text" id="l2_mab_atas"
-                                                class="form-control form-control-sm text-center">
-                                        </div>
-                                        <div class="bottom">
-                                            <input type="text" id="l2_mab_bawah"
-                                                class="form-control form-control-sm text-center">
-                                        </div>
+                                <div class="mb-4">
+                                    <p class="mb-2">Ubah persamaan (b) ke bentuk $y = mx + c$, gradiennya adalah:</p>
+                                    <div class="d-inline-flex align-items-center gap-2">
+                                        <span>$m_b =$</span>
+                                        <input type="text" id="l_mb"
+                                            class="form-control form-control-sm text-center" style="width:90px;">
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="mb-4">
-                                <p class="mb-2">Karena jalan $k$ tegak lurus dengan jalan $AB$, maka:</p>
-                                <div class="d-inline-flex align-items-center gap-2 flex-wrap">
-                                    <span>$m_k \times m_{AB} =$</span>
-                                    <input type="text" id="l2_hubungan"
-                                        class="form-control form-control-sm text-center" style="width:90px;">
+                        <div class="col-md-6">
+                            <div class="ps-md-3">
+                                <p class="mb-3">Karena dua garis tegak lurus memiliki hasil kali gradien $-1$, maka:</p>
+
+                                <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+                                    <span>$m_1 \times m_a =$</span>
+                                    <input type="text" id="l_kali_a" class="form-control form-control-sm text-center"
+                                        style="width:90px;">
+                                </div>
+
+                                <div class="mb-4 d-flex align-items-center gap-2 flex-wrap">
+                                    <span>$m_1 \times m_b =$</span>
+                                    <input type="text" id="l_kali_b" class="form-control form-control-sm text-center"
+                                        style="width:90px;">
+                                </div>
+
+                                <div class="mb-4">
+                                    <p class="mb-2">
+                                        Jadi, persamaan garis yang tegak lurus dengan garis $y = 3x - 2$ adalah:
+                                    </p>
+                                    <input type="text" id="l_jawaban" class="form-control form-control-sm"
+                                        style="max-width:220px;" placeholder="Tulis persamaan lengkap">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="ps-md-3">
-                            <div class="mb-4">
-                                <p class="mb-2">Substitusikan nilai $m_{AB}$:</p>
-                                <div class="mb-3 d-flex align-items-center gap-2" style="line-height:2;">
-                                    <span>$m_k \times$</span>
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihanTegak()">
+                                Cek Jawaban
+                            </button>
 
-                                    <div class="frac-input">
-                                        <div class="top">
-                                            <input type="text" id="l2_atas"
-                                                class="form-control form-control-sm text-center">
-                                        </div>
-                                        <div class="bottom">
-                                            <input type="text" id="l2_bawah"
-                                                class="form-control form-control-sm text-center">
-                                        </div>
-                                    </div>
-
-                                    <span>$=$</span>
-
-                                    <input type="text" id="l2_hasil_subs"
-                                        class="form-control form-control-sm text-center" style="width:80px;">
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2">Jadi, gradien jalan $k$ adalah:</p>
-                                <input type="text" id="l2_jawaban" class="form-control form-control-sm text-center"
-                                    style="width:120px;" placeholder="Tulis gradien">
-                            </div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihanTegak()">
+                                Reset
+                            </button>
                         </div>
+
+                        <button id="nextBtnLatihan1" class="btn btn-palet btn-sm" type="button"
+                            onclick="nextLatihan(2)" disabled>
+                            Lanjut ke Latihan 2
+                        </button>
                     </div>
+
+                    <div id="fbLatihanTegak" class="mt-3"></div>
                 </div>
             </div>
 
-            <button class="btn btn-palet btn-sm mt-2" onclick="cekLatihan2()">Cek Jawaban</button>
-            <div id="fbLatihan2" class="mt-3"></div>
+            <!-- ===================== -->
+            <!-- LATIHAN 2 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
+
+                <p class="mt-3" style="line-height:1.8;">
+                    <b>2.</b> Seorang perencana kota akan membuat jalan <b>$k$</b> yang tegak lurus terhadap jalan lama.
+                    Pada peta, jalan lama melalui titik <b>$A(200, 150)$</b> dan <b>$B(700, 50)$</b>.
+                    Tentukan gradien jalan <b>$k$</b>.
+                </p>
+
+                <div class="border rounded-4 p-4 mb-3" style="background:#f7f9fc;">
+                    <p class="fw-bold mb-4">Penyelesaian:</p>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="pe-md-3 border-end">
+                                <div class="mb-4">
+                                    <p class="mb-2">Gradien jalan yang melalui titik $A(200,150)$ dan $B(700,50)$ adalah:
+                                    </p>
+                                    <div class="d-inline-flex align-items-center gap-2" style="line-height:2;">
+                                        <span>$m_{AB} =$</span>
+
+                                        <div class="frac-input">
+                                            <div class="top">
+                                                <input type="text" id="l2_mab_atas"
+                                                    class="form-control form-control-sm text-center">
+                                            </div>
+                                            <div class="bottom">
+                                                <input type="text" id="l2_mab_bawah"
+                                                    class="form-control form-control-sm text-center">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <p class="mb-2">Karena jalan $k$ tegak lurus dengan jalan $AB$, maka:</p>
+                                    <div class="d-inline-flex align-items-center gap-2 flex-wrap">
+                                        <span>$m_k \times m_{AB} =$</span>
+                                        <input type="text" id="l2_hubungan"
+                                            class="form-control form-control-sm text-center" style="width:90px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="ps-md-3">
+                                <div class="mb-4">
+                                    <p class="mb-2">Substitusikan nilai $m_{AB}$:</p>
+                                    <div class="mb-3 d-flex align-items-center gap-2" style="line-height:2;">
+                                        <span>$m_k \times$</span>
+
+                                        <div class="frac-input">
+                                            <div class="top">
+                                                <input type="text" id="l2_atas"
+                                                    class="form-control form-control-sm text-center">
+                                            </div>
+                                            <div class="bottom">
+                                                <input type="text" id="l2_bawah"
+                                                    class="form-control form-control-sm text-center">
+                                            </div>
+                                        </div>
+
+                                        <span>$=$</span>
+
+                                        <input type="text" id="l2_hasil_subs"
+                                            class="form-control form-control-sm text-center" style="width:80px;">
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <p class="mb-2">Jadi, gradien jalan $k$ adalah:</p>
+                                    <input type="text" id="l2_jawaban"
+                                        class="form-control form-control-sm text-center" style="width:120px;"
+                                        placeholder="Tulis gradien">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(1)">
+                            Kembali ke Latihan 1
+                        </button>
+
+                        <div>
+                            <button class="btn btn-palet btn-sm" type="button" onclick="cekLatihan2()">
+                                Cek Jawaban
+                            </button>
+
+                            <button class="btn btn-palet btn-sm" type="button" onclick="resetLatihan2()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="fbLatihan2" class="mt-3"></div>
+                    <div id="pesanAkhirLatihan" class="mt-3"></div>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabC/gradien_garis2salingtegaklurus.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -629,18 +687,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

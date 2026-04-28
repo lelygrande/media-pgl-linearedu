@@ -719,7 +719,7 @@
     </div>
 
     {{-- Latihan --}}
-    <div class="box-latihan mt-5">
+    <div class="box-latihan mt-5" id="latihanC1Box">
         <div class="card-body">
             <span class="title-box">Latihan</span>
 
@@ -727,213 +727,322 @@
                 Kerjakan latihan berikut berdasarkan pemahamanmu tentang garis yang sejajar dengan sumbu-x dan sumbu-y.
             </p>
 
+            <!-- ===================== -->
             <!-- LATIHAN 1 -->
-            <div class="quiz-card p-3 mt-3">
-                <p><b>1.</b> Perhatikan gambar berikut.</p>
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep1">
+                <div class="quiz-card p-3 mt-3">
+                    <p><b>1.</b> Perhatikan gambar berikut.</p>
 
-                <div class="text-center mb-3">
-                    <!-- Ganti src dengan gambar buatanmu -->
-                    <img src="{{ asset('img/hubungan gradien garis/latsol1.png') }}" class="img-fluid rounded"
-                        alt="Gambar latihan garis" style="max-height: 300px">
-                </div>
+                    <div class="text-center mb-3">
+                        <img src="{{ asset('img/hubungan gradien garis/latsol1.png') }}" class="img-fluid rounded"
+                            alt="Gambar latihan garis" style="max-height: 300px">
+                    </div>
 
-                <p>Pilih semua garis yang sejajar dengan <b>sumbu-x</b>.</p>
+                    <p>Pilih semua garis yang sejajar dengan <b>sumbu-x</b>.</p>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="lat1-k">
-                    <label class="form-check-label" for="lat1-k">Garis k</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="lat1-l">
-                    <label class="form-check-label" for="lat1-l">Garis l</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="lat1-m">
-                    <label class="form-check-label" for="lat1-m">Garis m</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="lat1-n">
-                    <label class="form-check-label" for="lat1-n">Garis n</label>
-                </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lat1-k">
+                        <label class="form-check-label" for="lat1-k">Garis k</label>
+                    </div>
 
-                <button type="button" class="btn btn-palet mt-3" onclick="cekLatihan1()">
-                    Cek Jawaban
-                </button>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lat1-l">
+                        <label class="form-check-label" for="lat1-l">Garis l</label>
+                    </div>
 
-                <div id="fb-lat1" class="mt-2"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lat1-m">
+                        <label class="form-check-label" for="lat1-m">Garis m</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lat1-n">
+                        <label class="form-check-label" for="lat1-n">Garis n</label>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan1()">
+                                Reset
+                            </button>
+                        </div>
+
+                        <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(2)" disabled>
+                            Lanjut ke Latihan 2
+                        </button>
+                    </div>
+
+                    <div id="fb-lat1" class="mt-2"></div>
+                </div>
             </div>
 
+            <!-- ===================== -->
             <!-- LATIHAN 2 -->
-            <div class="quiz-card p-3 mt-3">
-                <p><b>2.</b> Manakah garis berikut yang sejajar dengan <b>sumbu-y</b>?</p>
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep2" style="display:none;">
+                <hr class="my-4">
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="latihan2" id="lat2-a" value="a">
-                    <label class="form-check-label" for="lat2-a">
-                        Garis melalui titik (2,3) dan (2,8)
-                    </label>
-                </div>
+                <div class="quiz-card p-3 mt-3">
+                    <p><b>2.</b> Manakah garis berikut yang sejajar dengan <b>sumbu-y</b>?</p>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="latihan2" id="lat2-b" value="b">
-                    <label class="form-check-label" for="lat2-b">
-                        Garis melalui titik (1,4) dan (5,4)
-                    </label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="latihan2" id="lat2-c" value="c">
-                    <label class="form-check-label" for="lat2-c">
-                        Garis melalui titik (0,0) dan (3,3)
-                    </label>
-                </div>
-
-                <button type="button" class="btn btn-palet mt-3" onclick="cekLatihan2()">
-                    Cek Jawaban
-                </button>
-
-                <div id="fb-lat2" class="mt-2"></div>
-            </div>
-
-            <div class="quiz-card p-3 mt-3">
-                <p class="mb-3" style="line-height:1.8;">
-                    <b>3.</b> Tentukan nilai <b>$a$</b> agar garis yang melalui titik
-                    <b>$A(3a,8a)$</b> dan <b>$B(2a,4)$</b> sejajar dengan <b>sumbu-x</b>.
-                </p>
-
-                <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                    <p class="mb-3"><b>Penyelesaian:</b></p>
-
-                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                        <span>$A(3a,8a)$, maka</span>
-                        <span>$x_1=$</span>
-                        <input type="text" id="x1_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
-                        <span>dan</span>
-                        <span>$y_1=$</span>
-                        <input type="text" id="y1_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="latihan2" id="lat2-a" value="a">
+                        <label class="form-check-label" for="lat2-a">
+                            Garis melalui titik (2,3) dan (2,8)
+                        </label>
                     </div>
 
-                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                        <span>$B(2a,4)$, maka</span>
-                        <span>$x_2=$</span>
-                        <input type="text" id="x2_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
-                        <span>dan</span>
-                        <span>$y_2=$</span>
-                        <input type="text" id="y2_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="latihan2" id="lat2-b" value="b">
+                        <label class="form-check-label" for="lat2-b">
+                            Garis melalui titik (1,4) dan (5,4)
+                        </label>
                     </div>
 
-                    <p class="mb-2">Karena garis sejajar dengan sumbu-x, maka:</p>
-                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                        <span>$m=$</span>
-                        <input type="text" id="m_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="latihan2" id="lat2-c" value="c">
+                        <label class="form-check-label" for="lat2-c">
+                            Garis melalui titik (0,0) dan (3,3)
+                        </label>
                     </div>
 
-                    <p class="mb-2">Substitusikan ke rumus gradien.</p>
-                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                        <input type="text" id="kiri1_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
-                        <span>$=$</span>
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                            Kembali ke Latihan 1
+                        </button>
 
-                        <div class="frac-input">
-                            <div class="top">
-                                <input type="text" id="subY2_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                                <span>$-$</span>
-                                <input type="text" id="subY1_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                            </div>
-                            <div class="bottom">
-                                <input type="text" id="subX2_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                                <span>$-$</span>
-                                <input type="text" id="subX1_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                            </div>
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan2()">
+                                Reset
+                            </button>
                         </div>
+
+                        <button id="nextBtnLatihan2" type="button" class="btn btn-palet btn-sm"
+                            onclick="nextLatihan(3)" disabled>
+                            Lanjut ke Latihan 3
+                        </button>
                     </div>
 
-                    <p class="mb-2">Sederhanakan penyebutnya.</p>
-                    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                        <input type="text" id="kiri2_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
-                        <span>$=$</span>
-
-                        <div class="frac-input single">
-                            <div class="top">
-                                <input type="text" id="hasilAtas_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                            </div>
-                            <div class="bottom">
-                                <input type="text" id="hasilBawah_3"
-                                    class="form-control form-control-sm text-center jawaban-latihan">
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="mt-3">Kalikan kedua ruas dengan penyebut agar pecahan hilang.</p>
-                    <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
-                        <input type="text" id="pers1Kiri_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:90px;">
-                        <span>$=$</span>
-                        <input type="text" id="pers1Kanan_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
-                    </div>
-
-                    <p class="mt-3">Sehingga nilai <b>$a$</b> adalah:</p>
-                    <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
-                        <span>$a=$</span>
-                        <input type="text" id="hasilA_3"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:80px;">
-                    </div>
-
-                    <button type="button" class="btn btn-palet mt-2" onclick="cekLatihan3()">Cek Jawaban</button>
-
-                    <div id="fbLatihan3" class="mt-3"></div>
-                    <div id="petunjukLatihaan3" class="mt-2"></div>
+                    <div id="fb-lat2" class="mt-2"></div>
                 </div>
             </div>
 
-            <div class="quiz-card p-3 mt-3">
-                <p><b>4.</b> Tentukan gradien dari garis $$y = -4$$</p>
+            <!-- ===================== -->
+            <!-- LATIHAN 3 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep3" style="display:none;">
+                <hr class="my-4">
 
-                <p>Gradien garis:</p>
-                <input type="text" id="lat4-m" class="form-control w-25 text-center" placeholder="Isi jawaban">
+                <div class="quiz-card p-3 mt-3">
+                    <p class="mb-3" style="line-height:1.8;">
+                        <b>3.</b> Tentukan nilai <b>$a$</b> agar garis yang melalui titik
+                        <b>$A(3a,8a)$</b> dan <b>$B(2a,4)$</b> sejajar dengan <b>sumbu-x</b>.
+                    </p>
 
-                <p class="mt-2">Kedudukan garis:</p>
-                <select id="lat4-posisi" class="form-select w-50">
-                    <option value="">Pilih</option>
-                    <option value="x">Sejajar sumbu-x</option>
-                    <option value="y">Sejajar sumbu-y</option>
-                    <option value="tidak">Tidak sejajar keduanya</option>
-                </select>
+                    <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
+                        <p class="mb-3"><b>Penyelesaian:</b></p>
 
-                <p class="mt-2">Alasan:</p>
-                <textarea id="lat4-alasan" class="form-control" placeholder="Tuliskan alasanmu..."></textarea>
+                        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                            <span>$A(3a,8a)$, maka</span>
+                            <span>$x_1=$</span>
+                            <input type="text" id="x1_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                            <span>dan</span>
+                            <span>$y_1=$</span>
+                            <input type="text" id="y1_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        </div>
 
-                <button class="btn btn-palet mt-2" onclick="cekLat4()">Cek Jawaban</button>
+                        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                            <span>$B(2a,4)$, maka</span>
+                            <span>$x_2=$</span>
+                            <input type="text" id="x2_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                            <span>dan</span>
+                            <span>$y_2=$</span>
+                            <input type="text" id="y2_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        </div>
 
-                <div id="fb-lat4" class="mt-2"></div>
+                        <p class="mb-2">Karena garis sejajar dengan sumbu-x, maka:</p>
+
+                        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                            <span>$m=$</span>
+                            <input type="text" id="m_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                        </div>
+
+                        <p class="mb-2">Substitusikan ke rumus gradien.</p>
+
+                        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                            <input type="text" id="kiri1_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                            <span>$=$</span>
+
+                            <div class="frac-input">
+                                <div class="top">
+                                    <input type="text" id="subY2_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                    <span>$-$</span>
+                                    <input type="text" id="subY1_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                </div>
+
+                                <div class="bottom">
+                                    <input type="text" id="subX2_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                    <span>$-$</span>
+                                    <input type="text" id="subX1_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mb-2">Sederhanakan penyebutnya.</p>
+
+                        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+                            <input type="text" id="kiri2_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:70px;">
+                            <span>$=$</span>
+
+                            <div class="frac-input single">
+                                <div class="top">
+                                    <input type="text" id="hasilAtas_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                </div>
+
+                                <div class="bottom">
+                                    <input type="text" id="hasilBawah_3"
+                                        class="form-control form-control-sm text-center jawaban-latihan">
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mt-3">Kalikan kedua ruas dengan penyebut agar pecahan hilang.</p>
+
+                        <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
+                            <input type="text" id="pers1Kiri_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:90px;">
+                            <span>$=$</span>
+                            <input type="text" id="pers1Kanan_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
+                        </div>
+
+                        <p class="mt-3">Sehingga nilai <b>$a$</b> adalah:</p>
+
+                        <div class="mb-2 d-flex flex-wrap align-items-center gap-2">
+                            <span>$a=$</span>
+                            <input type="text" id="hasilA_3"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:80px;">
+                        </div>
+
+                        <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                                Kembali ke Latihan 2
+                            </button>
+
+                            <div>
+                                <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3()">
+                                    Cek Jawaban
+                                </button>
+
+                                <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan3()">
+                                    Reset
+                                </button>
+                            </div>
+
+                            <button id="nextBtnLatihan3" type="button" class="btn btn-palet btn-sm"
+                                onclick="nextLatihan(4)" disabled>
+                                Lanjut ke Latihan 4
+                            </button>
+                        </div>
+
+                        <div id="fbLatihan3" class="mt-3"></div>
+                        <div id="petunjukLatihan3" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 4 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep4" style="display:none;">
+                <hr class="my-4">
+
+                <div class="quiz-card p-3 mt-3">
+                    <p><b>4.</b> Tentukan gradien dari garis $$y = -4$$</p>
+
+                    <p>Gradien garis:</p>
+                    <input type="text" id="lat4-m" class="form-control w-25 text-center"
+                        placeholder="Isi jawaban">
+
+                    <p class="mt-2">Kedudukan garis:</p>
+                    <select id="lat4-posisi" class="form-select w-50">
+                        <option value="">Pilih</option>
+                        <option value="x">Sejajar sumbu-x</option>
+                        <option value="y">Sejajar sumbu-y</option>
+                        <option value="tidak">Tidak sejajar keduanya</option>
+                    </select>
+
+                    <p class="mt-2">Alasan:</p>
+                    <textarea id="lat4-alasan" class="form-control" placeholder="Tuliskan alasanmu..."></textarea>
+
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button type="button" class="btn btn-palet btn-sm" onclick="prevLatihan(3)">
+                            Kembali ke Latihan 3
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLat4()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLat4()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="fb-lat4" class="mt-2"></div>
+                    <div id="pesanAkhirLatihan" class="mt-3"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script src="{{ asset('js/subbabC/gradien_garissejajarsumbuxy.js') }}"></script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
 @endsection
 
 @section('nav')
+    @php
+        $isNextUnlocked = $nextMateri ? in_array($nextMateri->slug, $unlockedSlugs ?? []) : false;
+        $isCurrentMateriCompleted = $materialProgress?->is_completed ?? false;
+    @endphp
+
     {{-- PREV --}}
     @if ($previousMateri)
         <a href="{{ route('materi.show', $previousMateri->slug) }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
         </a>
-
-        {{-- KHUSUS MATERI PERTAMA --}}
     @elseif($materi->slug === 'subbab-a1')
         <a href="{{ route('apersepsi1') }}" class="btn btn-prev px-4 rounded-pill">
             ← Prev
@@ -942,18 +1051,27 @@
         <span class="btn btn-prev px-4 rounded-pill invisible">← Prev</span>
     @endif
 
-
-    {{-- NEXT --}}
-    @if ($nextMateri)
-        <a href="{{ route('materi.show', $nextMateri->slug) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    {{-- NEXT / KUIS --}}
+    @if ($nextMateri && $isNextUnlocked)
+        <a id="nextMateriBtn" href="{{ route('materi.show', $nextMateri->slug) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Next →
         </a>
-
-        {{-- MATERI TERAKHIR → KUIS --}}
-    @elseif($quizBab)
-        <a href="{{ route('quiz.show', $quizBab->id) }}" class="btn btn-next px-4 rounded-pill fw-semibold">
+    @elseif ($nextMateri && !$isNextUnlocked)
+        <span id="nextMateriBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-next-url="{{ route('materi.show', $nextMateri->slug) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Next
+        </span>
+    @elseif($quizBab && $isCurrentMateriCompleted)
+        <a id="quizBabBtn" href="{{ route('quiz.show', $quizBab->id) }}"
+            class="btn btn-next px-4 rounded-pill fw-semibold">
             Kuis →
         </a>
+    @elseif($quizBab && !$isCurrentMateriCompleted)
+        <span id="quizBabBtn" class="btn btn-secondary px-4 rounded-pill fw-semibold"
+            data-quiz-url="{{ route('quiz.show', $quizBab->id) }}" style="opacity:.65; cursor:not-allowed;">
+            🔒 Kuis
+        </span>
     @else
         <span class="btn btn-next px-4 rounded-pill invisible">Next →</span>
     @endif

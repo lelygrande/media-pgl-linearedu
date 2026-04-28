@@ -667,17 +667,140 @@ function cekContoh1Step4(pilihan) {
 }
 
 //
-// Latihan Soal
+// Latihan Soal Subbab C
+// Sistem turun ke bawah
 //
 
-// Helper Umum
+// =========================
+// HELPER UMUM
+// =========================
 function normJawaban(teks) {
     return String(teks || "")
         .toLowerCase()
         .replace(/\s+/g, "")
-        .replace(/−/g, "-");
+        .replace(/−/g, "-")
+        .trim();
 }
 
+function renderKatex(target) {
+    if (!window.renderMathInElement || !target) return;
+
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+    });
+}
+
+function renderKatexById(id) {
+    const el = document.getElementById(id);
+    renderKatex(el);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderKatex(document.getElementById("latihanC1Box") || document.body);
+});
+
+// =========================
+// NAVIGASI LATIHAN
+// =========================
+function scrollKeStep(stepId) {
+    const content = document.querySelector(".content-wrapper");
+    const step = document.getElementById(stepId);
+
+    if (!step) return;
+
+    if (!content) {
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+        return;
+    }
+
+    const contentRect = content.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
+
+    const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+    content.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+    });
+}
+
+function nextLatihan(stepNumber) {
+    const step = document.getElementById(`latihanStep${stepNumber}`);
+    if (!step) return;
+
+    step.style.display = "block";
+    renderKatex(step);
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function prevLatihan(stepNumber) {
+    scrollKeStep(`latihanStep${stepNumber}`);
+}
+
+function resetStepSetelah(stepMulai) {
+    for (let i = stepMulai; i <= 4; i++) {
+        const step = document.getElementById(`latihanStep${i}`);
+        if (step) step.style.display = "none";
+    }
+}
+
+// =========================
+// SAVE PROGRESS
+// =========================
+async function saveProgressMateri() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!window.completeMateriUrl || !csrfToken) return false;
+
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function bukaNextButton() {
+    const nextBtn = document.getElementById("nextMateriBtn");
+    if (!nextBtn) return;
+
+    const url = nextBtn.dataset.nextUrl;
+    if (!url) return;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "nextMateriBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Next →";
+
+    nextBtn.replaceWith(link);
+}
+
+// =========================
+// VALIDASI ISIAN
+// =========================
 function cekIsian(id, jawabanBenar) {
     const el = document.getElementById(id);
     if (!el) return false;
@@ -700,10 +823,11 @@ function isiPesan(id, pesan, tipe = "info") {
         tipe === "success"
             ? "alert-success"
             : tipe === "warning"
-              ? "alert-warning"
-              : "alert-info";
+                ? "alert-warning"
+                : "alert-info";
 
     el.innerHTML = `<div class="alert ${kelas} py-2 mb-0">${pesan}</div>`;
+    renderKatex(el);
 }
 
 function tampilkanPetunjukLatihan3(pesan) {
@@ -715,57 +839,118 @@ function kosongkanPetunjukLatihan3() {
     if (el) el.innerHTML = "";
 }
 
+// =========================
+// LATIHAN 1
+// =========================
 function cekLatihan1() {
-    const k = document.getElementById("lat1-k").checked;
-    const l = document.getElementById("lat1-l").checked;
-    const m = document.getElementById("lat1-m").checked;
-    const n = document.getElementById("lat1-n").checked;
+    const k = document.getElementById("lat1-k")?.checked;
+    const l = document.getElementById("lat1-l")?.checked;
+    const m = document.getElementById("lat1-m")?.checked;
+    const n = document.getElementById("lat1-n")?.checked;
     const fb = document.getElementById("fb-lat1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
 
-    // Jawaban benar: k dan l
+    if (!fb) return;
+
     if (k && l && !m && !n) {
         fb.innerHTML = `
-            <div class="alert alert-success">
+            <div class="alert alert-success mb-0">
                 Benar! Garis <b>k</b> dan <b>l</b> sejajar dengan sumbu-x karena keduanya berbentuk <b>mendatar</b>.
+                Silakan lanjut ke latihan berikutnya.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = false;
     } else {
         fb.innerHTML = `
-            <div class="alert alert-warning">
-                Jawaban belum tepat. Coba perhatikan lagi garis yang berbentuk <b>mendatar</b>, karena garis seperti itulah yang sejajar dengan <b>sumbu-x</b>.
+            <div class="alert alert-warning mb-0">
+                Jawaban belum tepat. Coba perhatikan lagi garis yang berbentuk <b>mendatar</b>,
+                karena garis seperti itulah yang sejajar dengan <b>sumbu-x</b>.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(2);
     }
 }
 
+function resetLatihan1() {
+    ["lat1-k", "lat1-l", "lat1-m", "lat1-n"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = false;
+    });
+
+    const fb = document.getElementById("fb-lat1");
+    const nextBtn = document.getElementById("nextBtnLatihan1");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(2);
+}
+
+// =========================
+// LATIHAN 2
+// =========================
 function cekLatihan2() {
     const pilihan = document.querySelector('input[name="latihan2"]:checked');
     const fb = document.getElementById("fb-lat2");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (!fb) return;
 
     if (!pilihan) {
         fb.innerHTML = `
-            <div class="alert alert-warning">
+            <div class="alert alert-warning mb-0">
                 Pilih salah satu jawaban terlebih dahulu.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
         return;
     }
 
     if (pilihan.value === "a") {
         fb.innerHTML = `
-            <div class="alert alert-success">
-                Tepat! Garis melalui titik <b>(2,3)</b> dan <b>(2,8)</b> sejajar dengan <b>sumbu-y</b> karena kedua titik memiliki nilai <b>x</b> yang sama.
+            <div class="alert alert-success mb-0">
+                Tepat! Garis melalui titik <b>(2,3)</b> dan <b>(2,8)</b> sejajar dengan
+                <b>sumbu-y</b> karena kedua titik memiliki nilai <b>x</b> yang sama.
+                Silakan lanjut ke latihan berikutnya.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = false;
     } else {
         fb.innerHTML = `
-            <div class="alert alert-warning">
-                Jawaban belum tepat. Ingat, garis yang sejajar dengan <b>sumbu-y</b> memiliki nilai <b>x</b> yang sama pada kedua titiknya.
+            <div class="alert alert-warning mb-0">
+                Jawaban belum tepat. Ingat, garis yang sejajar dengan <b>sumbu-y</b>
+                memiliki nilai <b>x</b> yang sama pada kedua titiknya.
             </div>
         `;
+
+        if (nextBtn) nextBtn.disabled = true;
+        resetStepSetelah(3);
     }
 }
 
+function resetLatihan2() {
+    document.querySelectorAll('input[name="latihan2"]').forEach((el) => {
+        el.checked = false;
+    });
+
+    const fb = document.getElementById("fb-lat2");
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (fb) fb.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
+}
+
+// =========================
+// LATIHAN 3
+// =========================
 function cekLatihan3() {
     const benarX1 = cekIsian("x1_3", ["3a"]);
     const benarY1 = cekIsian("y1_3", ["8a"]);
@@ -807,37 +992,41 @@ function cekLatihan3() {
         benarPers1Kanan &&
         benarHasilA;
 
+    const nextBtn = document.getElementById("nextBtnLatihan3");
+
     if (semuaBenar) {
         isiPesan(
             "fbLatihan3",
-            "Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$.",
-            "success",
+            "Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$. Silakan lanjut ke latihan berikutnya.",
+            "success"
         );
+
         kosongkanPetunjukLatihan3();
-        renderKatexById("fbLatihan3");
+
+        if (nextBtn) nextBtn.disabled = false;
         return;
     }
 
     isiPesan(
         "fbLatihan3",
         "Masih ada jawaban yang belum tepat. Coba periksa kembali isian yang berwarna merah.",
-        "warning",
+        "warning"
     );
-    renderKatexById("fbLatihan3");
+
+    if (nextBtn) nextBtn.disabled = true;
+    resetStepSetelah(4);
 
     if (!benarX1 || !benarY1 || !benarX2 || !benarY2) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$.",
+            "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$."
         );
-        renderKatexById("petunjukLatihan3");
         return;
     }
 
     if (!benarM) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$.",
+            "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$."
         );
-        renderKatexById("petunjukLatihan3");
         return;
     }
 
@@ -849,78 +1038,174 @@ function cekLatihan3() {
         !benarSubX1
     ) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$.",
+            "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$."
         );
-        renderKatexById("petunjukLatihan3");
         return;
     }
 
     if (!benarKiri2 || !benarHasilAtas || !benarHasilBawah) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$.",
+            "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$."
         );
-        renderKatexById("petunjukLatihan3");
         return;
     }
 
     if (!benarPers1Kiri || !benarPers1Kanan) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya.",
+            "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya."
         );
-        renderKatexById("petunjukLatihan3");
         return;
     }
 
     if (!benarHasilA) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: dari $4-8a=0$, pindahkan $8a$ ke ruas kanan atau $4$ ke ruas kiri, lalu cari nilai $a$.",
+            "Petunjuk: dari $4-8a=0$, pindahkan $8a$ ke ruas kanan atau $4$ ke ruas kiri, lalu cari nilai $a$."
         );
-        renderKatexById("petunjukLatihan3");
-        return;
     }
 }
 
-function cekLat4() {
-    const m = document.getElementById("lat4-m").value.trim();
-    const posisi = document.getElementById("lat4-posisi").value;
-    const alasan = document.getElementById("lat4-alasan").value.toLowerCase();
+function resetLatihan3() {
+    [
+        "x1_3", "y1_3", "x2_3", "y2_3", "m_3",
+        "kiri1_3", "subY2_3", "subY1_3", "subX2_3", "subX1_3",
+        "kiri2_3", "hasilAtas_3", "hasilBawah_3",
+        "pers1Kiri_3", "pers1Kanan_3", "hasilA_3"
+    ].forEach((id) => {
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+    });
+
+    const fb = document.getElementById("fbLatihan3");
+    const petunjuk = document.getElementById("petunjukLatihan3");
+    const nextBtn = document.getElementById("nextBtnLatihan3");
+
+    if (fb) fb.innerHTML = "";
+    if (petunjuk) petunjuk.innerHTML = "";
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(4);
+}
+
+// =========================
+// LATIHAN 4
+// =========================
+async function cekLat4() {
+    const mEl = document.getElementById("lat4-m");
+    const posisiEl = document.getElementById("lat4-posisi");
+    const alasanEl = document.getElementById("lat4-alasan");
+
+    const m = normJawaban(mEl?.value);
+    const posisi = posisiEl?.value || "";
+    const alasan = String(alasanEl?.value || "").toLowerCase();
+
     const fb = document.getElementById("fb-lat4");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (!fb) return;
 
     let pesan = [];
 
-    // gradien
-    if (m !== "0") {
-        pesan.push("Gradien belum tepat.");
-    }
+    const benarM = m === "0";
+    const benarPosisi = posisi === "x";
 
-    // posisi
-    if (posisi !== "x") {
-        pesan.push("Kedudukan garis belum tepat.");
-    }
-
-    // alasan
     const adaY = alasan.includes("y");
-    const adaTetap = alasan.includes("tetap") || alasan.includes("sama");
+    const adaTetap =
+        alasan.includes("tetap") ||
+        alasan.includes("sama") ||
+        alasan.includes("konstan");
 
-    if (!(adaY && adaTetap)) {
-        pesan.push(
-            "Alasanmu masih belum tepat. Perhatikan apakah ada komponen koordinat yang nilainya selalu sama.",
-        );
+    const benarAlasan = adaY && adaTetap;
+
+    if (mEl) {
+        mEl.classList.remove("is-valid", "is-invalid");
+        mEl.classList.add(benarM ? "is-valid" : "is-invalid");
+    }
+
+    if (posisiEl) {
+        posisiEl.classList.remove("is-valid", "is-invalid");
+        posisiEl.classList.add(benarPosisi ? "is-valid" : "is-invalid");
+    }
+
+    if (alasanEl) {
+        alasanEl.classList.remove("is-valid", "is-invalid");
+        alasanEl.classList.add(benarAlasan ? "is-valid" : "is-invalid");
+    }
+
+    if (!benarM) pesan.push("Gradien belum tepat.");
+    if (!benarPosisi) pesan.push("Kedudukan garis belum tepat.");
+    if (!benarAlasan) {
+        pesan.push("Alasanmu masih belum tepat. Jelaskan bahwa nilai $y$ selalu tetap/sama.");
     }
 
     if (pesan.length === 0) {
         fb.innerHTML = `
-            <div class="alert alert-success">
+            <div class="alert alert-success mb-0">
                 Benar! Persamaan $y = -4$ menunjukkan bahwa nilai $y$ selalu tetap.
                 Maka garisnya mendatar, gradiennya $0$, dan sejajar dengan sumbu-x.
             </div>
         `;
+
+        if (akhir) {
+            akhir.innerHTML = `
+                <div class="alert alert-success fw-semibold text-center mt-3">
+                    Bagus, kamu sudah memahami gradien garis sejajar sumbu-x dan sumbu-y.
+                    Silakan lanjut ke materi berikutnya.
+                </div>
+            `;
+            renderKatex(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else if (akhir) {
+            akhir.innerHTML += `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+            `;
+        }
     } else {
         fb.innerHTML = `
-            <div class="alert alert-warning">
+            <div class="alert alert-warning mb-0">
                 ${pesan.join("<br><br>")}
             </div>
         `;
-        renderKatexById("fb-lat4");
+
+        if (akhir) akhir.innerHTML = "";
     }
+
+    renderKatex(fb);
+}
+
+function resetLat4() {
+    const m = document.getElementById("lat4-m");
+    const posisi = document.getElementById("lat4-posisi");
+    const alasan = document.getElementById("lat4-alasan");
+
+    if (m) {
+        m.value = "";
+        m.classList.remove("is-valid", "is-invalid");
+    }
+
+    if (posisi) {
+        posisi.value = "";
+        posisi.classList.remove("is-valid", "is-invalid");
+    }
+
+    if (alasan) {
+        alasan.value = "";
+        alasan.classList.remove("is-valid", "is-invalid");
+    }
+
+    const fb = document.getElementById("fb-lat4");
+    const akhir = document.getElementById("pesanAkhirLatihan");
+
+    if (fb) fb.innerHTML = "";
+    if (akhir) akhir.innerHTML = "";
 }
