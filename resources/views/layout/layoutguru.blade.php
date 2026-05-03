@@ -323,7 +323,7 @@
                             Rekapitulasi Nilai
                         </a>
 
-                        <a href="{{ route('progres-siswa') }}"
+                        <a href="{{ route('guru.progress-siswa') }}"
                             class="dropdown-item-custom {{ request()->routeIs('progres-siswa') ? 'active-child' : '' }}">
                             Progress Siswa
                         </a>

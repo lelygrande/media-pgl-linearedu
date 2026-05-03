@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\GuruAuthController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\ProgressBelajarController;
+use App\Http\Controllers\ProgressSiswaController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\QuizSiswaController;
-use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaAuthController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MateriController;
 
 
 Route::view('/', 'landing_page')->name('landing-page');
@@ -24,32 +26,6 @@ Route::post('/siswa/registrasi', [SiswaAuthController::class, 'register'])->name
 Route::post('/siswa/logout', [SiswaAuthController::class, 'logout'])->name('siswa.logout');
 
 // Materi Siswa
-// Route::middleware('auth:siswa')->group(function () {
-//     Route::view('/peta-konsep', 'siswa.petakonsep')->name('peta-konsep');
-//     Route::view('/apersepsi1', 'siswa.apersepsi1')->name('apersepsi1');
-//     Route::view('/subbab-A1', 'siswa.subbabA1')->name('subbabA1');
-//     Route::view('/subbab-A2_1', 'siswa.subbabA2_1')->name('subbabA2.1');
-//     Route::view('/subbab-A2_2', 'siswa.subbabA2_2')->name('subbabA2.2');
-
-//     Route::view('/subbab-B-gradien', 'siswa.subbabB_gradien')->name('subbabB_gradien');
-//     Route::view('/subbab-B-gradien_satu_titik', 'siswa.subbabB_gradien1titik')->name('subbabB_gradiensatutitik');
-//     Route::view('/subbab-B-gradien_dua_titik', 'siswa.subbabB_gradienduatitik')->name('subbabB_gradienduatitik');
-//     Route::view('/subbab-B-gradien_persamaan1', 'siswa.subbabB_gradienpersamaan1')->name('subbabB_gradienpersamaan1');
-
-//     Route::view('/subbab-C-gradien_garissejajarsumbuxy', 'siswa.subbabC_gradien_garis_sejajar_sumbuxy')->name('subbabC_gradien_garissejajar_sumbuxy');
-//     Route::view('/subbab-C-gradien_duagaris_sejajar', 'siswa.subbabC_gradien_garisgarissejajar')->name('subbabC_gradien_gradiengarissejajar');
-//     Route::view('/subbab-C-gradien_duagaris_tegaklurus', 'siswa.subbabC_gradien_garisgaristegaklurus')->name('subbabC_gradien_garistegaklurus');
-
-//     Route::view('/subbab-D-pgl1', 'siswa.subbabD_persamaangarislurus1')->name('subbabD_persamaangarislurus1');
-//     Route::view('/subbab-D-pgl2', 'siswa.subbabD_persamaangarislurus2')->name('subbabD_persamaangarislurus2');
-//     Route::view('/subbab-D-pgl-dan-sejajar', 'siswa.subbabD_persamaangarislurus3_sejajar')->name('subbabD_persamaangarislurus3_sejajar');
-//     Route::view('/subbab-D-pgl-dan-tegaklurus', 'siswa.subbabD_persamaangarislurus4_tegaklurus')->name('subbabD_persamaangarislurus4_tegaklurus');
-
-//     Route::view('/siswa/progress-belajar', 'siswa.progres_belajar')->name('progress-belajar');
-
-//     Route::get('/quiz/{id}', [QuizSiswaController::class, 'show'])->name('quiz.show');
-//     Route::post('/quiz/{id}/submit', [QuizSiswaController::class, 'submit'])->name('quiz.submit');
-// });
 Route::middleware('auth:siswa')->group(function () {
     // Pengantar: tetap bebas, tidak dikunci, tidak masuk progress
     Route::view('/peta-konsep', 'siswa.petakonsep')->name('peta-konsep');
@@ -63,6 +39,7 @@ Route::middleware('auth:siswa')->group(function () {
 
     // Progress belajar
     Route::get('/siswa/progress-belajar', [MateriController::class, 'progress'])->name('progress-belajar');
+    Route::get('siswa/progress-belajar', [ProgressBelajarController::class, 'index'])->name('progress-belajar');
 
     // Quiz
     Route::get('/quiz/{id}', [QuizSiswaController::class, 'show'])->name('quiz.show');
@@ -89,9 +66,18 @@ Route::prefix('guru')->group(function () {
         Route::post('/logout', [GuruAuthController::class, 'logout'])->name('guru.logout');
 
         Route::view('/dashboardguru', 'guru.dashboardguru')->name('dashboardguru');
-        Route::get('/rekapitulasi-nilai', [QuizController::class, 'rekapNilai'])->name('rekapitulasi-nilai');        Route::view('/progres-siswa', 'guru.progres_siswa')->name('progres-siswa');
+        Route::get('/rekapitulasi-nilai', [QuizController::class, 'rekapNilai'])->name('rekapitulasi-nilai');
+
+        // Progress Siswa
+        Route::get('/progress-siswa', [ProgressSiswaController::class, 'index'])
+        ->name('guru.progress-siswa');
+        Route::get('/progress-siswa/{siswa}', [ProgressSiswaController::class, 'detail'])
+        ->name('guru.progress-siswa.detail');
+
+
         Route::view('/daftarmateriguru', 'guru.daftarmateriguru')->name('daftarmateriguru');
 
+        //CRUD SISWA
         Route::get('/daftarsiswa', [SiswaController::class, 'index'])->name('daftarsiswa.index');
         Route::post('/tambah-siswa', [SiswaController::class, 'store'])->name('guru.daftarsiswa.store');
         Route::get('/siswa/{id}', [SiswaController::class, 'show'])->name('guru.daftarsiswa.show');

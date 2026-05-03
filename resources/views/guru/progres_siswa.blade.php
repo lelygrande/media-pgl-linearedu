@@ -6,14 +6,14 @@
 
     <h3 class="fw-bold mb-4" style="color: var(--primary-dark);">Progress Siswa</h3>
 
-
-    {{-- ===================== CARD OVERVIEW ===================== --}}
     <div class="row g-3 mb-4">
 
         <div class="col-md-4">
             <div class="card shadow-sm p-3" style="border-radius: 12px;">
                 <h6 class="fw-bold">Siswa Aktif</h6>
-                <h2 class="fw-bold" style="color: var(--primary-dark);">24</h2>
+                <h2 class="fw-bold" style="color: var(--primary-dark);">
+                    {{ $jumlahSiswaAktif }}
+                </h2>
                 <small class="text-muted">Dalam 7 hari terakhir</small>
             </div>
         </div>
@@ -21,43 +21,37 @@
         <div class="col-md-4">
             <div class="card shadow-sm p-3" style="border-radius: 12px;">
                 <h6 class="fw-bold">Rata-rata Progress Kelas</h6>
-                <h2 class="fw-bold" style="color: var(--primary-dark);">68%</h2>
-                <small class="text-muted">Dari total 5 bab pembelajaran</small>
+                <h2 class="fw-bold" style="color: var(--primary-dark);">
+                    {{ $rataProgress }}%
+                </h2>
+                <small class="text-muted">Dari seluruh materi pembelajaran</small>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card shadow-sm p-3" style="border-radius: 12px;">
-                <h6 class="fw-bold">Rata-rata Waktu Belajar</h6>
-                <h2 class="fw-bold" style="color: var(--primary-dark);">35 menit</h2>
-                <small class="text-muted">Per siswa</small>
+                <h6 class="fw-bold">Estimasi Waktu Belajar</h6>
+                <h2 class="fw-bold" style="color: var(--primary-dark);">
+                    {{ $rataWaktuBelajar }} menit
+                </h2>
+                <small class="text-muted">Rata-rata per siswa</small>
             </div>
         </div>
 
     </div>
 
-
-
-    {{-- ===================== GRAFIK PROGRESS PER BAB ===================== --}}
     <div class="card shadow-sm mb-4" style="border-radius: 12px;">
         <div class="card-body">
             <h5 class="fw-bold mb-3">Progress Per Bab</h5>
-
             <canvas id="progressChart" style="max-height: 260px;"></canvas>
         </div>
     </div>
 
-
-
-    {{-- ===================== SEARCH BAR ===================== --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <input type="text" class="form-control" placeholder="Cari nama siswa..."
+        <input type="text" id="searchSiswa" class="form-control" placeholder="Cari nama siswa..."
             style="max-width: 320px; border-radius: 999px;">
     </div>
 
-
-
-    {{-- ===================== TABEL PROGRESS SISWA ===================== --}}
     <div class="card shadow-sm mb-3" style="border-radius: 12px;">
         <div class="card-body">
 
@@ -76,96 +70,91 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr class="row-hover">
-                            <td class="py-3 px-3">1</td>
-                            <td class="py-3 px-3">Andi Pratama</td>
-                            <td class="py-3 px-3 text-center">80%</td>
-                            <td class="py-3 px-3 text-center">4 / 5</td>
+                    <tbody id="progressTableBody">
+                        @forelse ($studentsData as $index => $student)
+                            <tr class="row-hover siswa-row" data-nama="{{ strtolower($student['nama']) }}">
+                                <td class="py-3 px-3">{{ $index + 1 }}</td>
 
-                            {{-- Evaluasi --}}
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-success">Sudah</span>
-                            </td>
+                                <td class="py-3 px-3">
+                                    <div class="fw-semibold">{{ $student['nama'] }}</div>
 
-                            <td class="py-3 px-3 text-center">42 menit</td>
+                                    @if ($student['last_activity'])
+                                        <small class="text-muted">
+                                            Aktivitas terakhir:
+                                            {{ \Carbon\Carbon::parse($student['last_activity'])->format('d M Y H:i') }}
+                                        </small>
+                                    @else
+                                        <small class="text-muted">Belum ada aktivitas</small>
+                                    @endif
+                                </td>
 
-                            {{-- Status belajar --}}
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-success">Aktif</span>
-                            </td>
+                                <td class="py-3 px-3 text-center">
+                                    <div class="fw-semibold mb-1">
+                                        {{ $student['progress_persen'] }}%
+                                    </div>
 
-                            {{-- Aksi --}}
-                            <td class="py-3 px-3 text-center">
-                                <button class="btn btn-sm text-white"
-                                    style="background-color: var(--primary-color); border-radius: 6px;">
-                                    Detail
-                                </button>
-                            </td>
-                        </tr>
+                                    <div class="progress mx-auto" style="height: 8px; width: 120px;">
+                                        <div class="progress-bar" role="progressbar"
+                                            style="width: {{ $student['progress_persen'] }}%; background-color: var(--primary-color);"
+                                            aria-valuenow="{{ $student['progress_persen'] }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100">
+                                        </div>
+                                    </div>
 
-                        <tr class="row-hover">
-                            <td class="py-3 px-3">2</td>
-                            <td class="py-3 px-3">Siti Nurhaliza</td>
-                            <td class="py-3 px-3 text-center">60%</td>
-                            <td class="py-3 px-3 text-center">3 / 5</td>
+                                    <small class="text-muted">
+                                        {{ $student['materi_selesai'] }} / {{ $student['total_materi'] }} materi
+                                    </small>
+                                </td>
 
-                            {{-- Evaluasi --}}
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-danger">Belum</span>
-                            </td>
+                                <td class="py-3 px-3 text-center">
+                                    {{ $student['kuis_dikerjakan'] }} / {{ $student['total_quiz'] }}
+                                </td>
 
-                            <td class="py-3 px-3 text-center">30 menit</td>
+                                <td class="py-3 px-3 text-center">
+                                    @if ($student['evaluasi_sudah'])
+                                        @if ($student['evaluasi_lulus'])
+                                            <span class="badge bg-success">
+                                                Lulus · {{ $student['evaluasi_score'] }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">
+                                                Belum Lulus · {{ $student['evaluasi_score'] }}
+                                            </span>
+                                        @endif
+                                    @else
+                                        <span class="badge bg-danger">Belum</span>
+                                    @endif
+                                </td>
 
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-warning text-dark">Pasif</span>
-                            </td>
+                                <td class="py-3 px-3 text-center">
+                                    {{ $student['waktu_belajar'] }} menit
+                                </td>
 
-                            <td class="py-3 px-3 text-center">
-                                <button class="btn btn-sm text-white"
-                                    style="background-color: var(--primary-color); border-radius: 6px;">
-                                    Detail
-                                </button>
-                            </td>
-                        </tr>
+                                <td class="py-3 px-3 text-center">
+                                    <span class="badge {{ $student['status_class'] }}">
+                                        {{ $student['status'] }}
+                                    </span>
+                                </td>
 
-                        <tr class="row-hover">
-                            <td class="py-3 px-3">3</td>
-                            <td class="py-3 px-3">Budi Santoso</td>
-                            <td class="py-3 px-3 text-center">35%</td>
-                            <td class="py-3 px-3 text-center">2 / 5</td>
-
-                            {{-- Evaluasi --}}
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-danger">Belum</span>
-                            </td>
-
-                            <td class="py-3 px-3 text-center">18 menit</td>
-
-                            <td class="py-3 px-3 text-center">
-                                <span class="badge bg-danger">Perlu Perhatian</span>
-                            </td>
-
-                            <td class="py-3 px-3 text-center">
-                                <button class="btn btn-sm text-white"
-                                    style="background-color: var(--primary-color); border-radius: 6px;">
-                                    Detail
-                                </button>
-                            </td>
-                        </tr>
+                                <td class="py-3 px-3 text-center">
+                                    <a href="{{ route('guru.progress-siswa.detail', $student['id']) }}"
+                                        class="btn btn-sm text-white"
+                                        style="background-color: var(--primary-color); border-radius: 6px;">
+                                        Detail
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    Belum ada data siswa.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
-
-            {{-- Pagination --}}
-            <nav aria-label="Navigasi halaman progress" class="mt-3">
-                <ul class="pagination justify-content-end mb-0">
-                    <li class="page-item disabled"><a class="page-link">Prev</a></li>
-                    <li class="page-item active"><a class="page-link">1</a></li>
-                    <li class="page-item"><a class="page-link">2</a></li>
-                    <li class="page-item"><a class="page-link">Next</a></li>
-                </ul>
-            </nav>
 
         </div>
     </div>
@@ -197,33 +186,66 @@
             border-color: var(--primary-color);
             color: #fff;
         }
+
+        .progress {
+            background-color: #e5e7eb;
+            border-radius: 999px;
+        }
+
+        .progress-bar {
+            border-radius: 999px;
+        }
     </style>
 @endpush
 
 @push('scripts')
-    {{-- Chart.js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
         const ctx = document.getElementById('progressChart').getContext('2d');
+
+        const progressLabels = @json($babLabels);
+        const progressData = @json($chartData);
 
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Bab A', 'Bab B', 'Bab C', 'Bab D', 'Bab E'],
+                labels: progressLabels,
                 datasets: [{
                     label: '% Siswa Selesai',
-                    data: [95, 80, 60, 40, 20], // dummy
-                    borderWidth: 1
+                    data: progressData,
+                    borderWidth: 1,
+                    borderRadius: 8
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 100
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
                     }
                 }
             }
         });
+
+        const searchInput = document.getElementById('searchSiswa');
+        const rows = document.querySelectorAll('.siswa-row');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const keyword = this.value.toLowerCase().trim();
+
+                rows.forEach((row) => {
+                    const nama = row.dataset.nama || '';
+                    row.style.display = nama.includes(keyword) ? '' : 'none';
+                });
+            });
+        }
     </script>
 @endpush

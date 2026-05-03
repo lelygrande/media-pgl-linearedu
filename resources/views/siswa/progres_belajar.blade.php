@@ -128,7 +128,12 @@
         }
 
         .study-progress-bar .progress-bar {
-            background-color: #b8c1cc;
+            background-color: #ffffff;
+        }
+
+        .progress-percent-text {
+            color: #ffffff;
+            font-weight: 700;
         }
 
         .student-progress-body {
@@ -141,6 +146,29 @@
             margin-bottom: 18px;
         }
 
+        .bab-title {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+
+        .progress-row {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .progress-row:hover {
+            background-color: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 7px 10px;
+            border-radius: 999px;
+        }
+
         @media (max-width: 576px) {
             .student-progress-header {
                 padding: 20px;
@@ -149,6 +177,11 @@
             .student-progress-body {
                 padding: 22px;
             }
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 6px 8px;
+            }
         }
     </style>
 
@@ -156,10 +189,6 @@
 </head>
 
 <body>
-    @php
-        use Illuminate\Support\Facades\Auth;
-    @endphp
-
     {{-- NAVBAR --}}
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
@@ -182,7 +211,7 @@
                         <a class="nav-link" href="{{ route('petunjuk') }}">Petunjuk Penggunaan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('progress-belajar') }}">Progress Belajar</a>
+                        <a class="nav-link active" href="{{ route('progress-belajar') }}">Progress Belajar</a>
                     </li>
                 </ul>
             </div>
@@ -191,16 +220,24 @@
 
     {{-- KONTEN HALAMAN --}}
     <main class="py-5">
-        <div class="container">
-            <div class="student-progress-wrapper">
+    <div class="container">
+
+        <div class="mb-3">
+            <a href="{{ $backToMateriUrl }}" class="btn btn-outline-primary rounded-pill px-4">
+                ← Kembali ke Materi
+            </a>
+        </div>
+
+        <div class="student-progress-wrapper">
 
                 {{-- BAGIAN ATAS (BIRU) --}}
                 <div class="student-progress-header">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-3 col-lg-2 text-center">
                             <div class="student-avatar-box"></div>
+
                             <div class="student-name">
-                                {{ Auth::guard('siswa')->user()->nama }}
+                                {{ $siswa->nama }}
                             </div>
                         </div>
 
@@ -208,10 +245,21 @@
                             <div class="study-progress-label mb-3">
                                 Progress Belajar
                             </div>
+
                             <div class="progress study-progress-bar">
-                                {{-- contoh 60%, nanti bisa diganti nilai dinamis --}}
-                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar"
+                                    style="width: {{ $progressPercent }}%"
+                                    aria-valuenow="{{ $progressPercent }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100">
+                                </div>
+                            </div>
+
+                            <div class="mt-2 progress-percent-text">
+                                {{ $progressPercent }}% selesai
+                                <span class="fw-normal">
+                                    ({{ $completedItems }} / {{ $totalItems }} bagian)
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -230,110 +278,91 @@
 
                     <hr class="my-2">
 
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Bentuk Umum Persamaan Garis Lurus</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Menggambar Grafik dari Persamaan Garis Lurus 1</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Menggambar Grafik dari Persamaan Garis Lurus 2</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">KUIS</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Pengertian Gradien atau Kemiringan</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien garis melalui titik pusat dan (x1,y1)</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien garis melalui dua titik</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien pada persamaan y = mx</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien pada persamaan y = mx + c</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">KUIS</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien garis sejajar sumbu x dan sumbu y</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7"> Gradien garis garis yang saling sejajar</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Gradien dua garis saling tegak lurus</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">KUIS</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <hr>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan Garis Melalui Satu Titik dan Gradien</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Dua Titik</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis
-                            Lain</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan
-                            Garis Lain
+                    @foreach ($materiGroups as $group)
+                        <div class="bab-title">
+                            {{ $group['bab'] }}
                         </div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">KUIS</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
-                    </div>
-                    <hr>
-                    <div class="row mb-2">
-                        <div class="col-md-8 col-7">Evaluasi</div>
-                        <div class="col-md-4 col-5 text-muted fw-semibold">Belum</div>
+
+                        @foreach ($group['items'] as $item)
+                            @php
+                                $slug = $item['slug'];
+                                $progress = $progressBySlug[$slug] ?? null;
+
+                                $isOpened = $progress && $progress->is_opened;
+                                $isCompleted = $progress && $progress->is_completed;
+                            @endphp
+
+                            <div class="row mb-2 align-items-center progress-row">
+                                <div class="col-md-8 col-7">
+                                    {{ $item['title'] }}
+                                </div>
+
+                                <div class="col-md-4 col-5 fw-semibold">
+                                    @if ($isCompleted)
+                                        <span class="badge bg-success">Selesai</span>
+                                    @elseif ($isOpened)
+                                        <span class="badge bg-primary">Terbuka</span>
+                                    @else
+                                        <span class="badge bg-secondary">Terkunci</span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+
+                        @php
+                            $quizId = $group['quiz']['quiz_id'];
+                            $quizAttempt = $latestQuizAttempts[$quizId] ?? null;
+                        @endphp
+
+                        <div class="row mb-2 align-items-center progress-row">
+                            <div class="col-md-8 col-7">
+                                {{ $group['quiz']['title'] }}
+                            </div>
+
+                            <div class="col-md-4 col-5 fw-semibold">
+                                @if ($quizAttempt && $quizAttempt->is_passed)
+                                    <span class="badge bg-success">
+                                        Lulus · {{ $quizAttempt->score }}
+                                    </span>
+                                @elseif ($quizAttempt)
+                                    <span class="badge bg-warning text-dark">
+                                        Belum Lulus · {{ $quizAttempt->score }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-secondary">Belum</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <hr>
+                    @endforeach
+
+                    @php
+                        $evaluasiAttempt = $latestQuizAttempts[5] ?? null;
+                    @endphp
+
+                    <div class="row mb-2 align-items-center progress-row">
+                        <div class="col-md-8 col-7 fw-bold">
+                            Evaluasi
+                        </div>
+
+                        <div class="col-md-4 col-5 fw-semibold">
+                            @if ($evaluasiAttempt && $evaluasiAttempt->is_passed)
+                                <span class="badge bg-success">
+                                    Lulus · {{ $evaluasiAttempt->score }}
+                                </span>
+                            @elseif ($evaluasiAttempt)
+                                <span class="badge bg-warning text-dark">
+                                    Belum Lulus · {{ $evaluasiAttempt->score }}
+                                </span>
+                            @else
+                                <span class="badge bg-secondary">Belum</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     {{-- FOOTER --}}

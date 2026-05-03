@@ -159,20 +159,3 @@ class MateriController extends Controller
         return back()->with('success', 'Latihan materi selesai.');
     }
 }
-
-// public function progress()
-//     {
-//         $studentId = Auth::guard('siswa')->id();
-
-//         $babs = Bab::with(['materis', 'quizzes'])->orderBy('urutan')->get();
-//         $progresses = MaterialProgress::where('student_id', $studentId)
-//             ->get()
-//             ->keyBy('materi_id');
-
-//         $quizAttempts = QuizAttempt::where('student_id', $studentId)
-//             ->where('status', 'submitted')
-//             ->get()
-//             ->groupBy('quiz_id');
-
-//         return view('siswa.progres_belajar', compact('babs', 'progresses', 'quizAttempts'));
-//     }

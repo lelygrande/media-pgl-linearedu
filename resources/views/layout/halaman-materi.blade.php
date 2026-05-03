@@ -455,7 +455,13 @@
                     @endphp
 
                     @php
-                        $currentSlug = request()->route('slug');
+                        $routeMateri = request()->route('materi');
+
+                        if (is_object($routeMateri)) {
+                            $currentSlug = $routeMateri->slug ?? null;
+                        } else {
+                            $currentSlug = request()->route('slug') ?? $routeMateri;
+                        }
 
                         $openIntro = request()->routeIs('peta-konsep', 'apersepsi1');
 
@@ -575,30 +581,70 @@
                         </button>
 
                         <div id="subB" class="collapse mt-2 {{ $openB ? 'show' : '' }}">
-                            <a href="{{ route('materi.show', 'subbab-b-gradien') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien' ? 'active' : '' }}">
-                                Pengertian Gradien
-                            </a>
+                            @if ($isUnlocked('subbab-b-gradien'))
+                                <a href="{{ route('materi.show', 'subbab-b-gradien') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien' ? 'active' : '' }}">
+                                    Pengertian Gradien
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Pengertian Gradien</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-b-gradien-satu-titik') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-satu-titik' ? 'active' : '' }}">
-                                Gradien garis melalui (0,0) dan (x1,y1)
-                            </a>
+                            @if ($isUnlocked('subbab-b-gradien-satu-titik'))
+                                <a href="{{ route('materi.show', 'subbab-b-gradien-satu-titik') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-satu-titik' ? 'active' : '' }}">
+                                    Gradien garis melalui (0,0) dan (x1,y1)
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien garis melalui (0,0) dan (x1,y1)</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-b-gradien-dua-titik') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-dua-titik' ? 'active' : '' }}">
-                                Gradien garis yang melewati dua titik
-                            </a>
+                            @if ($isUnlocked('subbab-b-gradien-dua-titik'))
+                                <a href="{{ route('materi.show', 'subbab-b-gradien-dua-titik') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-dua-titik' ? 'active' : '' }}">
+                                    Gradien garis yang melewati dua titik
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien garis yang melewati dua titik</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-b-gradien-persamaan1') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-persamaan1' ? 'active' : '' }}">
-                                Gradien garis dari suatu Persamaan Garis Lurus
-                            </a>
+                            @if ($isUnlocked('subbab-b-gradien-persamaan1'))
+                                <a href="{{ route('materi.show', 'subbab-b-gradien-persamaan1') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-b-gradien-persamaan1' ? 'active' : '' }}">
+                                    Gradien garis dari suatu Persamaan Garis Lurus
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien garis dari suatu Persamaan Garis Lurus</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('quiz.show', 2) }}"
-                                class="dropdown-item-custom {{ request()->is('quiz/2') ? 'active' : '' }}">
-                                Kuis B
-                            </a>
+                            @if ($canAccessQuizB)
+                                <a href="{{ route('quiz.show', 2) }}"
+                                    class="dropdown-item-custom {{ request()->is('quiz/2') ? 'active' : '' }}">
+                                    Kuis B
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Kuis B</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -610,25 +656,57 @@
                         </button>
 
                         <div id="subC" class="collapse mt-2 {{ $openC ? 'show' : '' }}">
-                            <a href="{{ route('materi.show', 'subbab-c-garis-sejajar-sumbuxy') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-garis-sejajar-sumbuxy' ? 'active' : '' }}">
-                                Gradien garis sejajar sumbu x dan sumbu y
-                            </a>
+                            @if ($isUnlocked('subbab-c-garis-sejajar-sumbuxy'))
+                                <a href="{{ route('materi.show', 'subbab-c-garis-sejajar-sumbuxy') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-c-garis-sejajar-sumbuxy' ? 'active' : '' }}">
+                                    Gradien garis sejajar sumbu x dan sumbu y
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien garis sejajar sumbu x dan sumbu y</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-c-dua-garis-sejajar') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-sejajar' ? 'active' : '' }}">
-                                Gradien Garis-garis yang saling Sejajar
-                            </a>
+                            @if ($isUnlocked('subbab-c-dua-garis-sejajar'))
+                                <a href="{{ route('materi.show', 'subbab-c-dua-garis-sejajar') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-sejajar' ? 'active' : '' }}">
+                                    Gradien Garis-garis yang saling Sejajar
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien Garis-garis yang saling Sejajar</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-c-dua-garis-tegak-lurus') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-tegak-lurus' ? 'active' : '' }}">
-                                Gradien Garis-garis yang saling Tegak Lurus
-                            </a>
+                            @if ($isUnlocked('subbab-c-dua-garis-tegak-lurus'))
+                                <a href="{{ route('materi.show', 'subbab-c-dua-garis-tegak-lurus') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-c-dua-garis-tegak-lurus' ? 'active' : '' }}">
+                                    Gradien Garis-garis yang saling Tegak Lurus
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Gradien Garis-garis yang saling Tegak Lurus</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('quiz.show', 3) }}"
-                                class="dropdown-item-custom {{ request()->is('quiz/3') ? 'active' : '' }}">
-                                Kuis C
-                            </a>
+                            @if ($canAccessQuizC)
+                                <a href="{{ route('quiz.show', 3) }}"
+                                    class="dropdown-item-custom {{ request()->is('quiz/3') ? 'active' : '' }}">
+                                    Kuis C
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Kuis C</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -640,37 +718,86 @@
                         </button>
 
                         <div id="subD" class="collapse mt-2 {{ $openD ? 'show' : '' }}">
-                            <a href="{{ route('materi.show', 'subbab-d-pgl1') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl1' ? 'active' : '' }}">
-                                Persamaan Garis Melalui Satu Titik dan Gradien
-                            </a>
+                            @if ($isUnlocked('subbab-d-pgl1'))
+                                <a href="{{ route('materi.show', 'subbab-d-pgl1') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl1' ? 'active' : '' }}">
+                                    Persamaan Garis Melalui Satu Titik dan Gradien
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Persamaan Garis Melalui Satu Titik dan Gradien</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-d-pgl2') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl2' ? 'active' : '' }}">
-                                Persamaan Garis yang Melalui Dua Titik
-                            </a>
+                            @if ($isUnlocked('subbab-d-pgl2'))
+                                <a href="{{ route('materi.show', 'subbab-d-pgl2') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl2' ? 'active' : '' }}">
+                                    Persamaan Garis yang Melalui Dua Titik
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Persamaan Garis yang Melalui Dua Titik</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-d-pgl-sejajar') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-sejajar' ? 'active' : '' }}">
-                                Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain
-                            </a>
+                            @if ($isUnlocked('subbab-d-pgl-sejajar'))
+                                <a href="{{ route('materi.show', 'subbab-d-pgl-sejajar') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-sejajar' ? 'active' : '' }}">
+                                    Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('materi.show', 'subbab-d-pgl-tegak-lurus') }}"
-                                class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-tegak-lurus' ? 'active' : '' }}">
-                                Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan Garis Lain
-                            </a>
+                            @if ($isUnlocked('subbab-d-pgl-tegak-lurus'))
+                                <a href="{{ route('materi.show', 'subbab-d-pgl-tegak-lurus') }}"
+                                    class="dropdown-item-custom {{ $currentSlug === 'subbab-d-pgl-tegak-lurus' ? 'active' : '' }}">
+                                    Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan Garis Lain
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan Garis
+                                        Lain</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
 
-                            <a href="{{ route('quiz.show', 4) }}"
-                                class="dropdown-item-custom {{ request()->is('quiz/4') ? 'active' : '' }}">
-                                Kuis D
-                            </a>
+                            @if ($canAccessQuizD)
+                                <a href="{{ route('quiz.show', 4) }}"
+                                    class="dropdown-item-custom {{ request()->is('quiz/4') ? 'active' : '' }}">
+                                    Kuis D
+                                </a>
+                            @else
+                                <div class="dropdown-item-custom d-flex justify-content-between align-items-center text-muted"
+                                    style="opacity:.7; cursor:not-allowed;">
+                                    <span>Kuis D</span>
+                                    <span>🔒</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
-                    <a href="{{ route('quiz.show', 5) }}"
-                        class="btn btn-primary btn-sub w-100 {{ request()->is('quiz/5') ? 'active' : '' }}">
-                        Evaluasi
-                    </a>
+                    @if ($isQuizPassed(4))
+                        <a href="{{ route('quiz.show', 5) }}"
+                            class="btn btn-primary btn-sub w-100 {{ request()->is('quiz/5') ? 'active' : '' }}">
+                            Evaluasi
+                        </a>
+                    @else
+                        <div class="btn btn-secondary btn-sub w-100 d-flex justify-content-between align-items-center"
+                            style="opacity:.7; cursor:not-allowed;">
+                            <span>Evaluasi</span>
+                            <span>🔒</span>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -853,6 +980,40 @@
         }
 
         document.addEventListener('DOMContentLoaded', initAllMathInputs);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector(".sidebar-wrapper");
+            const activeItem = document.querySelector(".sidebar-wrapper .dropdown-item-custom.active");
+
+            if (!sidebar || !activeItem) return;
+
+            const parentCollapse = activeItem.closest(".collapse");
+
+            if (parentCollapse && !parentCollapse.classList.contains("show")) {
+                const collapseInstance = bootstrap.Collapse.getOrCreateInstance(parentCollapse, {
+                    toggle: false
+                });
+
+                collapseInstance.show();
+            }
+
+            setTimeout(() => {
+                const sidebarRect = sidebar.getBoundingClientRect();
+                const itemRect = activeItem.getBoundingClientRect();
+
+                const targetTop =
+                    sidebar.scrollTop +
+                    (itemRect.top - sidebarRect.top) -
+                    120;
+
+                sidebar.scrollTo({
+                    top: targetTop,
+                    behavior: "smooth"
+                });
+            }, 250);
+        });
     </script>
 </body>
 
