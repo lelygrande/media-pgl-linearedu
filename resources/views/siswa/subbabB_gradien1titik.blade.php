@@ -3,19 +3,6 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/subbabB/subbabB_gradien1titik.css') }}">
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">B. Gradien (Kemiringan Garis)</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan Kemiringan Garis Lurus</li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien yang melewati titik $(0, 0)$ dan $A(x,y)$</h2>
 

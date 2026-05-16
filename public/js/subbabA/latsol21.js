@@ -308,38 +308,90 @@ function getClippedLineSegmentInBox(x1, y1, x2, y2) {
 
 // ---------------------- CHECK & RESET -----------------------
 
-function checkAnswers() {
-    if (!allTokensPlaced()) {
-        resultMessage = "Masih ada titik yang belum ditempatkan.";
-        resultColor = color(200, 120, 0);
-        showLine = false;
-        sembunyikanKesimpulanLat2();
-        return;
-    }
+// =========================
+// SAVE PROGRESS + BUKA KUIS
+// =========================
+async function saveProgressMateri() {
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    ?.getAttribute("content");
 
-    let allCorrect = true;
-    for (let t of tokens) {
-        if (t.coordX === t.targetX && t.coordY === t.targetY) {
-            t.isCorrect = true;
-        } else {
-            t.isCorrect = false;
-            allCorrect = false;
-        }
-    }
+  if (!window.completeMateriUrl || !csrfToken) return false;
 
-    // garis muncul hanya kalau semua benar
-    showLine = allCorrect;
+  try {
+    const response = await fetch(window.completeMateriUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken,
+        "X-Requested-With": "XMLHttpRequest",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({}),
+    });
 
-    if (allCorrect) {
-        resultMessage = "Hebat! Semua titik sudah tepat. Garis muncul!";
-        resultColor = color(0, 160, 0);
-        tampilkanKesimpulanLat2();
+    return response.ok;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+function bukaQuizButton() {
+  const quizBtn = document.getElementById("quizBabBtn");
+  if (!quizBtn) return;
+
+  const url = quizBtn.dataset.quizUrl;
+  if (!url) return;
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.id = "quizBabBtn";
+  link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+  link.textContent = "Kuis →";
+
+  quizBtn.replaceWith(link);
+}
+
+async function checkAnswers() {
+  if (!allTokensPlaced()) {
+    resultMessage = "Masih ada titik yang belum ditempatkan.";
+    resultColor = color(200, 120, 0);
+    showLine = false;
+    return;
+  }
+
+  let allCorrect = true;
+
+  for (let t of tokens) {
+    if (t.coordX === t.targetX && t.coordY === t.targetY) {
+      t.isCorrect = true;
     } else {
-        resultMessage =
-            "Masih ada titik yang salah.\nCoba periksa lagi posisi A, B, C, dan D.";
-        resultColor = color(200, 0, 0);
-        sembunyikanKesimpulanLat2();
+      t.isCorrect = false;
+      allCorrect = false;
     }
+  }
+
+  showLine = allCorrect;
+
+  if (allCorrect) {
+    resultMessage = "Mantap! A dan B benar. Garis berhasil digambar!";
+    resultColor = color(0, 160, 0);
+
+    const saved = await saveProgressMateri();
+
+    if (saved) {
+      bukaQuizButton();
+      resultMessage = "Mantap! A dan B benar. Materi selesai, tombol kuis sudah terbuka!";
+      resultColor = color(0, 160, 0);
+    } else {
+      resultMessage = "Titik sudah benar, tapi progress belum tersimpan. Coba refresh atau cek koneksi.";
+      resultColor = color(200, 120, 0);
+    }
+  } else {
+    resultMessage = "Masih ada titik yang salah. Coba periksa lagi posisi A dan B.";
+    resultColor = color(200, 0, 0);
+  }
 }
 
 function resetAll() {

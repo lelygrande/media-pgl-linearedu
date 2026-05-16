@@ -176,17 +176,6 @@
         }
     </style>
 
-    <h1 class="mb-3" style="font-weight: 600;">B. Gradien (Kemiringan Garis)</h1>
-
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan gradien (kemiringan) garis dari persamaan garis lurus.</li>
-            </ol>
-        </div>
-    </div>
-
     <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Gradien dari Suatu Persamaan Garis Lurus</h2>
 
     <div class="box-eksplorasi mt-4">

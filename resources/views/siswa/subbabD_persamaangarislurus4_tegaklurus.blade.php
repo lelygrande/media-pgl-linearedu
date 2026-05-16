@@ -184,23 +184,6 @@
         }
     </style>
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">D. Persamaan Garis Lurus</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
-                </li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Persamaan Garis yang Melalui Satu Titik dan Tegak Lurus dengan Garis
         Lain</h2>
@@ -789,7 +772,7 @@
                 <hr class="my-4">
 
                 <p>
-                    <b>3.</b> Pada denah sekolah, terdapat sebuah jalur utama yang melalui titik <span>$(1,14)$</span> dan
+                    <b>3.</b> Pada suatu denah sekolah, terdapat sebuah jalur utama yang melalui titik <span>$(1,14)$</span> dan
                     <span>$(9,6)$</span>. Pihak sekolah akan membuat jalur baru menuju kantin yang melalui titik
                     <span>$(12,-3)$</span> dan tegak lurus terhadap jalur utama tersebut. Tentukan persamaan jalur baru itu.
                 </p>

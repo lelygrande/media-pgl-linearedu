@@ -340,7 +340,6 @@
             display: none;
         }
 
-
         .math-real-input.previewing {
             color: transparent !important;
             -webkit-text-fill-color: transparent !important;
@@ -352,8 +351,9 @@
             transition: background-color 9999s ease-in-out 0s;
         }
 
-        /* pecahan */
-        .frac {
+        /* Pecahan khusus untuk preview input matematika */
+        /* sengaja tidak pakai nama .frac agar tidak bentrok dengan subbab lain */
+        .math-frac {
             display: inline-flex;
             flex-direction: column;
             align-items: center;
@@ -365,7 +365,7 @@
             font-weight: 200;
         }
 
-        .frac .top {
+        .math-frac .math-top {
             border-bottom: 1px solid currentColor;
             padding: 0 3px 1px;
             font-size: 0.78em;
@@ -374,14 +374,24 @@
             font-style: normal;
         }
 
-        .frac .bottom {
+        .math-frac .math-bottom {
             padding: 1px 3px 0;
             font-size: 0.78em;
             line-height: 1;
             margin-top: -1px;
             font-style: normal;
         }
+
+        /* Zoom Gambar */
+        .medium-zoom-overlay {
+            z-index: 9998 !important;
+        }
+
+        .medium-zoom-image--opened {
+            z-index: 9999 !important;
+        }
     </style>
+
 
 </head>
 
@@ -523,7 +533,7 @@
                         <button class="btn btn-primary btn-sub dropdown-toggle {{ $openA ? '' : 'collapsed' }}"
                             data-bs-toggle="collapse" data-bs-target="#subA"
                             aria-expanded="{{ $openA ? 'true' : 'false' }}">
-                            Bentuk Umum Persamaan Garis Lurus
+                            Pengertian Dasar Persamaan Garis Lurus
                         </button>
 
                         <div id="subA" class="collapse mt-2 {{ $openA ? 'show' : '' }}">
@@ -572,7 +582,6 @@
                             @endif
                         </div>
                     </div>
-
                     <div class="dropdown">
                         <button class="btn btn-primary btn-sub dropdown-toggle {{ $openB ? '' : 'collapsed' }}"
                             data-bs-toggle="collapse" data-bs-target="#subB"
@@ -819,6 +828,15 @@
         </div>
     </div>
 
+    {{-- Zoomable --}}
+    <script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script>
+    <script>
+        mediumZoom('.zoomable', {
+            margin: 40,
+            background: '#000000cc'
+        })
+    </script>
+
     {{-- BOOTSTRAP JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -897,12 +915,11 @@
 
             return safe.replace(/(-?\d+)\s*\/\s*(-?\d+)/g, function(_, a, b) {
                 return `
-                <span class="frac">
-                    <span class="top">${a}</span>
-                    <span class="bar"></span>
-                    <span class="bottom">${b}</span>
-                </span>
-            `;
+            <span class="math-frac">
+                <span class="math-top">${a}</span>
+                <span class="math-bottom">${b}</span>
+            </span>
+        `;
             });
         }
 
@@ -952,12 +969,11 @@
                 preview.style.top = input.offsetTop + 'px';
                 preview.style.width = rect.width + 'px';
                 preview.style.height = rect.height + 'px';
-                preview.style.fontSize = style.fontSize;
-                preview.style.fontFamily = style.fontFamily;
                 preview.style.borderRadius = style.borderRadius;
 
                 preview.style.textAlign = 'center';
                 preview.style.justifyContent = 'center';
+                preview.style.alignItems = 'center';
             }
 
             input.addEventListener('input', update);

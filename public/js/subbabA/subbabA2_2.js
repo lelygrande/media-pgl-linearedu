@@ -892,7 +892,7 @@ const sketchLatihan2 = (p) => {
                 const saved = await saveProgressMateri();
 
                 if (saved) {
-                    bukaNextButton();
+                    bukaQuizButton();
                 } else {
                     setFeedback(
                         "feedbackLatihan2A22",

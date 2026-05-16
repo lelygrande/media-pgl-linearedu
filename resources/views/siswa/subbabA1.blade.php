@@ -247,6 +247,191 @@
     </style>
 
     <style>
+        /* ===== RESPONSIVE MEDIA PEMBELAJARAN ===== */
+
+        /* Supaya semua gambar tidak melebar keluar layar */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Supaya konten tidak melebar di layar kecil */
+        .card,
+        .card-materi,
+        .card-tujuan,
+        .box-info,
+        .box-contoh,
+        .box-latihan,
+        .box-eksplorasi,
+        .eksplorasi,
+        .latihan-dnd-wrap,
+        .step-stack {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Responsive GeoGebra / p5 */
+        #ggb-garis,
+        .p5-wrapper {
+            width: 100% !important;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        /* Responsive langkah penyelesaian */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            h2 {
+                font-size: 20px;
+                line-height: 1.3;
+            }
+
+            .card-tujuan {
+                padding: 8px;
+                border-radius: 12px;
+            }
+
+            .card-tujuan ol {
+                padding-left: 18px;
+                line-height: 1.6;
+            }
+
+            .box-info,
+            .box-border-blue,
+            .latihan-dnd-wrap,
+            .step-stack,
+            .step-item {
+                padding: 12px;
+            }
+
+            .step-row {
+                display: block;
+            }
+
+            .step-eq {
+                font-size: 18px;
+                margin-bottom: 10px;
+                overflow-x: auto;
+            }
+
+            .step-note {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            .rumus-box {
+                font-size: 18px;
+                padding: 8px 16px;
+                max-width: 100%;
+                overflow-x: auto;
+            }
+
+            .abc-grid {
+                max-width: 100%;
+            }
+
+            .abc-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .abc-input {
+                width: 100%;
+            }
+
+            .opsi-wrap {
+                flex-direction: column;
+            }
+
+            .opsi-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropzone-linear {
+                min-height: 100px;
+                flex-direction: column;
+            }
+
+            .jawaban-latihan {
+                width: 100% !important;
+                margin-bottom: 6px;
+            }
+
+            .latihan-step .d-flex {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .latihan-step .text-end {
+                text-align: center !important;
+            }
+
+            .btn,
+            .btn-palet,
+            .btn-arrow {
+                width: 100%;
+                margin-top: 6px;
+            }
+
+            .btn-sm {
+                width: 100%;
+            }
+        }
+
+        /* Untuk layar sangat kecil seperti HP */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 21px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            p,
+            li,
+            .step-note {
+                font-size: 14px;
+            }
+
+            .p-4 {
+                padding: 14px !important;
+            }
+
+            .mt-5 {
+                margin-top: 24px !important;
+            }
+
+            .mb-4 {
+                margin-bottom: 18px !important;
+            }
+
+            .step-eq {
+                font-size: 16px;
+            }
+
+            .badge-sub,
+            .badge-judul,
+            .badge-latihan,
+            .badge-contoh,
+            .title-box {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+
+            input[type="radio"] {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+
+    <style>
         .abc-grid {
             max-width: 360px;
         }
@@ -289,6 +474,15 @@
             border-color: #2e9b4f;
             color: #000;
         }
+
+        /* Zoom Gambar */
+        .medium-zoom-overlay {
+            z-index: 9998 !important;
+        }
+
+        .medium-zoom-image--opened {
+            z-index: 9999 !important;
+        }
     </style>
 
 
@@ -300,15 +494,14 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Siswa menjelaskan pengertian dan contoh Persamaan Garis Lurus</li>
-                <li>Siswa menggambar grafik Persamaan Garis Lurus</li>
-                <li>Siswa dapat menentukan titik potong terhadap sumbu-x dan sumbu-y</li>
+                <li>Peserta didik dapat memahami konsep dasar persamaan garis lurus.</li>
+                <li>Peserta didik dapat menggambar grafik persamaan garis lurus </li>
             </ol>
         </div>
     </div>
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-4" style="font-weight: 600;">1. Bentuk Umum Persamaan Garis Lurus</h2>
+    <h2 class="mt-2 mb-4" style="font-weight: 600;">1. Pengertian dan Bentuk Umum Persamaan Garis Lurus</h2>
 
     <div class="p-4 mt-5 box-eksplorasi">
         <div class="title-box">
@@ -374,47 +567,23 @@
 
     <div class="box-info mt-3 mb-3">
         <p class="mb-2" style="text-align: justify;">
-            Dari hasil eksplorasi, kita mengetahui bahwa dua titik yang berbeda dapat dihubungkan sehingga terbentuk sebuah
-            garis lurus. Setiap titik pada garis tersebut memiliki koordinat <b>(x, y)</b>.
+            Dari hasil eksplorasi, kita mengetahui bahwa dua titik yang berbeda dapat dihubungkan
+            sehingga terbentuk sebuah garis lurus. Di dalam bidang koordinat Kartesius, setiap titik
+            pada garis tersebut dinyatakan dalam pasangan berurutan <b>$(x, y)$</b>.
         </p>
 
-        <p class="mb-0" style="text-align: justify;">
-            Jika kita mengambil beberapa titik yang berada pada garis, ternyata titik-titik tersebut memiliki suatu pola
-            atau hubungan tertentu antara nilai <b>x</b> dan <b>y</b>. Hubungan inilah yang dapat dituliskan dalam bentuk
-            persamaan. Persamaan tersebut digunakan untuk menyatakan semua titik yang berada pada garis.
-        </p>
-    </div>
-
-    <div class="box-info mt-3 mb-3">
         <p class="mb-2" style="text-align: justify;">
-            Sekarang, mari kita lanjutkan pemahamanmu.
-            Jika sebuah garis terdiri atas banyak titik, bagaimana cara menuliskan semua titik itu secara matematis?
+            Agar garis lurus lebih mudah dipelajari, kita dapat menuliskannya dalam bentuk persamaan.
+            Persamaan ini membantu kita mengetahui titik-titik yang berada pada garis.
         </p>
+
         <p class="mb-0" style="text-align: justify;">
-            Untuk menjawab pertanyaan tersebut, kita menggunakan <b>persamaan garis lurus</b>.
-            Melalui persamaan ini, kita dapat mengetahui hubungan antara nilai <b>x</b> dan <b>y</b> pada suatu garis.
+            Dengan demikian, <b>persamaan garis lurus</b> adalah persamaan matematika yang jika
+            digambar pada bidang koordinat Kartesius akan membentuk sebuah garis lurus.
+            Semua titik <b>$(x, y)$</b> yang memenuhi persamaan tersebut berada pada garis,
+            sedangkan titik yang tidak memenuhi persamaan berada di luar garis.
         </p>
     </div>
-
-    <p class="mt-3" style="text-align: justify;">
-        Kamu telah melihat bahwa dua titik yang berbeda dapat menentukan sebuah garis lurus.
-        Di dalam bidang koordinat Kartesius, setiap titik dinyatakan dalam pasangan $(x, y)$.
-        Artinya, sebuah garis juga dapat dipelajari melalui titik-titik yang menyusunnya.
-    </p>
-
-    <p style="text-align: justify;">
-        Sekarang, pertanyaannya adalah: bagaimana cara menyatakan sebuah garis dalam bentuk matematika?
-        Untuk itu, digunakan suatu bentuk persamaan yang disebut <em>persamaan garis lurus</em>.
-    </p>
-
-    <p style="text-align: justify;">
-        Persamaan garis lurus adalah persamaan matematika yang apabila digambar pada bidang koordinat Kartesius akan
-        membentuk
-        sebuah garis lurus.
-        Dengan kata lain, semua titik $(x, y)$ yang memenuhi persamaan tersebut terletak pada garis,
-        sedangkan titik yang tidak memenuhi persamaan berada di luar garis.
-    </p>
-
 
     <div class="card card-materi mb-4">
         <div class="card-body">
@@ -429,8 +598,13 @@
             <div class="box-info mt-3 mb-3">
                 <p class="mb-2"><strong>1. Bentuk Eksplisit</strong></p>
 
+                <p class="mb-2" style="text-align: justify;">
+                    Perhatikan bentuk eksplisit persamaan garis lurus berikut.
+                </p>
+
                 <div class="text-center mb-2">
-                    <img src="{{ asset('img/eksplisit.png') }}" alt="" style="max-width: 500px">
+                    <img src="{{ asset('img/eksplisit.png') }}" alt="Bentuk eksplisit persamaan garis lurus"
+                        class="img-fluid" style="max-width: 500px;">
                 </div>
 
                 <p class="mb-1" style="text-align: justify;">
@@ -449,8 +623,13 @@
             <div class="box-info mb-3">
                 <p class="mb-2"><strong>2. Bentuk Implisit</strong></p>
 
+                <p class="mb-2" style="text-align: justify;">
+                    Perhatikan bentuk implisit persamaan garis lurus berikut.
+                </p>
+
                 <div class="text-center mb-2">
-                    <img src="{{ asset('img/implisit.png') }}" alt="">
+                    <img src="{{ asset('img/implisit.png') }}" alt="Bentuk implisit persamaan garis lurus"
+                        class="img-fluid">
                 </div>
 
                 <p class="mb-1" style="text-align: justify;">
@@ -526,8 +705,14 @@
         Amati bagaimana titik-titik yang memenuhi persamaan itu terletak pada satu garis lurus.
     </p>
     <div class="box-info mb-3 text-center">
-        <img src="{{ asset('img/p1.png') }}" alt="y = 3x - 2" class="zoomable img-fluid"
-            style="max-width:300px; cursor:zoom-in;">
+        <figure class="figure">
+            <img src="{{ asset('img/p1.png') }}" alt="Grafik persamaan y = 3x - 2" class="zoomable img-fluid"
+                style="max-width:300px; cursor:zoom-in;">
+
+            <figcaption class="figure-caption text-center mt-2">
+                Grafik persamaan $y = 3x - 2$
+            </figcaption>
+        </figure>
     </div>
 
     <p style="text-align: justify;">
@@ -811,33 +996,34 @@
             <div class="latihan-step" id="latihanStep2" style="display:none;">
                 <hr class="my-4">
                 <p>
-                    <b>2.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
+                    <b>2.</b> Buatlah <b>3 contoh persamaan garis lurus</b> sendiri.
+                </p>
+
+                <p class="mb-3">
+                    Contoh: $y = 2x + 3$, $3x + 2y - 6 = 0$, atau $x - y + 4 = 0$.
                 </p>
 
                 <div class="mb-3">
-                    <p><b>a.</b> $y = 2x - 5$</p>
+                    <p><b>a.</b> Contoh persamaan garis lurus pertama</p>
                     <input type="text" id="lat2a"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:100px;">
-                    <span>$= 0$</span>
+                        style="width:180px;">
                     <div id="fb-lat2a" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
-                    <p><b>b.</b> $y = -3x + 4$</p>
+                    <p><b>b.</b> Contoh persamaan garis lurus kedua</p>
                     <input type="text" id="lat2b"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:100px;">
-                    <span>$= 0$</span>
+                        style="width:180px;">
                     <div id="fb-lat2b" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
-                    <p><b>c.</b> $2y = x + 6$</p>
+                    <p><b>c.</b> Contoh persamaan garis lurus ketiga</p>
                     <input type="text" id="lat2c"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:100px;">
-                    <span>$= 0$</span>
+                        style="width:180px;">
                     <div id="fb-lat2c" class="mt-1"></div>
                 </div>
 
@@ -857,7 +1043,6 @@
                         Lanjut ke Latihan 3
                     </button>
                 </div>
-                <div id="feedbackLatihan2A1" class="mt-2"></div>
             </div>
 
             <!-- ===================== -->
@@ -866,52 +1051,109 @@
             <div class="latihan-step" id="latihanStep3" style="display:none;">
                 <hr class="my-4">
                 <p>
-                    <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
+                    <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
+                </p>
+
+                <div class="mb-3">
+                    <p><b>a.</b> $y = 2x - 5$</p>
+                    <input type="text" id="lat3a"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:100px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat3a" class="mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <p><b>b.</b> $y = -3x + 4$</p>
+                    <input type="text" id="lat3b"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:100px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat3b" class="mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <p><b>c.</b> $2y = x + 6$</p>
+                    <input type="text" id="lat3c"
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                        style="width:100px;">
+                    <span>$= 0$</span>
+                    <div id="fb-lat3c" class="mt-1"></div>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">
+                        Cek Jawaban
+                    </button>
+                    <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan3A1()">
+                        Reset
+                    </button>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
+
+                    <button id="nextBtn3" class="btn btn-palet btn-sm" onclick="nextLatihan(4)" disabled>
+                        Lanjut ke Latihan 4
+                    </button>
+                </div>
+                <div id="feedbackLatihan3A1" class="mt-2"></div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- LATIHAN 4 -->
+            <!-- ===================== -->
+            <div class="latihan-step" id="latihanStep4" style="display:none;">
+                <hr class="my-4">
+                <p>
+                    <b>4.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
                 </p>
 
                 <div class="mb-3">
                     <p><b>a.</b> $3x + y - 7 = 0$</p>
                     <p>
                         <span>$y =$</span>
-                        <input type="text" id="lat3a"
+                        <input type="text" id="lat4a"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
-                    <div id="fb-lat3a" class="mt-1"></div>
+                    <div id="fb-lat4a" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>b.</b> $2x - 4y + 8 = 0$</p>
                     <p>
                         <span>$y =$</span>
-                        <input type="text" id="lat3b"
+                        <input type="text" id="lat4b"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
-                    <div id="fb-lat3b" class="mt-1"></div>
+                    <div id="fb-lat4b" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>c.</b> $5x + 2y - 6 = 0$</p>
                     <p>
                         <span>$y =$</span>
-                        <input type="text" id="lat3c"
+                        <input type="text" id="lat4c"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
-                    <div id="fb-lat3c" class="mt-1"></div>
+                    <div id="fb-lat4c" class="mt-1"></div>
                 </div>
 
                 <div class="mt-3 d-flex gap-2">
-                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
-                        Kembali ke Latihan 2
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(3)">
+                        Kembali ke Latihan 3
                     </button>
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan4A1()">
                         Cek Jawaban
                     </button>
                 </div>
 
-                <div id="feedbackLatihan3A1" class="mt-2"></div>
+                <div id="feedbackLatihan4A1" class="mt-2"></div>
             </div>
         </div>
     </div>

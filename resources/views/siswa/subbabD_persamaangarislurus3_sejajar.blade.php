@@ -318,6 +318,8 @@
                 <span>$m$</span>, maka garis lain yang sejajar dengannya juga memiliki gradien <span>$m$</span>.
             </p>
 
+            <p>Hubungan gradien dua garis sejajar dapat dituliskan sebagai:</p>
+
             <div class="rumus-box mb-3 text-center" style="width: fit-content">
                 <span>$m_1 = m_2$</span>
             </div>
@@ -379,7 +381,7 @@
             </p>
 
             <p>
-                Gunakan titik <span>$(2,3)$</span> dan gradien tersebut ke bentuk persamaan garis melalui satu titik:
+                Substitusi titik <span>$(2,3)$</span> dan gradien tersebut ke bentuk persamaan garis melalui satu titik:
             </p>
 
             <div class="rumus-box mb-3" style="width: fit-content;">
@@ -437,8 +439,8 @@
             {{-- ===================== --}}
             <div class="latihan-step" id="latihanStep1">
                 <p class="mt-3">
-                    <b>1.</b> Seorang siswa mengamati hubungan antara lama waktu belajar <span>$x$</span>
-                    dan nilai tambahan yang diperoleh <span>$y$</span>. Diketahui garis yang dicari
+                    <b>1.</b> Seorang siswa mengamati hubungan antara lama waktu belajar <span>($x$)</span>
+                    dan nilai tambahan yang diperoleh <span>($y$)</span>. Diketahui garis yang dicari
                     melalui titik <span>$A(4,1)$</span> dan sejajar dengan garis lain yang mempunyai
                     gradien <span>$2$</span>. Tentukan persamaan garis tersebut.
                 </p>

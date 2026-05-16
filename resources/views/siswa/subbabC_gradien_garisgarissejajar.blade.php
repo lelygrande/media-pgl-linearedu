@@ -171,21 +171,6 @@
         }
     </style>
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">C. Hubungan Gradien Garis</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menjelaskan hubungan gradien garis</li>
-                <li>Siswa dapat menentukan gradien dari garis-garis yang saling sejajar</li>
-                <li>Siswa dapat menentukan gradien dari garis-garis yang saling tegak lurus</li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien Garis-garis yang saling Sejajar</h2>
 

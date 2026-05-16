@@ -184,23 +184,6 @@
         }
     </style>
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">D. Persamaan Garis Lurus</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
-                </li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Persamaan Garis Lurus Melalui Dua Titik</h2>
 

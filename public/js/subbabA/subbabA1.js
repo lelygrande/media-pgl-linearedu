@@ -282,7 +282,7 @@ function prevLatihan(stepNumber) {
 }
 
 function resetStepSetelah(stepMulai) {
-    for (let i = stepMulai; i <= 3; i++) {
+    for (let i = stepMulai; i <= 4; i++) {
         const step = document.getElementById(`latihanStep${i}`);
         if (step) step.style.display = "none";
     }
@@ -398,18 +398,120 @@ function resetLatihan1A1() {
 // =========================
 // LATIHAN 2
 // =========================
+
+
+function isPersamaanGarisLurus(expr) {
+    const s = norm(expr);
+
+    if (!s) return false;
+    if (!s.includes("=")) return false;
+
+    // Tidak boleh mengandung pangkat, akar, perkalian variabel, atau pembagian oleh variabel
+    if (
+        s.includes("^") ||
+        s.includes("²") ||
+        s.includes("sqrt") ||
+        s.includes("√") ||
+        s.includes("xy") ||
+        s.includes("yx") ||
+        s.includes("/x") ||
+        s.includes("/y")
+    ) {
+        return false;
+    }
+
+    // Harus mengandung x atau y
+    if (!s.includes("x") && !s.includes("y")) return false;
+
+    return true;
+}
+
 function cekLatihan2A1() {
     let skor = 0;
 
-    const a = norm(document.getElementById("lat2a")?.value);
-    const b = norm(document.getElementById("lat2b")?.value);
-    const c = norm(document.getElementById("lat2c")?.value);
+    const a = document.getElementById("lat2a")?.value;
+    const b = document.getElementById("lat2b")?.value;
+    const c = document.getElementById("lat2c")?.value;
 
     const fba = document.getElementById("fb-lat2a");
     const fbb = document.getElementById("fb-lat2b");
     const fbc = document.getElementById("fb-lat2c");
     const fb = document.getElementById("feedbackLatihan2A1");
     const nextBtn = document.getElementById("nextBtn2");
+
+    if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
+
+    if (isPersamaanGarisLurus(a)) {
+        fba.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+        fba.style.color = "green";
+        skor++;
+    } else {
+        fba.innerHTML = "Belum tepat. Coba buat persamaan yang hanya memuat x dan/atau y berpangkat satu.";
+        fba.style.color = "red";
+    }
+
+    if (isPersamaanGarisLurus(b)) {
+        fbb.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+        fbb.style.color = "green";
+        skor++;
+    } else {
+        fbb.innerHTML = "Belum tepat. Hindari bentuk pangkat, akar, atau perkalian variabel seperti xy.";
+        fbb.style.color = "red";
+    }
+
+    if (isPersamaanGarisLurus(c)) {
+        fbc.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+        fbc.style.color = "green";
+        skor++;
+    } else {
+        fbc.innerHTML = "Belum tepat. Contoh yang benar misalnya y = 2x + 3 atau 3x + y - 5 = 0.";
+        fbc.style.color = "red";
+    }
+
+    if (skor === 3) {
+        fb.innerHTML = "Bagus. Ketiga contohmu merupakan persamaan garis lurus.";
+        fb.style.color = "green";
+        nextBtn.disabled = false;
+    } else {
+        fb.innerHTML = `Kamu membuat ${skor} dari 3 contoh dengan benar.`;
+        fb.style.color = "black";
+        nextBtn.disabled = true;
+    }
+}
+
+function resetLatihan2A1() {
+    ["lat2a", "lat2b", "lat2c"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+
+    ["fb-lat2a", "fb-lat2b", "fb-lat2c", "feedbackLatihan2A1"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = "";
+    });
+
+    const nextBtn = document.getElementById("nextBtn2");
+    if (nextBtn) nextBtn.disabled = true;
+
+    resetStepSetelah(3);
+}
+
+// =========================
+// LATIHAN 3
+// =========================
+
+function cekLatihan3A1() {
+    let skor = 0;
+
+    const a = norm(document.getElementById("lat3a")?.value);
+    const b = norm(document.getElementById("lat3b")?.value);
+    const c = norm(document.getElementById("lat3c")?.value);
+
+    const fba = document.getElementById("fb-lat3a");
+    const fbb = document.getElementById("fb-lat3b");
+    const fbc = document.getElementById("fb-lat3c");
+    const fb = document.getElementById("feedbackLatihan3A1");
+    const nextBtn = document.getElementById("nextBtn3");
 
     if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
 
@@ -451,37 +553,37 @@ function cekLatihan2A1() {
     }
 }
 
-function resetLatihan2A1() {
-    ["lat2a", "lat2b", "lat2c"].forEach((id) => {
+function resetLatihan3A1() {
+    ["lat3a", "lat3b", "lat3c"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });
 
-    ["fb-lat2a", "fb-lat2b", "fb-lat2c", "feedbackLatihan2A1"].forEach((id) => {
+    ["fb-lat3a", "fb-lat3b", "fb-lat3c", "feedbackLatihan3A1"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = "";
     });
 
-    const nextBtn = document.getElementById("nextBtn2");
+    const nextBtn = document.getElementById("nextBtn3");
     if (nextBtn) nextBtn.disabled = true;
 
-    resetStepSetelah(3);
+    resetStepSetelah(4);
 }
 
 // =========================
-// LATIHAN 3
+// LATIHAN 4
 // =========================
-async function cekLatihan3A1() {
+async function cekLatihan4A1() {
     let skor = 0;
 
-    const a = norm(document.getElementById("lat3a")?.value);
-    const b = norm(document.getElementById("lat3b")?.value);
-    const c = norm(document.getElementById("lat3c")?.value);
+    const a = norm(document.getElementById("lat4a")?.value);
+    const b = norm(document.getElementById("lat4b")?.value);
+    const c = norm(document.getElementById("lat4c")?.value);
 
-    const fba = document.getElementById("fb-lat3a");
-    const fbb = document.getElementById("fb-lat3b");
-    const fbc = document.getElementById("fb-lat3c");
-    const fb = document.getElementById("feedbackLatihan3A1");
+    const fba = document.getElementById("fb-lat4a");
+    const fbb = document.getElementById("fb-lat4b");
+    const fbc = document.getElementById("fb-lat4c");
+    const fb = document.getElementById("feedbackLatihan4A1");
 
     if (!fba || !fbb || !fbc || !fb) return;
 
@@ -531,13 +633,13 @@ async function cekLatihan3A1() {
     }
 }
 
-function resetLatihan3A1() {
-    ["lat3a", "lat3b", "lat3c"].forEach((id) => {
+function resetLatihan4A1() {
+    ["lat4a", "lat4b", "lat4c"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });
 
-    ["fb-lat3a", "fb-lat3b", "fb-lat3c", "feedbackLatihan3A1"].forEach((id) => {
+    ["fb-lat4a", "fb-lat4b", "fb-lat4c", "feedbackLatihan4A1"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = "";
     });

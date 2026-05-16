@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bab;
 use App\Models\Materi;
 use App\Models\MaterialProgress;
 use App\Models\QuizAttempt;

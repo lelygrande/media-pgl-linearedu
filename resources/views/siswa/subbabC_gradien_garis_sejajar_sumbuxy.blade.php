@@ -164,9 +164,7 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Siswa dapat menjelaskan hubungan gradien garis</li>
-                <li>Siswa dapat menentukan gradien dari garis-garis yang saling sejajar</li>
-                <li>Siswa dapat menentukan gradien dari garis-garis yang saling tegak lurus</li>
+                <li>Peserta didik dapat memahami hubungan gradien pada garis-garis lurus.</li>
             </ol>
         </div>
     </div>

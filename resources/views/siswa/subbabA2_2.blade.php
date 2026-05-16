@@ -274,23 +274,8 @@
         onload="renderMathInElement(document.body);"></script>
 
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">A. Pengertian Dasar Persamaan Garis Lurus</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa menjelaskan pengertian dan contoh Persamaan Garis Lurus</li>
-                <li>Siswa menggambar grafik Persamaan Garis Lurus</li>
-                <li>Siswa dapat menentukan titik potong terhadap sumbu-x dan sumbu-y</li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Menggambar Grafik Persamaan Garis Lurus</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">2.2 Menggambar Grafik Persamaan Garis Lurus</h2>
 
     <div class="box-info mb-3">
         <h5 class="mb-2" style="font-weight:700;">Menggambar Grafik Persamaan menggunakan Dua Titik</h5>
@@ -866,7 +851,7 @@
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
-    
+
 @endsection
 
 @section('nav')

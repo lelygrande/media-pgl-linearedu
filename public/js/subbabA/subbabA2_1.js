@@ -12,29 +12,30 @@ function renderMathSafe(target) {
     });
 }
 
-function norm(expr) {
-    return String(expr || "")
+function normJawaban(v) {
+    return String(v || "")
+        .trim()
         .toLowerCase()
         .replace(/\s+/g, "")
-        .replace(/−/g, "-")
-        .trim();
+        .replace(/[−–—]/g, "-")
+        .replace(",", ".");
 }
 
-function cekIsian(id, jawabanBenar) {
+function cekIsian(id, jawabanBenar, tipe = "angka") {
     const el = document.getElementById(id);
     if (!el) return false;
 
-    const userValue = norm(el.value);
-    const daftarJawaban = Array.isArray(jawabanBenar)
-        ? jawabanBenar.map(norm)
-        : [norm(jawabanBenar)];
+    const normalizer = tipe === "pasangan" ? normPasangan : normJawaban;
 
-    const benar = daftarJawaban.includes(userValue);
+    const nilai = normalizer(el.value);
+    const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
+
+    const cocok = nilai !== "" && daftar.map(normalizer).includes(nilai);
 
     el.classList.remove("is-valid", "is-invalid");
-    el.classList.add(benar ? "is-valid" : "is-invalid");
+    el.classList.add(cocok ? "is-valid" : "is-invalid");
 
-    return benar;
+    return cocok;
 }
 
 function scrollKeStep(stepId) {
@@ -137,10 +138,10 @@ function cekLatihan1A21() {
         cekIsian("lat1_y3", "-1"),
         cekIsian("lat1_y4", "1"),
 
-        cekIsian("lat1_pair1", ["(-2,-5)", "-2,-5"]),
-        cekIsian("lat1_pair2", ["(0,-3)", "0,-3"]),
-        cekIsian("lat1_pair3", ["(2,-1)", "2,-1"]),
-        cekIsian("lat1_pair4", ["(4,1)", "4,1"]),
+        cekIsian("lat1_pair1", ["-2,-5", "(-2,-5)"]),
+        cekIsian("lat1_pair2", ["0,-3", "(0,-3)"]),
+        cekIsian("lat1_pair3", ["2,-1", "(2,-1)"]),
+        cekIsian("lat1_pair4", ["4,1", "(4,1)"]),
     ];
 
     const nextBtn = document.getElementById("nextBtnLat1");
@@ -178,7 +179,12 @@ function resetLatihan1A21() {
         const el = document.getElementById(id);
         if (el) {
             el.value = "";
-            el.classList.remove("is-valid", "is-invalid");
+            el.classList.remove(
+                "jawaban-benar",
+                "jawaban-salah",
+                "is-valid",
+                "is-invalid",
+            );
         }
     });
 
@@ -201,7 +207,7 @@ function cekTabelA21() {
 
     const kosong = inputIds.some((id) => {
         const el = document.getElementById(id);
-        return !el || el.value.trim() === "";
+        return !el || norm(el.value) === "";
     });
 
     const feedbackTabel = document.getElementById("feedbackTabel");
@@ -209,9 +215,16 @@ function cekTabelA21() {
     const boxKesimpulan = document.getElementById("kesimpulanLat2");
 
     if (kosong) {
+        inputIds.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el && norm(el.value) === "") {
+                el.classList.remove("is-valid", "is-invalid");
+                el.classList.add("is-invalid");
+            }
+        });
+
         if (feedbackTabel) {
-            feedbackTabel.innerHTML =
-                `<span style="color:#b45309;">Isi semua nilai y dulu ya.</span>`;
+            feedbackTabel.innerHTML = `<span style="color:#b45309;">Isi semua nilai y dulu ya.</span>`;
         }
 
         if (grafikSection) grafikSection.style.display = "none";
@@ -245,10 +258,10 @@ function cekTabelA21() {
 
     if (ok) {
         window.tablePairs = [
-            { label: "A", x: -4, y: Number(y1) },
-            { label: "B", x: -2, y: Number(y2) },
-            { label: "C", x: 0, y: Number(y3) },
-            { label: "D", x: 2, y: Number(y4) },
+            { label: "A", x: -4, y: Number(norm(y1)) },
+            { label: "B", x: -2, y: Number(norm(y2)) },
+            { label: "C", x: 0, y: Number(norm(y3)) },
+            { label: "D", x: 2, y: Number(norm(y4)) },
         ];
 
         if (window.loadTargetsFromTable) {
@@ -256,8 +269,7 @@ function cekTabelA21() {
         }
 
         if (feedbackTabel) {
-            feedbackTabel.innerHTML =
-                `<span style="color:#15803d;">Tabel benar! Sekarang seret titik A–D pada grafik.</span>`;
+            feedbackTabel.innerHTML = `<span style="color:#15803d;">Tabel benar! Sekarang seret titik A–D pada grafik.</span>`;
         }
 
         if (grafikSection) {
@@ -274,8 +286,7 @@ function cekTabelA21() {
         }
     } else {
         if (feedbackTabel) {
-            feedbackTabel.innerHTML =
-                `<span style="color:#b91c1c;">Masih ada yang salah. Coba cek lagi pakai y = 2x + 5.</span>`;
+            feedbackTabel.innerHTML = `<span style="color:#b91c1c;">Masih ada yang salah. Coba cek lagi pakai y = 2x + 5.</span>`;
         }
 
         if (grafikSection) grafikSection.style.display = "none";
@@ -339,8 +350,7 @@ async function checkAnswersA21() {
         if (boxKesimpulan) boxKesimpulan.style.display = "block";
         bukaNextButton();
     } else if (feedbackGrafik) {
-        feedbackGrafik.innerHTML =
-            `<span style="color:#b45309;">Grafik sudah dicek, tapi progres belum tersimpan.</span>`;
+        feedbackGrafik.innerHTML = `<span style="color:#b45309;">Grafik sudah dicek, tapi progres belum tersimpan.</span>`;
     }
 }
 

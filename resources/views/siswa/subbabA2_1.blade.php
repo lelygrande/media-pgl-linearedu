@@ -162,14 +162,33 @@
     </style>
 
     <style>
-        .jawaban-latihan.is-valid {
-            border: 2px solid #198754 !important;
-            background-color: #f0fff4 !important;
+        .input-latihan {
+            width: 90px;
+            padding: 6px 10px;
+            border: 1px solid rgba(0, 0, 0, .25);
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: center;
+            background: #fff;
+            outline: none;
+            box-shadow: none;
+            background-image: none;
         }
 
-        .jawaban-latihan.is-invalid {
+        .input-latihan:focus {
+            border-color: #2E75B6;
+        }
+
+        .input-latihan.is-valid {
+            border: 2px solid #198754 !important;
+            background-color: #f0fff4 !important;
+            background-image: none !important;
+        }
+
+        .input-latihan.is-invalid {
             border: 2px solid #dc3545 !important;
             background-color: #fff5f5 !important;
+            background-image: none !important;
         }
     </style>
 
@@ -227,24 +246,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body);"></script>
 
-
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">A. Pengertian Dasar Persamaan Garis Lurus</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa menjelaskan pengertian dan contoh Persamaan Garis Lurus</li>
-                <li>Siswa menggambar grafik Persamaan Garis Lurus</li>
-                <li>Siswa dapat menentukan titik potong terhadap sumbu-x dan sumbu-y</li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Menggambar Grafik Persamaan Garis Lurus</h2>
+
 
     <div class="box-info mb-3">
         <h5 class="mb-2" style="font-weight:700;">2.1 Menggambar Grafik Persamaan menggunakan Beberapa Titik</h5>
@@ -273,60 +277,94 @@
     {{-- Contoh --}}
     <div class="box-contoh mt-4 mb-4">
         <span class="title-box">Contoh</span>
-        <p class="mb-2">
-            Gambarlah grafik persamaan garis lurus:
+
+        <div class="box-info mb-3 text-center">
+            <figure class="figure">
+                <img src="{{ asset('img/contohsubbab2_1.png') }}" alt="ilustrasi sepeda" class="zoomable img-fluid"
+                    style="max-width:520px; cursor:zoom-in;">
+
+                <figcaption class="figure-caption text-center mt-2">
+                    Ilustrasi sepeda dengan jarak dan jam
+                </figcaption>
+            </figure>
+        </div>
+
+        <p class="mb-2" style="line-height:1.7;">
+            Sebuah sepeda sudah menempuh jarak 2 km dari tempat mulai.
+            Setelah itu, sepeda bergerak dengan kecepatan tetap, yaitu 3 km setiap jam.
+            Kita ingin mengetahui jarak sepeda setelah beberapa waktu berikutnya.
+        </p>
+
+        <p class="mb-2" style="line-height:1.7;">
+            Misalkan \(x\) menyatakan lama waktu sepeda bergerak dalam jam,
+            dan \(y\) menyatakan jarak yang ditempuh sepeda dalam km.
+            Jarak awal sepeda adalah 2 km, kemudian bertambah 3 km setiap jam.
+            Jadi, hubungan antara \(x\) dan \(y\) dapat ditulis:
+        </p>
+
+        <p class="text-center mb-2" style="font-weight:700;">
+            \( y = 3x + 2 \)
         </p>
 
         <div class="box-info mb-3" style="background:#fff;">
-
-            <p class="text-center mb-2" style="font-weight:700;">
-                \( y = 2x - 4 \)
+            <p class="mb-2" style="line-height:1.7;">
+                Untuk menggambar grafik persamaan \( y = 3x + 2 \), kita dapat menentukan
+                beberapa titik terlebih dahulu. Misalnya, kita ingin mengetahui jarak sepeda
+                setelah 1 jam, 2 jam, 3 jam, dan 4 jam.
             </p>
 
-            <p class="mb-2">
-                Untuk menggambar grafik persamaan \( y = 2x - 4 \),
-                dipilih beberapa nilai \( x \), misalnya
-                \( x = -2, 0, 2, 4 \),
-                kemudian dihitung nilai \( y \) yang bersesuaian.
+            <p class="mb-2" style="line-height:1.7;">
+                Oleh karena itu, nilai \(x\) yang digunakan adalah \(1, 2, 3,\) dan \(4\).
+                Setiap nilai \(x\) dimasukkan ke dalam persamaan untuk memperoleh nilai \(y\).
+                Hasilnya kemudian dituliskan sebagai pasangan titik \((x,y)\) seperti pada tabel berikut.
             </p>
-
-            <div class="table-responsive" style="width: 500px">
-                <table class="tabel-garis">
+            <div class="table-responsive" style="width: fit-content; max-width: 100%; overflow-x: auto;">
+                <table class="tabel-garis" style="width:auto; min-width:500px;">
                     <thead>
                         <tr>
                             <th>\(x\)</th>
-                            <th>\(y = 2x - 4\)</th>
+                            <th>\(y = 3x + 2\)</th>
                             <th>\((x,y)\)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>\(-2\)</td>
-                            <td>\(y = 2(-2) - 4 = -8\)</td>
-                            <td>\((-2,-8)\)</td>
-                        </tr>
-                        <tr>
-                            <td>\(0\)</td>
-                            <td>\(y = 2(0) - 4 = -4\)</td>
-                            <td>\((0,-4)\)</td>
+                            <td>\(1\)</td>
+                            <td>\(y = 3(1) + 2 = 5\)</td>
+                            <td>\((1,5)\)</td>
                         </tr>
                         <tr>
                             <td>\(2\)</td>
-                            <td>\(y = 2(2) - 4 = 0\)</td>
-                            <td>\((2,0)\)</td>
+                            <td>\(y = 3(2) + 2 = 8\)</td>
+                            <td>\((2,8)\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(3\)</td>
+                            <td>\(y = 3(3) + 2 = 11\)</td>
+                            <td>\((3,11)\)</td>
                         </tr>
                         <tr>
                             <td>\(4\)</td>
-                            <td>\(y = 2(4) - 4 = 4\)</td>
-                            <td>\((4,4)\)</td>
+                            <td>\(y = 3(4) + 2 = 14\)</td>
+                            <td>\((4,14)\)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <p class="mb-2">Penyelesaian:</p>
+
+        <p class="mb-2" style="line-height:1.7;">
+            Berdasarkan tabel di atas, diperoleh pasangan titik \((1,5)\), \((2,8)\), \((3,11)\),
+            dan \((4,14)\). Titik-titik tersebut kemudian digambar pada bidang koordinat.
+        </p>
+
+        <p class="mb-2" style="line-height:1.7;">
+            Jika titik-titik tersebut dihubungkan, akan terbentuk grafik garis lurus seperti berikut.
+        </p>
+
         <div class="box-info mb-3" style="background:#fff;">
-            <p class="mb-2" style="font-weight:600;">Tampilkan titik satu per satu, lalu garisnya.
+            <p class="mb-2" style="font-weight:600;">
+                Tampilkan titik satu per satu, lalu hubungkan titik-titik tersebut menjadi garis.
             </p>
 
             <div id="canvas-contoh-21" class="mb-2"></div>
@@ -366,64 +404,70 @@
                         <th>$y = x - 3$</th>
                         <th>$(x,y)$</th>
                     </tr>
+
                     <tr>
                         <td>$-2$</td>
                         <td>
                             <input type="text" id="lat1_y1"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td>
                             <input type="text" id="lat1_pair1"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:90px;">
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
+                                style="width:110px;">
                         </td>
                     </tr>
+
                     <tr>
                         <td>$0$</td>
                         <td>
                             <input type="text" id="lat1_y2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td>
                             <input type="text" id="lat1_pair2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:90px;">
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
+                                style="width:110px;">
                         </td>
                     </tr>
+
                     <tr>
                         <td>$2$</td>
                         <td>
                             <input type="text" id="lat1_y3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td>
                             <input type="text" id="lat1_pair3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:90px;">
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
+                                style="width:110px;">
                         </td>
                     </tr>
+
                     <tr>
                         <td>$4$</td>
                         <td>
                             <input type="text" id="lat1_y4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td>
                             <input type="text" id="lat1_pair4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                                style="width:90px;">
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
+                                style="width:110px;">
                         </td>
                     </tr>
                 </table>
 
                 <div class="mt-3 d-flex justify-content-between">
                     <div>
-                        <button class="btn btn-palet btn-sm" onclick="cekLatihan1A21()">Cek Jawaban</button>
-                        <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan1A21()">Reset</button>
+                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1A21()">Cek
+                            Jawaban</button>
+                        <button type="button" class="btn btn-palet btn-sm ms-2"
+                            onclick="resetLatihan1A21()">Reset</button>
                     </div>
 
                     <button id="nextBtnLat1" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
@@ -462,38 +506,42 @@
                         <th>$y = 2x + 5$</th>
                         <th>$(x,y)$</th>
                     </tr>
+
                     <tr>
                         <td>$-4$</td>
                         <td>
                             <input type="text" id="y1"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td id="pair1">$(-4, \dots)$</td>
                     </tr>
+
                     <tr>
                         <td>$-2$</td>
                         <td>
                             <input type="text" id="y2"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td id="pair2">$(-2, \dots)$</td>
                     </tr>
+
                     <tr>
                         <td>$0$</td>
                         <td>
                             <input type="text" id="y3"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td id="pair3">$(0, \dots)$</td>
                     </tr>
+
                     <tr>
                         <td>$2$</td>
                         <td>
                             <input type="text" id="y4"
-                                class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
                         <td id="pair4">$(2, \dots)$</td>
@@ -549,8 +597,6 @@
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="{{ asset('js/subbabA/latsol21.js') }}"></script>
     <script src="{{ asset('js/subbabA/subbabA2_1.js') }}"></script>
 @endsection

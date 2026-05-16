@@ -88,11 +88,11 @@ class ProgressBelajarController extends Controller
 
         $latestQuizAttempts = QuizAttempt::where('student_id', $studentId)
             ->whereIn('quiz_id', [1, 2, 3, 4, 5])
+            ->orderByDesc('score')
             ->orderByDesc('submitted_at')
             ->get()
             ->groupBy('quiz_id')
             ->map(fn ($attempts) => $attempts->first());
-
         $completedMateriCount = $progressBySlug
             ->filter(fn ($progress) => $progress->is_completed)
             ->count();

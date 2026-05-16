@@ -7,6 +7,7 @@
             border-radius: 12px;
             padding: 14px 16px;
             border: 1px solid rgba(0, 0, 0, .05);
+            line-height: 1.7;
         }
 
         .btn-palet {
@@ -23,11 +24,353 @@
             background-color: var(--primary-dark);
             color: white;
         }
+
+        /* ===== Responsive Apersepsi ===== */
+        .apersepsi-container {
+            max-width: 100%;
+        }
+
+        .apersepsi-card {
+            border-radius: 14px;
+        }
+
+        .apersepsi-section {
+            border: 2px solid #4a76b8;
+            border-radius: 10px;
+            background-color: white;
+            padding: 24px;
+        }
+
+        .section-label {
+            top: -18px;
+            left: 20px;
+            background-color: #4a76b8;
+            border-radius: 8px;
+            max-width: calc(100% - 40px);
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        /* ===== Gambar Apersepsi ===== */
+        .materi-img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+            cursor: zoom-in;
+        }
+
+        .gambar-wrapper {
+            width: 100%;
+            max-width: 680px;
+            max-height: 340px;
+            overflow: hidden;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+        }
+
+        .gambar-wrapper img {
+            width: 100%;
+            max-height: 340px;
+            object-fit: contain;
+        }
+
+        .img-koordinat {
+            max-width: 680px;
+        }
+
+        .img-titik-asal {
+            max-width: 260px;
+            width: 100%;
+        }
+
+        /* ===== GeoGebra dan Canvas ===== */
+        .ggb-responsive,
+        .canvas-responsive {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 12px;
+            background: #fff;
+            padding: 8px;
+        }
+
+        #ggb-element,
+        #canvas-container,
+        #canvas-latihan-buat {
+            width: 100%;
+            min-height: 320px;
+        }
+
+        #canvas-container canvas,
+        #canvas-latihan-buat canvas {
+            max-width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ===== Input Koordinat ===== */
+        .input-koordinat {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .input-koordinat label {
+            font-weight: 600;
+        }
+
+        .input-koordinat .form-control {
+            max-width: 120px;
+            margin-top: 4px;
+        }
+
+        .radio-option {
+            display: block;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .aksi-latihan {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Tabel Posisi Titik ===== */
+        .table-responsive {
+            width: fit-content;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+        }
+
+        .tabel-posisi {
+            width: auto !important;
+            min-width: 0 !important;
+            max-width: none !important;
+            margin-bottom: 0;
+            table-layout: fixed;
+        }
+
+        .tabel-posisi th,
+        .tabel-posisi td {
+            vertical-align: middle;
+            padding: 12px 14px;
+        }
+
+        .tabel-posisi th:nth-child(1),
+        .tabel-posisi td:nth-child(1),
+        .tabel-posisi th:nth-child(2),
+        .tabel-posisi td:nth-child(2) {
+            width: 85px;
+            min-width: 85px;
+        }
+
+        .tabel-posisi th:nth-child(3),
+        .tabel-posisi td:nth-child(3) {
+            width: 220px;
+            min-width: 220px;
+        }
+
+        .input-posisi {
+            width: 140px !important;
+            max-width: 140px;
+            margin: 0 auto;
+        }
+
+        .medium-zoom-overlay {
+            z-index: 9998 !important;
+        }
+
+        .medium-zoom-image--opened {
+            z-index: 9999 !important;
+        }
+
+        @media (max-width: 768px) {
+            .container.apersepsi-container {
+                padding-left: 12px;
+                padding-right: 12px;
+                margin-top: 16px !important;
+            }
+
+            .card-body {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 1.55rem;
+                line-height: 1.35;
+            }
+
+            h5 {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+
+            p,
+            li,
+            table,
+            input,
+            button {
+                font-size: 0.95rem;
+            }
+
+            .apersepsi-section {
+                padding: 22px 14px 16px;
+            }
+
+            .section-label {
+                left: 14px;
+                padding: 6px 10px !important;
+                font-size: 0.9rem;
+            }
+
+            .box-pengantar {
+                padding: 12px;
+            }
+
+            .gambar-wrapper {
+                max-width: 100%;
+                max-height: 300px;
+            }
+
+            .gambar-wrapper img {
+                max-height: 300px;
+            }
+
+            .img-titik-asal {
+                max-width: 220px;
+            }
+
+            .ggb-responsive,
+            .canvas-responsive {
+                padding: 6px;
+            }
+
+            #ggb-element,
+            #canvas-container,
+            #canvas-latihan-buat {
+                min-height: 280px;
+            }
+
+            .input-koordinat {
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .input-koordinat label {
+                width: 100%;
+            }
+
+            .input-koordinat .form-control {
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+            .btn-palet,
+            .aksi-latihan .btn {
+                width: 100%;
+                white-space: normal;
+            }
+
+            .table-responsive {
+                width: 100%;
+            }
+
+            .tabel-posisi {
+                min-width: 390px !important;
+            }
+
+            .tabel-posisi th:nth-child(1),
+            .tabel-posisi td:nth-child(1),
+            .tabel-posisi th:nth-child(2),
+            .tabel-posisi td:nth-child(2) {
+                width: 70px;
+                min-width: 70px;
+            }
+
+            .tabel-posisi th:nth-child(3),
+            .tabel-posisi td:nth-child(3) {
+                width: 180px;
+                min-width: 180px;
+            }
+
+            .input-posisi {
+                width: 120px !important;
+                max-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.35rem;
+            }
+
+            .card-body {
+                padding: 14px;
+            }
+
+            .apersepsi-section {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .gambar-wrapper {
+                max-height: 240px;
+            }
+
+            .gambar-wrapper img {
+                max-height: 240px;
+            }
+
+            .img-titik-asal {
+                max-width: 200px;
+            }
+
+            #ggb-element,
+            #canvas-container,
+            #canvas-latihan-buat {
+                min-height: 240px;
+            }
+
+            .tabel-posisi {
+                min-width: 360px !important;
+            }
+
+            .tabel-posisi th:nth-child(1),
+            .tabel-posisi td:nth-child(1),
+            .tabel-posisi th:nth-child(2),
+            .tabel-posisi td:nth-child(2) {
+                width: 60px;
+                min-width: 60px;
+            }
+
+            .tabel-posisi th:nth-child(3),
+            .tabel-posisi td:nth-child(3) {
+                width: 170px;
+                min-width: 170px;
+            }
+
+            .input-posisi {
+                width: 110px !important;
+                max-width: 110px;
+            }
+        }
     </style>
 
-    <div class="container mt-4">
+    <div class="container mt-4 apersepsi-container">
 
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4 apersepsi-card">
             <div class="card-body">
 
                 <h1 class="mb-3" style="font-weight: 600;">Apersepsi</h1>
@@ -40,9 +383,9 @@
                     yang disebut <strong>sistem koordinat Kartesius</strong>.
                 </p>
 
-                <div class="text-center my-4">
-                    <img src="{{ asset('img/koordinatkartesius.jpg') }}" alt="Bidang Koordinat Kartesius" class="img-fluid"
-                        style="max-width: 400px;">
+                <div class="text-center my-4 gambar-wrapper">
+                    <img src="{{ asset('img/koordinatkartesius.jpg') }}" alt="Bidang Koordinat Kartesius"
+                        class="materi-img zoomable img-koordinat">
                 </div>
 
                 <p style="text-align: justify;">
@@ -53,8 +396,8 @@
                 </p>
 
                 <div class="text-center my-4">
-                    <img src="{{ asset('img/titikpotong00.png') }}" alt="Titik Asal (0,0)" class="img-fluid"
-                        style="max-width: 250px;">
+                    <img src="{{ asset('img/titikpotong00.png') }}" alt="Titik Asal (0,0)"
+                        class="materi-img zoomable img-titik-asal" style="width: 300px">
                 </div>
 
                 <p style="text-align: justify;">
@@ -71,15 +414,14 @@
             </div>
         </div>
 
-        <div class="position-relative p-4" style="border:2px solid #4a76b8; border-radius:6px; background-color:white;">
+        {{-- Eksplorasi Titik --}}
+        <div class="position-relative apersepsi-section">
 
-            <!-- Label -->
-            <div class="position-absolute px-3 py-2 text-white fw-bold"
-                style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
+            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
                 Eksplorasi Titik
             </div>
 
-            <div class="box-pengantar mt-3 mb-3" style="border-radius:10px;">
+            <div class="box-pengantar mt-3 mb-3">
                 Pada aktivitas ini kamu akan mengeksplorasi bagaimana posisi sebuah titik
                 ditentukan oleh dua bilangan, yaitu $x$ dan $y$.
 
@@ -96,8 +438,9 @@
                 Amati perubahan nilai koordinat yang ditampilkan pada titik tersebut.
             </div>
 
-            <!-- GeoGebra Container -->
-            <div id="ggb-element" class="mt-4"></div>
+            <div class="ggb-responsive mt-4">
+                <div id="ggb-element"></div>
+            </div>
 
             <div class="mt-4">
 
@@ -106,44 +449,56 @@
                     jawablah pertanyaan berikut berdasarkan hasil eksplorasimu.
                 </p>
 
-                <!-- Pertanyaan 1 -->
                 <div class="mb-3">
                     <p>1. Apa yang terjadi pada nilai x ketika titik digeser ke arah kanan?</p>
 
-                    <input type="radio" name="q1" value="a"> a. Nilai x berkurang<br>
-                    <input type="radio" name="q1" value="b"> b. Nilai x tetap<br>
-                    <input type="radio" name="q1" value="c"> c. Nilai x bertambah<br>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="a"> a. Nilai x berkurang
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="b"> b. Nilai x tetap
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="c"> c. Nilai x bertambah
+                    </label>
 
                     <div id="result1" class="mt-1"></div>
                 </div>
 
-
-                <!-- Pertanyaan 2 -->
                 <div class="mb-3">
                     <p>2. Apa yang terjadi pada nilai y ketika titik digeser ke arah atas?</p>
 
-                    <input type="radio" name="q2" value="a"> a. Nilai y tetap<br>
-                    <input type="radio" name="q2" value="b"> b. Nilai y bertambah<br>
-                    <input type="radio" name="q2" value="c"> c. Nilai y berkurang<br>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="a"> a. Nilai y tetap
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="b"> b. Nilai y bertambah
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="c"> c. Nilai y berkurang
+                    </label>
 
                     <div id="result2" class="mt-1"></div>
                 </div>
 
-
-                <!-- Pertanyaan 3 -->
                 <div class="mb-3">
                     <p>3. Apa yang terjadi jika titik digeser ke kiri dan ke bawah?</p>
 
-                    <input type="radio" name="q3" value="a"> a. Nilai x dan y berkurang<br>
-                    <input type="radio" name="q3" value="b"> b. Nilai x bertambah dan y berkurang<br>
-                    <input type="radio" name="q3" value="c"> c. Nilai x dan y bertambah<br>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="a"> a. Nilai x dan y berkurang
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="b"> b. Nilai x bertambah dan y berkurang
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="c"> c. Nilai x dan y bertambah
+                    </label>
 
                     <div id="result3" class="mt-1"></div>
                 </div>
 
                 <button class="btn-palet btn mt-2" onclick="cekJawaban()">Cek Jawaban</button>
 
-                <!-- Kesimpulan -->
                 <div id="kesimpulanBox" class="mt-4 p-3 border border-success rounded bg-light" style="display:none;">
                     <strong>Kesimpulan:</strong><br>
                     Pada bidang koordinat Kartesius, posisi suatu titik ditentukan oleh pasangan
@@ -159,15 +514,180 @@
                 </div>
             </div>
         </div>
+
+        {{-- Eksplorasi Titik pada Bidang Koordinat --}}
+        <div class="position-relative apersepsi-section mt-5">
+
+            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
+                Eksplorasi Titik pada Bidang Koordinat
+            </div>
+
+            <p class="mt-3">
+                Setelah memahami bahwa posisi titik dinyatakan dengan pasangan berurutan (x,y),
+                sekarang kamu akan mencoba menentukan posisi titik berdasarkan nilai x dan y
+                yang diberikan.
+            </p>
+
+            <div class="box-pengantar mt-3 mb-3">
+                Pada aktivitas ini kamu akan mencoba menentukan posisi titik berdasarkan nilai
+                <b>x</b> dan <b>y</b>.
+
+                <br><br>
+
+                <b>Petunjuk:</b>
+                <ul class="mb-0 mt-2">
+                    <li>Ubah nilai X dan Y pada kotak input.</li>
+                    <li>Perhatikan bagaimana posisi titik berpindah pada bidang koordinat.</li>
+                    <li>Tentukan pasangan berurutan yang sesuai pada tabel.</li>
+                </ul>
+            </div>
+
+            <div class="mb-3 input-koordinat">
+                <label>
+                    X:
+                    <input type="number" id="inputX" value="0" class="form-control">
+                </label>
+
+                <label>
+                    Y:
+                    <input type="number" id="inputY" value="0" class="form-control">
+                </label>
+            </div>
+
+            <div class="canvas-responsive mt-3">
+                <div id="canvas-container"></div>
+            </div>
+
+            <h5 class="mt-4"><strong>Lengkapilah Posisi Titik Berikut</strong></h5>
+
+            <div class="table-responsive" style="width: fit-content; max-width: 100%; overflow-x: auto;">
+                <table class="table table-bordered text-center" style="width: auto; table-layout: fixed; margin-bottom: 0;">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 80px;">x</th>
+                            <th style="width: 80px;">y</th>
+                            <th style="width: 220px;">Posisi Titik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;">3</td>
+                            <td style="vertical-align: middle;">2</td>
+                            <td style="vertical-align: middle;">
+                                <input type="text" id="p1" class="form-control text-center"
+                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">-2</td>
+                            <td style="vertical-align: middle;">4</td>
+                            <td style="vertical-align: middle;">
+                                <input type="text" id="p2" class="form-control text-center"
+                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">-3</td>
+                            <td style="vertical-align: middle;">-1</td>
+                            <td style="vertical-align: middle;">
+                                <input type="text" id="p3" class="form-control text-center"
+                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <button class="btn-palet btn" onclick="cekTitik()">Cek Jawaban</button>
+
+            <div id="hasilTitik" class="mt-3"></div>
+        </div>
+
+        {{-- Latihan Membuat Titik --}}
+        <div class="position-relative apersepsi-section mt-5">
+
+            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
+                Latihan Membuat Titik
+            </div>
+
+            <p class="mt-3">
+                Sekarang kamu sudah dapat membaca posisi titik pada bidang koordinat.
+                Selanjutnya, cobalah menempatkan titik secara mandiri berdasarkan pasangan
+                bilangan yang diberikan.
+            </p>
+
+            <div class="box-pengantar mt-3 mb-3">
+                Pada latihan ini kamu akan menempatkan titik pada bidang koordinat
+                dengan cara <b>mengklik</b> lokasi yang sesuai.
+
+                <br><br>
+
+                Ingat bahwa suatu titik dinyatakan dengan pasangan berurutan
+                <b>(x,y)</b>.
+
+                <br><br>
+
+                <b>Tugasmu:</b>
+                <ul class="mb-0 mt-2">
+                    <li>Klik posisi yang sesuai untuk titik B, C, dan D.</li>
+                    <li>Perhatikan arah mendatar (x) dan arah tegak (y).</li>
+                    <li>Jika terjadi kesalahan, gunakan tombol <b>Reset</b>.</li>
+                </ul>
+            </div>
+
+            <ul>
+                <li>$B (2,3)$</li>
+                <li>$C (-7,3)$</li>
+                <li>$D (5,-4)$</li>
+            </ul>
+
+            <div class="canvas-responsive">
+                <div id="canvas-latihan-buat"></div>
+            </div>
+
+            <div class="aksi-latihan mt-3">
+                <button class="btn-palet btn btn-sm" onclick="cekTitikBuat()">Cek Jawaban</button>
+                <button class="btn-palet btn btn-sm" onclick="resetTitik()">Reset</button>
+            </div>
+
+            <div id="hasilLatihanBuat" class="mt-3"></div>
+        </div>
     </div>
 
+    {{-- GeoGebra --}}
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
     <script>
+        function getGgbSize() {
+            const container = document.querySelector('.ggb-responsive');
+            const width = container ? container.clientWidth - 16 : 700;
+
+            if (window.innerWidth <= 480) {
+                return {
+                    width: Math.max(300, width),
+                    height: 300
+                };
+            }
+
+            if (window.innerWidth <= 768) {
+                return {
+                    width: Math.max(340, width),
+                    height: 360
+                };
+            }
+
+            return {
+                width: Math.min(700, width),
+                height: 500
+            };
+        }
+
+        const ggbSize = getGgbSize();
+
         var params = {
             "appName": "graphing",
-            "width": 700,
-            "height": 500,
+            "width": ggbSize.width,
+            "height": ggbSize.height,
             "showToolBar": false,
             "showAlgebraInput": false,
             "showMenuBar": false,
@@ -190,9 +710,9 @@
         });
     </script>
 
+    {{-- Cek Jawaban Eksplorasi GeoGebra --}}
     <script>
         function cekJawaban() {
-
             const kunci = {
                 q1: "c",
                 q2: "b",
@@ -224,132 +744,18 @@
         }
     </script>
 
-    <div class="position-relative p-4 mt-5" style="border:2px solid #4a76b8; border-radius:6px; background-color:white;">
-
-        <!-- Label -->
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
-            Eksplorasi Titik pada Bidang Koordinat
-        </div>
-
-        <p>
-            Setelah memahami bahwa posisi titik dinyatakan dengan pasangan berurutan (x,y),
-            sekarang kamu akan mencoba menentukan posisi titik berdasarkan nilai x dan y
-            yang diberikan.
-        </p>
-
-        <div class="box-pengantar mt-3 mb-3" style="border-radius:10px;">
-            Pada aktivitas ini kamu akan mencoba menentukan posisi titik berdasarkan nilai
-            <b>x</b> dan <b>y</b>.
-
-            <br><br>
-
-            <b>Petunjuk:</b>
-            <ul class="mb-0 mt-2">
-                <li>Ubah nilai X dan Y pada kotak input.</li>
-                <li>Perhatikan bagaimana posisi titik berpindah pada bidang koordinat.</li>
-                <li>Tentukan pasangan berurutan yang sesuai pada tabel.</li>
-            </ul>
-        </div>
-
-        <div class="mb-3">
-            X: <input type="number" id="inputX" value="0" class="form-control d-inline-block w-auto">
-            Y: <input type="number" id="inputY" value="0" class="form-control d-inline-block w-auto">
-        </div>
-
-        <div id="canvas-container" class="mt-3"></div>
-
-        <h5 class="mt-4"><strong>Lengkapilah Posisi Titik Berikut</strong></h5>
-
-        <table class="table table-bordered text-center">
-            <thead class="table-light">
-                <tr>
-                    <th>x</th>
-                    <th>y</th>
-                    <th>Posisi Titik</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>3</td>
-                    <td>2</td>
-                    <td><input type="text" id="p1" class="form-control text-center" placeholder="(x,y)"></td>
-                </tr>
-                <tr>
-                    <td>-2</td>
-                    <td>4</td>
-                    <td><input type="text" id="p2" class="form-control text-center" placeholder="(x,y)"></td>
-                </tr>
-                <tr>
-                    <td>-3</td>
-                    <td>-1</td>
-                    <td><input type="text" id="p3" class="form-control text-center" placeholder="(x,y)"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <button class="btn-palet btn" onclick="cekTitik()">Cek Jawaban</button>
-
-        <div id="hasilTitik" class="mt-3"></div>
-
-    </div>
-
-    <div class="position-relative p-4 mt-5" style="border:2px solid #4a76b8; border-radius:6px; background-color:white;">
-
-        <div class="position-absolute px-3 py-2 text-white fw-bold"
-            style="top:-18px; left:20px; background-color:#4a76b8; border-radius:8px;">
-            Latihan Membuat Titik
-        </div>
-
-        <p>
-            Sekarang kamu sudah dapat membaca posisi titik pada bidang koordinat.
-            Selanjutnya, cobalah menempatkan titik secara mandiri berdasarkan pasangan
-            bilangan yang diberikan.
-        </p>
-
-        <div class="box-pengantar mt-3 mb-3" style="border-radius:10px;">
-            Pada latihan ini kamu akan menempatkan titik pada bidang koordinat
-            dengan cara <b>mengklik</b> lokasi yang sesuai.
-
-            <br><br>
-
-            Ingat bahwa suatu titik dinyatakan dengan pasangan berurutan
-            <b>(x,y)</b>.
-
-            <br><br>
-
-            <b>Tugasmu:</b>
-            <ul class="mb-0 mt-2">
-                <li>Klik posisi yang sesuai untuk titik B, C, dan D.</li>
-                <li>Perhatikan arah mendatar (x) dan arah tegak (y).</li>
-                <li>Jika terjadi kesalahan, gunakan tombol <b>Reset</b>.</li>
-            </ul>
-        </div>
-
-        <ul>
-            <li>$B (2,3)$</li>
-            <li>$C (-7,3)$</li>
-            <li>$D (5,-4)$</li>
-        </ul>
-
-        <div id="canvas-latihan-buat"></div>
-
-        <button class="btn-palet btn btn-sm mt-3" onclick="cekTitikBuat()">Cek Jawaban</button>
-        <button class="btn-palet btn btn-sm mt-3" onclick="resetTitik()">Reset</button>
-        <div id="hasilLatihanBuat" class="mt-3"></div>
-    </div>
-
+    {{-- p5 --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <script src="{{ asset('js/subbabA/latihan_membuat_titik.js') }}"></script>
     <script src="{{ asset('js/subbabA/eksplorasititik1.js') }}"></script>
 
+    {{-- Cek Jawaban Posisi Titik --}}
     <script>
         function normalisasi(input) {
-            return input.replace(/\s/g, "").toLowerCase();
+            return input.replace(/\s/g, "").replace(/[()]/g, "").toLowerCase();
         }
 
         function cekTitik() {
-
             const kunci = {
                 p1: "3,2",
                 p2: "-2,4",
@@ -359,7 +765,6 @@
             let benarSemua = true;
 
             for (let key in kunci) {
-
                 let jawaban = normalisasi(document.getElementById(key).value);
 
                 if (jawaban === normalisasi(kunci[key])) {
@@ -377,12 +782,24 @@
                     "<div class='alert alert-success'>Semua jawaban benar</div>";
             } else {
                 document.getElementById("hasilTitik").innerHTML =
-                    "<div class='alert alert-danger'>Masih ada jawaban yang salah </div>";
+                    "<div class='alert alert-danger'>Masih ada jawaban yang salah</div>";
             }
         }
     </script>
-@endsection
 
+    {{-- Zoom Gambar --}}
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            mediumZoom('.zoomable', {
+                margin: 24,
+                background: 'rgba(0, 0, 0, 0.75)',
+                scrollOffset: 40
+            });
+        });
+    </script>
+@endsection
 
 @section('nav')
     <a href="{{ route('peta-konsep') }}" class="btn btn-prev px-4 rounded-pill">

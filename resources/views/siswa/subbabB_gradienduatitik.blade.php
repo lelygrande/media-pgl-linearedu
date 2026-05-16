@@ -177,19 +177,6 @@
         }
     </style>
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">B. Gradien (Kemiringan Garis)</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan Kemiringan Garis Lurus</li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">3. Gradien garis yang melewati dua titik</h2>
 

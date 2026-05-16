@@ -218,7 +218,7 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Siswa dapat menentukan Kemiringan Garis Lurus</li>
+                <li>Peserta didik dapat memahami konsep gradien dan menentukan gradien garis.</li>
             </ol>
         </div>
     </div>
@@ -305,8 +305,6 @@
         <button class="btn btn-palet mt-2" onclick="cekJawabanPapan()">Cek Jawaban</button>
         <div id="feedbackPapan" class="mt-2"></div>
     </div>
-
-    {{-- <div id="lanjutanGradien" style="display:none;"> --}}
 
     <div class="card card-materi mt-3 mb-3">
         <div class="card-body">
@@ -650,7 +648,7 @@
 
     {{-- Script complete --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <script>
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
