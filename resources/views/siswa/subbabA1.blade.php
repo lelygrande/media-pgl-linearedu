@@ -372,7 +372,7 @@
                 text-align: center !important;
             }
 
-            .btn,
+
             .btn-palet,
             .btn-arrow {
                 width: 100%;
@@ -604,7 +604,7 @@
 
                 <div class="text-center mb-2">
                     <img src="{{ asset('img/eksplisit.png') }}" alt="Bentuk eksplisit persamaan garis lurus"
-                        class="img-fluid" style="max-width: 500px;">
+                        class="img-fluid">
                 </div>
 
                 <p class="mb-1" style="text-align: justify;">
@@ -676,11 +676,11 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-sm mt-3" onclick="cekJawabanABC()">
+                    <button type="button" class="btn btn-palet btn-sm mt-3" onclick="cekJawabanABC()">
                         Lihat Penyelesaian
                     </button>
 
-                    <button type="button" class="btn btn-outline-secondary btn-sm mt-3" onclick="resetKotakABC()">
+                    <button type="button" class="btn btn-palet btn-sm mt-3" onclick="resetKotakABC()">
                         Reset
                     </button>
 
@@ -995,6 +995,7 @@
             <!-- ===================== -->
             <div class="latihan-step" id="latihanStep2" style="display:none;">
                 <hr class="my-4">
+
                 <p>
                     <b>2.</b> Buatlah <b>3 contoh persamaan garis lurus</b> sendiri.
                 </p>
@@ -1005,79 +1006,104 @@
 
                 <div class="mb-3">
                     <p><b>a.</b> Contoh persamaan garis lurus pertama</p>
+
                     <input type="text" id="lat2a"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:180px;">
+
                     <div id="fb-lat2a" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>b.</b> Contoh persamaan garis lurus kedua</p>
+
                     <input type="text" id="lat2b"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:180px;">
+
                     <div id="fb-lat2b" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>c.</b> Contoh persamaan garis lurus ketiga</p>
+
                     <input type="text" id="lat2c"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:180px;">
+
                     <div id="fb-lat2c" class="mt-1"></div>
                 </div>
 
                 <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">Cek Jawaban</button>
-                    <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan2A1()">Reset</button>
+                    <button class="btn btn-palet btn-sm" onclick="cekLatihan2A1()">
+                        Cek Jawaban
+                    </button>
+
+                    <button class="btn btn-palet btn-sm" onclick="resetLatihan2A1()">
+                        Reset
+                    </button>
                 </div>
 
                 <div id="feedbackLatihan2A1" class="mt-2"></div>
 
-                <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
-                        Kembali ke Latihan 1
-                    </button>
-
+                <div class="mt-3 text-end">
                     <button id="nextBtn2" class="btn btn-palet btn-sm" onclick="nextLatihan(3)" disabled>
                         Lanjut ke Latihan 3
                     </button>
                 </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
+                        Kembali ke Latihan 1
+                    </button>
+                </div>
             </div>
+
 
             <!-- ===================== -->
             <!-- LATIHAN 3 -->
             <!-- ===================== -->
             <div class="latihan-step" id="latihanStep3" style="display:none;">
                 <hr class="my-4">
+
                 <p>
-                    <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$Ax + By + C = 0$</b>.
+                    <b>3.</b> Nyatakan persamaan garis berikut ke dalam bentuk
+                    <b>$Ax + By + C = 0$</b>.
                 </p>
 
                 <div class="mb-3">
                     <p><b>a.</b> $y = 2x - 5$</p>
+
                     <input type="text" id="lat3a"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:100px;">
+
                     <span>$= 0$</span>
+
                     <div id="fb-lat3a" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>b.</b> $y = -3x + 4$</p>
+
                     <input type="text" id="lat3b"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:100px;">
+
                     <span>$= 0$</span>
+
                     <div id="fb-lat3b" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>c.</b> $2y = x + 6$</p>
+
                     <input type="text" id="lat3c"
                         class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                         style="width:100px;">
+
                     <span>$= 0$</span>
+
                     <div id="fb-lat3c" class="mt-1"></div>
                 </div>
 
@@ -1085,21 +1111,25 @@
                     <button class="btn btn-palet btn-sm" onclick="cekLatihan3A1()">
                         Cek Jawaban
                     </button>
-                    <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan3A1()">
+
+                    <button class="btn btn-palet btn-sm" onclick="resetLatihan3A1()">
                         Reset
                     </button>
                 </div>
 
-                <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
-                        Kembali ke Latihan 2
-                    </button>
+                <div id="feedbackLatihan3A1" class="mt-2"></div>
 
+                <div class="mt-3 text-end">
                     <button id="nextBtn3" class="btn btn-palet btn-sm" onclick="nextLatihan(4)" disabled>
                         Lanjut ke Latihan 4
                     </button>
                 </div>
-                <div id="feedbackLatihan3A1" class="mt-2"></div>
+
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(2)">
+                        Kembali ke Latihan 2
+                    </button>
+                </div>
             </div>
 
             <!-- ===================== -->
@@ -1107,53 +1137,65 @@
             <!-- ===================== -->
             <div class="latihan-step" id="latihanStep4" style="display:none;">
                 <hr class="my-4">
+
                 <p>
-                    <b>4.</b> Nyatakan persamaan garis berikut ke dalam bentuk <b>$y = mx + c$</b>.
+                    <b>4.</b> Nyatakan persamaan garis berikut ke dalam bentuk
+                    <b>$y = mx + c$</b>.
                 </p>
 
                 <div class="mb-3">
                     <p><b>a.</b> $3x + y - 7 = 0$</p>
+
                     <p>
                         <span>$y =$</span>
+
                         <input type="text" id="lat4a"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
+
                     <div id="fb-lat4a" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>b.</b> $2x - 4y + 8 = 0$</p>
+
                     <p>
                         <span>$y =$</span>
+
                         <input type="text" id="lat4b"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
+
                     <div id="fb-lat4b" class="mt-1"></div>
                 </div>
 
                 <div class="mb-3">
                     <p><b>c.</b> $5x + 2y - 6 = 0$</p>
+
                     <p>
                         <span>$y =$</span>
+
                         <input type="text" id="lat4c"
                             class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
                             style="width:100px;">
                     </p>
+
                     <div id="fb-lat4c" class="mt-1"></div>
                 </div>
 
-                <div class="mt-3 d-flex gap-2">
-                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(3)">
-                        Kembali ke Latihan 3
-                    </button>
+                <div class="mt-3">
                     <button class="btn btn-palet btn-sm" onclick="cekLatihan4A1()">
                         Cek Jawaban
                     </button>
                 </div>
 
-                <div id="feedbackLatihan4A1" class="mt-2"></div>
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="prevLatihan(3)">
+                        Kembali ke Latihan 3
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -331,26 +331,31 @@ function resetLatihan2A21() {
 }
 
 async function checkAnswersA21() {
+    let benar = false;
+
     if (typeof window.checkAnswers === "function") {
-        window.checkAnswers();
+        benar = await window.checkAnswers();
     }
+
+    if (!benar) return;
 
     const boxKesimpulan = document.getElementById("kesimpulanLat2");
     const feedbackGrafik = document.getElementById("feedbackGrafik");
 
-    /*
-        Catatan:
-        Kalau fungsi checkAnswers grafik kamu sudah punya logika benar/salah sendiri,
-        bagian ini bisa kamu sesuaikan dengan variabel status dari grafik.
-    */
-
     const saved = await saveProgressMateri();
 
     if (saved) {
-        if (boxKesimpulan) boxKesimpulan.style.display = "block";
+        if (boxKesimpulan) {
+            boxKesimpulan.style.display = "block";
+        }
+
         bukaNextButton();
     } else if (feedbackGrafik) {
-        feedbackGrafik.innerHTML = `<span style="color:#b45309;">Grafik sudah dicek, tapi progres belum tersimpan.</span>`;
+        feedbackGrafik.innerHTML = `
+            <span style="color:#b45309;">
+                Grafik sudah dicek, tapi progres belum tersimpan.
+            </span>
+        `;
     }
 }
 

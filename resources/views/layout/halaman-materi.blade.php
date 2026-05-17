@@ -307,6 +307,40 @@
             margin-bottom: 12px;
             border: 1px solid #dbe5f1;
         }
+
+        /* Zoom Gambar */
+        .zoomable {
+            cursor: zoom-in;
+            transition: opacity .2s ease;
+        }
+
+        .zoomable:hover {
+            opacity: .9;
+        }
+
+        /* medium zoom */
+        .medium-zoom-image {
+            border-radius: 12px;
+        }
+
+        .medium-zoom-image--opened {
+            object-fit: contain !important;
+            max-width: 90vw !important;
+            max-height: 90vh !important;
+        }
+
+        @media (max-width: 576px) {
+
+            .content-wrapper {
+                max-height: none !important;
+                height: auto !important;
+                overflow-y: visible !important;
+            }
+
+            body {
+                overflow-y: auto !important;
+            }
+        }
     </style>
 
     {{-- CSS Input Matematika --}}

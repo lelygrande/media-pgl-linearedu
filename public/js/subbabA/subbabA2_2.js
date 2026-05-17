@@ -12,129 +12,70 @@ function ggbOnLoad_22(api) {
     // garis 2x + y = 6
     api.evalCommand("g: 2x + y = 6");
 
-    // titik potong dengan sumbu (pakai persamaan sumbu)
+    // titik potong
     api.evalCommand("A = Intersect(g, y=0)");
     api.evalCommand("B = Intersect(g, x=0)");
 
     api.setLabelVisible("A", true);
     api.setLabelVisible("B", true);
+
     api.setCaption("A", "Titik potong sumbu x");
     api.setCaption("B", "Titik potong sumbu y");
+
     api.setLabelStyle("A", 1);
     api.setLabelStyle("B", 1);
 
-    // fokus tampilan
+    // fokus koordinat
     api.setCoordSystem(-2, 8, -2, 8);
 }
 
-window.addEventListener("load", function () {
-    var params = {
+function renderGeoGebra22() {
+    const container = document.getElementById("ggb-22");
+
+    let ggbWidth;
+    let ggbHeight;
+
+    if (window.innerWidth <= 768) {
+        ggbWidth = container.offsetWidth;
+
+        // rasio responsive mobile
+        ggbHeight = 320;
+    } else {
+        ggbWidth = 720;
+        ggbHeight = 480;
+    }
+
+    container.innerHTML = "";
+
+    const params = {
         appName: "classic",
         id: "ggbApplet22",
-        width: 720,
-        height: 480,
+
+        width: ggbWidth,
+        height: ggbHeight,
+
         showToolBar: false,
         showAlgebraInput: false,
         showMenuBar: false,
         enableRightClick: false,
         showResetIcon: true,
+
         appletOnLoad: ggbOnLoad_22,
     };
 
-    var applet = new GGBApplet(params, true);
+    const applet = new GGBApplet(params, true);
     applet.inject("ggb-22");
-});
-
-// Eksplorasi Titik potong
-function ggbOnLoadEks(api) {
-    api.setPerspective("G");
-
-    api.setAxesVisible(true, true);
-    api.setGridVisible(true);
-
-    api.setGraphicsOptions(1, {
-        gridDistance: [1, 1], // jarak grid utama (1 satuan)
-        minorGrid: false, // MATIKAN minor grid
-    });
-
-    api.setGraphicsOptions(1, {
-        gridType: 0,
-    });
-
-    api.setCoordSystem(-10, 10, -10, 10);
-    api.setAxisSteps(1, 1, 1, 1);
-
-    // slider p dan q (step 1)
-    api.evalCommand("p = Slider(-8, 8, 1)");
-    api.evalCommand("q = Slider(-8, 8, 1)");
-    api.evalCommand("p = 3");
-    api.evalCommand("q = 6");
-
-    // titik potong dan garis
-    api.evalCommand("A = (p, 0)");
-    api.evalCommand("B = (0, q)");
-    api.evalCommand("g = Line(A, B)");
-
-    api.setLabelVisible("A", true);
-    api.setLabelVisible("B", true);
-    api.setLabelStyle("A", 1);
-    api.setLabelStyle("B", 1);
-
-    // --- pindahkan slider ke bawah (posisi pixel) ---
-    // catatan: ini posisi relatif ke kiri-atas canvas
-    api.setAbsoluteScreenLoc("p", 30, 420);
-    api.setAbsoluteScreenLoc("q", 30, 450);
-
-    // opsional: tampilkan nilai p dan q di dekat slider
-    api.setLabelVisible("p", true);
-    api.setLabelVisible("q", true);
-    api.setLabelStyle("p", 1);
-    api.setLabelStyle("q", 1);
 }
 
-window.addEventListener("load", function () {
-    var paramsEks = {
-        appName: "classic",
-        id: "ggbAppletEks",
-        width: 700,
-        height: 400,
-        showToolBar: false,
-        showAlgebraInput: false,
-        showMenuBar: false,
-        enableRightClick: false,
-        showResetIcon: true,
-        appletOnLoad: ggbOnLoadEks,
-    };
+window.addEventListener("load", renderGeoGebra22);
 
-    var appletEks = new GGBApplet(paramsEks, true);
-    appletEks.inject("ggb-eksplorasi");
+window.addEventListener("resize", function () {
+    clearTimeout(window.ggbResizeTimer);
+
+    window.ggbResizeTimer = setTimeout(() => {
+        renderGeoGebra22();
+    }, 300);
 });
-
-// refleksi titik potong
-function cekRefleksi() {
-    let benar1 =
-        document.querySelector('input[name="q1"]:checked')?.value === "b";
-    let benar2 =
-        document.querySelector('input[name="q2"]:checked')?.value === "b";
-    let benar3 =
-        document.querySelector('input[name="q3"]:checked')?.value === "b";
-
-    document.getElementById("feedback1").innerHTML = benar1
-        ? "✔ Benar"
-        : "✘ Perhatikan kembali pergerakan titik.";
-
-    document.getElementById("feedback2").innerHTML = benar2
-        ? "✔ Benar"
-        : "✘ Perhatikan posisi di bawah 0.";
-
-    document.getElementById("feedback3").innerHTML = benar3
-        ? "✔ Benar"
-        : "✘ Coba ingat kembali konsep dua titik.";
-
-    if (benar1 && benar2 && benar3) {
-        document.getElementById("kesimpulanRefleksi").style.display = "block";
-    }
-}
 
 // =========================
 // LATIHAN SOAL A2.2

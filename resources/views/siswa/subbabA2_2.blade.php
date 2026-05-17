@@ -242,6 +242,172 @@
             border-radius: 12px;
             background: #fff;
         }
+
+        /* =========================================
+               RESPONSIVE TABLET
+            ========================================= */
+        @media (max-width: 992px) {
+
+            .step-row {
+                grid-template-columns: 1fr;
+            }
+
+            .step-eq {
+                font-size: 18px;
+            }
+
+            .step-note {
+                font-size: 14px;
+            }
+
+            .grafik-wrapper {
+                padding: 10px;
+            }
+
+            #ggb-22 {
+                height: 420px !important;
+            }
+        }
+
+        /* =========================================
+               RESPONSIVE MOBILE
+            ========================================= */
+        @media (max-width: 768px) {
+
+            /* ---------- BOX ---------- */
+            .box-info,
+            .box-contoh,
+            .box-latihan,
+            .step-stack,
+            .step-item {
+                padding: 12px;
+            }
+
+            /* ---------- FONT ---------- */
+            p,
+            li,
+            td,
+            th {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            h5 {
+                font-size: 1.05rem;
+            }
+
+            h6 {
+                font-size: .95rem;
+            }
+
+            /* ---------- STEP ---------- */
+            .step-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .step-eq {
+                font-size: 17px;
+                padding: 8px;
+            }
+
+            .step-note {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            /* ---------- GAMBAR / GRAFIK ---------- */
+            .grafik-wrapper {
+                width: 100%;
+                overflow-x: auto;
+                padding: 8px;
+            }
+
+            canvas,
+            .p5Canvas {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+                margin: 0 auto;
+            }
+
+            #ggb-22 {
+                width: 100% !important;
+                height: 320px !important;
+            }
+
+            /* ---------- TABEL ---------- */
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tabel-garis {
+                width: 100%;
+                font-size: 13px;
+            }
+
+            .tabel-garis th,
+            .tabel-garis td {
+                padding: 6px 4px;
+            }
+
+            /* ---------- INPUT ---------- */
+            .input-y,
+            .input-matematika {
+                width: 70px !important;
+                max-width: 70px !important;
+                font-size: 13px;
+                padding: 4px;
+            }
+
+            /* ---------- BUTTON ---------- */
+            .btn-palet {
+                width: auto;
+            }
+
+            .grafik-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .grafik-actions .btn-palet,
+            .text-end .btn-palet {
+                width: 100%;
+            }
+
+            /* ---------- FLEX BUTTON ---------- */
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2 {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2>div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2 .btn {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+        }
+
+        /* =========================================
+                GEOGEBRA RESPONSIVE
+                ========================================= */
+        #ggb-22 {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
     </style>
 
     {{-- css pilgan --}}
@@ -511,148 +677,6 @@
         </div>
     </div>
 
-    <div class="box-eksplorasi mt-5">
-        <div class="title-box">
-            Eksplorasi Titik Potong
-        </div>
-
-        <p style="text-align: justify;">
-            Pada contoh sebelumnya, kita telah menentukan titik potong garis dengan sumbu
-            <b>x</b> dan sumbu <b>y</b>, kemudian menggunakan kedua titik tersebut untuk
-            menggambar grafik persamaan garis lurus.
-        </p>
-
-        <p style="text-align: justify;">
-            Perhatikan bahwa grafik garis tersebut dapat digambar hanya dengan
-            <b>dua titik</b>, yaitu titik potong dengan sumbu <b>x</b> dan titik potong
-            dengan sumbu <b>y</b>. Kedua titik ini menentukan posisi garis pada
-            bidang koordinat Kartesius.
-        </p>
-
-        <p style="text-align: justify;">
-            Sekarang, mari kita amati apa yang terjadi jika posisi kedua titik potong
-            tersebut diubah. Apakah garis yang terbentuk juga akan berubah?
-        </p>
-
-        <p class="mb-2">
-            Geser slider <b>p</b> dan <b>q</b> untuk mengubah posisi titik potong
-            dengan sumbu <b>x</b> dan sumbu <b>y</b>.
-            Amati bagaimana perubahan nilai tersebut memengaruhi posisi garis
-            yang terbentuk pada bidang koordinat.
-        </p>
-
-        <p class="mb-2">
-            Perhatikan arah pergerakan titik potong dan perubahan bentuk garis.
-            Dari pengamatan tersebut, kamu dapat memahami hubungan antara
-            titik potong dengan grafik persamaan garis lurus.
-        </p>
-
-        <div id="ggb-eksplorasi" style="width:100%; max-width:720px; height:480px; margin:0 auto;"></div>
-
-        <div class="box-info mt-4">
-            <b>Refleksi Eksplorasi:</b>
-
-            <!-- SOAL 1 -->
-            <div class="p-3 border rounded-4 mb-3 mt-3">
-                <div class="d-flex gap-3">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center"
-                        style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                        1
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-semibold mb-2">
-                            Jika nilai <b>p</b> diperbesar, maka titik potong sumbu x akan...
-                        </div>
-                        <div class="d-grid gap-2">
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q1" value="a">
-                                <span class="form-check-label ms-1">Bergerak ke kiri</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q1" value="b">
-                                <span class="form-check-label ms-1">Bergerak ke kanan</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q1" value="c">
-                                <span class="form-check-label ms-1">Tetap di tempat</span>
-                            </label>
-                        </div>
-                        <div id="feedback1" class="mt-2"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SOAL 2 -->
-            <div class="p-3 border rounded-4 mb-3">
-                <div class="d-flex gap-3">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center"
-                        style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                        2
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-semibold mb-2">
-                            Jika nilai <b>q</b> bernilai negatif, maka titik potong sumbu y berada...
-                        </div>
-                        <div class="d-grid gap-2">
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q2" value="a">
-                                <span class="form-check-label ms-1">Di atas titik asal</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q2" value="b">
-                                <span class="form-check-label ms-1">Di bawah titik asal</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q2" value="c">
-                                <span class="form-check-label ms-1">Pada sumbu x</span>
-                            </label>
-                        </div>
-                        <div id="feedback2" class="mt-2"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SOAL 3 -->
-            <div class="p-3 border rounded-4 mb-3">
-                <div class="d-flex gap-3">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center"
-                        style="width:32px;height:32px;background:#2E75B6;color:#fff;font-weight:700;">
-                        3
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-semibold mb-2">
-                            Untuk membentuk satu garis lurus diperlukan...
-                        </div>
-                        <div class="d-grid gap-2">
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q3" value="a">
-                                <span class="form-check-label ms-1">Satu titik</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q3" value="b">
-                                <span class="form-check-label ms-1">Dua titik berbeda</span>
-                            </label>
-                            <label class="form-check border rounded-3 p-2 m-0">
-                                <input class="form-check-input" type="radio" name="q3" value="c">
-                                <span class="form-check-label ms-1">Tiga titik</span>
-                            </label>
-                        </div>
-                        <div id="feedback3" class="mt-2"></div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-palet mt-3" onclick="cekRefleksi()">Cek Jawaban</button>
-
-            <div id="kesimpulanRefleksi" class="mt-3 p-3 border border-success rounded-4" style="display:none;">
-                <b>Kesimpulan:</b><br>
-                Ketika nilai <b>p</b> berubah, posisi titik potong dengan sumbu x yaitu <b>(p,0)</b> juga berubah.<br>
-                Ketika nilai <b>q</b> berubah, posisi titik potong dengan sumbu y yaitu <b>(0,q)</b> juga berubah.<br>
-                Dua titik potong tersebut menentukan satu garis lurus pada bidang koordinat Kartesius.
-            </div>
-        </div>
-    </div>
-
     {{-- ===== Latihan Soal A2.2 ===== --}}
     <div class="box-latihan mt-5">
         <div class="card-body">
@@ -851,7 +875,6 @@
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
-
 @endsection
 
 @section('nav')

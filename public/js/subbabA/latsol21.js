@@ -312,86 +312,79 @@ function getClippedLineSegmentInBox(x1, y1, x2, y2) {
 // SAVE PROGRESS + BUKA KUIS
 // =========================
 async function saveProgressMateri() {
-  const csrfToken = document
-    .querySelector('meta[name="csrf-token"]')
-    ?.getAttribute("content");
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
 
-  if (!window.completeMateriUrl || !csrfToken) return false;
+    if (!window.completeMateriUrl || !csrfToken) return false;
 
-  try {
-    const response = await fetch(window.completeMateriUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-TOKEN": csrfToken,
-        "X-Requested-With": "XMLHttpRequest",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({}),
-    });
+    try {
+        const response = await fetch(window.completeMateriUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({}),
+        });
 
-    return response.ok;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+        return response.ok;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 }
 
 function bukaQuizButton() {
-  const quizBtn = document.getElementById("quizBabBtn");
-  if (!quizBtn) return;
+    const quizBtn = document.getElementById("quizBabBtn");
+    if (!quizBtn) return;
 
-  const url = quizBtn.dataset.quizUrl;
-  if (!url) return;
+    const url = quizBtn.dataset.quizUrl;
+    if (!url) return;
 
-  const link = document.createElement("a");
-  link.href = url;
-  link.id = "quizBabBtn";
-  link.className = "btn btn-next px-4 rounded-pill fw-semibold";
-  link.textContent = "Kuis →";
+    const link = document.createElement("a");
+    link.href = url;
+    link.id = "quizBabBtn";
+    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+    link.textContent = "Kuis →";
 
-  quizBtn.replaceWith(link);
+    quizBtn.replaceWith(link);
 }
 
 async function checkAnswers() {
-  if (!allTokensPlaced()) {
-    resultMessage = "Masih ada titik yang belum ditempatkan.";
-    resultColor = color(200, 120, 0);
-    showLine = false;
-    return;
-  }
-
-  let allCorrect = true;
-
-  for (let t of tokens) {
-    if (t.coordX === t.targetX && t.coordY === t.targetY) {
-      t.isCorrect = true;
-    } else {
-      t.isCorrect = false;
-      allCorrect = false;
+    if (!allTokensPlaced()) {
+        resultMessage = "Masih ada titik yang belum ditempatkan.";
+        resultColor = color(200, 120, 0);
+        showLine = false;
+        return false;
     }
-  }
 
-  showLine = allCorrect;
+    let allCorrect = true;
 
-  if (allCorrect) {
-    resultMessage = "Mantap! A dan B benar. Garis berhasil digambar!";
-    resultColor = color(0, 160, 0);
-
-    const saved = await saveProgressMateri();
-
-    if (saved) {
-      bukaQuizButton();
-      resultMessage = "Mantap! A dan B benar. Materi selesai, tombol kuis sudah terbuka!";
-      resultColor = color(0, 160, 0);
-    } else {
-      resultMessage = "Titik sudah benar, tapi progress belum tersimpan. Coba refresh atau cek koneksi.";
-      resultColor = color(200, 120, 0);
+    for (let t of tokens) {
+        if (t.coordX === t.targetX && t.coordY === t.targetY) {
+            t.isCorrect = true;
+        } else {
+            t.isCorrect = false;
+            allCorrect = false;
+        }
     }
-  } else {
-    resultMessage = "Masih ada titik yang salah. Coba periksa lagi posisi A dan B.";
-    resultColor = color(200, 0, 0);
-  }
+
+    showLine = allCorrect;
+
+    if (allCorrect) {
+        resultMessage = "Mantap! Semua titik sudah benar!";
+        resultColor = color(0, 160, 0);
+
+        return true;
+    } else {
+        resultMessage = "Masih ada titik yang salah.";
+        resultColor = color(200, 0, 0);
+
+        return false;
+    }
 }
 
 function resetAll() {

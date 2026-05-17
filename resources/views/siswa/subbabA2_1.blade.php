@@ -239,6 +239,96 @@
             margin-top: 16px;
             flex-wrap: wrap;
         }
+
+        /* =========================================
+                       RESPONSIVE MOBILE
+                    ========================================= */
+        @media (max-width: 768px) {
+
+            /* ---------- GAMBAR ---------- */
+            .materi-img,
+            .zoomable {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* ---------- TABEL ---------- */
+            .tabel-garis,
+            .tabel-latihan {
+                width: 100% !important;
+                min-width: unset !important;
+                font-size: 13px;
+            }
+
+            .tabel-garis th,
+            .tabel-garis td {
+                padding: 6px 4px;
+            }
+
+            /* ---------- INPUT ---------- */
+            .input-matematika,
+            .input-latihan,
+            .input-y {
+                width: 70px !important;
+                max-width: 70px !important;
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+
+            /* ---------- P5 JS / CANVAS ---------- */
+            #canvas-holder,
+            #canvas-contoh-21,
+            .grafik-wrapper {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            canvas {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* ---------- BUTTON ---------- */
+            .grafik-actions,
+            .d-flex.gap-2.flex-wrap {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            /* ---------- BOX ---------- */
+            .box-info,
+            .box-contoh,
+            .box-latihan,
+            .box-kesimpulan {
+                padding: 14px;
+            }
+
+            /* Layout button latihan */
+            .d-flex.justify-content-between.align-items-center {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 10px;
+            }
+
+            .d-flex.justify-content-between.align-items-center>div {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .d-flex.justify-content-between.align-items-center .btn {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -392,9 +482,11 @@
             <!-- LATIHAN 1 -->
             <!-- ===================== -->
             <div class="latihan-step" id="latihanStep1">
+
                 <p class="mb-2" style="max-width: 720px;">
                     <b>1.</b> Diketahui persamaan garis lurus:<br>
                     <b>$y = x - 3$</b><br><br>
+
                     Isi tabel nilai $y$ lalu tuliskan pasangan $(x,y)$.
                 </p>
 
@@ -407,11 +499,13 @@
 
                     <tr>
                         <td>$-2$</td>
+
                         <td>
                             <input type="text" id="lat1_y1"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td>
                             <input type="text" id="lat1_pair1"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -421,11 +515,13 @@
 
                     <tr>
                         <td>$0$</td>
+
                         <td>
                             <input type="text" id="lat1_y2"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td>
                             <input type="text" id="lat1_pair2"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -435,11 +531,13 @@
 
                     <tr>
                         <td>$2$</td>
+
                         <td>
                             <input type="text" id="lat1_y3"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td>
                             <input type="text" id="lat1_pair3"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -449,11 +547,13 @@
 
                     <tr>
                         <td>$4$</td>
+
                         <td>
                             <input type="text" id="lat1_y4"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td>
                             <input type="text" id="lat1_pair4"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -462,28 +562,38 @@
                     </tr>
                 </table>
 
-                <div class="mt-3 d-flex justify-content-between">
-                    <div>
-                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1A21()">Cek
-                            Jawaban</button>
-                        <button type="button" class="btn btn-palet btn-sm ms-2"
-                            onclick="resetLatihan1A21()">Reset</button>
-                    </div>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1A21()">
+                        Cek Jawaban
+                    </button>
 
-                    <button id="nextBtnLat1" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
-                        Lanjut ke Latihan 2
+                    <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan1A21()">
+                        Reset
                     </button>
                 </div>
 
                 <div id="feedbackLatihan1" class="mt-2 fw-semibold"></div>
 
+                <div class="mt-3 text-end">
+                    <button id="nextBtnLat1" class="btn btn-palet btn-sm" onclick="nextLatihan(2)" disabled>
+                        Lanjut ke Latihan 2
+                    </button>
+                </div>
+
                 <div class="box-kesimpulan mt-3" id="kesimpulanLat1" style="display:none;">
-                    <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
+
+                    <p class="mb-1" style="font-weight:700;">
+                        Kesimpulan:
+                    </p>
+
                     <p class="mb-0">
-                        Untuk menentukan pasangan berurutan $(x,y)$ pada persamaan garis lurus:
+                        Untuk menentukan pasangan berurutan $(x,y)$
+                        pada persamaan garis lurus:
                         <br>1. Pilih nilai $x$ terlebih dahulu.
-                        <br>2. Substitusikan nilai $x$ ke dalam persamaan untuk mendapatkan $y$.
-                        <br>3. Tuliskan pasangan berurutan dalam bentuk $(x,y)$.
+                        <br>2. Substitusikan nilai $x$
+                        ke dalam persamaan untuk mendapatkan $y$.
+                        <br>3. Tuliskan pasangan berurutan
+                        dalam bentuk $(x,y)$.
                     </p>
                 </div>
             </div>
@@ -492,11 +602,13 @@
             <!-- LATIHAN 2 -->
             <!-- ===================== -->
             <div class="latihan-step" id="latihanStep2" style="display:none;">
+
                 <hr class="my-4">
 
                 <p class="mb-2" style="max-width: 720px;">
                     <b>2.</b> Diketahui persamaan garis lurus:<br>
                     <b>$y = 2x + 5$</b><br><br>
+
                     Isi tabel, lalu tampilkan grafik.
                 </p>
 
@@ -509,73 +621,98 @@
 
                     <tr>
                         <td>$-4$</td>
+
                         <td>
                             <input type="text" id="y1"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td id="pair1">$(-4, \dots)$</td>
                     </tr>
 
                     <tr>
                         <td>$-2$</td>
+
                         <td>
                             <input type="text" id="y2"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td id="pair2">$(-2, \dots)$</td>
                     </tr>
 
                     <tr>
                         <td>$0$</td>
+
                         <td>
                             <input type="text" id="y3"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td id="pair3">$(0, \dots)$</td>
                     </tr>
 
                     <tr>
                         <td>$2$</td>
+
                         <td>
                             <input type="text" id="y4"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
+
                         <td id="pair4">$(2, \dots)$</td>
                     </tr>
                 </table>
 
-                <div class="mt-3 d-flex justify-content-between align-items-center">
+                <div class="mt-3">
+                    <button class="btn btn-palet btn-sm" onclick="cekTabelA21()">
+                        Cek Tabel
+                    </button>
+
+                    <button class="btn btn-palet btn-sm" onclick="resetLatihan2A21()">
+                        Reset
+                    </button>
+                </div>
+
+                <div class="mt-3">
                     <button class="btn btn-palet btn-sm" onclick="prevLatihan(1)">
                         Kembali ke Latihan 1
                     </button>
-
-                    <div>
-                        <button class="btn btn-palet btn-sm" onclick="cekTabelA21()">Cek Tabel</button>
-                        <button class="btn btn-palet btn-sm ms-2" onclick="resetLatihan2A21()">Reset</button>
-                    </div>
                 </div>
 
                 <div id="feedbackTabel" class="mt-2 fw-semibold"></div>
 
                 <div id="grafikSection" style="display:none; margin-top:20px;">
+
                     <div class="grafik-wrapper">
                         <div id="canvas-holder"></div>
                     </div>
 
                     <div class="grafik-actions mt-3">
-                        <button class="btn btn-palet btn-sm" onclick="checkAnswersA21()">Submit</button>
-                        <button class="btn btn-palet btn-sm ms-2" onclick="resetGrafikA21()">Reset Grafik</button>
+
+                        <button class="btn btn-palet btn-sm" onclick="checkAnswersA21()">
+                            Submit
+                        </button>
+
+                        <button class="btn btn-palet btn-sm" onclick="resetGrafikA21()">
+                            Reset Grafik
+                        </button>
                     </div>
 
-                    <div id="feedbackGrafik" class="mt-2 fw-semibold"></div>
+                    <div id="feedbackGrafik" class="mt-2 fw-semibold">
+                    </div>
                 </div>
 
                 <div class="box-kesimpulan mt-3" id="kesimpulanLat2" style="display:none;">
-                    <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
+
+                    <p class="mb-1" style="font-weight:700;">
+                        Kesimpulan:
+                    </p>
+
                     <p class="mb-0">
                         Untuk menggambar grafik persamaan garis lurus:
                         <br>1. Tentukan beberapa nilai $x$.
