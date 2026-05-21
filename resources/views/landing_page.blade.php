@@ -172,9 +172,9 @@
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-3">Materi Interaktif</h5>
                                 <p class="card-text">
-                                    Siswa belajar konsep <b>persamaan garis lurus</b> melalui
-                                    animasi, simulasi, dan aktivitas interaktif sehingga lebih
-                                    mudah memahami hubungan antara gradient, titik potong, dan grafik.
+                                    Siswa dapat mempelajari materi persamaan garis lurus
+                                    secara bertahap melalui penjelasan materi, contoh soal,
+                                    dan latihan yang membantu pemahaman belajar siswa.
                                 </p>
                             </div>
                         </div>
@@ -219,74 +219,77 @@
 
 
         {{-- MATERI --}}
+        {{-- MATERI --}}
         <section class="bg-section-dark py-5">
             <div class="container">
                 <h2 class="text-center fw-bold mb-4">Materi yang akan dipelajari:</h2>
                 <div class="row g-4">
+
                     <!-- Bab A -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card h-100 shadow-sm border-0 p-3">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-2">
-                                    Bab A: Bentuk Umum Persamaan Garis Lurus
+                                    Bab A: Pengertian Dasar Persamaan Garis Lurus
                                 </h5>
                                 <ul class="mb-0">
-                                    <li>Bentuk umum persamaan garis lurus</li>
-                                    <li>Menggambar grafik dari persamaan garis lurus</li>
+                                    <li>Pengertian dan bentuk umum</li>
+                                    <li>Menggambar grafik persamaan garis lurus</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bab B -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card h-100 shadow-sm border-0 p-3">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-2">
                                     Bab B: Gradien (Kemiringan Garis)
                                 </h5>
                                 <ul class="mb-0">
-                                    <li>Pengertian gradien atau kemiringan</li>
-                                    <li>Gradien garis melalui titik pusat (0,0) dan (x₁, y₁)</li>
+                                    <li>Pengertian gradien</li>
+                                    <li>Gradien garis melalui (0,0) dan (x₁,y₁)</li>
                                     <li>Gradien garis yang melewati dua titik</li>
-                                    <li>Gradien pada persamaan <i>y = mx</i></li>
-                                    <li>Gradien pada persamaan garis <i>y = mx + c</i></li>
+                                    <li>Gradien garis dari suatu persamaan garis lurus</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bab C -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card h-100 shadow-sm border-0 p-3">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-2">
-                                    Bab C: Sifat-sifat Gradien
+                                    Bab C: Hubungan Gradien Garis
                                 </h5>
                                 <ul class="mb-0">
-                                    <li>Gradien garis yang sejajar dengan sumbu-x</li>
-                                    <li>Gradien garis yang sejajar dengan sumbu-y</li>
-                                    <li>Gradien dua garis sejajar</li>
-                                    <li>Gradien dua garis saling tegak lurus</li>
+                                    <li>Gradien garis sejajar sumbu x dan sumbu y</li>
+                                    <li>Gradien garis-garis yang saling sejajar</li>
+                                    <li>Gradien garis-garis yang saling tegak lurus</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bab D -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card h-100 shadow-sm border-0 p-3">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-2">
-                                    Bab D: Persamaan Garis Lurus
+                                    Bab D: Menentukan Persamaan Garis Lurus
                                 </h5>
                                 <ul class="mb-0">
                                     <li>Persamaan garis melalui satu titik dan gradien</li>
                                     <li>Persamaan garis yang melalui dua titik</li>
+                                    <li>Persamaan garis sejajar dengan garis lain</li>
+                                    <li>Persamaan garis tegak lurus dengan garis lain</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>

@@ -15,6 +15,7 @@
     {{-- Google Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
+
     <style>
         :root {
             --hero-bg: #e8f4ff;
@@ -243,6 +244,192 @@
             background: #cfe6ff;
             color: #0b4f6c;
         }
+
+        /* =========================
+        OVERLAY
+        ========================= */
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            z-index: 1040;
+
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =========================
+            MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            body {
+                overflow-x: hidden;
+            }
+
+            main.py-2 {
+                padding: 0 !important;
+            }
+
+            #layoutGuru {
+                padding: 10px !important;
+                gap: 0 !important;
+            }
+
+            /* ===== NAVBAR ===== */
+
+            .navbar .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .navbar img {
+                height: 34px !important;
+            }
+
+            /* ===== SIDEBAR ===== */
+
+            aside {
+                width: 0 !important;
+            }
+
+            #sidebarGuru {
+                position: fixed;
+                top: 0;
+                left: -280px;
+
+                width: 260px !important;
+                height: 100vh;
+
+                z-index: 1050;
+                transition: .3s ease;
+
+                padding: 10px;
+            }
+
+            #sidebarGuru.show {
+                left: 0;
+            }
+
+            .sidebar-wrapper {
+                border-radius: 0 !important;
+                height: 100%;
+                max-height: 100vh;
+                overflow-y: auto;
+            }
+
+            /* ===== OVERLAY ===== */
+
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+
+                background: rgba(0, 0, 0, .4);
+
+                z-index: 1040;
+
+                opacity: 0;
+                visibility: hidden;
+
+                transition: .3s;
+            }
+
+            .sidebar-overlay.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* ===== MAIN CONTENT ===== */
+
+            section.flex-grow-1 {
+                width: 100%;
+            }
+
+            .main-card {
+                width: 100%;
+                max-width: 100%;
+
+                min-height: calc(100vh - 100px);
+
+                border-radius: 14px;
+                padding: 18px !important;
+            }
+
+            /* ===== TEXT ===== */
+
+            h1,
+            h2 {
+                font-size: 24px !important;
+            }
+
+            h3,
+            h4 {
+                font-size: 20px !important;
+            }
+
+            p,
+            li,
+            a,
+            button {
+                font-size: 14px;
+            }
+
+            /* ===== CARD ===== */
+
+            .card,
+            .dashboard-card {
+                border-radius: 14px;
+            }
+
+            /* ===== BUTTON ===== */
+
+            .btn-sub {
+                padding: 12px 45px 12px 14px;
+                font-size: 14px;
+            }
+
+            .dropdown-item-custom {
+                width: 95%;
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            /* ===== PROFILE ===== */
+
+            .sidebar-avatar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .sidebar-avatar i {
+                font-size: 40px !important;
+            }
+
+        }
+
+        /* =========================
+        DESKTOP
+        ========================= */
+
+        @media (min-width: 769px) {
+
+            #sidebarGuru {
+                position: relative;
+                left: 0 !important;
+            }
+
+            .sidebar-overlay {
+                display: none;
+            }
+        }
     </style>
 
     @stack('styles')
@@ -252,33 +439,66 @@
 
     {{-- NAVBAR --}}
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{{ route('landing-page') }}">
+        <div class="container d-flex align-items-center">
+
+            <button id="toggleSidebarGuru" class="btn btn-outline-primary d-md-none me-2" type="button"
+                style="
+                    border-radius: 10px;
+                    font-weight: 700;
+                    padding: 8px 14px;
+                ">
+
+                <i class="bi bi-list me-1"></i>
+                Menu
+            </button>
+
+            {{-- LOGO --}}
+            <a class="navbar-brand d-flex align-items-center me-auto" href="{{ route('landing-page') }}">
+
                 <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
             </a>
 
+            {{-- BURGER NAVBAR --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            {{-- MENU NAVBAR --}}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('landing-page') }}">Beranda</a>
+                        <a class="nav-link" href="{{ route('landing-page') }}">
+                            Beranda
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('petunjuk') }}">Petunjuk Penggunaan</a>
+                        <a class="nav-link" href="{{ route('petunjuk') }}">
+                            Petunjuk Penggunaan
+                        </a>
                     </li>
+
                     <li class="nav-item">
                         <form action="{{ route('guru.logout') }}" method="POST" class="d-inline">
+
                             @csrf
-                            <button type="submit" class="nav-link">
+
+                            <button type="submit" class="nav-link border-0 bg-transparent">
                                 Logout
                             </button>
+
                         </form>
                     </li>
+
                 </ul>
             </div>
 
         </div>
     </nav>
-
     @php
         $isSiswaMenu = request()->routeIs('daftarsiswa', 'rekapitulasi-nilai', 'progres-siswa');
     @endphp
@@ -290,11 +510,6 @@
             {{-- SIDEBAR --}}
             <aside id="sidebarGuru" style="width: 270px;">
                 <div class="sidebar-wrapper p-3 h-100">
-
-                    <button id="toggleSidebarGuru" class="btn-toggle-sidebar" type="button">
-                        <i class="bi bi-list"></i>
-                        <span class="toggle-text">Menu</span>
-                    </button>
 
                     {{-- Avatar Guru --}}
                     <div class="sidebar-avatar">
@@ -347,6 +562,9 @@
         </div>
     </main>
 
+    <!-- OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     {{-- FOOTER --}}
     <footer class="text-center text-white py-3" style="background-color: var(--footer-bg);">
         Copyright @ 2026 LinearEdu Pendidikan Komputer
@@ -355,26 +573,37 @@
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- TOGGLE SIDEBAR SCRIPT (plus simpan status) --}}
+
+    {{-- Sidebar Overlay - responsive --}}
     <script>
-        const btnGuru = document.getElementById('toggleSidebarGuru');
-        const layout = document.getElementById('layoutGuru');
-        const key = 'guru_sidebar';
+        const sidebar = document.getElementById('sidebarGuru');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggleBtn = document.getElementById('toggleSidebarGuru');
 
-        // restore state
-        if (localStorage.getItem(key) === 'collapsed') {
-            layout.classList.add('sidebar-collapsed');
-        }
+        toggleBtn.addEventListener('click', function() {
 
-        btnGuru.addEventListener('click', () => {
-            layout.classList.toggle('sidebar-collapsed');
-            localStorage.setItem(
-                key,
-                layout.classList.contains('sidebar-collapsed') ? 'collapsed' : 'open'
-            );
+            if (window.innerWidth <= 768) {
+
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+
+            } else {
+
+                document
+                    .getElementById('layoutGuru')
+                    .classList.toggle('sidebar-collapsed');
+
+            }
+
+        });
+
+        overlay.addEventListener('click', function() {
+
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+
         });
     </script>
-
 
     @stack('scripts')
 </body>
