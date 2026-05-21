@@ -658,55 +658,124 @@
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
     <script>
+        let applet = null;
+
+        // =========================
+        // Responsive Size
+        // =========================
         function getGgbSize() {
+
             const container = document.querySelector('.ggb-responsive');
-            const width = container ? container.clientWidth - 16 : 700;
 
-            if (window.innerWidth <= 480) {
-                return {
-                    width: Math.max(300, width),
-                    height: 300
-                };
-            }
+            const width = container ?
+                container.clientWidth - 16 :
+                700;
 
+            // MOBILE
             if (window.innerWidth <= 768) {
+
                 return {
-                    width: Math.max(340, width),
-                    height: 360
+                    width: Math.max(320, width),
+                    height: 320
                 };
             }
 
+            // DESKTOP
             return {
-                width: Math.min(700, width),
-                height: 500
+                width: Math.min(400, width),
+                height: 400
             };
         }
 
-        const ggbSize = getGgbSize();
+        // =========================
+        // On Load GeoGebra
+        // =========================
+        function ggbOnLoad(api) {
 
-        var params = {
-            "appName": "graphing",
-            "width": ggbSize.width,
-            "height": ggbSize.height,
-            "showToolBar": false,
-            "showAlgebraInput": false,
-            "showMenuBar": false,
-            "enableShiftDragZoom": true,
-            "enableRightClick": false,
-            "showResetIcon": true
-        };
+            // tampilan grafik saja
+            api.setPerspective("G");
 
-        var applet = new GGBApplet(params, true);
+            // grid & axis
+            api.setAxesVisible(true, true);
+            api.setGridVisible(true);
 
-        window.addEventListener("load", function() {
+            // grid sederhana
+            api.setGraphicsOptions(1, {
+                gridDistance: [1, 1],
+                minorGrid: false,
+            });
+
+            api.setGraphicsOptions(1, {
+                gridType: 0,
+            });
+
+            api.setAxisSteps(1, 1, 1, 1);
+
+            // koordinat responsive
+            if (window.innerWidth <= 768) {
+
+                // mobile lebih zoom
+                api.setCoordSystem(-5, 5, -5, 5);
+
+            } else {
+
+                // desktop
+                api.setCoordSystem(-6, 6, -6, 6);
+            }
+
+            // titik eksplorasi
+            api.evalCommand("A=(1,1)");
+
+            api.setLabelVisible("A", true);
+
+            api.setPointSize("A", 6);
+
+            api.setColor("A", 0, 102, 204);
+        }
+
+        // =========================
+        // Init GeoGebra
+        // =========================
+        function loadGeoGebra() {
+
+            const ggbSize = getGgbSize();
+
+            const params = {
+
+                appName: "classic",
+
+                id: "ggbApplet",
+
+                width: ggbSize.width,
+                height: ggbSize.height,
+
+                showToolBar: false,
+                showAlgebraInput: false,
+                showMenuBar: false,
+
+                showZoomButtons: false,
+                showFullscreenButton: false,
+
+                enableShiftDragZoom: true,
+                enableRightClick: false,
+
+                showResetIcon: true,
+
+                appletOnLoad: ggbOnLoad
+            };
+
+            applet = new GGBApplet(params, true);
+
             applet.inject('ggb-element');
+        }
 
-            setTimeout(function() {
-                var ggb = applet.getAppletObject();
-                ggb.evalCommand("A = (1,1)");
-                ggb.setLabelVisible("A", true);
-                ggb.setLabelStyle("A", 1);
-            }, 1000);
+        // =========================
+        // Load
+        // =========================
+        window.addEventListener("load", function() {
+
+            loadGeoGebra();
+
         });
     </script>
 
@@ -745,9 +814,246 @@
     </script>
 
     {{-- p5 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-    <script src="{{ asset('js/subbabA/latihan_membuat_titik.js') }}"></script>
     <script src="{{ asset('js/subbabA/eksplorasititik1.js') }}"></script>
+    <script>
+        let titikSiswa = [];
+        let daftarNama = ["B", "C", "D"];
+
+        const sketch = (p) => {
+            const gridSize = 400;
+
+            let originX;
+            let originY;
+            let scaleUnit;
+
+            let lastClickTime = 0;
+
+            p.setup = function() {
+                let canvas = p.createCanvas(450, 500);
+
+                canvas.parent("canvas-latihan-buat");
+
+                scaleUnit = gridSize / 20;
+
+                originX = p.width / 2;
+                originY = p.height / 2;
+            };
+
+            p.draw = function() {
+                p.background(245);
+
+                drawGrid();
+                drawTitik();
+                drawInfo();
+            };
+
+            // =========================
+            // CLICK INPUT
+            // =========================
+            function handleInput() {
+
+                // cegah double trigger
+                if (p.millis() - lastClickTime < 300) {
+                    return;
+                }
+
+                lastClickTime = p.millis();
+
+                // maksimal 3 titik
+                if (titikSiswa.length >= 3) {
+                    return;
+                }
+
+                const titik = pixelToCoord(
+                    p.mouseX,
+                    p.mouseY
+                );
+
+                if (!titik) {
+                    return;
+                }
+
+                titikSiswa.push({
+                    nama: daftarNama[titikSiswa.length],
+                    x: titik.x,
+                    y: titik.y,
+                });
+            }
+
+            // desktop
+            p.mousePressed = function() {
+                handleInput();
+            };
+
+            // =========================
+            // GRID
+            // =========================
+            function drawGrid() {
+                p.push();
+
+                p.translate(originX, originY);
+
+                // grid
+                p.stroke(220);
+
+                for (let i = -10; i <= 10; i++) {
+                    p.line(i * scaleUnit, -200, i * scaleUnit, 200);
+
+                    p.line(-200, i * scaleUnit, 200, i * scaleUnit);
+                }
+
+                // axis
+                p.stroke(0);
+
+                p.strokeWeight(2);
+
+                p.line(-200, 0, 200, 0);
+
+                p.line(0, -200, 0, 200);
+
+                p.strokeWeight(1);
+
+                // ticks
+                for (let i = -10; i <= 10; i++) {
+                    p.line(i * scaleUnit, -5, i * scaleUnit, 5);
+
+                    p.line(-5, i * scaleUnit, 5, i * scaleUnit);
+                }
+
+                // numbers
+                p.noStroke();
+
+                p.fill(0);
+
+                p.textSize(12);
+
+                for (let i = -10; i <= 10; i++) {
+                    if (i !== 0) {
+                        p.text(i, i * scaleUnit - 4, 18);
+
+                        p.text(i, -18, -i * scaleUnit + 4);
+                    }
+                }
+
+                p.text("0", 6, 15);
+
+                p.pop();
+            }
+
+            // =========================
+            // DRAW TITIK
+            // =========================
+            function drawTitik() {
+                p.push();
+
+                p.translate(originX, originY);
+
+                titikSiswa.forEach((t) => {
+                    p.fill("red");
+
+                    p.noStroke();
+
+                    p.circle(t.x * scaleUnit, -t.y * scaleUnit, 10);
+
+                    p.fill(0);
+
+                    p.textSize(14);
+
+                    p.text(t.nama, t.x * scaleUnit + 8, -t.y * scaleUnit - 8);
+                });
+
+                p.pop();
+            }
+
+            // =========================
+            // INFO
+            // =========================
+            function drawInfo() {
+                p.fill(0);
+
+                p.noStroke();
+
+                p.textSize(13);
+
+                if (titikSiswa.length < 3) {
+                    p.text(
+                        `Klik untuk menempatkan titik ${daftarNama[titikSiswa.length]}`,
+                        20,
+                        480,
+                    );
+                } else {
+                    p.text(
+                        `Semua titik sudah ditempatkan. Klik "Cek Jawaban".`,
+                        20,
+                        480,
+                    );
+                }
+            }
+
+            // =========================
+            // PIXEL TO COORD
+            // =========================
+            function pixelToCoord(px, py) {
+                let x = Math.round((px - originX) / scaleUnit);
+
+                let y = Math.round((originY - py) / scaleUnit);
+
+                x = p.constrain(x, -10, 10);
+
+                y = p.constrain(y, -10, 10);
+
+                return {
+                    x,
+                    y
+                };
+            }
+        };
+
+        new p5(sketch);
+
+        // =========================
+        // CEK JAWABAN
+        // =========================
+        function cekTitikBuat() {
+            const target = [{
+                    nama: "B",
+                    x: 2,
+                    y: 3
+                },
+                {
+                    nama: "C",
+                    x: -7,
+                    y: 3
+                },
+                {
+                    nama: "D",
+                    x: 5,
+                    y: -4
+                },
+            ];
+
+            let benar = target.every((t) =>
+                titikSiswa.some((s) => s.nama === t.nama && s.x === t.x && s.y === t.y),
+            );
+
+            if (benar) {
+                document.getElementById("hasilLatihanBuat").innerHTML =
+                    "<div class='alert alert-success'>Semua titik (B, C, D) sudah benar</div>";
+            } else {
+                document.getElementById("hasilLatihanBuat").innerHTML =
+                    "<div class='alert alert-danger'>Masih ada titik yang belum tepat</div>";
+            }
+        }
+
+        // =========================
+        // RESET
+        // =========================
+        function resetTitik() {
+            titikSiswa = [];
+
+            document.getElementById("hasilLatihanBuat").innerHTML = "";
+        }
+    </script>
 
     {{-- Cek Jawaban Posisi Titik --}}
     <script>

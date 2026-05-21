@@ -1,123 +1,225 @@
 let titikSiswa = [];
 let daftarNama = ["B", "C", "D"];
 
-let sketch = function(p) {
+const sketch = (p) => {
+    const gridSize = 400;
 
-  p.setup = function() {
-    let canvas = p.createCanvas(450, 450);
-    canvas.parent("canvas-latihan-buat");
-  };
+    let originX;
+    let originY;
+    let scaleUnit;
 
-  p.draw = function() {
-    p.background(245);
-    p.translate(p.width / 2, p.height / 2);
+    let lastClickTime = 0;
 
-    // Grid
-    p.stroke(220);
-    for (let i = -10; i <= 10; i++) {
-      p.line(i * 20, -200, i * 20, 200);
-      p.line(-200, i * 20, 200, i * 20);
+    p.setup = function () {
+        let canvas = p.createCanvas(450, 500);
+
+        canvas.parent("canvas-latihan-buat");
+
+        scaleUnit = gridSize / 20;
+
+        originX = p.width / 2;
+        originY = p.height / 2;
+    };
+
+    p.draw = function () {
+        p.background(245);
+
+        drawGrid();
+        drawTitik();
+        drawInfo();
+    };
+
+    // =========================
+    // CLICK INPUT
+    // =========================
+    function handleInput() {
+        // cegah double trigger mobile
+        if (p.millis() - lastClickTime < 300) {
+            return false;
+        }
+
+        lastClickTime = p.millis();
+
+        // maksimal 3 titik
+        if (titikSiswa.length >= 3) {
+            return false;
+        }
+
+        const titik = pixelToCoord(p.mouseX, p.mouseY);
+
+        if (!titik) {
+            return false;
+        }
+
+        titikSiswa.push({
+            nama: daftarNama[titikSiswa.length],
+            x: titik.x,
+            y: titik.y,
+        });
+
+        return false;
     }
 
-    // Sumbu X dan Y
-    p.stroke(0);
-    p.strokeWeight(2);
-    p.line(-200, 0, 200, 0);
-    p.line(0, -200, 0, 200);
-    p.strokeWeight(1);
+    // desktop
+    p.mousePressed = function () {
+        return handleInput();
+    };
 
-    // Ticks kecil pada sumbu
-    for (let i = -10; i <= 10; i++) {
-      // ticks sumbu X
-      p.line(i * 20, -5, i * 20, 5);
+    // mobile
+    p.touchStarted = function () {
+        return handleInput();
+    };
+    // =========================
+    // GRID
+    // =========================
+    function drawGrid() {
+        p.push();
 
-      // ticks sumbu Y
-      p.line(-5, i * 20, 5, i * 20);
+        p.translate(originX, originY);
+
+        // grid
+        p.stroke(220);
+
+        for (let i = -10; i <= 10; i++) {
+            p.line(i * scaleUnit, -200, i * scaleUnit, 200);
+
+            p.line(-200, i * scaleUnit, 200, i * scaleUnit);
+        }
+
+        // axis
+        p.stroke(0);
+
+        p.strokeWeight(2);
+
+        p.line(-200, 0, 200, 0);
+
+        p.line(0, -200, 0, 200);
+
+        p.strokeWeight(1);
+
+        // ticks
+        for (let i = -10; i <= 10; i++) {
+            p.line(i * scaleUnit, -5, i * scaleUnit, 5);
+
+            p.line(-5, i * scaleUnit, 5, i * scaleUnit);
+        }
+
+        // numbers
+        p.noStroke();
+
+        p.fill(0);
+
+        p.textSize(12);
+
+        for (let i = -10; i <= 10; i++) {
+            if (i !== 0) {
+                p.text(i, i * scaleUnit - 4, 18);
+
+                p.text(i, -18, -i * scaleUnit + 4);
+            }
+        }
+
+        p.text("0", 6, 15);
+
+        p.pop();
     }
 
-    // Angka pada sumbu
-    p.fill(0);
-    p.noStroke();
-    p.textSize(12);
+    // =========================
+    // DRAW TITIK
+    // =========================
+    function drawTitik() {
+        p.push();
 
-    for (let i = -10; i <= 10; i++) {
-      if (i !== 0) {
-        // angka sumbu X
-        p.text(i, i * 20 - 4, 18);
+        p.translate(originX, originY);
 
-        // angka sumbu Y
-        p.text(i, -18, -i * 20 + 4);
-      }
+        titikSiswa.forEach((t) => {
+            p.fill("red");
+
+            p.noStroke();
+
+            p.circle(t.x * scaleUnit, -t.y * scaleUnit, 10);
+
+            p.fill(0);
+
+            p.textSize(14);
+
+            p.text(t.nama, t.x * scaleUnit + 8, -t.y * scaleUnit - 8);
+        });
+
+        p.pop();
     }
 
-    // Titik asal
-    p.text("0", 6, 15);
+    // =========================
+    // INFO
+    // =========================
+    function drawInfo() {
+        p.fill(0);
 
-    // Titik siswa + label
-    titikSiswa.forEach(t => {
-      p.fill("red");
-      p.noStroke();
-      p.circle(t.x * 20, -t.y * 20, 10);
+        p.noStroke();
 
-      p.fill(0);
-      p.textSize(14);
-      p.text(t.nama, t.x * 20 + 8, -t.y * 20 - 8);
-    });
+        p.textSize(13);
 
-    // Info sisa titik
-    p.fill(0);
-    p.noStroke();
-    p.textSize(12);
-    if (titikSiswa.length < 3) {
-      p.text(`Klik untuk menempatkan titik ${daftarNama[titikSiswa.length]}`, -200, 220);
-    } else {
-      p.text(`Semua titik (B, C, D) sudah ditempatkan`, -200, 220);
+        if (titikSiswa.length < 3) {
+            p.text(
+                `Klik untuk menempatkan titik ${daftarNama[titikSiswa.length]}`,
+                20,
+                480,
+            );
+        } else {
+            p.text(
+                `Semua titik sudah ditempatkan. Klik "Cek Jawaban".`,
+                20,
+                480,
+            );
+        }
     }
-  };
 
-  p.mousePressed = function() {
-    if (titikSiswa.length >= 3) return;
+    // =========================
+    // PIXEL TO COORD
+    // =========================
+    function pixelToCoord(px, py) {
+        let x = Math.round((px - originX) / scaleUnit);
 
-    let x = Math.round((p.mouseX - p.width / 2) / 20);
-    let y = Math.round(-(p.mouseY - p.height / 2) / 20);
+        let y = Math.round((originY - py) / scaleUnit);
 
-    if (x >= -10 && x <= 10 && y >= -10 && y <= 10) {
-      titikSiswa.push({
-        nama: daftarNama[titikSiswa.length],
-        x: x,
-        y: y
-      });
+        x = p.constrain(x, -10, 10);
+
+        y = p.constrain(y, -10, 10);
+
+        return { x, y };
     }
-  };
 };
 
 new p5(sketch);
 
-
-// ===== CEK JAWABAN =====
+// =========================
+// CEK JAWABAN
+// =========================
 function cekTitikBuat() {
-  const target = [
-    {nama: "B", x: 2,  y: 3},
-    {nama: "C", x: -7, y: 3},
-    {nama: "D", x: 5, y: -4}
-  ];
+    const target = [
+        { nama: "B", x: 2, y: 3 },
+        { nama: "C", x: -7, y: 3 },
+        { nama: "D", x: 5, y: -4 },
+    ];
 
-  let benar = target.every(t =>
-    titikSiswa.some(s => s.nama === t.nama && s.x === t.x && s.y === t.y)
-  );
+    let benar = target.every((t) =>
+        titikSiswa.some((s) => s.nama === t.nama && s.x === t.x && s.y === t.y),
+    );
 
-  if (benar) {
-    document.getElementById("hasilLatihanBuat").innerHTML =
-      "<div class='alert alert-success'>Semua titik (B, C, D) sudah benar</div>";
-  } else {
-    document.getElementById("hasilLatihanBuat").innerHTML =
-      "<div class='alert alert-danger'>Masih ada titik yang belum tepat</div>";
-  }
+    if (benar) {
+        document.getElementById("hasilLatihanBuat").innerHTML =
+            "<div class='alert alert-success'>Semua titik (B, C, D) sudah benar</div>";
+    } else {
+        document.getElementById("hasilLatihanBuat").innerHTML =
+            "<div class='alert alert-danger'>Masih ada titik yang belum tepat</div>";
+    }
 }
 
-
-// ===== RESET =====
+// =========================
+// RESET
+// =========================
 function resetTitik() {
-  titikSiswa = [];
-  document.getElementById("hasilLatihanBuat").innerHTML = "";
+    titikSiswa = [];
+
+    document.getElementById("hasilLatihanBuat").innerHTML = "";
 }
