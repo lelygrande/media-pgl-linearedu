@@ -49,9 +49,9 @@
                                 <td class="fw-semibold">{{ $quiz->title }}</td>
                                 <td>{{ $quiz->bab->judul ?? '-' }}</td>
                                 <td>{{ $quiz->duration_minutes }} menit</td>
-                                <td>{{ $quiz->total_questions }}</td>
+                                <td>{{ $quiz->questions_count }}</td>
                                 <td>{{ $quiz->kkm }}</td>
-                                <td>{{ \Illuminate\Support\Str::limit($quiz->description, 40, '...') ?: '-' }}</td>
+                                <td class="deskripsi-cell">{{ $quiz->description ?: '-' }}</td>
                                 <td class="text-center">
                                     <div class="d-flex flex-wrap justify-content-center gap-1">
                                         <button type="button" class="btn btn-sm text-white btn-edit"
@@ -121,12 +121,6 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Total Soal</label>
-                                <input type="number" name="total_questions" id="edit_total_questions" class="form-control"
-                                    min="0" required>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
                                 <label class="form-label">KKM</label>
                                 <input type="number" name="kkm" id="edit_kkm" class="form-control" min="0"
                                     max="100" step="0.01" required>
@@ -161,6 +155,12 @@
             vertical-align: middle;
             font-size: 15px;
         }
+
+        .deskripsi-cell {
+            max-width: 250px;
+            white-space: normal;
+            word-break: break-word;
+        }
     </style>
 
     <script>
@@ -185,8 +185,7 @@
                     document.getElementById('edit_title').value = data.title ?? '';
                     document.getElementById('edit_bab_id').value = data.bab_id ?? '';
                     document.getElementById('edit_duration_minutes').value = data.duration_minutes ??
-                    '';
-                    document.getElementById('edit_total_questions').value = data.total_questions ?? 10;
+                        '';
                     document.getElementById('edit_kkm').value = data.kkm ?? 75;
                     document.getElementById('edit_description').value = data.description ?? '';
 

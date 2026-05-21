@@ -3,42 +3,103 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/subbabB/subbabB_gradien1titik.css') }}">
 
+    <style>
+        /* =========================================
+            RESPONSIVE MOBILE
+            ========================================= */
+        @media (max-width: 768px) {
+
+            /* ---------- P5 CANVAS ---------- */
+            #segaris-origin-canvas {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            #segaris-origin-canvas canvas,
+            #segaris-origin-canvas .p5Canvas {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* ---------- RUMUS ---------- */
+            .rumus-box {
+                overflow-x: auto;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            /* ---------- GAMBAR ---------- */
+            .img-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .img-grid img,
+            .zoomable,
+            .img-fluid {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* ---------- INPUT PECAHAN ---------- */
+            .frac-input input,
+            .jawaban-latihan {
+                font-size: 14px;
+            }
+
+            /* ---------- FLEX INPUT ---------- */
+            .d-flex.align-items-center.gap-3.flex-wrap {
+                gap: 10px !important;
+            }
+
+            /* ---------- BUTTON ---------- */
+            .btn-palet {
+                width: auto;
+            }
+
+            /* tombol next */
+            #nextBtnLatihan1,
+            #nextBtnLatihan2 {
+                width: 100%;
+            }
+
+            /* layout tombol latihan */
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2 {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 10px;
+            }
+
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2>div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2 .btn {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+
+            /* ---------- LATIHAN 2 KOLOM ---------- */
+            .latihan-dua-kolom {
+                flex-direction: column;
+            }
+
+            /* ---------- INPUT KECIL ---------- */
+            .input-kecil {
+                width: 70px !important;
+                min-width: 70px !important;
+            }
+        }
+    </style>
+
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien yang melewati titik $(0, 0)$ dan $A(x,y)$</h2>
-
-    {{-- Eksplorasi --}}
-    <div class="box-eksplorasi mt-4 mb-4">
-        <div class="title-box">
-            Eksplorasi: Titik-titik Segaris dengan (0,0)
-        </div>
-
-        <div class=" mb-3" style="line-height:1.6;">
-            Klik titik-titik pada bidang koordinat. Pilih <b>3 titik</b> yang menurutmu berada pada <b>garis yang sama</b>
-            dan garis tersebut melewati <b>O(0,0)</b>.
-            <br><span class="d-inline-block mt-1">Petunjuk: kalau segaris lewat O, biasanya perbandingan <b>y/x</b> akan
-                sama.</span>
-        </div>
-
-        <div id="segaris-origin-canvas" class="mb-3"></div>
-
-        <div class="row g-3">
-            <div class="col-12 col-md-7">
-                <div class="border rounded-4 p-3" style="background:#f7f9fc;">
-                    <div class="fw-bold mb-2">Titik yang kamu pilih:</div>
-                    <div id="pickedList" class="small text-muted">Belum ada titik dipilih.</div>
-                    <div id="ratioList" class="small mt-2"></div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-5">
-                <div class="d-flex gap-2 flex-wrap">
-                    <button class="btn btn-palet btn-sm" onclick="cekSegarisOrigin()">Cek</button>
-                    <button class="btn btn-outline-secondary btn-sm" onclick="resetSegarisOrigin()">Reset</button>
-                </div>
-                <div id="fbSegarisOrigin" class="mt-3"></div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="{{ asset('js/subbabB/eksplorasi_segaris.js') }}"></script>
@@ -55,7 +116,7 @@
             {{-- Ilustrasi --}}
             <div class="img-grid mb-3">
                 <figure>
-                    <img src="{{ asset('img/gradien/gradiensatutitik.png') }}" alt="Ilustrasi Gambar 2.1">
+                    <img class="zoomable" src="{{ asset('img/gradien/gradiensatutitik.png') }}" alt="Ilustrasi Gambar 2.1">
                     <figcaption class="mt-2 text-muted" style="font-size: 13px;">Gambar 2.1</figcaption>
                 </figure>
             </div>
@@ -78,7 +139,7 @@
 
     {{-- Contoh --}}
     <div class="box-contoh mt-5 mb-4">
-        <div class="card-body p-4">
+        <div class="card-body p-2">
 
             <span class="title-box">Contoh</span>
 
@@ -170,7 +231,7 @@
     </script>
 
     <div class="box-latihan mt-5 mb-4">
-        <div class="card-body p-4">
+        <div class="card-body p-2">
 
             <span class="title-box">Latihan</span>
 

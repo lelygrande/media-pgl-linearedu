@@ -184,23 +184,6 @@
         }
     </style>
 
-    {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">D. Persamaan Garis Lurus</h1>
-
-    {{-- Tujuan Pembelajaran --}}
-    <div class="card card-tujuan mb-4">
-        <div class="card-body">
-            <h5>Tujuan Pembelajaran:</h5>
-            <ol>
-                <li>Siswa dapat menentukan persamaan garis lurus dari satu titik dan gradien.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus dari dua titik.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan sejajar dengan garis lain.</li>
-                <li>Siswa dapat menentukan persamaan garis lurus yang melalui satu titik dan tegak lurus dengan garis lain.
-                </li>
-            </ol>
-        </div>
-    </div>
-
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">3. Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain
     </h2>
@@ -362,69 +345,58 @@
             <span class="title-box">Contoh</span>
 
             <p>
-                Tentukan persamaan garis yang melalui titik <span>$A(2,3)$</span> dan sejajar dengan garis
+                Tentukan persamaan garis yang melalui titik
+                <span>$A(2,3)$</span> dan sejajar dengan garis
                 <span>$y = 2x + 1$</span>.
             </p>
 
             <p><b>Penyelesaian:</b></p>
 
-            <p>
-                Gradien garis <span>$y = 2x + 1$</span> adalah
-                <input type="text" id="cs_sejajar_m1"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">.
-            </p>
+            <ol style="line-height:1.9;">
+                <li>
+                    Gradien garis
+                    <span>$y = 2x + 1$</span> adalah
+                    <span>$m = 2$</span>.
+                </li>
 
-            <p>
-                Karena garis yang dicari sejajar dengan garis tersebut, maka gradiennya juga
-                <input type="text" id="cs_sejajar_m2"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">.
-            </p>
+                <li>
+                    Karena garis yang dicari sejajar, maka gradiennya juga
+                    <span>$m = 2$</span>.
+                </li>
 
-            <p>
-                Substitusi titik <span>$(2,3)$</span> dan gradien tersebut ke bentuk persamaan garis melalui satu titik:
-            </p>
+                <li>
+                    Gunakan rumus persamaan garis melalui satu titik:
 
-            <div class="rumus-box mb-3" style="width: fit-content;">
-                <span>$y-$</span>
-                <input type="text" id="cs_sejajar_y1"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
-                <span>$= $</span>
-                <input type="text" id="cs_sejajar_m3"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
-                <span>$(x-$</span>
-                <input type="text" id="cs_sejajar_x1"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
-                <span>$)$</span>
-            </div>
+                    <div class="rumus-box my-2" style="width: fit-content">
+                        <span>$y - y_1 = m(x - x_1)$</span>
+                    </div>
+                </li>
 
-            <p>
-                Sederhanakan persamaan tersebut hingga diperoleh bentuk akhir.
-            </p>
+                <li>
+                    Substitusikan titik <span>$(2,3)$</span> dan
+                    <span>$m = 2$</span>:
 
-            <p>
-                <span>$y =$</span>
-                <input type="text" id="cs_sejajar_akhir"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:160px;">
-            </p>
+                    <div class="rumus-box my-2" style="width: fit-content">
+                        <span>$y - 3 = 2(x - 2)$</span>
+                    </div>
+                </li>
 
-            <div class="mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekContohSoalSejajar()">Cek</button>
-                <div id="feedbackContohSoalSejajar" class="mt-2"></div>
-                <div id="petunjukContohSoalSejajar" class="mt-2"></div>
-            </div>
+                <li>
+                    Sederhanakan:
 
-            <div id="pembahasanContohSoalSejajar" class="box-kesimpulan mt-3 d-none">
-                <b>Pembahasan:</b>
-                <ol class="mb-0 mt-2">
-                    <li>Gradien garis <span>$y = 2x + 1$</span> adalah <span>$2$</span>.</li>
-                    <li>Karena garis yang dicari sejajar, maka gradiennya juga <span>$2$</span>.</li>
-                    <li>Substitusikan titik <span>$(2,3)$</span> ke rumus <span>$y-y_1=m(x-x_1)$</span>:
-                        <span>$y-3=2(x-2)$</span>.
-                    </li>
-                    <li>Sederhanakan:
-                        <span>$y-3=2x-4$</span>, sehingga <span>$y=2x-1$</span>.
-                    </li>
-                </ol>
+                    <div class="rumus-box my-2" style="width: fit-content">
+                        <span>$y - 3 = 2x - 4$</span>
+                        <br>
+                        <span>$y = 2x - 4 + 3$</span>
+                        <br>
+                        <span>$y = 2x - 1$</span>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="box-kesimpulan mt-3">
+                Jadi, persamaan garis yang dicari adalah
+                <span>$\boxed{y = 2x - 1}$</span>.
             </div>
         </div>
     </div>
@@ -454,20 +426,17 @@
                 <p>
                     <span>$x_1 =$</span>
                     <input type="text" id="lat1_x1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                     <span>dan</span>
                     <span>$y_1 =$</span>
                     <input type="text" id="lat1_y1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                 </p>
 
                 <p>
                     <span>$m =$</span>
                     <input type="text" id="lat1_m"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                 </p>
 
                 <p>
@@ -477,16 +446,13 @@
                 <div class="rumus-box mb-3" style="width: fit-content;">
                     <span>$y-$</span>
                     <input type="text" id="lat1_sub_y1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                     <span>$= $</span>
                     <input type="text" id="lat1_sub_m"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                     <span>$(x-$</span>
                     <input type="text" id="lat1_sub_x1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:80px;">
                     <span>$)$</span>
                 </div>
 

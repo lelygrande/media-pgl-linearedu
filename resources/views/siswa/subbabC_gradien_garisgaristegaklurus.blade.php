@@ -169,6 +169,27 @@
             color: #fff !important;
             border-color: #dc3545 !important;
         }
+
+        /* =========================================
+            GEOGEBRA RESPONSIVE
+            ========================================= */
+
+        #ggb-eksplorasi-tegak {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+
+            #ggb-eksplorasi-tegak {
+
+                max-width: 100%;
+
+                height: 320px;
+            }
+        }
     </style>
 
     {{-- Subjudul --}}
@@ -190,7 +211,7 @@
         <div class="quiz-card p-3 mb-3">
             {{-- Grafik muncul di awal --}}
             <div class="mb-4">
-                <div id="ggb-eksplorasi-tegak" style="width:100%; height:500px;"></div>
+                <div id="ggb-eksplorasi-tegak"></div>
                 <p class="mt-3 mb-0">
                     Amati kedua pasangan garis pada grafik di atas. Masing-masing pasangan garis tampak berpotongan
                     membentuk sudut siku-siku.

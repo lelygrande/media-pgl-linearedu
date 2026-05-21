@@ -200,7 +200,7 @@
         </ul>
 
         <div class="text-center mb-3">
-            <img src="{{ asset('img/gradien/gradienduatitik.png') }}"
+            <img class="zoomable" src="{{ asset('img/gradien/gradienduatitik.png') }}"
                 style="max-width:300px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
             <div class="text-muted mt-2" style="font-size:13px;">
                 Perpindahan dari titik A ke titik B
@@ -249,7 +249,7 @@
         </div>
         <div class="d-flex gap-2 flex-wrap mt-2">
             <button class="btn btn-palet btn-sm" onclick="cekEksplorasiDuaTitik()">Cek Jawaban</button>
-            <button class="btn btn-outline-secondary btn-sm" onclick="resetEksplorasiDuaTitik()">Reset</button>
+            <button class="btn btn-palet btn-sm" onclick="resetEksplorasiDuaTitik()">Reset</button>
         </div>
 
         <div id="kesimpulanEksDuaTitik" class="mt-3"></div>
@@ -258,30 +258,43 @@
     {{-- Pengantar --}}
     <div class="card card-materi mb-4">
         <div class="card-body p-4">
+
             <p class="mb-2" style="line-height:1.8;">
-                Ingat bahwa gradien (m) didefinisikan sebagai perbandingan antara
-                <span class="y-brown">perubahan pada y</span> terhadap
-                <span class="x-green">perubahan pada x</span>.
+                Ingat kembali bahwa gradien (\(m\)) menunjukkan tingkat kemiringan suatu garis.
+                Gradien diperoleh dari perbandingan antara perubahan nilai \(y\)
+                dengan perubahan nilai \(x\).
             </p>
 
             <div id="katex_def" class="katex-box mb-3"></div>
 
             {{-- Gambar dua titik --}}
             <p class="mb-2" style="line-height:1.8;">
-                Misalkan kita menggambar garis yang melalui dua titik umum
-                <span class="x-green">(x₁</span>, <span class="y-brown">y₁)</span> dan
-                <span class="x-green">(x₂</span>, <span class="y-brown">y₂)</span>.
+                Perhatikan sebuah garis yang melalui dua titik berikut.
+                Titik pertama adalah \((x_1,y_1)\) dan titik kedua adalah \((x_2,y_2)\).
             </p>
+
             <div class="ka-figure">
-                <img src="{{ asset('img/gradien/duatitik1.png') }}" alt="Garis melalui dua titik">
-                <div class="ka-caption">Garis melalui dua titik $(x₁,y₁)$ dan $(x₂,y₂)$</div>
+                <img class="zoomable" src="{{ asset('img/gradien/duatitik1.png') }}" alt="Garis melalui dua titik">
+
+                <div class="ka-caption">
+                    Garis melalui dua titik \((x_1,y_1)\) dan \((x_2,y_2)\)
+                </div>
             </div>
+
             {{-- Δx --}}
-            <h5 class="mt-3" style="font-weight:800;">Perubahan pada <span class="x-green">$x$</span></h5>
+            <h5 class="mt-3" style="font-weight:800;">
+                Perubahan pada nilai <span class="x-green">\(x\)</span>
+            </h5>
+
             <p class="mb-2" style="line-height:1.8;">
-                Ekspresi untuk perubahan pada <span class="x-green">x</span> adalah
-                <span class="x-green">$x₂ − x₁$</span>.
+                Untuk mengetahui perubahan pada nilai \(x\),
+                kita mengurangkan nilai \(x\) yang kedua dengan nilai \(x\) yang pertama.
             </p>
+
+            <p class="mb-2" style="line-height:1.8;">
+                Perubahan pada nilai \(x\) dapat ditulis:
+            </p>
+
             <div id="katex_dx" class="katex-box mb-2"></div>
 
             <div class="ka-toggle" onclick="toggleExplain('ex_dx')">
@@ -290,25 +303,47 @@
             </div>
 
             <div id="ex_dx" class="ka-explain">
+
                 <p class="mb-2" style="line-height:1.8;">
-                    Misalnya <span class="x-green">$x₁ = 3$</span> dan <span class="x-green">$x₂ = 7$</span>.
-                    Maka perubahan pada $x$:
+                    Misalnya diketahui:
+                    <span class="x-green">\(x_1 = 3\)</span>
+                    dan
+                    <span class="x-green">\(x_2 = 7\)</span>.
                 </p>
+
+                <p class="mb-2" style="line-height:1.8;">
+                    Maka perubahan pada nilai \(x\):
+                </p>
+
                 <div id="katex_dx_ex" class="katex-box"></div>
+
                 <p class="mb-0" style="line-height:1.8;">
-                    Ini masuk akal karena jarak dari 3 ke 7 adalah 4.
+                    Artinya, titik bergerak dari 3 ke 7 sejauh 4 satuan ke arah horizontal.
                 </p>
             </div>
+
             <div class="ka-figure">
-                <img src="{{ asset('img/gradien/duatitik2.png') }}" alt="Perubahan Δx">
-                <div class="ka-caption">Panah menunjukkan Δx (gerak horizontal)</div>
+                <img class="zoomable" src="{{ asset('img/gradien/duatitik2.png') }}" alt="Perubahan Δx">
+
+                <div class="ka-caption">
+                    Panah menunjukkan perubahan \(\Delta x\)
+                </div>
             </div>
 
             {{-- Δy --}}
-            <h5 class="mt-4" style="font-weight:800;">Perubahan pada <span class="y-brown">$y$</span></h5>
+            <h5 class="mt-4" style="font-weight:800;">
+                Perubahan pada nilai <span class="y-brown">\(y\)</span>
+            </h5>
+
             <p class="mb-2" style="line-height:1.8;">
-                Dengan cara yang sama, ekspresi untuk perubahan pada <span class="y-brown">$y$</span> adalah
-                <span class="y-brown">$y₂ − y₁$</span>.
+                Dengan cara yang sama,
+                perubahan pada nilai \(y\)
+                diperoleh dengan mengurangkan nilai \(y\) kedua
+                dengan nilai \(y\) pertama.
+            </p>
+
+            <p class="mb-2" style="line-height:1.8;">
+                Perubahan pada nilai \(y\) dapat ditulis:
             </p>
 
             <div id="katex_dy" class="katex-box mb-2"></div>
@@ -319,74 +354,51 @@
             </div>
 
             <div id="ex_dy" class="ka-explain">
+
                 <p class="mb-2" style="line-height:1.8;">
-                    Misalnya <span class="y-brown">y₁ = 2</span> dan <span class="y-brown">y₂ = 9</span>.
-                    Maka perubahan pada y:
+                    Misalnya diketahui:
+                    <span class="y-brown">\(y_1 = 2\)</span>
+                    dan
+                    <span class="y-brown">\(y_2 = 9\)</span>.
                 </p>
+
+                <p class="mb-2" style="line-height:1.8;">
+                    Maka perubahan pada nilai \(y\):
+                </p>
+
                 <div id="katex_dy_ex" class="katex-box"></div>
+
                 <p class="mb-0" style="line-height:1.8;">
-                    Ini menunjukkan kita “naik” dari 2 ke 9 sebanyak 7 satuan.
+                    Artinya, titik bergerak naik dari 2 ke 9 sebanyak 7 satuan.
                 </p>
             </div>
+
             <div class="ka-figure">
-                <img src="{{ asset('img/gradien/duatitik3.png') }}" alt="Perubahan Δy">
-                <div class="ka-caption">Panah menunjukkan Δy (gerak vertikal)</div>
+                <img class="zoomable" src="{{ asset('img/gradien/duatitik3.png') }}" alt="Perubahan Δy">
+
+                <div class="ka-caption">
+                    Panah menunjukkan perubahan \(\Delta y\)
+                </div>
             </div>
 
             {{-- Rumus akhir --}}
-            <p>
-                Sekarang kita dapat menuliskan rumus umum gradien sebagai berikut:
+            <p class="mt-4" style="line-height:1.8;">
+                Karena gradien merupakan perbandingan perubahan nilai \(y\)
+                terhadap perubahan nilai \(x\),
+                maka rumus gradien garis yang melalui dua titik dapat ditulis sebagai berikut.
             </p>
 
             <div id="katex_final" class="katex-box"></div>
 
-            <p class="mt-2">
-                Itulah rumus umum gradien garis.
+            <p class="mt-2" style="line-height:1.8;">
+                Jadi, untuk menentukan gradien garis melalui dua titik,
+                kita membagi perubahan nilai \(y\)
+                dengan perubahan nilai \(x\).
             </p>
+
         </div>
     </div>
-
-
-    {{-- Materi: Konsep --}}
-    <div class="card card-materi mt-4 mb-4">
-        <div class="card-body p-4">
-            <p class="mb-3" style="line-height:1.8;">
-                Gradien garis yang melalui dua titik, yaitu titik $ A(x_1,y_1)$ dan $ B(x_2,y_2) $,
-                ditentukan dengan cara yang sama seperti mencari gradien pada umumnya, yaitu
-                <b>membandingkan perubahan nilai $y$</b> terhadap <b>perubahan nilai $x$</b>.
-            </p>
-
-            <p class="mb-3" style="line-height:1.8;">
-                Perhatikan Gambar 2.2.
-            </p>
-
-            <div class="img-grid mb-3">
-                <figure>
-                    <img src="{{ asset('img/gradien/gradienduatitik.png') }}" alt="Gambar 2.2 Gradien dua titik"
-                        style="max-width: 300px;">
-                    <figcaption class="mt-2 text-muted" style="font-size:13px;">Gambar 2.2</figcaption>
-                </figure>
-            </div>
-
-            <p class="mb-2" style="line-height:1.8;">
-                Pada gambar tersebut, perubahan nilai $y$ sepanjang garis $AB$ ditunjukkan oleh selisih $y_2 - y_1$,
-                sedangkan perubahan nilai $x$ ditunjukkan oleh selisih $x_2 - x_1$.
-                Oleh karena itu, gradien garis $AB$ dapat ditentukan dengan rumus berikut.
-            </p>
-
-            <div class="rumus-box mb-0">
-                $$ m = \frac{\text{perubahan komponen }y}{\text{perubahan komponen }x} $$
-                $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
-            </div>
-
-            <div class="alert alert-info mt-3 mb-0" style="border-radius: 14px;">
-                <strong>Catatan:</strong> Jika $x_2 = x_1$ maka penyebut $x_2-x_1 = 0$, sehingga gradien tidak
-                terdefinisi
-                (garis vertikal).
-            </div>
-        </div>
-    </div>
-
+    
     {{-- Contoh --}}
     <div class="box-contoh mt-5 mb-4">
         <div class="card-body p-4">
@@ -515,9 +527,9 @@
 
             {{-- HINTS + SOLUTION --}}
             <div class="d-flex gap-2 flex-wrap">
-                <button class="btn btn-outline-secondary btn-sm" onclick="hintNext()">Hint</button>
-                <button class="btn btn-outline-dark btn-sm" onclick="showSolution()">Tunjukkan Penyelesaian</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="resetAll()">Reset</button>
+                <button class="btn btn-palet btn-sm" onclick="hintNext()">Hint</button>
+                <button class="btn btn-palet btn-sm" onclick="showSolution()">Tunjukkan Penyelesaian</button>
+                <button class="btn btn-palet btn-sm" onclick="resetAll()">Reset</button>
             </div>
 
             <div id="hintBox" class="alert alert-info mt-3 mb-0" style="border-radius:14px; display:none;"></div>

@@ -399,7 +399,6 @@ function resetLatihan1A1() {
 // LATIHAN 2
 // =========================
 
-
 function isPersamaanGarisLurus(expr) {
     const s = norm(expr);
 
@@ -446,7 +445,8 @@ function cekLatihan2A1() {
         fba.style.color = "green";
         skor++;
     } else {
-        fba.innerHTML = "Belum tepat. Coba buat persamaan yang hanya memuat x dan/atau y berpangkat satu.";
+        fba.innerHTML =
+            "Belum tepat. Coba buat persamaan yang hanya memuat x dan/atau y berpangkat satu.";
         fba.style.color = "red";
     }
 
@@ -455,7 +455,8 @@ function cekLatihan2A1() {
         fbb.style.color = "green";
         skor++;
     } else {
-        fbb.innerHTML = "Belum tepat. Hindari bentuk pangkat, akar, atau perkalian variabel seperti xy.";
+        fbb.innerHTML =
+            "Belum tepat. Hindari bentuk pangkat, akar, atau perkalian variabel seperti xy.";
         fbb.style.color = "red";
     }
 
@@ -464,12 +465,14 @@ function cekLatihan2A1() {
         fbc.style.color = "green";
         skor++;
     } else {
-        fbc.innerHTML = "Belum tepat. Contoh yang benar misalnya y = 2x + 3 atau 3x + y - 5 = 0.";
+        fbc.innerHTML =
+            "Belum tepat. Contoh yang benar misalnya y = 2x + 3 atau 3x + y - 5 = 0.";
         fbc.style.color = "red";
     }
 
     if (skor === 3) {
-        fb.innerHTML = "Bagus. Ketiga contohmu merupakan persamaan garis lurus.";
+        fb.innerHTML =
+            "Bagus. Ketiga contohmu merupakan persamaan garis lurus.";
         fb.style.color = "green";
         nextBtn.disabled = false;
     } else {
@@ -574,6 +577,8 @@ function resetLatihan3A1() {
 // LATIHAN 4
 // =========================
 async function cekLatihan4A1() {
+    console.log("LATIHAN 4 JALAN");
+
     let skor = 0;
 
     const a = norm(document.getElementById("lat4a")?.value);

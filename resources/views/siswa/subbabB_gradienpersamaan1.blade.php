@@ -190,7 +190,7 @@
         </p>
 
         <div class="text-center mb-2">
-            <img src="{{ asset('img/gradien/eksplorasipersamaan.png') }}"
+            <img class="zoomable" src="{{ asset('img/gradien/eksplorasipersamaan.png') }}"
                 alt="Grafik garis y = -x + 4 melalui titik A, B, dan C"
                 style="max-width:420px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
         </div>
@@ -252,7 +252,7 @@
 
         <div class="d-flex gap-2 flex-wrap mb-3">
             <button class="btn btn-palet btn-sm" onclick="cekTabelEksplorasi()">Cek Jawaban</button>
-            <button class="btn btn-outline-secondary btn-sm" onclick="resetEksplorasiPersamaan()">Reset</button>
+            <button class="btn btn-palet btn-sm" onclick="resetEksplorasiPersamaan()">Reset</button>
         </div>
 
         <div id="feedbackTabelEksplorasi" class="mb-3"></div>
@@ -275,8 +275,11 @@
 
             <div class="mb-3">
                 <label for="q2" class="form-label">
-                    2. Gradien garis dengan persamaan \(y = mx + c\) adalah ....
+                    2. Jika semua ruas pada garis memiliki nilai gradien yang sama,
+                    maka pada persamaan garis \(y = mx + c\),
+                    simbol yang menyatakan gradien adalah ....
                 </label>
+
                 <input type="text" id="q2" class="form-control" style="max-width:120px;">
             </div>
 
@@ -353,7 +356,7 @@
 
     {{-- Amati pola --}}
     <div class="box-eksplorasi mt-5">
-        <div class="card-body p-4">
+        <div class="card-body p-2">
             <span class="title-box">Ayo Amati</span>
 
             <p class="mb-2" style="line-height:1.8;">
@@ -380,7 +383,7 @@
 
     {{-- Contoh kontekstual y=mx --}}
     <div class="box-contoh mt-5 mb-4">
-        <div class="card-body p-4">
+        <div class="card-body p-2">
             <span class="title-box">Contoh</span>
 
             <p class="mb-3" style="line-height:1.8; text-align:justify;">
@@ -771,7 +774,7 @@
 
             <div class="d-flex gap-2 mt-3">
                 <button class="btn btn-palet btn-sm" onclick="cekUrutanLangkah()">Cek</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="resetUrutanLangkah()">Reset</button>
+                <button class="btn btn-palet btn-sm" onclick="resetUrutanLangkah()">Reset</button>
             </div>
 
             <div id="fbUrutanLangkah" class="mt-3"></div>

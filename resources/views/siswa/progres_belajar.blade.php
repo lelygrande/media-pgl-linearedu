@@ -183,6 +183,18 @@
                 padding: 6px 8px;
             }
         }
+
+        .materi-link {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .materi-link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
     </style>
 
     @stack('styles')
@@ -220,15 +232,15 @@
 
     {{-- KONTEN HALAMAN --}}
     <main class="py-5">
-    <div class="container">
+        <div class="container">
 
-        <div class="mb-3">
-            <a href="{{ $backToMateriUrl }}" class="btn btn-outline-primary rounded-pill px-4">
-                ← Kembali ke Materi
-            </a>
-        </div>
+            <div class="mb-3">
+                <a href="{{ $backToMateriUrl }}" class="btn btn-outline-primary rounded-pill px-4">
+                    ← Kembali ke Materi
+                </a>
+            </div>
 
-        <div class="student-progress-wrapper">
+            <div class="student-progress-wrapper">
 
                 {{-- BAGIAN ATAS (BIRU) --}}
                 <div class="student-progress-header">
@@ -247,11 +259,8 @@
                             </div>
 
                             <div class="progress study-progress-bar">
-                                <div class="progress-bar" role="progressbar"
-                                    style="width: {{ $progressPercent }}%"
-                                    aria-valuenow="{{ $progressPercent }}"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">
+                                <div class="progress-bar" role="progressbar" style="width: {{ $progressPercent }}%"
+                                    aria-valuenow="{{ $progressPercent }}" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
 
@@ -294,7 +303,19 @@
 
                             <div class="row mb-2 align-items-center progress-row">
                                 <div class="col-md-8 col-7">
-                                    {{ $item['title'] }}
+
+                                    @if ($isOpened || $isCompleted)
+                                        <a href="{{ route('materi.show', $item['slug']) }}" class="materi-link">
+
+                                            {{ $item['title'] }}
+
+                                        </a>
+                                    @else
+                                        <span class="text-muted">
+                                            {{ $item['title'] }}
+                                        </span>
+                                    @endif
+
                                 </div>
 
                                 <div class="col-md-4 col-5 fw-semibold">

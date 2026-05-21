@@ -182,6 +182,57 @@
             flex: 0 0 100%;
             box-sizing: border-box;
         }
+
+        /* =========================================
+        RESPONSIVE MOBILE
+        ========================================= */
+        @media (max-width: 768px) {
+
+            /* ---------- RUMUS ---------- */
+            .rumus-box {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: auto;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .rumus-box span {
+                white-space: nowrap;
+            }
+
+            /* ---------- GAMBAR ---------- */
+            .img-fluid,
+            .zoomable,
+            .img-grid img,
+            figure img {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* gambar dalam materi */
+            .text-center img {
+                max-width: 100% !important;
+            }
+
+            /* ---------- GRID GAMBAR ---------- */
+            .img-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* ---------- BOX LATIHAN ---------- */
+            .rumus-box input {
+                width: 60px !important;
+            }
+
+            /* ---------- FLEX RUMUS ---------- */
+            .d-flex.align-items-center.flex-wrap.gap-4 {
+                gap: 12px !important;
+            }
+        }
     </style>
 
     {{-- Subjudul --}}
@@ -351,10 +402,6 @@
                 <span>$\dfrac{y-y_1}{y_2-y_1}=\dfrac{x-x_1}{x_2-x_1}$</span>
             </div>
 
-            <p class="mb-0">
-                Jadi, jika diketahui dua titik pada suatu garis, kita dapat menentukan persamaan garisnya dengan
-                terlebih dahulu mencari gradien, kemudian mensubstitusikannya ke persamaan garis melalui satu titik.
-            </p>
         </div>
     </div>
 

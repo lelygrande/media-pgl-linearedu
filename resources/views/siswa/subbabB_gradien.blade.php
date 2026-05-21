@@ -132,6 +132,66 @@
         }
     </style>
 
+    <style>
+        .eksplorasi-wrap {
+            width: 100%;
+        }
+
+        .slider-area input {
+            width: 260px;
+            max-width: 100%;
+        }
+
+        #papanVisual {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 320px;
+            border-radius: 16px;
+            background: #f8fafc;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        /* alas */
+        #alas {
+            position: absolute;
+            left: 80px;
+            bottom: 60px;
+            height: 4px;
+            background: #94a3b8;
+        }
+
+        /* tinggi */
+        #tinggi {
+            position: absolute;
+            left: 80px;
+            bottom: 60px;
+            width: 4px;
+            background: #94a3b8;
+        }
+
+        /* papan miring */
+        #papan {
+            position: absolute;
+            left: 80px;
+            bottom: 60px;
+            height: 8px;
+            background: #334155;
+            border-radius: 999px;
+            transform-origin: left center;
+        }
+
+        /* mobile */
+        @media (max-width: 576px) {
+
+            #papanVisual {
+                height: 260px;
+            }
+
+        }
+    </style>
+
 
 
     {{-- css pilihan ganda --}}
@@ -208,6 +268,31 @@
             border-color: #dc3545;
             background: #fff5f5;
         }
+
+        /* =========================================
+               RESPONSIVE MOBILE
+            ========================================= */
+        @media (max-width: 768px) {
+
+            /* ---------- RUMUS ---------- */
+            .rumus-box {
+                overflow-x: auto;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            /* ---------- GAMBAR FIGURE ---------- */
+            .img-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .img-grid img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
+        }
     </style>
 
     {{-- Judul --}}
@@ -243,7 +328,35 @@
             dari perbandingan perubahan ke atas dengan perubahan ke samping.
         </p>
 
-        <div id="papan-canvas" class="mb-3"></div>
+        <div class="eksplorasi-wrap mb-4">
+
+            <!-- Slider -->
+            <div class="slider-area mb-3">
+                <div class="mb-2">
+                    <label>Naik: <span id="riseVal">3</span></label>
+                    <input type="range" id="riseSlider" min="1" max="10" value="3">
+                </div>
+
+                <div>
+                    <label>Maju: <span id="runVal">6</span></label>
+                    <input type="range" id="runSlider" min="1" max="10" value="6">
+                </div>
+            </div>
+
+            <!-- Area gambar -->
+            <div id="papanVisual">
+
+                <!-- alas -->
+                <div id="alas"></div>
+
+                <!-- tinggi -->
+                <div id="tinggi"></div>
+
+                <!-- papan miring -->
+                <div id="papan"></div>
+
+            </div>
+        </div>
 
         <!-- Soal 1 -->
         <div class="mb-4">
@@ -415,7 +528,8 @@
                         <h6 class="fw-bold mb-3">Contoh 1: Gradien Positif</h6>
 
                         <div class="text-center mb-3">
-                            <img src="{{ asset('img/gradien/contohgradienpositif.png') }}" alt="Contoh gradien positif"
+                            <img class="zoomable" src="{{ asset('img/gradien/contohgradienpositif.png') }}"
+                                alt="Contoh gradien positif"
                                 style="max-width: 360px; width: 100%; border-radius: 12px; border:1px solid #e5e7eb;">
                         </div>
 
@@ -447,7 +561,8 @@
                         <h6 class="fw-bold mb-3">Contoh 2: Gradien Negatif</h6>
 
                         <div class="text-center mb-3">
-                            <img src="{{ asset('img/gradien/contohgradiennegatif.png') }}" alt="Contoh gradien positif"
+                            <img class="zoomable" src="{{ asset('img/gradien/contohgradiennegatif.png') }}"
+                                alt="Contoh gradien positif"
                                 style="max-width: 360px; width: 100%; border-radius: 12px; border:1px solid #e5e7eb;">
                         </div>
 

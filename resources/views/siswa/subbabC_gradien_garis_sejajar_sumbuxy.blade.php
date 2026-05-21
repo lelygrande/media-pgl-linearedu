@@ -154,6 +154,31 @@
             color: #fff !important;
             border-color: #dc3545 !important;
         }
+
+        /* DESKTOP */
+        .tabel-gradien {
+            width: 500px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+
+            .tabel-gradien {
+                width: 100% !important;
+                font-size: 13px;
+            }
+
+            .tabel-gradien th,
+            .tabel-gradien td {
+                padding: 6px 4px;
+            }
+
+            .tabel-gradien input {
+                width: 60px;
+                font-size: 12px;
+                padding: 4px;
+            }
+        }
     </style>
 
     {{-- Judul --}}
@@ -198,8 +223,8 @@
                     Perhatikan tiga garis berikut.
                 </p>
 
-                <div class="table-responsive mb-3" style="width: 500px">
-                    <table class="table table-bordered text-center align-middle">
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered tabel-gradien align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>Garis</th>

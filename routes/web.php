@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GuruAuthController;
+use App\Http\Controllers\GuruDashboardController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProgressBelajarController;
 use App\Http\Controllers\ProgressSiswaController;
@@ -64,16 +65,11 @@ Route::prefix('guru')->group(function () {
     // protected
     Route::middleware('auth:guru')->group(function () {
         Route::post('/logout', [GuruAuthController::class, 'logout'])->name('guru.logout');
-
-        Route::view('/dashboardguru', 'guru.dashboardguru')->name('dashboardguru');
-        Route::get('/rekapitulasi-nilai', [QuizController::class, 'rekapNilai'])->name('rekapitulasi-nilai');
+        Route::get('/dashboardguru', [GuruDashboardController::class, 'index'])->name('dashboardguru');
 
         // Progress Siswa
         Route::get('/progress-siswa', [ProgressSiswaController::class, 'index'])
         ->name('guru.progress-siswa');
-        Route::get('/progress-siswa/{siswa}', [ProgressSiswaController::class, 'detail'])
-        ->name('guru.progress-siswa.detail');
-
 
         Route::view('/daftarmateriguru', 'guru.daftarmateriguru')->name('daftarmateriguru');
 
@@ -84,8 +80,14 @@ Route::prefix('guru')->group(function () {
         Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('guru.daftarsiswa.update');
         Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('guru.daftarsiswa.destroy');
 
+        // Export Daftar Siswa
         Route::get('/daftarsiswa/export/pdf', [SiswaController::class, 'exportPdf'])->name('guru.daftarsiswa.export.pdf');
         Route::get('/daftarsiswa/export/excel', [SiswaController::class, 'exportExcel'])->name('guru.daftarsiswa.export.excel');
+
+        // Export Rekapitulasi Nilai
+        Route::get('/rekapitulasi-nilai', [QuizController::class, 'rekapNilai'])->name('rekapitulasi-nilai');
+        Route::get('/rekap/export/pdf',[QuizController::class, 'exportRekapPdf'])->name('guru.rekap.export.pdf');
+        Route::get('/rekap/export/excel',[QuizController::class, 'exportRekapExcel'])->name('guru.rekap.export.excel');
 
         Route::get('/kuis', [QuizController::class, 'index'])->name('kuis.index');
         Route::get('/kuis/{id}', [QuizController::class, 'show'])->name('kuis.show');

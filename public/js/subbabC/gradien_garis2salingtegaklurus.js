@@ -6,6 +6,7 @@ let sudahLoadTegak = false;
 
 function ggbOnLoadEksTegak(api) {
     api.setPerspective("G");
+
     api.setAxesVisible(true, true);
     api.setGridVisible(true);
 
@@ -18,64 +19,127 @@ function ggbOnLoadEksTegak(api) {
         gridType: 0,
     });
 
-    api.setCoordSystem(-7, 7, -7, 7);
     api.setAxisSteps(1, 1, 1, 1);
 
+    // =========================
+    // Titik
+    // =========================
     api.evalCommand("A=(-4,-2)");
     api.evalCommand("B=(-2,2)");
+
     api.evalCommand("C=(-4,2)");
     api.evalCommand("D=(0,0)");
+
     api.evalCommand("E=(1,-1)");
     api.evalCommand("F=(5,1)");
+
     api.evalCommand("G=(2,3)");
     api.evalCommand("H=(4,-1)");
 
+    // =========================
+    // Segment
+    // =========================
     api.evalCommand("s1=Segment(A,B)");
     api.evalCommand("s2=Segment(C,D)");
+
     api.evalCommand("s3=Segment(E,F)");
     api.evalCommand("s4=Segment(G,H)");
 
+    // =========================
+    // Style titik
+    // =========================
     ["A", "B", "C", "D", "E", "F", "G", "H"].forEach(function (obj) {
         api.setLabelVisible(obj, true);
         api.setFixed(obj, true, false);
+
         api.setPointSize(obj, 5);
+
         api.setColor(obj, 0, 0, 0);
     });
 
+    // =========================
+    // Style garis merah
+    // =========================
     ["s1", "s2"].forEach(function (obj) {
         api.setLabelVisible(obj, false);
+
         api.setLineThickness(obj, 5);
+
         api.setColor(obj, 220, 60, 35);
     });
 
+    // =========================
+    // Style garis biru
+    // =========================
     ["s3", "s4"].forEach(function (obj) {
         api.setLabelVisible(obj, false);
+
         api.setLineThickness(obj, 5);
+
         api.setColor(obj, 40, 120, 220);
     });
 
+    // =========================
+    // Viewport responsive
+    // =========================
     api.setAxesVisible(true, true);
     api.setGridVisible(true);
-    api.setCoordSystem(-6, 6, -5, 5);
+
+    if (window.innerWidth <= 768) {
+        // mobile → lebih zoom in
+        api.setCoordSystem(-4.5, 4.5, -3.5, 3.5);
+    } else {
+        // desktop
+        api.setCoordSystem(-6, 6, -5, 5);
+    }
 }
 
 function tampilkanGrafikTegak() {
+
     if (sudahLoadTegak) return;
 
+    let ggbWidth;
+    let ggbHeight;
+
+    if (window.innerWidth <= 768) {
+
+        const container = document.getElementById("ggb-eksplorasi-tegak");
+
+        ggbWidth = container.clientWidth - 20;
+
+        ggbHeight = 300;
+
+    } else {
+
+        ggbWidth = 500;
+        ggbHeight = 400;
+    }
+
     const paramsEksTegak = {
+
         appName: "classic",
+
         id: "ggbAppletEksTegak",
-        width: 500,
-        height: 400,
+
+        width: ggbWidth,
+
+        height: ggbHeight,
+
         showToolBar: false,
+
         showAlgebraInput: false,
+
         showMenuBar: false,
+
         enableRightClick: false,
+
         showResetIcon: true,
+
         appletOnLoad: ggbOnLoadEksTegak,
     };
 
     appletEksTegak = new GGBApplet(paramsEksTegak, true);
+
     appletEksTegak.inject("ggb-eksplorasi-tegak");
 
     sudahLoadTegak = true;
@@ -434,7 +498,6 @@ function bukaQuizButton() {
     quizBtn.replaceWith(link);
 }
 
-
 // =========================
 // LATIHAN 1
 // =========================
@@ -491,35 +554,37 @@ function cekLatihanTegak() {
 
         if (!benarM1) {
             petunjuk.push(
-                "Periksa kembali gradien pada persamaan <b>$y = 3x - 2$</b>. Pada bentuk <b>$y = mx + c$</b>, gradien adalah koefisien <b>$x$</b>."
+                "Periksa kembali gradien pada persamaan <b>$y = 3x - 2$</b>. Pada bentuk <b>$y = mx + c$</b>, gradien adalah koefisien <b>$x$</b>.",
             );
         }
 
         if (!benarMa) {
             petunjuk.push(
-                "Untuk garis <b>(a)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>."
+                "Untuk garis <b>(a)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>.",
             );
         }
 
         if (!benarMb) {
             petunjuk.push(
-                "Untuk garis <b>(b)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>."
+                "Untuk garis <b>(b)</b>, ubah dulu ke bentuk <b>$y = mx + c$</b>, lalu tentukan gradiennya dari koefisien <b>$x$</b>.",
             );
         }
 
         if (!benarKaliA) {
             petunjuk.push(
-                "Hitung kembali hasil kali <b>$m_1 \\times m_a$</b>. Bandingkan hasilnya dengan syarat dua garis tegak lurus."
+                "Hitung kembali hasil kali <b>$m_1 \\times m_a$</b>. Bandingkan hasilnya dengan syarat dua garis tegak lurus.",
             );
         }
 
         if (!benarKaliB) {
-            petunjuk.push("Hitung kembali hasil kali <b>$m_1 \\times m_b$</b>.");
+            petunjuk.push(
+                "Hitung kembali hasil kali <b>$m_1 \\times m_b$</b>.",
+            );
         }
 
         if (!benarJawaban) {
             petunjuk.push(
-                "Pilih persamaan garis yang menghasilkan hasil kali gradien <b>$-1$</b>, lalu tuliskan persamaan garisnya dengan lengkap."
+                "Pilih persamaan garis yang menghasilkan hasil kali gradien <b>$-1$</b>, lalu tuliskan persamaan garisnya dengan lengkap.",
             );
         }
 
@@ -540,14 +605,7 @@ function cekLatihanTegak() {
 }
 
 function resetLatihanTegak() {
-    clearInput([
-        "l_m1",
-        "l_ma",
-        "l_mb",
-        "l_kali_a",
-        "l_kali_b",
-        "l_jawaban",
-    ]);
+    clearInput(["l_m1", "l_ma", "l_mb", "l_kali_a", "l_kali_b", "l_jawaban"]);
 
     const fb = document.getElementById("fbLatihanTegak");
     const nextBtn = document.getElementById("nextBtnLatihan1");
@@ -630,31 +688,31 @@ async function cekLatihan2() {
 
         if (!benarMabAtas || !benarMabBawah) {
             petunjuk.push(
-                "Perhatikan kembali gradien jalan $AB$. Tuliskan dalam bentuk pecahan yang sudah disederhanakan."
+                "Perhatikan kembali gradien jalan $AB$. Tuliskan dalam bentuk pecahan yang sudah disederhanakan.",
             );
         }
 
         if (!benarHubungan) {
             petunjuk.push(
-                "Ingat, dua garis yang saling tegak lurus memiliki hasil kali gradien $-1$."
+                "Ingat, dua garis yang saling tegak lurus memiliki hasil kali gradien $-1$.",
             );
         }
 
         if (!benarAtas || !benarBawah) {
             petunjuk.push(
-                "Substitusikan kembali nilai gradien $AB$ ke bentuk $m_k \\times m_{AB} = -1$."
+                "Substitusikan kembali nilai gradien $AB$ ke bentuk $m_k \\times m_{AB} = -1$.",
             );
         }
 
         if (!benarHasilSubs) {
             petunjuk.push(
-                "Perhatikan ruas kanan pada hubungan dua garis tegak lurus. Nilainya tetap $-1$."
+                "Perhatikan ruas kanan pada hubungan dua garis tegak lurus. Nilainya tetap $-1$.",
             );
         }
 
         if (!benarJawaban) {
             petunjuk.push(
-                "Dari bentuk $m_k \\times \\left(-\\frac{1}{5}\\right) = -1$, cari nilai $m_k$ dengan membagi kedua ruas oleh $-\\frac{1}{5}$."
+                "Dari bentuk $m_k \\times \\left(-\\frac{1}{5}\\right) = -1$, cari nilai $m_k$ dengan membagi kedua ruas oleh $-\\frac{1}{5}$.",
             );
         }
 

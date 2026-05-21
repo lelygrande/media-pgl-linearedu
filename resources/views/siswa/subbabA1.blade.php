@@ -1191,6 +1191,8 @@
                     </button>
                 </div>
 
+                <div id="feedbackLatihan4A1" class="mt-2"></div>
+
                 <div class="mt-3">
                     <button class="btn btn-palet btn-sm" onclick="prevLatihan(3)">
                         Kembali ke Latihan 3
@@ -1212,15 +1214,6 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
-
-    {{-- Script complete --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <script>
-        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
-        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
-    </script>
-
     {{-- js --}}
     <script src="{{ asset('js/subbabA/subbabA1.js') }}"></script>
     <script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script>
@@ -1229,6 +1222,14 @@
             margin: 40,
             background: '#000000cc'
         })
+    </script>
+
+    {{-- Script complete --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
+        window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
 @endsection
 

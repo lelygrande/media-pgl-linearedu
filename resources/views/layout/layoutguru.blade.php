@@ -332,12 +332,6 @@
                         class="btn-sub d-block {{ request()->routeIs('kuis.*') ? 'active' : '' }}">
                         Manajemen Kuis
                     </a>
-
-                    <a href="{{ route('daftarmateriguru') }}"
-                        class="btn-sub d-block {{ request()->routeIs('daftarmateriguru') ? 'active' : '' }}">
-                        Daftar Materi
-                    </a>
-
                 </div>
             </aside>
 

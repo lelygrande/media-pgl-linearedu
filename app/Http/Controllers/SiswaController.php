@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RekapNilaiExport;
 
 class SiswaController extends Controller
 {
