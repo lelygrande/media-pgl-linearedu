@@ -701,11 +701,6 @@
 
             // grid sederhana
             api.setGraphicsOptions(1, {
-                gridDistance: [1, 1],
-                minorGrid: false,
-            });
-
-            api.setGraphicsOptions(1, {
                 gridType: 0,
             });
 

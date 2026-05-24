@@ -270,12 +270,15 @@
             box-sizing: border-box;
         }
 
-        /* Responsive GeoGebra / p5 */
         #ggb-garis,
         .p5-wrapper {
             width: 100% !important;
             max-width: 100%;
-            overflow-x: auto;
+
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
         }
 
         /* Responsive langkah penyelesaian */
@@ -997,7 +1000,7 @@
                 <hr class="my-4">
 
                 <p>
-                    <b>2.</b> Buatlah <b>3 contoh persamaan garis lurus</b> sendiri.
+                    <b>2.</b> Buatlah <b>3 contoh persamaan garis lurus!</b>.
                 </p>
 
                 <p class="mb-3">
@@ -1206,23 +1209,811 @@
         onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});">
     </script>
 
-    <script type="module">
-        import 'https://esm.run/mathlive';
-    </script>
-
     {{-- p5 library --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
-    {{-- js --}}
-    <script src="{{ asset('js/subbabA/subbabA1.js') }}"></script>
-    <script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script>
     <script>
-        mediumZoom('.zoomable', {
-            margin: 40,
-            background: '#000000cc'
-        })
+        // Geogebra
+        let applet2 = null;
+
+        // =========================
+        // RESPONSIVE SIZE
+        // =========================
+        function getGgbSize2() {
+            const container = document.querySelector("#ggb-garis");
+
+            const width = container ? container.clientWidth : 500;
+
+            // MOBILE
+            if (window.innerWidth <= 768) {
+                return {
+                    width: Math.min(width, 400),
+                    height: 400,
+                };
+            }
+
+            // DESKTOP
+            return {
+                width: 400,
+                height: 400,
+            };
+        }
+
+        // =========================
+        // ON LOAD
+        // =========================
+        function ggbOnLoad2(api) {
+            // mode grafik saja
+            api.setPerspective("G");
+
+            // axis & grid
+            api.setAxesVisible(true, true);
+            api.setGridVisible(true);
+
+            // grid sederhana
+            api.setGraphicsOptions(1, {
+                gridType: 0,
+            });
+
+            api.setAxisSteps(1, 1, 1, 1);
+
+            // viewport
+            api.setCoordSystem(-6, 6, -6, 6);
+
+            // titik
+            api.evalCommand("A=(0,1)");
+            api.evalCommand("B=(3,2)");
+
+            // garis
+            api.evalCommand("g=Line(A,B)");
+
+            // style titik
+            ["A", "B"].forEach(function(obj) {
+                api.setLabelVisible(obj, true);
+
+                api.setPointSize(obj, 8);
+
+                api.setColor(obj, 0, 102, 204);
+            });
+
+            // style garis
+            api.setLabelVisible("g", false);
+
+            api.setLineThickness("g", 4);
+
+            api.setColor("g", 220, 60, 35);
+        }
+
+        // =========================
+        // INIT
+        // =========================
+        function loadGeoGebra2() {
+            const ggbSize = getGgbSize2();
+
+            const params2 = {
+                appName: "classic",
+
+                id: "ggbApplet2",
+
+                width: ggbSize.width,
+                height: ggbSize.height,
+
+                showToolBar: false,
+                showAlgebraInput: false,
+                showMenuBar: false,
+
+                showZoomButtons: false,
+                showFullscreenButton: false,
+
+                enableShiftDragZoom: true,
+                enableRightClick: false,
+
+                showResetIcon: true,
+
+                appletOnLoad: ggbOnLoad2,
+            };
+
+            applet2 = new GGBApplet(params2, true);
+
+            applet2.inject("ggb-garis");
+        }
+
+        // =========================
+        // LOAD
+        // =========================
+        window.addEventListener("load", function() {
+            loadGeoGebra2();
+        });
+
+        // Eksplorasi
+        function cekEksplorasiGaris() {
+            const kunci = {
+                g1: "b",
+                g2: "a",
+                g3: "b",
+            };
+
+            let benarSemua = true;
+
+            for (let key in kunci) {
+                const jawaban = document.querySelector(`input[name="${key}"]:checked`);
+                const hasil = document.getElementById("hasil" + key);
+                if (!hasil) continue;
+
+                if (!jawaban) {
+                    hasil.innerHTML =
+                        "<span class='text-warning'>Pilih salah satu jawaban</span>";
+                    benarSemua = false;
+                } else if (jawaban.value === kunci[key]) {
+                    hasil.innerHTML = "<span class='text-success'>✓ Benar</span>";
+                } else {
+                    hasil.innerHTML = "<span class='text-danger'>✗ Salah</span>";
+                    benarSemua = false;
+                }
+            }
+
+            const kesimpulan = document.getElementById("kesimpulanGaris");
+            if (kesimpulan) {
+                kesimpulan.style.display = benarSemua ? "block" : "none";
+            }
+        }
+
+        // Memahami bentuk implisit
+        function cekJawabanABC() {
+            const inputA = document.getElementById("inputA")?.value.trim() || "";
+            const inputB = document.getElementById("inputB")?.value.trim() || "";
+            const inputC = document.getElementById("inputC")?.value.trim() || "";
+            const hasil = document.getElementById("hasilABC");
+            if (!hasil) return;
+
+            const benarA = "3";
+            const benarB = "2";
+            const benarC = "-6";
+
+            let feedback = `
+        <div class="alert alert-info">
+            <p><strong>Penyelesaian:</strong></p>
+            <p>Pada persamaan $3x + 2y - 6 = 0$:</p>
+            <ul>
+                <li>$a = 3$</li>
+                <li>$b = 2$</li>
+                <li>$c = -6$</li>
+            </ul>
+    `;
+
+            if (inputA === benarA && inputB === benarB && inputC === benarC) {
+                feedback += `<p class="mb-0 text-success"><strong>Jawaban kamu benar.</strong></p>`;
+            } else {
+                feedback +=
+                    `<p class="mb-0 text-danger"><strong>Jawaban kamu belum tepat. Perhatikan kembali koefisien dan konstantanya.</strong></p>`;
+            }
+
+            feedback += `</div>`;
+
+            hasil.innerHTML = feedback;
+            hasil.style.display = "block";
+
+            renderMathSafe(hasil);
+        }
+
+        function resetKotakABC() {
+            const inputA = document.getElementById("inputA");
+            const inputB = document.getElementById("inputB");
+            const inputC = document.getElementById("inputC");
+            const hasil = document.getElementById("hasilABC");
+
+            if (inputA) inputA.value = "";
+            if (inputB) inputB.value = "";
+            if (inputC) inputC.value = "";
+            if (hasil) {
+                hasil.innerHTML = "";
+                hasil.style.display = "none";
+            }
+        }
+
+        // Contoh menentukan persamaan garis lurus atau tidak
+        function toggleSolution(id, btn) {
+            const el = document.getElementById(id);
+            if (!el || !btn) return;
+
+            const isHidden = el.style.display === "none" || el.style.display === "";
+            el.style.display = isHidden ? "block" : "none";
+            btn.textContent = isHidden ?
+                "Sembunyikan Penyelesaian" :
+                "Lihat Penyelesaian";
+        }
+
+        // Contoh implisit klik kotak abc
+        function tampilABC(huruf) {
+            const hasil = document.getElementById("hasilABC");
+            if (!hasil) return;
+
+            if (huruf === "a") hasil.innerHTML = "$a = 3$";
+            if (huruf === "b") hasil.innerHTML = "$b = 2$";
+            if (huruf === "c") hasil.innerHTML = "$c = -6$";
+
+            renderMathSafe(hasil);
+        }
+
+        // Contoh mengubah persamaan eksplisit ke implisit
+        function openStepUmum(id, btn) {
+            const el = document.getElementById(id);
+            if (!el || !btn) return;
+
+            el.style.display = "block";
+            btn.style.display = "none";
+        }
+
+        function openStepS(id, btn) {
+            const next = document.getElementById(id);
+            if (!next || !btn) return;
+
+            next.style.display = "block";
+            btn.style.display = "none";
+        }
+
+        function openStep(n, btn) {
+            const next = document.getElementById("step" + n);
+            if (!next || !btn) return;
+
+            next.style.display = "block";
+            btn.style.display = "none";
+        }
+
+        // =========================
+        // HELPER
+        // =========================
+        function renderMathSafe(target) {
+            if (!target || !window.renderMathInElement) return;
+
+            renderMathInElement(target, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    },
+                ],
+            });
+        }
+
+        function norm(expr) {
+            return String(expr || "")
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace(/−/g, "-")
+                .trim();
+        }
+
+        // SAVE PROGRESS
+        async function saveProgressMateri() {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!window.completeMateriUrl || !csrfToken) return false;
+
+            try {
+                const response = await fetch(window.completeMateriUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({}),
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
+        }
+
+        // BUKA TOMBOL NEXT
+        function bukaNextButton() {
+            const nextBtn = document.getElementById("nextMateriBtn");
+            if (!nextBtn) return;
+
+            const url = nextBtn.dataset.nextUrl;
+            if (!url) return;
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.id = "nextMateriBtn";
+            link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+            link.textContent = "Next →";
+
+            nextBtn.replaceWith(link);
+        }
+
+        // =========================
+        // LATIHAN SOAL
+        // =========================
+        let draggedItem = null;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initDragDropA1();
+        });
+
+        function getContentWrapper() {
+            return document.querySelector(".content-wrapper");
+        }
+
+        function renderMathSafe(target) {
+            if (!target || !window.renderMathInElement) return;
+
+            renderMathInElement(target, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    },
+                ],
+            });
+        }
+
+        function scrollKeStep(stepId) {
+            const content = document.querySelector(".content-wrapper");
+            const step = document.getElementById(stepId);
+            if (!content || !step) return;
+
+            const contentRect = content.getBoundingClientRect();
+            const stepRect = step.getBoundingClientRect();
+
+            const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+            content.scrollTo({
+                top: targetTop,
+                behavior: "smooth",
+            });
+        }
+
+        function nextLatihan(stepNumber) {
+            const step = document.getElementById(`latihanStep${stepNumber}`);
+            if (!step) return;
+
+            step.style.display = "block";
+            renderMathSafe(step);
+            scrollKeStep(`latihanStep${stepNumber}`);
+        }
+
+        function prevLatihan(stepNumber) {
+            scrollKeStep(`latihanStep${stepNumber}`);
+        }
+
+        function resetStepSetelah(stepMulai) {
+            for (let i = stepMulai; i <= 4; i++) {
+                const step = document.getElementById(`latihanStep${i}`);
+                if (step) step.style.display = "none";
+            }
+        }
+
+        function norm(expr) {
+            return String(expr || "")
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace(/−/g, "-")
+                .trim();
+        }
+
+        // =========================
+        // LATIHAN 1
+        // =========================
+        function initDragDropA1() {
+
+            const items = document.querySelectorAll(".opsi-item");
+
+            const dropzone = document.getElementById("dropLinear");
+
+            const opsiWrap = document.getElementById("opsiLinear");
+
+            if (!items.length || !dropzone || !opsiWrap) return;
+
+            items.forEach((item) => {
+
+                // =========================
+                // DESKTOP DRAG
+                // =========================
+                item.addEventListener("dragstart", function() {
+
+                    draggedItem = this;
+                });
+
+                // =========================
+                // MOBILE TAP
+                // =========================
+                item.addEventListener("touchstart", function(e) {
+
+                    e.preventDefault();
+
+                    // kalau masih di opsi
+                    if (this.parentElement.id === "opsiLinear") {
+
+                        dropzone.appendChild(this);
+
+                    }
+
+                    // kalau sudah di jawaban
+                    else {
+
+                        opsiWrap.appendChild(this);
+                    }
+
+                }, {
+                    passive: false
+                });
+
+            });
+
+            // =========================
+            // DESKTOP DROP
+            // =========================
+            [dropzone, opsiWrap].forEach((area) => {
+
+                area.addEventListener("dragover", function(e) {
+
+                    e.preventDefault();
+
+                    if (this.id === "dropLinear") {
+
+                        this.classList.add("over");
+                    }
+                });
+
+                area.addEventListener("dragleave", function() {
+
+                    if (this.id === "dropLinear") {
+
+                        this.classList.remove("over");
+                    }
+                });
+
+                area.addEventListener("drop", function(e) {
+
+                    e.preventDefault();
+
+                    this.classList.remove("over");
+
+                    if (draggedItem) {
+
+                        this.appendChild(draggedItem);
+
+                        draggedItem = null;
+                    }
+                });
+            });
+        }
+
+        function cekLatihan1A1() {
+            const dropzone = document.getElementById("dropLinear");
+            const fb = document.getElementById("feedbackLatihan1A1");
+            const nextBtn = document.getElementById("nextBtn1");
+
+            if (!dropzone || !fb || !nextBtn) return;
+
+            const items = dropzone.querySelectorAll(".opsi-item");
+
+            if (items.length === 0) {
+                fb.innerHTML = "Belum ada jawaban yang diseret ke kotak.";
+                fb.style.color = "red";
+                nextBtn.disabled = true;
+                return;
+            }
+
+            let semuaBenar = true;
+            let jumlahBenar = 0;
+
+            items.forEach((item) => {
+                if (item.dataset.linear === "true") {
+                    jumlahBenar++;
+                } else {
+                    semuaBenar = false;
+                }
+            });
+
+            const totalLinear = document.querySelectorAll(
+                '.opsi-item[data-linear="true"]',
+            ).length;
+
+            if (semuaBenar && jumlahBenar === totalLinear) {
+                fb.innerHTML =
+                    "Benar. Semua pilihanmu merupakan persamaan garis lurus.";
+                fb.style.color = "green";
+                nextBtn.disabled = false;
+            } else {
+                fb.innerHTML =
+                    "Masih ada jawaban yang belum tepat. Persamaan garis lurus hanya memuat variabel berpangkat satu dan tidak mengandung akar, pangkat lebih dari satu, atau hasil kali variabel.";
+                fb.style.color = "red";
+                nextBtn.disabled = true;
+            }
+        }
+
+        function resetLatihan1A1() {
+            const opsiWrap = document.getElementById("opsiLinear");
+            const dropzone = document.getElementById("dropLinear");
+            const feedback = document.getElementById("feedbackLatihan1A1");
+            const nextBtn = document.getElementById("nextBtn1");
+
+            if (!opsiWrap || !dropzone || !feedback || !nextBtn) return;
+
+            const items = Array.from(dropzone.querySelectorAll(".opsi-item"));
+            items.forEach((item) => opsiWrap.appendChild(item));
+
+            feedback.innerHTML = "";
+            nextBtn.disabled = true;
+
+            resetStepSetelah(2);
+        }
+
+        // =========================
+        // LATIHAN 2
+        // =========================
+
+        function isPersamaanGarisLurus(expr) {
+            const s = norm(expr);
+
+            if (!s) return false;
+            if (!s.includes("=")) return false;
+
+            // Tidak boleh mengandung pangkat, akar, perkalian variabel, atau pembagian oleh variabel
+            if (
+                s.includes("^") ||
+                s.includes("²") ||
+                s.includes("sqrt") ||
+                s.includes("√") ||
+                s.includes("xy") ||
+                s.includes("yx") ||
+                s.includes("/x") ||
+                s.includes("/y")
+            ) {
+                return false;
+            }
+
+            // Harus mengandung x atau y
+            if (!s.includes("x") && !s.includes("y")) return false;
+
+            return true;
+        }
+
+        function cekLatihan2A1() {
+            let skor = 0;
+
+            const a = document.getElementById("lat2a")?.value;
+            const b = document.getElementById("lat2b")?.value;
+            const c = document.getElementById("lat2c")?.value;
+
+            const fba = document.getElementById("fb-lat2a");
+            const fbb = document.getElementById("fb-lat2b");
+            const fbc = document.getElementById("fb-lat2c");
+            const fb = document.getElementById("feedbackLatihan2A1");
+            const nextBtn = document.getElementById("nextBtn2");
+
+            if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
+
+            if (isPersamaanGarisLurus(a)) {
+                fba.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+                fba.style.color = "green";
+                skor++;
+            } else {
+                fba.innerHTML =
+                    "Belum tepat. Coba buat persamaan yang hanya memuat x dan/atau y berpangkat satu.";
+                fba.style.color = "red";
+            }
+
+            if (isPersamaanGarisLurus(b)) {
+                fbb.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+                fbb.style.color = "green";
+                skor++;
+            } else {
+                fbb.innerHTML =
+                    "Belum tepat. Hindari bentuk pangkat, akar, atau perkalian variabel seperti xy.";
+                fbb.style.color = "red";
+            }
+
+            if (isPersamaanGarisLurus(c)) {
+                fbc.innerHTML = "Benar. Ini dapat menjadi persamaan garis lurus.";
+                fbc.style.color = "green";
+                skor++;
+            } else {
+                fbc.innerHTML =
+                    "Belum tepat. Contoh yang benar misalnya y = 2x + 3 atau 3x + y - 5 = 0.";
+                fbc.style.color = "red";
+            }
+
+            if (skor === 3) {
+                fb.innerHTML =
+                    "Bagus. Ketiga contohmu merupakan persamaan garis lurus.";
+                fb.style.color = "green";
+                nextBtn.disabled = false;
+            } else {
+                fb.innerHTML = `Kamu membuat ${skor} dari 3 contoh dengan benar.`;
+                fb.style.color = "black";
+                nextBtn.disabled = true;
+            }
+        }
+
+        function resetLatihan2A1() {
+            ["lat2a", "lat2b", "lat2c"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            ["fb-lat2a", "fb-lat2b", "fb-lat2c", "feedbackLatihan2A1"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = "";
+            });
+
+            const nextBtn = document.getElementById("nextBtn2");
+            if (nextBtn) nextBtn.disabled = true;
+
+            resetStepSetelah(3);
+        }
+
+        // =========================
+        // LATIHAN 3
+        // =========================
+
+        function cekLatihan3A1() {
+            let skor = 0;
+
+            const a = norm(document.getElementById("lat3a")?.value);
+            const b = norm(document.getElementById("lat3b")?.value);
+            const c = norm(document.getElementById("lat3c")?.value);
+
+            const fba = document.getElementById("fb-lat3a");
+            const fbb = document.getElementById("fb-lat3b");
+            const fbc = document.getElementById("fb-lat3c");
+            const fb = document.getElementById("feedbackLatihan3A1");
+            const nextBtn = document.getElementById("nextBtn3");
+
+            if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
+
+            if (["2x-y-5", "-2x+y+5"].includes(a)) {
+                fba.innerHTML = "Benar.";
+                fba.style.color = "green";
+                skor++;
+            } else {
+                fba.innerHTML = "Belum tepat.";
+                fba.style.color = "red";
+            }
+
+            if (["3x+y-4", "-3x-y+4"].includes(b)) {
+                fbb.innerHTML = "Benar.";
+                fbb.style.color = "green";
+                skor++;
+            } else {
+                fbb.innerHTML = "Belum tepat.";
+                fbb.style.color = "red";
+            }
+
+            if (["x-2y+6", "-x+2y-6"].includes(c)) {
+                fbc.innerHTML = "Benar.";
+                fbc.style.color = "green";
+                skor++;
+            } else {
+                fbc.innerHTML = "Belum tepat.";
+                fbc.style.color = "red";
+            }
+
+            if (skor === 3) {
+                fb.innerHTML = "Bagus. Semua jawabanmu benar.";
+                fb.style.color = "green";
+                nextBtn.disabled = false;
+            } else {
+                fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
+                fb.style.color = "black";
+                nextBtn.disabled = true;
+            }
+        }
+
+        function resetLatihan3A1() {
+            ["lat3a", "lat3b", "lat3c"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            ["fb-lat3a", "fb-lat3b", "fb-lat3c", "feedbackLatihan3A1"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = "";
+            });
+
+            const nextBtn = document.getElementById("nextBtn3");
+            if (nextBtn) nextBtn.disabled = true;
+
+            resetStepSetelah(4);
+        }
+
+        // =========================
+        // LATIHAN 4
+        // =========================
+        async function cekLatihan4A1() {
+            console.log("LATIHAN 4 JALAN");
+
+            let skor = 0;
+
+            const a = norm(document.getElementById("lat4a")?.value);
+            const b = norm(document.getElementById("lat4b")?.value);
+            const c = norm(document.getElementById("lat4c")?.value);
+
+            const fba = document.getElementById("fb-lat4a");
+            const fbb = document.getElementById("fb-lat4b");
+            const fbc = document.getElementById("fb-lat4c");
+            const fb = document.getElementById("feedbackLatihan4A1");
+
+            if (!fba || !fbb || !fbc || !fb) return;
+
+            if (["-3x+7"].includes(a)) {
+                fba.innerHTML = "Benar.";
+                fba.style.color = "green";
+                skor++;
+            } else {
+                fba.innerHTML = "Belum tepat.";
+                fba.style.color = "red";
+            }
+
+            if (["1/2x+2", "0.5x+2"].includes(b)) {
+                fbb.innerHTML = "Benar.";
+                fbb.style.color = "green";
+                skor++;
+            } else {
+                fbb.innerHTML = "Belum tepat.";
+                fbb.style.color = "red";
+            }
+
+            if (["-5/2x+3", "-2.5x+3"].includes(c)) {
+                fbc.innerHTML = "Benar.";
+                fbc.style.color = "green";
+                skor++;
+            } else {
+                fbc.innerHTML = "Belum tepat.";
+                fbc.style.color = "red";
+            }
+
+            if (skor === 3) {
+                const saved = await saveProgressMateri();
+
+                if (saved) {
+                    fb.innerHTML =
+                        "Bagus. Semua jawabanmu benar. Silakan lanjut ke materi berikutnya.";
+                    fb.style.color = "green";
+
+                    bukaNextButton();
+                } else {
+                    fb.innerHTML = "Jawaban benar, tapi progres belum tersimpan.";
+                    fb.style.color = "orange";
+                }
+            } else {
+                fb.innerHTML = `Kamu menjawab ${skor} dari 3 soal dengan benar.`;
+                fb.style.color = "black";
+            }
+        }
+
+        function resetLatihan4A1() {
+            ["lat4a", "lat4b", "lat4c"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            ["fb-lat4a", "fb-lat4b", "fb-lat4c", "feedbackLatihan4A1"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = "";
+            });
+        }
     </script>
+
 
     {{-- Script complete --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">

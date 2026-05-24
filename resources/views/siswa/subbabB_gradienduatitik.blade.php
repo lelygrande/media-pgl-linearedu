@@ -257,7 +257,7 @@
 
     {{-- Pengantar --}}
     <div class="card card-materi mb-4">
-        <div class="card-body p-4">
+        <div class="card-body">
 
             <p class="mb-2" style="line-height:1.8;">
                 Ingat kembali bahwa gradien (\(m\)) menunjukkan tingkat kemiringan suatu garis.
@@ -398,10 +398,10 @@
 
         </div>
     </div>
-    
+
     {{-- Contoh --}}
     <div class="box-contoh mt-5 mb-4">
-        <div class="card-body p-4">
+        <div class="card-body">
             <span class="title-box">Contoh</span>
 
             <p class="mb-2" style="line-height:1.8;">
@@ -453,7 +453,7 @@
 
     {{-- Contoh soal step by step --}}
     <div class="box-contoh mt-5 mb-4">
-        <div class="card-body p-4">
+        <div class="card-body">
             <span class="title-box">Contoh</span>
             <p class="mb-3">Tentukan gradien garis melalui $P(1,3)$ dan $Q(5,7)$.</p>
 

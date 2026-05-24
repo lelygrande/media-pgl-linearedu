@@ -1,31 +1,113 @@
 // Geogebra
-var params2 = {
-    appName: "graphing",
-    width: 700,
-    height: 500,
-    showToolBar: false,
-    showAlgebraInput: false,
-    showMenuBar: false,
-    enableShiftDragZoom: true,
-    enableRightClick: false,
-    showResetIcon: true,
-};
+let applet2 = null;
 
-var applet2 = new GGBApplet(params2, true);
+// =========================
+// RESPONSIVE SIZE
+// =========================
+function getGgbSize2() {
+    const container = document.querySelector("#ggb-garis");
 
-window.addEventListener("load", function () {
+    const width = container ? container.clientWidth : 500;
+
+    // MOBILE
+    if (window.innerWidth <= 768) {
+        return {
+            width: Math.min(width, 400),
+            height: 400,
+        };
+    }
+
+    // DESKTOP
+    return {
+        width: 400,
+        height: 400,
+    };
+}
+
+// =========================
+// ON LOAD
+// =========================
+function ggbOnLoad2(api) {
+    // mode grafik saja
+    api.setPerspective("G");
+
+    // axis & grid
+    api.setAxesVisible(true, true);
+    api.setGridVisible(true);
+
+    // grid sederhana
+    api.setGraphicsOptions(1, {
+        gridType: 0,
+    });
+
+    api.setAxisSteps(1, 1, 1, 1);
+
+    // viewport
+    api.setCoordSystem(-6, 6, -6, 6);
+
+    // titik
+    api.evalCommand("A=(0,1)");
+    api.evalCommand("B=(3,2)");
+
+    // garis
+    api.evalCommand("g=Line(A,B)");
+
+    // style titik
+    ["A", "B"].forEach(function (obj) {
+        api.setLabelVisible(obj, true);
+
+        api.setPointSize(obj, 8);
+
+        api.setColor(obj, 0, 102, 204);
+    });
+
+    // style garis
+    api.setLabelVisible("g", false);
+
+    api.setLineThickness("g", 4);
+
+    api.setColor("g", 220, 60, 35);
+}
+
+// =========================
+// INIT
+// =========================
+function loadGeoGebra2() {
+    const ggbSize = getGgbSize2();
+
+    const params2 = {
+        appName: "classic",
+
+        id: "ggbApplet2",
+
+        width: ggbSize.width,
+        height: ggbSize.height,
+
+        showToolBar: false,
+        showAlgebraInput: false,
+        showMenuBar: false,
+
+        showZoomButtons: false,
+        showFullscreenButton: false,
+
+        enableShiftDragZoom: true,
+        enableRightClick: false,
+
+        showResetIcon: true,
+
+        appletOnLoad: ggbOnLoad2,
+    };
+
+    applet2 = new GGBApplet(params2, true);
+
     applet2.inject("ggb-garis");
+}
 
-    setTimeout(function () {
-        var ggb = applet2.getAppletObject();
-        if (!ggb) return;
-
-        ggb.evalCommand("A=(0,1)");
-        ggb.evalCommand("B=(3,2)");
-        ggb.evalCommand("g=Line(A,B)");
-        ggb.setLabelVisible("A", true);
-        ggb.setLabelVisible("B", true);
-    }, 1000);
+// =========================
+// LOAD
+// =========================
+window.addEventListener("load", function () {
+    loadGeoGebra2();
 });
 
 // Eksplorasi
@@ -301,39 +383,94 @@ function norm(expr) {
 // =========================
 function initDragDropA1() {
     const items = document.querySelectorAll(".opsi-item");
+
     const dropzone = document.getElementById("dropLinear");
+
     const opsiWrap = document.getElementById("opsiLinear");
 
     if (!items.length || !dropzone || !opsiWrap) return;
 
     items.forEach((item) => {
+        // =========================
+        // DESKTOP
+        // =========================
         item.addEventListener("dragstart", function () {
             draggedItem = this;
         });
+
+        // =========================
+        // MOBILE TOUCH START
+        // =========================
+        item.addEventListener(
+            "touchstart",
+            function () {
+                draggedItem = this;
+
+                this.classList.add("dragging");
+            },
+            { passive: true },
+        );
+
+        // =========================
+        // MOBILE TOUCH END
+        // =========================
+        item.addEventListener("touchend", function (e) {
+            if (!draggedItem) return;
+
+            const touch = e.changedTouches[0];
+
+            const elem = document.elementFromPoint(
+                touch.clientX,
+                touch.clientY,
+            );
+
+            // drop ke jawaban
+            if (dropzone.contains(elem)) {
+                dropzone.appendChild(draggedItem);
+            }
+
+            // balik ke opsi
+            else if (opsiWrap.contains(elem)) {
+                opsiWrap.appendChild(draggedItem);
+            }
+
+            draggedItem.classList.remove("dragging");
+
+            draggedItem = null;
+        });
     });
 
+    // =========================
+    // DESKTOP DROP
+    // =========================
     [dropzone, opsiWrap].forEach((area) => {
         area.addEventListener("dragover", function (e) {
             e.preventDefault();
-            if (this.id === "dropLinear") this.classList.add("over");
+
+            if (this.id === "dropLinear") {
+                this.classList.add("over");
+            }
         });
 
         area.addEventListener("dragleave", function () {
-            if (this.id === "dropLinear") this.classList.remove("over");
+            if (this.id === "dropLinear") {
+                this.classList.remove("over");
+            }
         });
 
         area.addEventListener("drop", function (e) {
             e.preventDefault();
+
             this.classList.remove("over");
 
             if (draggedItem) {
                 this.appendChild(draggedItem);
+
                 draggedItem = null;
             }
         });
     });
 }
-
 function cekLatihan1A1() {
     const dropzone = document.getElementById("dropLinear");
     const fb = document.getElementById("feedbackLatihan1A1");

@@ -1,419 +1,446 @@
-let gridSize = 500;
-let leftMargin = 40;
-let topMargin = 40;
-let originX, originY, scaleUnit;
+// =========================
+// LATIHAN A2.1 - GRAFIK TITIK
+// =========================
 
-let tokens = [];
-let draggingToken = null;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
+const sketchLatihanA21 = (p) => {
 
-let resultMessage = "";
-let resultColor;
+    // =========================
+    // UKURAN
+    // =========================
+    const gridSize = 500;
+    const leftMargin = 40;
+    const topMargin = 40;
 
-// FLAG: garis hanya tampil kalau semua benar setelah Submit
-let showLine = false;
+    let originX, originY, scaleUnit;
 
-function setup() {
-    holder = select("#canvas-holder");
-    if (!holder) {
-        holder = createDiv();
-    }
+    // =========================
+    // TARGET DARI TABEL
+    // =========================
+    let targetPoints = [];
 
-    const c = createCanvas(840, 560);
-    c.parent(holder);
+    // =========================
+    // TITIK SISWA
+    // =========================
+    let titikSiswa = [];
 
-    scaleUnit = gridSize / 20;
-    originX = leftMargin + gridSize / 2;
-    originY = topMargin + gridSize / 2;
+    let feedback =
+        "Klik titik A, B, C, dan D pada bidang koordinat.";
 
-    tokens = [];
-    tokens.push(new DraggableToken("A", -4, -3, 640, 180));
-    tokens.push(new DraggableToken("B", -2, 1, 640, 260));
-    tokens.push(new DraggableToken("C", 0, 5, 640, 340));
-    tokens.push(new DraggableToken("D", 2, 9, 640, 420));
+    let showLine = false;
 
-    resultColor = color(0);
+    // =========================
+    // SETUP
+    // =========================
+    p.setup = function () {
 
-    sembunyikanKesimpulanLat2();
-}
+        const canvas = p.createCanvas(840, 560);
 
-function draw() {
-    background(255);
-    drawProblemText();
-    drawCoordinatePlane();
+        canvas.parent("canvas-holder");
 
-    // Garis hanya muncul kalau sudah Submit dan semua benar
-    if (showLine) drawAutoLineIfReady();
+        scaleUnit = gridSize / 20;
 
-    // gambar token
-    for (let t of tokens) t.display();
+        originX = leftMargin + gridSize / 2;
 
-    // hasil
-    fill(resultColor);
-    noStroke();
-    textSize(14);
-    text(resultMessage, 600, 500, 220, 80);
-}
+        originY = topMargin + gridSize / 2;
+    };
 
-// ---------------------- KELAS TOKEN -----------------------
+    // =========================
+    // DRAW
+    // =========================
+    p.draw = function () {
 
-class DraggableToken {
-    constructor(name, targetX, targetY, homeX, homeY) {
-        this.name = name;
-        this.targetX = targetX;
-        this.targetY = targetY;
-        this.homeX = homeX;
-        this.homeY = homeY;
+        p.background(255);
 
-        this.x = homeX;
-        this.y = homeY;
-        this.r = 20;
+        drawGrid();
 
-        this.coordX = null;
-        this.coordY = null;
-        this.isCorrect = null; // null: belum dicek, true/false: setelah submit
-    }
+        drawPanel();
 
-    display() {
-        // warna token
-        if (this.isCorrect === true) fill(0, 170, 0);
-        else if (this.isCorrect === false) fill(200, 0, 0);
-        else fill(50, 100, 200);
+        drawStudentPoints();
 
-        noStroke();
-        ellipse(this.x, this.y, this.r * 2, this.r * 2);
-
-        // huruf
-        fill(255);
-        textAlign(CENTER, CENTER);
-        textSize(16);
-        text(this.name, this.x, this.y);
-
-        // info koordinat
-        textAlign(LEFT, CENTER);
-        fill(0);
-        textSize(12);
-
-        if (this.coordX === null && this.coordY === null) {
-            text(`(${this.targetX}, ${this.targetY})`, this.x + 30, this.y);
+        if (showLine) {
+            drawLine();
         }
-    }
+    };
 
-    isMouseOver() {
-        return dist(mouseX, mouseY, this.x, this.y) <= this.r;
-    }
+    // =========================
+    // LOAD TARGET DARI TABEL
+    // =========================
+    window.loadTargetsFromTable = function (pairs) {
 
-    startDrag() {
-        dragOffsetX = this.x - mouseX;
-        dragOffsetY = this.y - mouseY;
-    }
+        targetPoints = pairs || [];
 
-    drag() {
-        this.x = mouseX + dragOffsetX;
-        this.y = mouseY + dragOffsetY;
-    }
+        titikSiswa = [];
 
-    endDrag() {
-        // kalau dipindah setelah submit, garis hilang dulu
         showLine = false;
-        sembunyikanKesimpulanLat2();
 
-        if (
-            this.x >= leftMargin &&
-            this.x <= leftMargin + gridSize &&
-            this.y >= topMargin &&
-            this.y <= topMargin + gridSize
-        ) {
-            let cx = Math.round((this.x - originX) / scaleUnit);
-            let cy = Math.round((originY - this.y) / scaleUnit);
+        feedback =
+            "Klik titik A, B, C, dan D pada bidang koordinat.";
+    };
 
-            cx = constrain(cx, -10, 10);
-            cy = constrain(cy, -10, 10);
+    // =========================
+    // RESET TITIK
+    // =========================
+    window.resetPointsToStart = function () {
 
-            this.coordX = cx;
-            this.coordY = cy;
+        titikSiswa = [];
 
-            this.x = originX + cx * scaleUnit;
-            this.y = originY - cy * scaleUnit;
+        showLine = false;
 
-            this.isCorrect = null;
-            resultMessage = "";
-            resultColor = color(0);
-        } else {
-            this.resetPosition();
+        feedback =
+            "Klik titik A, B, C, dan D pada bidang koordinat.";
+    };
+
+    // =========================
+    // CEK JAWABAN
+    // =========================
+    window.checkAnswers = async function () {
+
+        if (titikSiswa.length !== 4) {
+
+            const feedbackGrafik =
+                document.getElementById("feedbackGrafik");
+
+            if (feedbackGrafik) {
+
+                feedbackGrafik.innerHTML = `
+                    <span style="color:#b45309;">
+                        Klik semua titik dulu ya.
+                    </span>
+                `;
+            }
+
+            return false;
         }
-    }
 
-    resetPosition() {
-        this.x = this.homeX;
-        this.y = this.homeY;
-        this.coordX = null;
-        this.coordY = null;
-        this.isCorrect = null;
-    }
-}
+        let semuaBenar = true;
 
-// ---------------------- DRAWING FUNCTIONS -----------------------
+        for (let i = 0; i < 4; i++) {
 
-function drawProblemText() {
-    fill(0);
-    noStroke();
-    textAlign(LEFT, TOP);
-    textSize(14);
+            const siswa = titikSiswa[i];
 
-    const soal =
-        "Tugas:\n" +
-        "Seret titik A, B, C, dan D ke posisi yang tepat di bidang Kartesius.\n" +
-        "Klik Submit untuk memeriksa benar/salah.\n" +
-        "Garis lurus hanya muncul jika semua titik benar.";
+            const target = targetPoints[i];
 
-    text(soal, 600, 20, 230, 120);
-}
-
-function drawCoordinatePlane() {
-    // grid
-    stroke(230);
-    strokeWeight(1);
-    for (let x = -10; x <= 10; x++) {
-        let px = originX + x * scaleUnit;
-        line(px, topMargin, px, topMargin + gridSize);
-    }
-    for (let y = -10; y <= 10; y++) {
-        let py = originY - y * scaleUnit;
-        line(leftMargin, py, leftMargin + gridSize, py);
-    }
-
-    // axes
-    stroke(0);
-    strokeWeight(2);
-    line(leftMargin, originY, leftMargin + gridSize, originY);
-    line(originX, topMargin, originX, topMargin + gridSize);
-
-    // labels
-    noStroke();
-    fill(0);
-    textSize(16);
-    textAlign(CENTER, CENTER);
-    text("X", leftMargin + gridSize + 15, originY + 5);
-    text("Y", originX - 10, topMargin - 15);
-
-    // angka sumbu X
-    textSize(12);
-    for (let i = -10; i <= 10; i++) {
-        let px = originX + i * scaleUnit;
-        if (i !== 0) text(i, px, originY + 18);
-        else text("0", originX - 12, originY + 18);
-    }
-
-    // angka sumbu Y
-    for (let j = -10; j <= 10; j++) {
-        let py = originY - j * scaleUnit;
-        if (j !== 0) text(j, originX - 18, py + 3);
-    }
-}
-
-// ---------------------- AUTO LINE (GARIS LURUS) -----------------------
-
-function allTokensPlaced() {
-    return tokens.every((t) => t.coordX !== null && t.coordY !== null);
-}
-
-function getToken(name) {
-    return tokens.find((t) => t.name === name);
-}
-function tampilkanKesimpulanLat2() {
-    const box = document.getElementById("kesimpulanLat2");
-    if (box) box.style.display = "block";
-}
-
-function sembunyikanKesimpulanLat2() {
-    const box = document.getElementById("kesimpulanLat2");
-    if (box) box.style.display = "none";
-}
-
-function drawAutoLineIfReady() {
-    if (!allTokensPlaced()) return;
-
-    const A = getToken("A");
-    const B = getToken("B");
-    if (!A || !B) return;
-
-    if (A.coordX === B.coordX && A.coordY === B.coordY) return;
-
-    const seg = getClippedLineSegmentInBox(
-        A.coordX,
-        A.coordY,
-        B.coordX,
-        B.coordY,
-    );
-    if (!seg) return;
-
-    const { p1, p2 } = seg;
-
-    stroke(30, 120, 255);
-    strokeWeight(4);
-    line(
-        originX + p1.x * scaleUnit,
-        originY - p1.y * scaleUnit,
-        originX + p2.x * scaleUnit,
-        originY - p2.y * scaleUnit,
-    );
-}
-
-function getClippedLineSegmentInBox(x1, y1, x2, y2) {
-    if (x1 === x2) {
-        const x = x1;
-        if (x < -10 || x > 10) return null;
-        return { p1: { x, y: -10 }, p2: { x, y: 10 } };
-    }
-
-    const m = (y2 - y1) / (x2 - x1);
-    const c = y1 - m * x1;
-
-    const candidates = [];
-    candidates.push({ x: -10, y: m * -10 + c });
-    candidates.push({ x: 10, y: m * 10 + c });
-
-    if (m !== 0) {
-        candidates.push({ x: (-10 - c) / m, y: -10 });
-        candidates.push({ x: (10 - c) / m, y: 10 });
-    } else {
-        if (c < -10 || c > 10) return null;
-        return { p1: { x: -10, y: c }, p2: { x: 10, y: c } };
-    }
-
-    const inside = candidates.filter(
-        (p) => p.x >= -10 && p.x <= 10 && p.y >= -10 && p.y <= 10,
-    );
-
-    if (inside.length < 2) return null;
-
-    let bestPair = [inside[0], inside[1]];
-    let bestDist = -1;
-    for (let i = 0; i < inside.length; i++) {
-        for (let j = i + 1; j < inside.length; j++) {
-            const dx = inside[i].x - inside[j].x;
-            const dy = inside[i].y - inside[j].y;
-            const d2 = dx * dx + dy * dy;
-            if (d2 > bestDist) {
-                bestDist = d2;
-                bestPair = [inside[i], inside[j]];
+            if (
+                siswa.x !== target.x ||
+                siswa.y !== target.y
+            ) {
+                semuaBenar = false;
+                break;
             }
         }
-    }
 
-    return { p1: bestPair[0], p2: bestPair[1] };
-}
+        const feedbackGrafik =
+            document.getElementById("feedbackGrafik");
 
-// ---------------------- CHECK & RESET -----------------------
+        if (semuaBenar) {
 
-// =========================
-// SAVE PROGRESS + BUKA KUIS
-// =========================
-async function saveProgressMateri() {
-    const csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        ?.getAttribute("content");
+            showLine = true;
 
-    if (!window.completeMateriUrl || !csrfToken) return false;
+            feedback =
+                "Mantap! Semua titik sudah benar.";
 
-    try {
-        const response = await fetch(window.completeMateriUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": csrfToken,
-                "X-Requested-With": "XMLHttpRequest",
-                Accept: "application/json",
-            },
-            body: JSON.stringify({}),
+            if (feedbackGrafik) {
+
+                feedbackGrafik.innerHTML = `
+                    <span style="color:#15803d;">
+                        Semua titik benar!
+                    </span>
+                `;
+            }
+
+            return true;
+
+        } else {
+
+            showLine = false;
+
+            feedback =
+                "Masih ada titik yang salah.";
+
+            if (feedbackGrafik) {
+
+                feedbackGrafik.innerHTML = `
+                    <span style="color:#b91c1c;">
+                        Masih ada titik yang salah.
+                    </span>
+                `;
+            }
+
+            return false;
+        }
+    };
+
+    // =========================
+    // KLIK TITIK
+    // =========================
+    p.mousePressed = function () {
+
+        if (targetPoints.length === 0) return;
+
+        if (titikSiswa.length >= 4) return;
+
+        const titik = pixelToCoord(
+            p.mouseX,
+            p.mouseY
+        );
+
+        if (!titik) return;
+
+        const nama =
+            targetPoints[titikSiswa.length].label;
+
+        titikSiswa.push({
+            nama: nama,
+            x: titik.x,
+            y: titik.y,
         });
 
-        return response.ok;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
+        feedback =
+            `Titik ${nama} dipilih di (${titik.x}, ${titik.y}).`;
+    };
 
-function bukaQuizButton() {
-    const quizBtn = document.getElementById("quizBabBtn");
-    if (!quizBtn) return;
+    // =========================
+    // GRID
+    // =========================
+    function drawGrid() {
 
-    const url = quizBtn.dataset.quizUrl;
-    if (!url) return;
+        p.stroke(230);
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.id = "quizBabBtn";
-    link.className = "btn btn-next px-4 rounded-pill fw-semibold";
-    link.textContent = "Kuis →";
+        p.strokeWeight(1);
 
-    quizBtn.replaceWith(link);
-}
+        for (let x = -10; x <= 10; x++) {
 
-async function checkAnswers() {
-    if (!allTokensPlaced()) {
-        resultMessage = "Masih ada titik yang belum ditempatkan.";
-        resultColor = color(200, 120, 0);
-        showLine = false;
-        return false;
-    }
+            const px =
+                originX + x * scaleUnit;
 
-    let allCorrect = true;
-
-    for (let t of tokens) {
-        if (t.coordX === t.targetX && t.coordY === t.targetY) {
-            t.isCorrect = true;
-        } else {
-            t.isCorrect = false;
-            allCorrect = false;
+            p.line(
+                px,
+                topMargin,
+                px,
+                topMargin + gridSize
+            );
         }
-    }
 
-    showLine = allCorrect;
+        for (let y = -10; y <= 10; y++) {
 
-    if (allCorrect) {
-        resultMessage = "Mantap! Semua titik sudah benar!";
-        resultColor = color(0, 160, 0);
+            const py =
+                originY - y * scaleUnit;
 
-        return true;
-    } else {
-        resultMessage = "Masih ada titik yang salah.";
-        resultColor = color(200, 0, 0);
-
-        return false;
-    }
-}
-
-function resetAll() {
-    for (let t of tokens) t.resetPosition();
-    resultMessage = "";
-    resultColor = color(0);
-    showLine = false;
-    sembunyikanKesimpulanLat2();
-}
-
-// ---------------------- MOUSE EVENTS -----------------------
-
-function mousePressed() {
-    for (let i = tokens.length - 1; i >= 0; i--) {
-        if (tokens[i].isMouseOver()) {
-            draggingToken = tokens[i];
-            draggingToken.startDrag();
-            break;
+            p.line(
+                leftMargin,
+                py,
+                leftMargin + gridSize,
+                py
+            );
         }
-    }
-}
 
-function mouseDragged() {
-    if (draggingToken) draggingToken.drag();
-}
+        p.stroke(0);
 
-function mouseReleased() {
-    if (draggingToken) {
-        draggingToken.endDrag();
-        draggingToken = null;
+        p.strokeWeight(2);
+
+        p.line(
+            leftMargin,
+            originY,
+            leftMargin + gridSize,
+            originY
+        );
+
+        p.line(
+            originX,
+            topMargin,
+            originX,
+            topMargin + gridSize
+        );
+
+        p.noStroke();
+
+        p.fill(0);
+
+        p.textAlign(p.CENTER, p.CENTER);
+
+        p.textSize(12);
+
+        for (let i = -10; i <= 10; i++) {
+
+            const px =
+                originX + i * scaleUnit;
+
+            if (i !== 0) {
+                p.text(i, px, originY + 16);
+            }
+        }
+
+        for (let j = -10; j <= 10; j++) {
+
+            const py =
+                originY - j * scaleUnit;
+
+            if (j !== 0) {
+                p.text(j, originX - 16, py);
+            }
+        }
+
+        p.text(
+            "0",
+            originX - 10,
+            originY + 16
+        );
+
+        p.textSize(16);
+
+        p.text(
+            "X",
+            leftMargin + gridSize + 15,
+            originY
+        );
+
+        p.text(
+            "Y",
+            originX,
+            topMargin - 15
+        );
     }
-}
+
+    // =========================
+    // PANEL
+    // =========================
+    function drawPanel() {
+
+        const panelX = 600;
+        const panelW = 210;
+
+        p.noStroke();
+
+        p.fill(0);
+
+        p.textAlign(p.LEFT, p.TOP);
+
+        p.textSize(16);
+
+        p.text("Petunjuk", panelX, 40);
+
+        p.textSize(14);
+
+        const petunjuk =
+            "1. Klik titik A.\n" +
+            "2. Klik titik B.\n" +
+            "3. Klik titik C.\n" +
+            "4. Klik titik D.";
+
+        p.text(
+            petunjuk,
+            panelX,
+            70,
+            panelW,
+            150
+        );
+
+        p.text(
+            feedback,
+            panelX,
+            250,
+            panelW,
+            120
+        );
+    }
+
+    // =========================
+    // TITIK SISWA
+    // =========================
+    function drawStudentPoints() {
+
+        titikSiswa.forEach((titik) => {
+
+            const px =
+                toPixelX(titik.x);
+
+            const py =
+                toPixelY(titik.y);
+
+            p.fill(220, 0, 0);
+
+            p.noStroke();
+
+            p.circle(px, py, 10);
+
+            p.fill(0);
+
+            p.textAlign(p.LEFT, p.BOTTOM);
+
+            p.textSize(13);
+
+            p.text(
+                titik.nama,
+                px + 8,
+                py - 4
+            );
+        });
+    }
+
+    // =========================
+    // GARIS
+    // =========================
+    function drawLine() {
+
+        if (titikSiswa.length < 2) return;
+
+        const A = titikSiswa[0];
+        const B = titikSiswa[1];
+
+        p.stroke(30, 120, 255);
+
+        p.strokeWeight(4);
+
+        p.line(
+            toPixelX(A.x),
+            toPixelY(A.y),
+            toPixelX(B.x),
+            toPixelY(B.y)
+        );
+    }
+
+    // =========================
+    // PIXEL → KOORDINAT
+    // =========================
+    function pixelToCoord(px, py) {
+
+        if (
+            px < leftMargin ||
+            px > leftMargin + gridSize ||
+            py < topMargin ||
+            py > topMargin + gridSize
+        ) {
+            return null;
+        }
+
+        let x = Math.round(
+            (px - originX) / scaleUnit
+        );
+
+        let y = Math.round(
+            (originY - py) / scaleUnit
+        );
+
+        x = p.constrain(x, -10, 10);
+
+        y = p.constrain(y, -10, 10);
+
+        return { x, y };
+    }
+
+    function toPixelX(x) {
+        return originX + x * scaleUnit;
+    }
+
+    function toPixelY(y) {
+        return originY - y * scaleUnit;
+    }
+};
+
+// =========================
+// INIT
+// =========================
+new p5(
+    sketchLatihanA21,
+    "canvas-holder"
+);

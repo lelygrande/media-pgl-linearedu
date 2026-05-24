@@ -18,7 +18,7 @@ function updatePapan() {
     runVal.textContent = run;
 
     // skala visual
-    const scale = 20;
+    const scale = window.innerWidth < 576 ? 14 : 20;
 
     const tinggiPx = rise * scale;
     const alasPx = run * scale;

@@ -298,6 +298,9 @@ function initKlasifikasiGradien() {
     if (!dragItems.length || !dropZones.length || !dragBank) return;
 
     dragItems.forEach((item) => {
+        // =========================
+        // DESKTOP DRAG
+        // =========================
         item.addEventListener("dragstart", function () {
             draggedItemGradien = this;
 
@@ -310,8 +313,40 @@ function initKlasifikasiGradien() {
             this.style.opacity = "1";
             draggedItemGradien = null;
         });
-    });
 
+        // =========================
+        // MOBILE TAP
+        // =========================
+        item.addEventListener(
+            "touchstart",
+            function (e) {
+                e.preventDefault();
+
+                const currentZone = this.closest(".drop-zone");
+
+                // kalau item masih di bank
+                if (!currentZone) {
+                    // cari dropzone kosong pertama
+                    const emptyZone = [...dropZones].find((zone) => {
+                        return (
+                            zone.querySelector(".drop-slot").children.length ===
+                            0
+                        );
+                    });
+
+                    if (emptyZone) {
+                        emptyZone.querySelector(".drop-slot").appendChild(this);
+                    }
+                }
+
+                // kalau item sudah di dropzone → balik ke bank
+                else {
+                    dragBank.appendChild(this);
+                }
+            },
+            { passive: false },
+        );
+    });
     dropZones.forEach((zone) => {
         zone.addEventListener("dragover", function (e) {
             e.preventDefault();
@@ -494,7 +529,7 @@ function cekLatihan2Gradien() {
 
     const benar = "a";
     const tombolAktif = document.querySelector(
-        `.opsi-kotak[data-soal="lat2"][data-value="${jawaban}"]`
+        `.opsi-kotak[data-soal="lat2"][data-value="${jawaban}"]`,
     );
 
     if (jawaban === benar) {

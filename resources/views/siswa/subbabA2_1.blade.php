@@ -241,8 +241,8 @@
         }
 
         /* =========================================
-                       RESPONSIVE MOBILE
-                    ========================================= */
+                                                               RESPONSIVE MOBILE
+                                                            ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- GAMBAR ---------- */
@@ -300,7 +300,7 @@
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             /* ---------- BOX ---------- */
             .box-info,
             .box-contoh,
@@ -628,7 +628,7 @@
                                 style="width:90px;">
                         </td>
 
-                        <td id="pair1">$(-4, \dots)$</td>
+                        <td id="pair1">$A(-4, \dots)$</td>
                     </tr>
 
                     <tr>
@@ -640,7 +640,7 @@
                                 style="width:90px;">
                         </td>
 
-                        <td id="pair2">$(-2, \dots)$</td>
+                        <td id="pair2">$B(-2, \dots)$</td>
                     </tr>
 
                     <tr>
@@ -652,7 +652,7 @@
                                 style="width:90px;">
                         </td>
 
-                        <td id="pair3">$(0, \dots)$</td>
+                        <td id="pair3">$C(0, \dots)$</td>
                     </tr>
 
                     <tr>
@@ -664,7 +664,7 @@
                                 style="width:90px;">
                         </td>
 
-                        <td id="pair4">$(2, \dots)$</td>
+                        <td id="pair4">$D(2, \dots)$</td>
                     </tr>
                 </table>
 
@@ -690,17 +690,6 @@
 
                     <div class="grafik-wrapper">
                         <div id="canvas-holder"></div>
-                    </div>
-
-                    <div class="grafik-actions mt-3">
-
-                        <button class="btn btn-palet btn-sm" onclick="checkAnswersA21()">
-                            Submit
-                        </button>
-
-                        <button class="btn btn-palet btn-sm" onclick="resetGrafikA21()">
-                            Reset Grafik
-                        </button>
                     </div>
 
                     <div id="feedbackGrafik" class="mt-2 fw-semibold">
@@ -734,8 +723,714 @@
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
 
-    <script src="{{ asset('js/subbabA/latsol21.js') }}"></script>
-    <script src="{{ asset('js/subbabA/subbabA2_1.js') }}"></script>
+    <script>
+        // =========================
+        // HELPER
+        // =========================
+        function renderMathSafe(target) {
+            if (!target || !window.renderMathInElement) return;
+
+            renderMathInElement(target, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    },
+                ],
+            });
+        }
+
+        function normJawaban(v) {
+            return String(v || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace(/[−–—]/g, "-")
+                .replace(",", ".");
+        }
+
+        function normPasangan(v) {
+            return String(v || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace(/[()]/g, "")
+                .replace(/[−–—]/g, "-");
+        }
+
+        function norm(v) {
+            return String(v || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace(/[−–—]/g, "-")
+                .replace(",", ".");
+        }
+
+        function cekIsian(id, jawabanBenar, tipe = "angka") {
+            const el = document.getElementById(id);
+            if (!el) return false;
+
+            const normalizer = tipe === "pasangan" ? normPasangan : normJawaban;
+
+            const nilai = normalizer(el.value);
+            const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
+
+            const cocok = nilai !== "" && daftar.map(normalizer).includes(nilai);
+
+            el.classList.remove("is-valid", "is-invalid");
+            el.classList.add(cocok ? "is-valid" : "is-invalid");
+
+            return cocok;
+        }
+
+        function scrollKeStep(stepId) {
+            const content = document.querySelector(".content-wrapper");
+            const step = document.getElementById(stepId);
+
+            if (!step) return;
+
+            if (!content) {
+                step.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+                return;
+            }
+
+            const contentRect = content.getBoundingClientRect();
+            const stepRect = step.getBoundingClientRect();
+
+            const targetTop = content.scrollTop + (stepRect.top - contentRect.top) - 20;
+
+            content.scrollTo({
+                top: targetTop,
+                behavior: "smooth",
+            });
+        }
+
+        function nextLatihan(stepNumber) {
+            const step = document.getElementById(`latihanStep${stepNumber}`);
+            if (!step) return;
+
+            step.style.display = "block";
+            renderMathSafe(step);
+            scrollKeStep(`latihanStep${stepNumber}`);
+        }
+
+        function prevLatihan(stepNumber) {
+            scrollKeStep(`latihanStep${stepNumber}`);
+        }
+
+        function resetStepSetelah(stepMulai) {
+            for (let i = stepMulai; i <= 2; i++) {
+                const step = document.getElementById(`latihanStep${i}`);
+                if (step) step.style.display = "none";
+            }
+        }
+
+        // =========================
+        // SAVE PROGRESS
+        // =========================
+        async function saveProgressMateri() {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!window.completeMateriUrl || !csrfToken) return false;
+
+            try {
+                const response = await fetch(window.completeMateriUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({}),
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
+        }
+
+        function bukaNextButton() {
+            const nextBtn = document.getElementById("nextMateriBtn");
+            if (!nextBtn) return;
+
+            const url = nextBtn.dataset.nextUrl;
+            if (!url) return;
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.id = "nextMateriBtn";
+            link.className = "btn btn-next px-4 rounded-pill fw-semibold";
+            link.textContent = "Next →";
+
+            nextBtn.replaceWith(link);
+        }
+
+        // =========================
+        // LATIHAN 1 A2.1
+        // =========================
+        function cekLatihan1A21() {
+            const hasil = [
+                cekIsian("lat1_y1", "-5"),
+                cekIsian("lat1_y2", "-3"),
+                cekIsian("lat1_y3", "-1"),
+                cekIsian("lat1_y4", "1"),
+
+                cekIsian("lat1_pair1", ["-2,-5", "(-2,-5)"]),
+                cekIsian("lat1_pair2", ["0,-3", "(0,-3)"]),
+                cekIsian("lat1_pair3", ["2,-1", "(2,-1)"]),
+                cekIsian("lat1_pair4", ["4,1", "(4,1)"]),
+            ];
+
+            const nextBtn = document.getElementById("nextBtnLat1");
+            const feedback = document.getElementById("feedbackLatihan1");
+            const boxKesimpulan = document.getElementById("kesimpulanLat1");
+
+            if (!feedback) return;
+
+            if (hasil.every(Boolean)) {
+                feedback.innerHTML = `<span style="color:#15803d;">Bagus! Semua jawaban benar.</span>`;
+
+                if (boxKesimpulan) boxKesimpulan.style.display = "block";
+                if (nextBtn) nextBtn.disabled = false;
+            } else {
+                feedback.innerHTML = `<span style="color:#b91c1c;">Masih ada yang salah.</span>`;
+
+                if (boxKesimpulan) boxKesimpulan.style.display = "none";
+                if (nextBtn) nextBtn.disabled = true;
+
+                resetStepSetelah(2);
+            }
+        }
+
+        function resetLatihan1A21() {
+            [
+                "lat1_y1",
+                "lat1_y2",
+                "lat1_y3",
+                "lat1_y4",
+                "lat1_pair1",
+                "lat1_pair2",
+                "lat1_pair3",
+                "lat1_pair4",
+            ].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = "";
+                    el.classList.remove(
+                        "jawaban-benar",
+                        "jawaban-salah",
+                        "is-valid",
+                        "is-invalid",
+                    );
+                }
+            });
+
+            const feedback = document.getElementById("feedbackLatihan1");
+            const boxKesimpulan = document.getElementById("kesimpulanLat1");
+            const nextBtn = document.getElementById("nextBtnLat1");
+
+            if (feedback) feedback.innerHTML = "";
+            if (boxKesimpulan) boxKesimpulan.style.display = "none";
+            if (nextBtn) nextBtn.disabled = true;
+
+            resetStepSetelah(2);
+        }
+
+        // =========================
+        // LATIHAN 2 A2.1
+        // =========================
+        function cekTabelA21() {
+            const inputIds = ["y1", "y2", "y3", "y4"];
+
+            const kosong = inputIds.some((id) => {
+                const el = document.getElementById(id);
+                return !el || norm(el.value) === "";
+            });
+
+            const feedbackTabel = document.getElementById("feedbackTabel");
+            const grafikSection = document.getElementById("grafikSection");
+            const boxKesimpulan = document.getElementById("kesimpulanLat2");
+
+            if (kosong) {
+                inputIds.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el && norm(el.value) === "") {
+                        el.classList.remove("is-valid", "is-invalid");
+                        el.classList.add("is-invalid");
+                    }
+                });
+
+                if (feedbackTabel) {
+                    feedbackTabel.innerHTML = `<span style="color:#b45309;">Isi semua nilai y dulu ya.</span>`;
+                }
+
+                if (grafikSection) grafikSection.style.display = "none";
+                if (boxKesimpulan) boxKesimpulan.style.display = "none";
+                return;
+            }
+
+            const benar1 = cekIsian("y1", "-3");
+            const benar2 = cekIsian("y2", "1");
+            const benar3 = cekIsian("y3", "5");
+            const benar4 = cekIsian("y4", "9");
+
+            const y1 = document.getElementById("y1")?.value.trim() ?? "";
+            const y2 = document.getElementById("y2")?.value.trim() ?? "";
+            const y3 = document.getElementById("y3")?.value.trim() ?? "";
+            const y4 = document.getElementById("y4")?.value.trim() ?? "";
+
+            const pair1 = document.getElementById("pair1");
+            const pair2 = document.getElementById("pair2");
+            const pair3 = document.getElementById("pair3");
+            const pair4 = document.getElementById("pair4");
+
+            if (pair1) pair1.innerHTML = `$A(-4, ${y1})$`;
+            if (pair2) pair2.innerHTML = `$B(-2, ${y2})$`;
+            if (pair3) pair3.innerHTML = `$C(0, ${y3})$`;
+            if (pair4) pair4.innerHTML = `$D(2, ${y4})$`;
+
+            renderMathSafe(document.getElementById("latihanStep2"));
+
+            const ok = benar1 && benar2 && benar3 && benar4;
+
+            if (ok) {
+                window.tablePairs = [{
+                        label: "A",
+                        x: -4,
+                        y: Number(norm(y1))
+                    },
+                    {
+                        label: "B",
+                        x: -2,
+                        y: Number(norm(y2))
+                    },
+                    {
+                        label: "C",
+                        x: 0,
+                        y: Number(norm(y3))
+                    },
+                    {
+                        label: "D",
+                        x: 2,
+                        y: Number(norm(y4))
+                    },
+                ];
+
+                if (window.loadTargetsFromTable) {
+                    window.loadTargetsFromTable(window.tablePairs);
+                }
+
+                if (feedbackTabel) {
+                    feedbackTabel.innerHTML =
+                        `<span style="color:#15803d;">Tabel benar! Sekarang klik titik A–D pada grafik.</span>`;
+                }
+
+                if (grafikSection) {
+                    grafikSection.style.display = "block";
+                    scrollKeStep("grafikSection");
+                }
+
+                if (boxKesimpulan) {
+                    boxKesimpulan.style.display = "none";
+                }
+
+                if (window.resetPointsToStart) {
+                    window.resetPointsToStart();
+                }
+            } else {
+                if (feedbackTabel) {
+                    feedbackTabel.innerHTML =
+                        `<span style="color:#b91c1c;">Masih ada yang salah. Coba cek lagi pakai y = 2x + 5.</span>`;
+                }
+
+                if (grafikSection) grafikSection.style.display = "none";
+                if (boxKesimpulan) boxKesimpulan.style.display = "none";
+            }
+        }
+
+        function resetLatihan2A21() {
+            ["y1", "y2", "y3", "y4"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = "";
+                    el.classList.remove("is-valid", "is-invalid");
+                }
+            });
+
+            const pair1 = document.getElementById("pair1");
+            const pair2 = document.getElementById("pair2");
+            const pair3 = document.getElementById("pair3");
+            const pair4 = document.getElementById("pair4");
+
+            if (pair1) pair1.innerHTML = "$A(-4, \\dots)$";
+            if (pair2) pair2.innerHTML = "$B(-2, \\dots)$";
+            if (pair3) pair3.innerHTML = "$C(0, \\dots)$";
+            if (pair4) pair4.innerHTML = "$D(2, \\dots)$";
+
+            const feedbackTabel = document.getElementById("feedbackTabel");
+            const grafikSection = document.getElementById("grafikSection");
+            const boxKesimpulan = document.getElementById("kesimpulanLat2");
+
+            if (feedbackTabel) feedbackTabel.innerHTML = "";
+            if (grafikSection) grafikSection.style.display = "none";
+            if (boxKesimpulan) boxKesimpulan.style.display = "none";
+
+            renderMathSafe(document.getElementById("latihanStep2"));
+
+            if (window.resetPointsToStart) {
+                window.resetPointsToStart();
+            }
+        }
+
+        async function checkAnswersA21() {
+
+            let benar = false;
+
+            if (typeof window.checkAnswers === "function") {
+                benar = await window.checkAnswers();
+            }
+
+            if (!benar) return;
+
+            const saved = await saveProgressMateri();
+            if (saved) {
+                bukaNextButton();
+            }
+        }
+
+        function resetGrafikA21() {
+            const feedbackGrafik = document.getElementById("feedbackGrafik");
+            const boxKesimpulan = document.getElementById("kesimpulanLat2");
+
+            if (feedbackGrafik) feedbackGrafik.innerHTML = "";
+            if (boxKesimpulan) boxKesimpulan.style.display = "none";
+
+            if (window.resetPointsToStart) {
+                window.resetPointsToStart();
+            }
+        }
+
+        // =========================
+        // P5 LATIHAN 2
+        // =========================
+
+        const sketchLatihanA21 = (p) => {
+            const gridSize = 500;
+            const leftMargin = 40;
+            const topMargin = 40;
+
+            let originX, originY, scaleUnit;
+
+            let titikSiswa = [];
+
+            let plottingSelesai = false;
+            let plottingBenar = false;
+
+            let feedbackPlot = "Klik titik A, B, C, dan D pada bidang koordinat.";
+
+            p.setup = function() {
+                p.createCanvas(760, 600);
+
+                scaleUnit = gridSize / 20;
+
+                originX = leftMargin + gridSize / 2;
+
+                originY = topMargin + gridSize / 2;
+            };
+
+            p.draw = function() {
+                p.background(255);
+
+                drawGrid();
+
+                drawPanelKanan();
+
+                drawPoints();
+
+                if (plottingBenar) {
+                    drawLine();
+                }
+            };
+
+
+            // =========================
+            // CLICK INPUT
+            // =========================
+            let lastClickTime = 0;
+
+            function handleInput() {
+
+                // cegah double trigger mobile
+                if (p.millis() - lastClickTime < 300) {
+                    return;
+                }
+
+                lastClickTime = p.millis();
+
+                if (!window.tablePairs) return;
+
+                if (plottingBenar) return;
+
+                if (titikSiswa.length >= 4) return;
+
+                const pt = pixelToCoord(
+                    p.mouseX,
+                    p.mouseY
+                );
+
+                if (!pt) return;
+
+                const nama =
+                    window.tablePairs[
+                        titikSiswa.length
+                    ].label;
+
+                titikSiswa.push({
+                    nama,
+                    x: pt.x,
+                    y: pt.y,
+                });
+
+                if (titikSiswa.length < 4) {
+
+                    feedbackPlot =
+                        `Titik ${nama} dipilih di (${pt.x}, ${pt.y}).`;
+
+                    return;
+                }
+
+                cekJawaban();
+            }
+
+            p.mousePressed = function() {
+                handleInput();
+            };
+
+            function cekJawaban() {
+                plottingSelesai = true;
+
+                plottingBenar = true;
+
+                for (let i = 0; i < 4; i++) {
+                    const siswa = titikSiswa[i];
+
+                    const target = window.tablePairs[i];
+
+                    if (siswa.x !== target.x || siswa.y !== target.y) {
+                        plottingBenar = false;
+                        break;
+                    }
+                }
+
+                const feedbackGrafik = document.getElementById("feedbackGrafik");
+
+                if (plottingBenar) {
+                    feedbackPlot = "Bagus! Semua titik sudah benar.";
+
+                    const boxKesimpulan = document.getElementById("kesimpulanLat2");
+
+                    if (boxKesimpulan) {
+                        boxKesimpulan.style.display = "block";
+                    }
+                    // SAVE PROGRESS
+                    checkAnswersA21();
+                } else {
+                    feedbackPlot = "Masih ada titik yang salah.";
+
+                    setTimeout(() => {
+                        resetPlot();
+                    }, 1200);
+                }
+            }
+
+            function resetPlot() {
+                titikSiswa = [];
+
+                plottingSelesai = false;
+
+                plottingBenar = false;
+
+                feedbackPlot = "Klik titik A, B, C, dan D pada bidang koordinat.";
+            }
+
+            window.resetPointsToStart = function() {
+                resetPlot();
+            };
+
+            window.checkAnswers = async function() {
+                return plottingBenar;
+            };
+
+            function drawGrid() {
+                p.stroke(230);
+                p.strokeWeight(1);
+
+                for (let x = -10; x <= 10; x++) {
+                    const px = originX + x * scaleUnit;
+
+                    p.line(px, topMargin, px, topMargin + gridSize);
+                }
+
+                for (let y = -10; y <= 10; y++) {
+                    const py = originY - y * scaleUnit;
+
+                    p.line(leftMargin, py, leftMargin + gridSize, py);
+                }
+
+                p.stroke(0);
+                p.strokeWeight(2);
+
+                p.line(leftMargin, originY, leftMargin + gridSize, originY);
+
+                p.line(originX, topMargin, originX, topMargin + gridSize);
+
+                p.noStroke();
+
+                p.fill(0);
+
+                p.textAlign(p.CENTER, p.CENTER);
+
+                p.textSize(12);
+
+                for (let i = -10; i <= 10; i++) {
+                    const px = originX + i * scaleUnit;
+
+                    if (i !== 0) {
+                        p.text(i, px, originY + 16);
+                    }
+                }
+
+                for (let j = -10; j <= 10; j++) {
+                    const py = originY - j * scaleUnit;
+
+                    if (j !== 0) {
+                        p.text(j, originX - 16, py);
+                    }
+                }
+
+                p.text("0", originX - 10, originY + 16);
+
+                p.textSize(16);
+
+                p.text("X", leftMargin + gridSize + 15, originY);
+
+                p.text("Y", originX, topMargin - 15);
+            }
+
+            function drawPanelKanan() {
+                const panelX = 565;
+                const panelW = 170;
+
+                p.noStroke();
+
+                p.fill(0);
+
+                p.textAlign(p.LEFT, p.TOP);
+
+                p.textSize(16);
+
+                p.text("Petunjuk", panelX, 40);
+
+                p.textSize(14);
+
+                const petunjuk =
+                    "1. Klik titik A.\n" +
+                    "2. Klik titik B.\n" +
+                    "3. Klik titik C.\n" +
+                    "4. Klik titik D.\n" +
+                    "5. Sistem akan memeriksa\n" +
+                    "   apakah titik sudah benar.";
+
+                p.text(petunjuk, panelX, 70, panelW, 150);
+
+                p.text(feedbackPlot, panelX, 250, panelW, 120);
+            }
+
+            function drawPoints() {
+                titikSiswa.forEach((titik) => {
+                    const px = toPixelX(titik.x);
+
+                    const py = toPixelY(titik.y);
+
+                    p.fill(220, 0, 0);
+
+                    p.noStroke();
+
+                    p.circle(px, py, 10);
+
+                    p.fill(0);
+
+                    p.textAlign(p.LEFT, p.BOTTOM);
+
+                    p.textSize(13);
+
+                    p.text(titik.nama, px + 8, py - 4);
+                });
+            }
+
+            function drawLine() {
+                if (!plottingBenar) return;
+
+                const A = titikSiswa[0];
+
+                const D = titikSiswa[3];
+
+                p.stroke(30, 150, 70);
+
+                p.strokeWeight(3);
+
+                p.line(toPixelX(A.x), toPixelY(A.y), toPixelX(D.x), toPixelY(D.y));
+            }
+
+            function pixelToCoord(px, py) {
+                if (
+                    px < leftMargin ||
+                    px > leftMargin + gridSize ||
+                    py < topMargin ||
+                    py > topMargin + gridSize
+                ) {
+                    return null;
+                }
+
+                let x = Math.round((px - originX) / scaleUnit);
+
+                let y = Math.round((originY - py) / scaleUnit);
+
+                x = p.constrain(x, -10, 10);
+
+                y = p.constrain(y, -10, 10);
+
+                return {
+                    x,
+                    y
+                };
+            }
+
+            function toPixelX(x) {
+                return originX + x * scaleUnit;
+            }
+
+            function toPixelY(y) {
+                return originY - y * scaleUnit;
+            }
+        };
+
+        new p5(sketchLatihanA21, "canvas-holder");
+    </script>
 @endsection
 
 @section('nav')

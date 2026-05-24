@@ -384,17 +384,81 @@ function initKlikKoefisien() {
 /* =========================
    CONTOH 2: SUSUN LANGKAH
 ========================= */
+let draggedItemUrutan = null;
+
 function initUrutanLangkah() {
     const items = document.querySelectorAll(".sort-item");
     const slots = document.querySelectorAll(".sort-slot");
+    const bank = document.querySelector(".sort-bank");
+
+    if (!items.length || !slots.length || !bank) return;
 
     items.forEach((item) => {
+        // =========================
+        // DESKTOP DRAG
+        // =========================
         item.addEventListener("dragstart", function (e) {
+            draggedItemUrutan = this;
+
             e.dataTransfer.setData(
                 "text/plain",
                 this.dataset.step + "|" + this.innerHTML,
             );
+
+            setTimeout(() => {
+                this.style.opacity = "0.5";
+            }, 0);
         });
+
+        item.addEventListener("dragend", function () {
+            this.style.opacity = "1";
+            draggedItemUrutan = null;
+        });
+
+        // =========================
+        // MOBILE TAP
+        // =========================
+        item.addEventListener(
+            "touchstart",
+            function (e) {
+                e.preventDefault();
+
+                const currentSlot = this.closest(".sort-slot");
+
+                // kalau item masih di bank → masuk ke slot kosong pertama
+                if (!currentSlot) {
+                    const emptySlot = [...slots].find((slot) => {
+                        return !slot.querySelector(".sort-item");
+                    });
+
+                    if (emptySlot) {
+                        emptySlot.innerHTML = "";
+                        emptySlot.dataset.filled = this.dataset.step;
+                        emptySlot.appendChild(this);
+                    }
+                }
+
+                // kalau item sudah di slot → balik ke bank
+                else {
+                    const indexSlot = [...slots].indexOf(currentSlot);
+
+                    bank.appendChild(this);
+
+                    delete currentSlot.dataset.filled;
+
+                    const defaults = [
+                        "Letakkan langkah pertama di sini",
+                        "Letakkan langkah berikutnya di sini",
+                        "Letakkan langkah berikutnya di sini",
+                        "Letakkan kesimpulan di sini",
+                    ];
+
+                    currentSlot.innerHTML = defaults[indexSlot];
+                    currentSlot.classList.remove("correct", "wrong", "hovered");
+                }
+            },
+            { passive: false },
+        );
     });
 
     slots.forEach((slot) => {
@@ -410,11 +474,32 @@ function initUrutanLangkah() {
         slot.addEventListener("drop", function (e) {
             e.preventDefault();
             this.classList.remove("hovered");
-            const raw = e.dataTransfer.getData("text/plain");
-            const [step, html] = raw.split("|");
-            this.dataset.filled = step;
-            this.innerHTML = html;
+
+            if (!draggedItemUrutan) return;
+
+            // kalau slot sudah ada item, balikin item lama ke bank
+            const existingItem = this.querySelector(".sort-item");
+            if (existingItem) {
+                bank.appendChild(existingItem);
+            }
+
+            this.innerHTML = "";
+            this.dataset.filled = draggedItemUrutan.dataset.step;
+            this.appendChild(draggedItemUrutan);
         });
+    });
+
+    // desktop: item bisa dikembalikan ke bank
+    bank.addEventListener("dragover", function (e) {
+        e.preventDefault();
+    });
+
+    bank.addEventListener("drop", function (e) {
+        e.preventDefault();
+
+        if (draggedItemUrutan) {
+            bank.appendChild(draggedItemUrutan);
+        }
     });
 }
 
@@ -425,7 +510,11 @@ function cekUrutanLangkah() {
 
     slots.forEach((slot) => {
         slot.classList.remove("correct", "wrong");
-        if (slot.dataset.filled === slot.dataset.answer) {
+
+        const item = slot.querySelector(".sort-item");
+        const jawabanUser = item?.dataset.step;
+
+        if (jawabanUser === slot.dataset.answer) {
             slot.classList.add("correct");
             benar++;
         } else {
@@ -435,18 +524,22 @@ function cekUrutanLangkah() {
 
     if (benar === 4) {
         fb.innerHTML = alertSuccess(
-            "Urutanmu sudah benar. Dari persamaan 4y = 2x - 8 diperoleh y = 1/2 x - 2, sehingga gradiennya adalah 1/2.",
+            "Urutanmu sudah benar. Dari persamaan \\(4y = 2x - 8\\) diperoleh \\(y = \\frac{1}{2}x - 2\\), sehingga gradiennya adalah \\(\\frac{1}{2}\\).",
         );
     } else {
         fb.innerHTML = alertInfo(
-            "Masih ada urutan yang belum tepat. Ingat, persamaan harus diubah dulu ke bentuk y = mx + c sebelum gradien ditentukan.",
+            "Masih ada urutan yang belum tepat. Ingat, persamaan harus diubah dulu ke bentuk \\(y = mx + c\\) sebelum gradien ditentukan.",
         );
     }
+
+    renderKatexUlang(fb);
 }
 
 function resetUrutanLangkah() {
     const slots = document.querySelectorAll(".sort-slot");
+    const bank = document.querySelector(".sort-bank");
     const fb = document.getElementById("fbUrutanLangkah");
+
     const defaults = [
         "Letakkan langkah pertama di sini",
         "Letakkan langkah berikutnya di sini",
@@ -454,15 +547,23 @@ function resetUrutanLangkah() {
         "Letakkan kesimpulan di sini",
     ];
 
+    if (bank) {
+        slots.forEach((slot) => {
+            const item = slot.querySelector(".sort-item");
+            if (item) {
+                bank.appendChild(item);
+            }
+        });
+    }
+
     slots.forEach((slot, i) => {
         slot.classList.remove("correct", "wrong", "hovered");
         delete slot.dataset.filled;
         slot.innerHTML = defaults[i];
     });
 
-    fb.innerHTML = "";
+    if (fb) fb.innerHTML = "";
 }
-
 // Latihan Soal
 // =========================
 // LATIHAN SOAL SUBBAB B4
@@ -781,18 +882,13 @@ async function cekLatihan3Gradien() {
 
     if (benarA && benarB && benarC) {
         fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                Bagus. Kamu sudah menyelesaikan semua latihan.
-            </div>
-        `;
+        <div class="alert alert-success mb-0">
+            Bagus. Jawabanmu benar.
+        </div>
+    `;
 
         if (akhir) {
-            akhir.innerHTML = `
-                <div class="alert alert-success fw-semibold text-center mt-3">
-                    Bagus, kamu sudah memahami cara menentukan gradien dari suatu persamaan garis lurus.
-                    Silakan lanjut ke kuis subbab B.
-                </div>
-            `;
+            akhir.classList.remove("d-none");
             renderKatexUlang(akhir);
         }
 
@@ -801,11 +897,14 @@ async function cekLatihan3Gradien() {
         if (saved) {
             bukaQuizButton();
         } else if (akhir) {
-            akhir.innerHTML += `
-                <div class="alert alert-warning mt-2 mb-0">
-                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
-                </div>
-            `;
+            akhir.insertAdjacentHTML(
+                "beforeend",
+                `
+            <div class="alert alert-warning mt-2 mb-0">
+                Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+            </div>
+            `,
+            );
         }
     } else {
         let pesan = `
@@ -831,7 +930,7 @@ async function cekLatihan3Gradien() {
             </div>
         `;
         fb.innerHTML = pesan;
-        if (akhir) akhir.innerHTML = "";
+        if (akhir) akhir.classList.add("d-none");
     }
     renderKatexUlang(fb);
 }
@@ -849,5 +948,5 @@ function resetLatihan3Gradien() {
     const akhir = document.getElementById("pesanAkhirLatihan");
 
     if (fb) fb.innerHTML = "";
-    if (akhir) akhir.innerHTML = "";
+    if (akhir) akhir.classList.add("d-none");
 }
