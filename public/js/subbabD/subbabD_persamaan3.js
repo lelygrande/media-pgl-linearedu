@@ -38,23 +38,26 @@ function cekEksplorasiSejajar() {
     }
 }
 
-// Contoh
-function normContohSejajar(teks) {
-    return (teks || "")
-        .toString()
+// =========================
+// CONTOH SOAL
+// Hanya cek substitusi y1, m, x1
+// =========================
+function normContoh(teks) {
+    return String(teks || "")
         .trim()
         .toLowerCase()
         .replace(/\s+/g, "")
-        .replace(/[()]/g, "");
+        .replace(/[()]/g, "")
+        .replace(/−/g, "-");
 }
 
-function cekIsianContohSejajar(id, jawabanBenar) {
+function cekIsianContoh(id, jawabanBenar) {
     const el = document.getElementById(id);
     if (!el) return false;
 
-    const nilai = normContohSejajar(el.value);
+    const nilai = normContoh(el.value);
     const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
-    const cocok = daftar.map(normContohSejajar).includes(nilai);
+    const cocok = daftar.map(normContoh).includes(nilai);
 
     el.classList.remove("is-valid", "is-invalid");
     el.classList.add(cocok ? "is-valid" : "is-invalid");
@@ -62,60 +65,66 @@ function cekIsianContohSejajar(id, jawabanBenar) {
     return cocok;
 }
 
-function tampilkanPetunjukContohSoalSejajar(pesan) {
-    document.getElementById("petunjukContohSoalSejajar").innerHTML =
-        '<div class="alert alert-info py-2 mb-0">' + pesan + "</div>";
+function isiFeedbackContoh(idElemen, tipe, pesan) {
+    const el = document.getElementById(idElemen);
+    if (!el) return;
+
+    const kelas =
+        tipe === "success"
+            ? "alert-success"
+            : tipe === "warning"
+              ? "alert-warning"
+              : "alert-info";
+
+    el.innerHTML = `
+        <div class="alert ${kelas} py-2 mb-0">
+            ${pesan}
+        </div>
+    `;
+
+    renderMathSafe(el);
 }
 
-function cekContohSoalSejajar() {
-    const benarM1 = cekIsianContohSejajar("cs_sejajar_m1", ["2"]);
-    const benarM2 = cekIsianContohSejajar("cs_sejajar_m2", ["2"]);
-    const benarY1 = cekIsianContohSejajar("cs_sejajar_y1", ["3"]);
-    const benarM3 = cekIsianContohSejajar("cs_sejajar_m3", ["2"]);
-    const benarX1 = cekIsianContohSejajar("cs_sejajar_x1", ["2"]);
-    const benarAkhir = cekIsianContohSejajar("cs_sejajar_akhir", [
-        "2x-1",
-        "2x - 1",
-    ]);
+function cekContohSejajar() {
+    const benarY1 = cekIsianContoh("contoh_y1", ["3"]);
+    const benarM = cekIsianContoh("contoh_m", ["2"]);
+    const benarX1 = cekIsianContoh("contoh_x1", ["2"]);
 
-    const semuaBenar =
-        benarM1 && benarM2 && benarY1 && benarM3 && benarX1 && benarAkhir;
-
-    const feedback = document.getElementById("feedbackContohSoalSejajar");
-    const petunjuk = document.getElementById("petunjukContohSoalSejajar");
-    const pembahasan = document.getElementById("pembahasanContohSoalSejajar");
+    const semuaBenar = benarY1 && benarM && benarX1;
+    const pembahasan = document.getElementById("pembahasanContohSejajar");
 
     if (semuaBenar) {
-        feedback.innerHTML =
-            '<div class="alert alert-success py-2 mb-0">Bagus, langkah-langkahmu sudah benar.</div>';
-        petunjuk.innerHTML = "";
-        pembahasan.classList.remove("d-none");
+        isiFeedbackContoh(
+            "feedbackContohSejajar",
+            "success",
+            "Benar. Nilai $y_1$, $m$, dan $x_1$ sudah tepat disubstitusikan ke rumus.",
+        );
+
+        if (pembahasan) {
+            pembahasan.classList.remove("d-none");
+            renderMathSafe(pembahasan);
+        }
+
         return;
     }
 
-    feedback.innerHTML =
-        '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba periksa lagi.</div>';
-    pembahasan.classList.add("d-none");
+    isiFeedbackContoh(
+        "feedbackContohSejajar",
+        "warning",
+        "Masih ada nilai yang belum tepat. Dari titik $A(2,3)$ diperoleh $x_1=2$ dan $y_1=3$. Karena sejajar dengan $y=2x+1$, maka gradiennya $m=2$.",
+    );
 
-    if (!benarM1 || !benarM2) {
-        tampilkanPetunjukContohSoalSejajar(
-            "Petunjuk: gradien garis y = mx + c adalah koefisien x.",
-        );
-        return;
+    if (pembahasan) {
+        pembahasan.classList.add("d-none");
     }
+}
 
-    if (!benarY1 || !benarM3 || !benarX1) {
-        tampilkanPetunjukContohSoalSejajar(
-            "Petunjuk: gunakan titik (2,3) dan gradien 2 ke bentuk y - y1 = m(x - x1).",
-        );
-        return;
-    }
+function toggleSolusi(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    if (!benarAkhir) {
-        tampilkanPetunjukContohSoalSejajar(
-            "Petunjuk: sederhanakan y - 3 = 2(x - 2).",
-        );
-    }
+    el.classList.toggle("d-none");
+    renderMathSafe(el);
 }
 
 // Latihan
@@ -566,7 +575,7 @@ function cekLatihan1Sejajar() {
         isiFeedback(
             "feedbackLatihan1",
             "success",
-            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = 2x - 7$. Silakan lanjut ke soal berikutnya."
+            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = 2x - 7$. Silakan lanjut ke soal berikutnya.",
         );
         kosongkanPetunjuk("petunjukLatihan1");
 
@@ -577,7 +586,7 @@ function cekLatihan1Sejajar() {
     isiFeedback(
         "feedbackLatihan1",
         "warning",
-        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu."
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.",
     );
 
     if (nextBtn) nextBtn.disabled = true;
@@ -586,7 +595,7 @@ function cekLatihan1Sejajar() {
     if (!benarX1 || !benarY1) {
         tampilkanPetunjuk(
             "petunjukLatihan1",
-            "Petunjuk: baca titik $A(4,1)$, lalu tentukan $x_1$ dan $y_1$."
+            "Petunjuk: baca titik $A(4,1)$, lalu tentukan $x_1$ dan $y_1$.",
         );
         return;
     }
@@ -594,7 +603,7 @@ function cekLatihan1Sejajar() {
     if (!benarM) {
         tampilkanPetunjuk(
             "petunjukLatihan1",
-            "Petunjuk: karena garis sejajar, gradien garis yang dicari sama dengan gradien yang diketahui."
+            "Petunjuk: karena garis sejajar, gradien garis yang dicari sama dengan gradien yang diketahui.",
         );
         return;
     }
@@ -602,7 +611,7 @@ function cekLatihan1Sejajar() {
     if (!benarSubY1 || !benarSubM || !benarSubX1) {
         tampilkanPetunjuk(
             "petunjukLatihan1",
-            "Petunjuk: masukkan titik $(4,1)$ dan gradien $2$ ke bentuk $y-y_1=m(x-x_1)$."
+            "Petunjuk: masukkan titik $(4,1)$ dan gradien $2$ ke bentuk $y-y_1=m(x-x_1)$.",
         );
         return;
     }
@@ -615,7 +624,7 @@ function cekLatihan1Sejajar() {
     if (!benarUmum) {
         tampilkanPetunjuk(
             "petunjukLatihan1",
-            "Petunjuk: ubah $y = 2x - 7$ ke bentuk umum $ax + by + c = 0$."
+            "Petunjuk: ubah $y = 2x - 7$ ke bentuk umum $ax + by + c = 0$.",
         );
     }
 }
@@ -654,12 +663,12 @@ async function cekLatihan2Sejajar() {
 
     const benarMSederhanaAtas = cekIsianLatihanSejajar(
         "lat2_m_sederhana_atas",
-        ["-3", "3"]
+        ["-3", "3"],
     );
 
     const benarMSederhanaBawah = cekIsianLatihanSejajar(
         "lat2_m_sederhana_bawah",
-        ["2", "-2"]
+        ["2", "-2"],
     );
 
     const benarSubY1 = cekIsianLatihanSejajar("lat2_sub_y1", ["6"]);
@@ -708,7 +717,7 @@ async function cekLatihan2Sejajar() {
         isiFeedback(
             "feedbackLatihan2",
             "success",
-            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = -\\frac{3}{2}x + 12$, atau $3x + 2y - 24 = 0$."
+            "Bagus, jawabanmu sudah benar. Persamaan garisnya adalah $y = -\\frac{3}{2}x + 12$, atau $3x + 2y - 24 = 0$.",
         );
         kosongkanPetunjuk("petunjukLatihan2");
 
@@ -740,7 +749,7 @@ async function cekLatihan2Sejajar() {
     isiFeedback(
         "feedbackLatihan2",
         "warning",
-        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu."
+        "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.",
     );
 
     if (akhir) akhir.innerHTML = "";
@@ -748,7 +757,7 @@ async function cekLatihan2Sejajar() {
     if (!benarMAtas1 || !benarMAtas2 || !benarMBawah1 || !benarMBawah2) {
         tampilkanPetunjuk(
             "petunjukLatihan2",
-            "Petunjuk: gunakan rumus gradien dari dua titik, yaitu selisih $y$ dibagi selisih $x$."
+            "Petunjuk: gunakan rumus gradien dari dua titik, yaitu selisih $y$ dibagi selisih $x$.",
         );
         return;
     }
@@ -756,7 +765,7 @@ async function cekLatihan2Sejajar() {
     if (!benarMSederhanaAtas || !benarMSederhanaBawah) {
         tampilkanPetunjuk(
             "petunjukLatihan2",
-            "Petunjuk: sederhanakan $1 - 4$ dan $5 - 3$ terlebih dahulu."
+            "Petunjuk: sederhanakan $1 - 4$ dan $5 - 3$ terlebih dahulu.",
         );
         return;
     }
@@ -764,7 +773,7 @@ async function cekLatihan2Sejajar() {
     if (!benarSubY1 || !benarSubMAtas || !benarSubMBawah || !benarSubX1) {
         tampilkanPetunjuk(
             "petunjukLatihan2",
-            "Petunjuk: gunakan titik $(4,6)$ dan gradien yang sama karena kedua garis sejajar."
+            "Petunjuk: gunakan titik $(4,6)$ dan gradien yang sama karena kedua garis sejajar.",
         );
         return;
     }
@@ -772,7 +781,7 @@ async function cekLatihan2Sejajar() {
     if (!benarAkhir) {
         tampilkanPetunjuk(
             "petunjukLatihan2",
-            "Petunjuk: sederhanakan $y - 6 = -\\frac{3}{2}(x - 4)$."
+            "Petunjuk: sederhanakan $y - 6 = -\\frac{3}{2}(x - 4)$.",
         );
         return;
     }
@@ -780,7 +789,7 @@ async function cekLatihan2Sejajar() {
     if (!benarUmum) {
         tampilkanPetunjuk(
             "petunjukLatihan2",
-            "Petunjuk: hilangkan dulu pecahan pada $y = -\\frac{3}{2}x + 12$ dengan mengalikan semua ruas dengan $2$, lalu pindahkan semua suku ke satu ruas hingga berbentuk $ax + by + c = 0$."
+            "Petunjuk: hilangkan dulu pecahan pada $y = -\\frac{3}{2}x + 12$ dengan mengalikan semua ruas dengan $2$, lalu pindahkan semua suku ke satu ruas hingga berbentuk $ax + by + c = 0$.",
         );
     }
 }

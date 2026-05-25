@@ -60,15 +60,18 @@ function cekEksplorasiTegakLurus() {
     const benar4 = cekIsian("eks_tl_4", ["mh", "m_h"]);
     const benar5 = cekIsian("eks_tl_5", ["x1", "x_1"]);
 
-    const semuaBenar = benar1 && benar2atas && benar2bawah && benar3 && benar4 && benar5;
+    const semuaBenar =
+        benar1 && benar2atas && benar2bawah && benar3 && benar4 && benar5;
 
-    const kesimpulan = document.getElementById("kesimpulanEksplorasiTegakLurus");
+    const kesimpulan = document.getElementById(
+        "kesimpulanEksplorasiTegakLurus",
+    );
 
     if (semuaBenar) {
         isiPesan(
             "feedbackEksplorasiTegakLurus",
             "Bagus, kamu sudah menemukan hubungan gradien dua garis yang saling tegak lurus dan bentuk persamaan garisnya.",
-            "success"
+            "success",
         );
         if (kesimpulan) kesimpulan.classList.remove("d-none");
         return;
@@ -77,123 +80,102 @@ function cekEksplorasiTegakLurus() {
     isiPesan(
         "feedbackEksplorasiTegakLurus",
         "Masih ada jawaban yang belum tepat. Coba perhatikan lagi hubungan gradien dua garis yang saling tegak lurus.",
-        "warning"
+        "warning",
     );
     if (kesimpulan) kesimpulan.classList.add("d-none");
 }
 
-// =========================================================
-// CONTOH SOAL
-// Data: garis y = -4x + 9, titik (8,6)
-// =========================================================
-function tampilkanPetunjukContohSoalTegakLurus(pesan) {
-    isiPesan("petunjukContohSoalTegakLurus", pesan, "info");
+// =========================
+// CONTOH SOAL TEGAK LURUS
+// Siswa hanya mengisi substitusi ke rumus
+// =========================
+function normContoh(teks) {
+    return String(teks || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/[(){}[\]]/g, "")
+        .replace(/−/g, "-");
+}
+
+function cekIsianContoh(id, jawabanBenar) {
+    const el = document.getElementById(id);
+    if (!el) return false;
+
+    const nilai = normContoh(el.value);
+    const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
+    const cocok = daftar.map(normContoh).includes(nilai);
+
+    el.classList.remove("is-valid", "is-invalid");
+    el.classList.add(cocok ? "is-valid" : "is-invalid");
+
+    return cocok;
+}
+
+function isiFeedbackContoh(idElemen, tipe, pesan) {
+    const el = document.getElementById(idElemen);
+    if (!el) return;
+
+    const kelas =
+        tipe === "success"
+            ? "alert-success"
+            : tipe === "warning"
+              ? "alert-warning"
+              : "alert-info";
+
+    el.innerHTML = `
+        <div class="alert ${kelas} py-2 mb-0">
+            ${pesan}
+        </div>
+    `;
+
+    renderMathSafe(el);
+}
+
+function toggleSolusi(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.classList.toggle("d-none");
+    renderMathSafe(el);
 }
 
 function cekContohSoalTegakLurus() {
-    const benarM1 = cekIsian("cs_tl_m1", ["-4"]);
-
-    const benarM2Atas = cekIsian("cs_tl_m2_atas", ["1"]);
-    const benarM2Bawah = cekIsian("cs_tl_m2_bawah", ["4"]);
-
-    const benarX1 = cekIsian("cs_tl_x1", ["8"]);
-    const benarY1 = cekIsian("cs_tl_y1", ["6"]);
-
-    const benarSubY1 = cekIsian("cs_tl_sub_y1", ["6"]);
-    const benarSubMAtas = cekIsian("cs_tl_sub_m_atas", ["1"]);
-    const benarSubMBawah = cekIsian("cs_tl_sub_m_bawah", ["4"]);
-    const benarSubX1 = cekIsian("cs_tl_sub_x1", ["8"]);
-
-    const benarUrai1 = cekIsian("cs_tl_urai1", ["6"]);
-    const benarUrai2 = cekIsian("cs_tl_urai2", [
-        "1/4x-2",
-        "1/4x - 2",
-        "0.25x-2",
-        "0.25x + -2",
-        "0.25x - 2"
-    ]);
-
-    const benarAkhir = cekIsian("cs_tl_akhir", [
-        "1/4x+4",
-        "1/4x + 4",
-        "0.25x+4",
-        "0.25x + 4"
-    ]);
-
-    const benarUmum = cekIsian("cs_tl_umum", [
-        "x-4y+16",
-        "x - 4y + 16",
-        "-x+4y-16",
-        "-x + 4y - 16"
-    ]);
+    const benarSubY1 = cekIsianContoh("cs_tl_sub_y1", ["6"]);
+    const benarSubMAtas = cekIsianContoh("cs_tl_sub_m_atas", ["1"]);
+    const benarSubMBawah = cekIsianContoh("cs_tl_sub_m_bawah", ["4"]);
+    const benarSubX1 = cekIsianContoh("cs_tl_sub_x1", ["8"]);
 
     const semuaBenar =
-        benarM1 &&
-        benarM2Atas &&
-        benarM2Bawah &&
-        benarX1 &&
-        benarY1 &&
-        benarSubY1 &&
-        benarSubMAtas &&
-        benarSubMBawah &&
-        benarSubX1 &&
-        benarUrai1 &&
-        benarUrai2 &&
-        benarAkhir &&
-        benarUmum;
+        benarSubY1 && benarSubMAtas && benarSubMBawah && benarSubX1;
 
-    const pembahasan = document.getElementById("pembahasanContohSoalTegakLurus");
+    const pembahasan = document.getElementById(
+        "pembahasanContohSoalTegakLurus",
+    );
 
     if (semuaBenar) {
-        isiPesan(
+        isiFeedbackContoh(
             "feedbackContohSoalTegakLurus",
-            "Bagus, langkah-langkah penyelesaianmu sudah benar.",
-            "success"
+            "success",
+            "Benar. Substitusi ke rumus sudah tepat, yaitu $y-6=\\dfrac{1}{4}(x-8)$.",
         );
-        kosongkan("petunjukContohSoalTegakLurus");
-        if (pembahasan) pembahasan.classList.remove("d-none");
+
+        if (pembahasan) {
+            pembahasan.classList.remove("d-none");
+            renderMathSafe(pembahasan);
+        }
+
         return;
     }
 
-    isiPesan(
+    isiFeedbackContoh(
         "feedbackContohSoalTegakLurus",
-        "Masih ada jawaban yang belum tepat. Coba periksa lagi langkah-langkahnya.",
-        "warning"
+        "warning",
+        "Masih ada nilai yang belum tepat. Dari titik $A(8,6)$ diperoleh $x_1=8$ dan $y_1=6$. Karena garis tegak lurus dengan $y=-4x+9$, gradiennya menjadi $\\dfrac{1}{4}$.",
     );
-    if (pembahasan) pembahasan.classList.add("d-none");
 
-    if (!benarM1) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: gradien garis y = mx + c adalah koefisien x.");
-        return;
-    }
-
-    if (!benarM2Atas || !benarM2Bawah) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: gradien garis yang tegak lurus adalah negatif kebalikan dari gradien semula.");
-        return;
-    }
-
-    if (!benarX1 || !benarY1) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: titik yang dilalui adalah A(8,6).");
-        return;
-    }
-
-    if (!benarSubY1 || !benarSubMAtas || !benarSubMBawah || !benarSubX1) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: masukkan titik (8,6) dan gradien 1/4 ke bentuk y - y1 = m(x - x1).");
-        return;
-    }
-
-    if (!benarUrai1 || !benarUrai2) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: uraikan 1/4 (x - 8) terlebih dahulu.");
-        return;
-    }
-
-    if (!benarAkhir) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: dari y - 6 = 1/4x - 2, pindahkan -6 ke ruas kanan.");
-        return;
-    }
-
-    if (!benarUmum) {
-        tampilkanPetunjukContohSoalTegakLurus("Petunjuk: hilangkan pecahan pada y = 1/4x + 4, lalu susun ke bentuk ax + by + c = 0.");
+    if (pembahasan) {
+        pembahasan.classList.add("d-none");
     }
 }
 
@@ -236,8 +218,8 @@ function isiPesan(id, pesan, tipe = "info") {
         tipe === "success"
             ? "alert-success"
             : tipe === "warning"
-                ? "alert-warning"
-                : "alert-info";
+              ? "alert-warning"
+              : "alert-info";
 
     el.innerHTML = `<div class="alert ${kelas} py-2 mb-0">${pesan}</div>`;
     renderMathSafe(el);
@@ -429,7 +411,7 @@ function cekLatihan1TegakLurus() {
         isiPesan(
             "feedbackLatihan1",
             "Bagus, jawabanmu sudah benar. Silakan lanjut ke latihan berikutnya.",
-            "success"
+            "success",
         );
 
         kosongkan("petunjukLatihan1");
@@ -441,7 +423,7 @@ function cekLatihan1TegakLurus() {
     isiPesan(
         "feedbackLatihan1",
         "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.",
-        "warning"
+        "warning",
     );
 
     if (nextBtn) nextBtn.disabled = true;
@@ -449,35 +431,35 @@ function cekLatihan1TegakLurus() {
 
     if (!benarM1) {
         tampilkanPetunjukLatihan1(
-            "Petunjuk: gradien garis $y = mx + c$ adalah koefisien $x$."
+            "Petunjuk: gradien garis $y = mx + c$ adalah koefisien $x$.",
         );
         return;
     }
 
     if (!benarM2Atas || !benarM2Bawah) {
         tampilkanPetunjukLatihan1(
-            "Petunjuk: gradien garis yang tegak lurus adalah negatif kebalikan dari gradien semula."
+            "Petunjuk: gradien garis yang tegak lurus adalah negatif kebalikan dari gradien semula.",
         );
         return;
     }
 
     if (!benarSubY1 || !benarSubMAtas || !benarSubMBawah || !benarSubX1) {
         tampilkanPetunjukLatihan1(
-            "Petunjuk: gunakan titik $D(4,2)$ dan gradien yang sudah diperoleh ke bentuk $y-y_1=m(x-x_1)$."
+            "Petunjuk: gunakan titik $D(4,2)$ dan gradien yang sudah diperoleh ke bentuk $y-y_1=m(x-x_1)$.",
         );
         return;
     }
 
     if (!benarUrai1 || !benarUrai2) {
         tampilkanPetunjukLatihan1(
-            "Petunjuk: uraikan $\\frac{1}{3}(x - 4)$ terlebih dahulu."
+            "Petunjuk: uraikan $\\frac{1}{3}(x - 4)$ terlebih dahulu.",
         );
         return;
     }
 
     if (!benarAkhir) {
         tampilkanPetunjukLatihan1(
-            "Petunjuk: dari $y - 2 = \\frac{1}{3}x - \\frac{4}{3}$, pindahkan $-2$ ke ruas kanan."
+            "Petunjuk: dari $y - 2 = \\frac{1}{3}x - \\frac{4}{3}$, pindahkan $-2$ ke ruas kanan.",
         );
     }
 }
@@ -563,7 +545,7 @@ function cekLatihan2TegakLurus() {
         isiPesan(
             "feedbackLatihan2",
             "Bagus, jawabanmu sudah benar. Silakan lanjut ke latihan berikutnya.",
-            "success"
+            "success",
         );
 
         kosongkan("petunjukLatihan2");
@@ -575,7 +557,7 @@ function cekLatihan2TegakLurus() {
     isiPesan(
         "feedbackLatihan2",
         "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.",
-        "warning"
+        "warning",
     );
 
     if (nextBtn) nextBtn.disabled = true;
@@ -583,35 +565,35 @@ function cekLatihan2TegakLurus() {
 
     if (!benarMAtas || !benarMBawah) {
         tampilkanPetunjukLatihan2(
-            "Petunjuk: gradien garis yang tegak lurus adalah negatif kebalikan dari gradien semula."
+            "Petunjuk: gradien garis yang tegak lurus adalah negatif kebalikan dari gradien semula.",
         );
         return;
     }
 
     if (!benarSubY1 || !benarSubMAtas || !benarSubMBawah || !benarSubX1) {
         tampilkanPetunjukLatihan2(
-            "Petunjuk: gunakan titik $E(7,-4)$ dan gradien yang sudah diperoleh ke bentuk $y-y_1=m(x-x_1)$."
+            "Petunjuk: gunakan titik $E(7,-4)$ dan gradien yang sudah diperoleh ke bentuk $y-y_1=m(x-x_1)$.",
         );
         return;
     }
 
     if (!benarUrai1 || !benarUrai2) {
         tampilkanPetunjukLatihan2(
-            "Petunjuk: uraikan $\\frac{5}{2}(x - 7)$ terlebih dahulu."
+            "Petunjuk: uraikan $\\frac{5}{2}(x - 7)$ terlebih dahulu.",
         );
         return;
     }
 
     if (!benarAkhir) {
         tampilkanPetunjukLatihan2(
-            "Petunjuk: dari $y + 4 = \\frac{5}{2}x - \\frac{35}{2}$, pindahkan $4$ ke ruas kanan."
+            "Petunjuk: dari $y + 4 = \\frac{5}{2}x - \\frac{35}{2}$, pindahkan $4$ ke ruas kanan.",
         );
         return;
     }
 
     if (!benarUmum) {
         tampilkanPetunjukLatihan2(
-            "Petunjuk: hilangkan pecahan pada $y = \\frac{5}{2}x - \\frac{43}{2}$, lalu susun ke bentuk $ax + by + c = 0$."
+            "Petunjuk: hilangkan pecahan pada $y = \\frac{5}{2}x - \\frac{43}{2}$, lalu susun ke bentuk $ax + by + c = 0$.",
         );
     }
 }
@@ -688,7 +670,7 @@ async function cekLatihan3TegakLurus() {
         isiPesan(
             "feedbackLatihan3",
             "Bagus, jawabanmu sudah benar. Kamu sudah menyelesaikan semua latihan.",
-            "success"
+            "success",
         );
 
         kosongkan("petunjukLatihan3");
@@ -721,7 +703,7 @@ async function cekLatihan3TegakLurus() {
     isiPesan(
         "feedbackLatihan3",
         "Masih ada jawaban yang belum tepat. Coba periksa kembali jawabanmu.",
-        "warning"
+        "warning",
     );
 
     if (akhir) akhir.innerHTML = "";
@@ -734,35 +716,35 @@ async function cekLatihan3TegakLurus() {
         !benarM1Final
     ) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: tentukan dulu gradien garis yang melalui titik $(1,14)$ dan $(9,6)$."
+            "Petunjuk: tentukan dulu gradien garis yang melalui titik $(1,14)$ dan $(9,6)$.",
         );
         return;
     }
 
     if (!benarM2Final) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: gradien garis yang tegak lurus dengan gradien $-1$ adalah $1$."
+            "Petunjuk: gradien garis yang tegak lurus dengan gradien $-1$ adalah $1$.",
         );
         return;
     }
 
     if (!benarSubY1 || !benarSubM || !benarSubX1) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: karena titiknya $(12,-3)$, maka bentuknya ditulis menjadi $y + 3 = 1(x - 12)$."
+            "Petunjuk: karena titiknya $(12,-3)$, maka bentuknya ditulis menjadi $y + 3 = 1(x - 12)$.",
         );
         return;
     }
 
     if (!benarUrai1 || !benarUrai2) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: uraikan $1(x - 12)$ terlebih dahulu."
+            "Petunjuk: uraikan $1(x - 12)$ terlebih dahulu.",
         );
         return;
     }
 
     if (!benarAkhir) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: dari $y + 3 = x - 12$, pindahkan $3$ ke ruas kanan."
+            "Petunjuk: dari $y + 3 = x - 12$, pindahkan $3$ ke ruas kanan.",
         );
     }
 }

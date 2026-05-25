@@ -823,8 +823,8 @@ function isiPesan(id, pesan, tipe = "info") {
         tipe === "success"
             ? "alert-success"
             : tipe === "warning"
-                ? "alert-warning"
-                : "alert-info";
+              ? "alert-warning"
+              : "alert-info";
 
     el.innerHTML = `<div class="alert ${kelas} py-2 mb-0">${pesan}</div>`;
     renderKatex(el);
@@ -951,7 +951,7 @@ function resetLatihan2() {
 // =========================
 // LATIHAN 3
 // =========================
-function cekLatihan3() {
+async function cekLatihan3() {
     const benarX1 = cekIsian("x1_3", ["3a"]);
     const benarY1 = cekIsian("y1_3", ["8a"]);
     const benarX2 = cekIsian("x2_3", ["2a"]);
@@ -992,40 +992,58 @@ function cekLatihan3() {
         benarPers1Kanan &&
         benarHasilA;
 
-    const nextBtn = document.getElementById("nextBtnLatihan3");
+    const akhir = document.getElementById("pesanAkhirLatihan");
 
     if (semuaBenar) {
         isiPesan(
             "fbLatihan3",
-            "Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$. Silakan lanjut ke latihan berikutnya.",
-            "success"
+            "Bagus! Langkah-langkah penyelesaianmu sudah benar.<br>Diperoleh $8a = 4$, sehingga $a = \\frac{1}{2}$.",
+            "success",
         );
 
         kosongkanPetunjukLatihan3();
 
-        if (nextBtn) nextBtn.disabled = false;
+        if (akhir) {
+            akhir.classList.remove("d-none");
+            renderKatex(akhir);
+        }
+
+        const saved = await saveProgressMateri();
+
+        if (saved) {
+            bukaNextButton();
+        } else if (akhir) {
+            akhir.insertAdjacentHTML(
+                "beforeend",
+                `
+                <div class="alert alert-warning mt-2 mb-0">
+                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+                </div>
+                `,
+            );
+        }
+
         return;
     }
 
     isiPesan(
         "fbLatihan3",
         "Masih ada jawaban yang belum tepat. Coba periksa kembali isian yang berwarna merah.",
-        "warning"
+        "warning",
     );
 
-    if (nextBtn) nextBtn.disabled = true;
-    resetStepSetelah(4);
+    if (akhir) akhir.classList.add("d-none");
 
     if (!benarX1 || !benarY1 || !benarX2 || !benarY2) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$."
+            "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$.",
         );
         return;
     }
 
     if (!benarM) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$."
+            "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$.",
         );
         return;
     }
@@ -1038,38 +1056,50 @@ function cekLatihan3() {
         !benarSubX1
     ) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$."
+            "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$.",
         );
         return;
     }
 
     if (!benarKiri2 || !benarHasilAtas || !benarHasilBawah) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$."
+            "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$.",
         );
         return;
     }
 
     if (!benarPers1Kiri || !benarPers1Kanan) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya."
+            "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya. Karena $0 \\times (-a)=0$, maka diperoleh $0=4-8a$.",
         );
         return;
     }
 
     if (!benarHasilA) {
         tampilkanPetunjukLatihan3(
-            "Petunjuk: dari $4-8a=0$, pindahkan $8a$ ke ruas kanan atau $4$ ke ruas kiri, lalu cari nilai $a$."
+            "Petunjuk: dari $0=4-8a$, diperoleh $8a=4$, sehingga $a=\\frac{1}{2}$.",
         );
     }
 }
 
 function resetLatihan3() {
     [
-        "x1_3", "y1_3", "x2_3", "y2_3", "m_3",
-        "kiri1_3", "subY2_3", "subY1_3", "subX2_3", "subX1_3",
-        "kiri2_3", "hasilAtas_3", "hasilBawah_3",
-        "pers1Kiri_3", "pers1Kanan_3", "hasilA_3"
+        "x1_3",
+        "y1_3",
+        "x2_3",
+        "y2_3",
+        "m_3",
+        "kiri1_3",
+        "subY2_3",
+        "subY1_3",
+        "subX2_3",
+        "subX1_3",
+        "kiri2_3",
+        "hasilAtas_3",
+        "hasilBawah_3",
+        "pers1Kiri_3",
+        "pers1Kanan_3",
+        "hasilA_3",
     ].forEach((id) => {
         const el = document.getElementById(id);
 
@@ -1081,131 +1111,12 @@ function resetLatihan3() {
 
     const fb = document.getElementById("fbLatihan3");
     const petunjuk = document.getElementById("petunjukLatihan3");
-    const nextBtn = document.getElementById("nextBtnLatihan3");
+    const akhir = document.getElementById("pesanAkhirLatihan");
 
     if (fb) fb.innerHTML = "";
     if (petunjuk) petunjuk.innerHTML = "";
-    if (nextBtn) nextBtn.disabled = true;
 
-    resetStepSetelah(4);
-}
-
-// =========================
-// LATIHAN 4
-// =========================
-async function cekLat4() {
-    const mEl = document.getElementById("lat4-m");
-    const posisiEl = document.getElementById("lat4-posisi");
-    const alasanEl = document.getElementById("lat4-alasan");
-
-    const m = normJawaban(mEl?.value);
-    const posisi = posisiEl?.value || "";
-    const alasan = String(alasanEl?.value || "").toLowerCase();
-
-    const fb = document.getElementById("fb-lat4");
-    const akhir = document.getElementById("pesanAkhirLatihan");
-
-    if (!fb) return;
-
-    let pesan = [];
-
-    const benarM = m === "0";
-    const benarPosisi = posisi === "x";
-
-    const adaY = alasan.includes("y");
-    const adaTetap =
-        alasan.includes("tetap") ||
-        alasan.includes("sama") ||
-        alasan.includes("konstan");
-
-    const benarAlasan = adaY && adaTetap;
-
-    if (mEl) {
-        mEl.classList.remove("is-valid", "is-invalid");
-        mEl.classList.add(benarM ? "is-valid" : "is-invalid");
+    if (akhir) {
+        akhir.classList.add("d-none");
     }
-
-    if (posisiEl) {
-        posisiEl.classList.remove("is-valid", "is-invalid");
-        posisiEl.classList.add(benarPosisi ? "is-valid" : "is-invalid");
-    }
-
-    if (alasanEl) {
-        alasanEl.classList.remove("is-valid", "is-invalid");
-        alasanEl.classList.add(benarAlasan ? "is-valid" : "is-invalid");
-    }
-
-    if (!benarM) pesan.push("Gradien belum tepat.");
-    if (!benarPosisi) pesan.push("Kedudukan garis belum tepat.");
-    if (!benarAlasan) {
-        pesan.push("Alasanmu masih belum tepat. Jelaskan bahwa nilai $y$ selalu tetap/sama.");
-    }
-
-    if (pesan.length === 0) {
-        fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                Benar! Persamaan $y = -4$ menunjukkan bahwa nilai $y$ selalu tetap.
-                Maka garisnya mendatar, gradiennya $0$, dan sejajar dengan sumbu-x.
-            </div>
-        `;
-
-        if (akhir) {
-            akhir.innerHTML = `
-                <div class="alert alert-success fw-semibold text-center mt-3">
-                    Bagus, kamu sudah memahami gradien garis sejajar sumbu-x dan sumbu-y.
-                    Silakan lanjut ke materi berikutnya.
-                </div>
-            `;
-            renderKatex(akhir);
-        }
-
-        const saved = await saveProgressMateri();
-
-        if (saved) {
-            bukaNextButton();
-        } else if (akhir) {
-            akhir.innerHTML += `
-                <div class="alert alert-warning mt-2 mb-0">
-                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
-                </div>
-            `;
-        }
-    } else {
-        fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                ${pesan.join("<br><br>")}
-            </div>
-        `;
-
-        if (akhir) akhir.innerHTML = "";
-    }
-
-    renderKatex(fb);
-}
-
-function resetLat4() {
-    const m = document.getElementById("lat4-m");
-    const posisi = document.getElementById("lat4-posisi");
-    const alasan = document.getElementById("lat4-alasan");
-
-    if (m) {
-        m.value = "";
-        m.classList.remove("is-valid", "is-invalid");
-    }
-
-    if (posisi) {
-        posisi.value = "";
-        posisi.classList.remove("is-valid", "is-invalid");
-    }
-
-    if (alasan) {
-        alasan.value = "";
-        alasan.classList.remove("is-valid", "is-invalid");
-    }
-
-    const fb = document.getElementById("fb-lat4");
-    const akhir = document.getElementById("pesanAkhirLatihan");
-
-    if (fb) fb.innerHTML = "";
-    if (akhir) akhir.innerHTML = "";
 }
