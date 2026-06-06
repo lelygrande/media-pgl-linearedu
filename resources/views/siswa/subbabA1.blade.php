@@ -497,8 +497,8 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Peserta didik dapat memahami konsep dasar persamaan garis lurus.</li>
-                <li>Peserta didik dapat menggambar grafik persamaan garis lurus </li>
+                <li>Peserta didik dapat memahami konsep dasar persamaan garis lurus dengan benar.</li>
+                <li>Peserta didik dapat menggambar grafik persamaan garis lurus dengan tepat</li>
             </ol>
         </div>
     </div>
@@ -723,6 +723,84 @@
         Jadi, kita dapat menyimpulkan bahwa $y = 3x - 2$ merupakan persamaan garis lurus.
     </p>
 
+    {{-- ===== Contoh ===== --}}
+    <div class="box-contoh mt-5 mb-4">
+        <span class="title-box">Contoh</span>
+
+        <p class="mt-2 mb-3" style="text-align: justify;">
+            Sekarang, cobalah perhatikan beberapa persamaan berikut.
+            Untuk menentukan apakah suatu persamaan merupakan persamaan garis lurus atau bukan,
+            amati apakah variabel-variabelnya berpangkat satu dan tidak memuat bentuk akar atau pangkat lebih dari satu.
+        </p>
+
+        <!-- No 1 -->
+        <div class="mb-3">
+            <b>1. $x + 3y = 0$</b><br>
+            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol1', this)">
+                Lihat Penyelesaian
+            </button>
+
+            <div id="sol1" class="mt-2" style="display:none;">
+                $x + 3y = 0$ merupakan persamaan garis lurus karena memuat variabel
+                $x$ dan $y$ berpangkat satu, sehingga termasuk persamaan garis lurus.
+            </div>
+        </div>
+
+        <!-- No 2 -->
+        <div class="mb-3">
+            <b>2. $x^2 + 2y = 5$</b><br>
+            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol2', this)">
+                Lihat Penyelesaian
+            </button>
+            <div id="sol2" class="mt-2" style="display:none;">
+                $x^2 + 2y = 5$ bukan persamaan garis lurus karena terdapat suku
+                $x^2$ yang berpangkat dua, sehingga tidak bersifat linear.
+            </div>
+        </div>
+
+        <!-- No 3 -->
+        <div class="mb-3">
+            <b>3. $3x + 3y = 3^2$</b><br>
+            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol3', this)">
+                Lihat Penyelesaian
+            </button>
+
+            <div id="sol3" class="mt-2" style="display:none;">
+                Karena $3^2 = 9$, maka persamaan menjadi $3x + 3y = 9$.
+                Semua variabel berpangkat satu, sehingga merupakan persamaan garis lurus.
+            </div>
+        </div>
+
+        <!-- No 4 -->
+        <div class="mb-3">
+            <b>4. $\frac{y}{3} + 3x = 12$</b><br>
+            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol4', this)">
+                Lihat Penyelesaian
+            </button>
+
+            <div id="sol4" class="mt-2" style="display:none;">
+                $\frac{y}{3} + 3x = 12$ merupakan persamaan garis lurus karena variabel
+                $x$ dan $y$ tetap berpangkat satu. Bentuk $\frac{y}{3}$ hanya menunjukkan
+                bahwa variabel $y$ dibagi dengan konstanta, sehingga persamaan tersebut
+                masih termasuk persamaan garis lurus.
+            </div>
+        </div>
+
+        <!-- No 5 -->
+        <div class="mb-3">
+            <b>5. $\sqrt{4y} + 3x - 6 = 0$</b><br>
+            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol5', this)">
+                Lihat Penyelesaian
+            </button>
+
+            <div id="sol5" class="mt-2" style="display:none;">
+                Persamaan ini bukan persamaan garis lurus karena mengandung bentuk akar
+                $\sqrt{4y}$ sehingga tidak dapat dinyatakan sebagai persamaan garis lurus.
+            </div>
+        </div>
+
+    </div>
+
     {{-- Contoh mengubah eksplisit ke implisit --}}
     <div class="box-contoh mt-5 mb-4">
         <span class="title-box">Contoh</span>
@@ -835,6 +913,8 @@
                     <div class="step-eq">$2y = -3x + 6$</div>
                     <div class="step-note">
                         Pindahkan $3x$ dan $-6$ ke ruas kanan.
+                        Jika suatu suku berpindah ruas, maka tandanya berubah, sehingga
+                        $3x$ menjadi $-3x$ dan $-6$ menjadi $+6$.
                     </div>
                 </div>
 
@@ -846,9 +926,12 @@
             <!-- STEP 3 -->
             <div id="s3" class="step-item" style="display:none;">
                 <div class="step-row">
-                    <div class="step-eq">$y = \frac{-3x + 6}{2}$</div>
+                    <div class="step-eq">
+                        $\frac{2y}{2} = \frac{-3x + 6}{2}$ <br>
+                        $y = \frac{-3x + 6}{2}$
+                    </div>
                     <div class="step-note">
-                        Bagi kedua ruas dengan 2 agar $y$ sendirian.
+                        Bagi kedua ruas dengan 2 agar $y$ berdiri sendiri.
                     </div>
                 </div>
 
@@ -862,7 +945,7 @@
                 <div class="step-row">
                     <div class="step-eq">$y = -\frac{3}{2}x + 3$</div>
                     <div class="step-note">
-                        Sederhanakan bentuk pecahan.
+                        Sederhanakan bentuk pecahannya.
                         Sekarang persamaan sudah berbentuk eksplisit.
                     </div>
                 </div>
@@ -875,81 +958,7 @@
         </div>
     </div>
 
-    {{-- ===== Contoh ===== --}}
-    <div class="box-contoh mt-5 mb-4">
-        <span class="title-box">Contoh</span>
 
-        <p class="mt-2 mb-3" style="text-align: justify;">
-            Sekarang, cobalah perhatikan beberapa persamaan berikut.
-            Untuk menentukan apakah suatu persamaan merupakan persamaan garis lurus atau bukan,
-            amati apakah variabel-variabelnya berpangkat satu dan tidak memuat bentuk akar atau pangkat lebih dari satu.
-        </p>
-
-        <!-- No 1 -->
-        <div class="mb-3">
-            <b>1. $x + 3y = 0$</b><br>
-            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol1', this)">
-                Lihat Penyelesaian
-            </button>
-
-            <div id="sol1" class="mt-2" style="display:none;">
-                $x + 3y = 0$ merupakan persamaan garis lurus karena memuat variabel
-                $x$ dan $y$ berpangkat satu, sehingga termasuk persamaan linear dua variabel.
-            </div>
-        </div>
-
-        <!-- No 2 -->
-        <div class="mb-3">
-            <b>2. $x^2 + 2y = 5$</b><br>
-            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol2', this)">
-                Lihat Penyelesaian
-            </button>
-            <div id="sol2" class="mt-2" style="display:none;">
-                $x^2 + 2y = 5$ bukan persamaan garis lurus karena terdapat suku
-                $x^2$ yang berpangkat dua, sehingga tidak bersifat linear.
-            </div>
-        </div>
-
-        <!-- No 3 -->
-        <div class="mb-3">
-            <b>3. $3x + 3y = 3^2$</b><br>
-            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol3', this)">
-                Lihat Penyelesaian
-            </button>
-
-            <div id="sol3" class="mt-2" style="display:none;">
-                Karena $3^2 = 9$, maka persamaan menjadi $3x + 3y = 9$.
-                Semua variabel berpangkat satu, sehingga merupakan persamaan garis lurus.
-            </div>
-        </div>
-
-        <!-- No 4 -->
-        <div class="mb-3">
-            <b>4. $y + 3x = 12$</b><br>
-            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol4', this)">
-                Lihat Penyelesaian
-            </button>
-
-            <div id="sol4" class="mt-2" style="display:none;">
-                $y + 3x = 12$ merupakan persamaan garis lurus karena variabel
-                $x$ dan $y$ berpangkat satu.
-            </div>
-        </div>
-
-        <!-- No 5 -->
-        <div class="mb-3">
-            <b>5. $\sqrt{4y} + 3x - 6 = 0$</b><br>
-            <button class="btn-palet btn-sm mt-2" onclick="toggleSolution('sol5', this)">
-                Lihat Penyelesaian
-            </button>
-
-            <div id="sol5" class="mt-2" style="display:none;">
-                Persamaan ini bukan persamaan garis lurus karena mengandung bentuk akar
-                $\sqrt{4y}$ sehingga tidak dapat dinyatakan sebagai persamaan linear.
-            </div>
-        </div>
-
-    </div>
 
     {{-- ===== Latihan Soal ===== --}}
     <div class="box-latihan mt-5">

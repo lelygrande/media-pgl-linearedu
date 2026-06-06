@@ -147,6 +147,20 @@
             justify-content: center;
             gap: 4px;
         }
+
+        /* Rumus Box terlalu mepet */
+        .rumus-bertingkat {
+            padding: 14px 20px;
+        }
+
+        .rumus-bertingkat div {
+            line-height: 2;
+            margin-bottom: 8px;
+        }
+
+        .rumus-bertingkat div:last-child {
+            margin-bottom: 0;
+        }
     </style>
 
     <style>
@@ -275,42 +289,38 @@
                 <span>$)$</span>
             </div>
 
-            <p>
-                Jadi, untuk menentukan persamaan garis yang melalui satu titik dan tegak lurus dengan garis lain, kita
-                perlu:
-            </p>
-
-            <ol>
-                <li>menentukan hubungan gradien garis yang saling tegak lurus,</li>
-                <li>mencari gradien garis baru,</li>
-                <li>mensubstitusikan gradien dan titik ke bentuk persamaan garis.</li>
-            </ol>
-
             <div class="mt-3">
                 <button class="btn btn-palet btn-sm" onclick="cekEksplorasiTegakLurus()">Cek Jawaban</button>
                 <div id="feedbackEksplorasiTegakLurus" class="mt-2"></div>
-            </div>
+                <div id="pembahasanEksplorasiTegakLurus" class="box-kesimpulan mt-3 d-none">
+                    <b>Pembahasan:</b>
 
-            <div id="kesimpulanEksplorasiTegakLurus" class="box-kesimpulan mt-3 d-none">
-                <b>Kesimpulan:</b>
-                <p class="mb-2">
-                    Jika dua garis saling tegak lurus, maka hasil kali gradiennya adalah:
-                </p>
-                <div class="rumus-box mb-2" style="width: fit-content;">
-                    <span>$m_g \times m_h = -1$</span>
-                </div>
-                <p class="mb-2">
-                    Jika gradien garis pertama adalah <span>$m_g$</span>, maka gradien garis yang tegak lurus dengannya
-                    adalah:
-                </p>
-                <div class="rumus-box mb-2" style="width: fit-content;">
-                    <span>$m_h = -\dfrac{1}{m_g}$</span>
-                </div>
-                <p class="mb-2">
-                    Jika garis itu melalui titik <span>$(x_1, y_1)$</span>, maka persamaan garisnya adalah:
-                </p>
-                <div class="rumus-box" style="width: fit-content;">
-                    <span>$y-y_1 = m_h(x-x_1)$</span>
+                    <p class="mb-2 mt-2">
+                        Karena garis <span>$g$</span> tegak lurus dengan garis <span>$h$</span>,
+                        maka hasil kali gradien kedua garis tersebut adalah <span>$-1$</span>.
+                    </p>
+
+                    <div class="rumus-box mb-3" style="width: fit-content;">
+                        <span>$m_g \times m_h = -1$</span>
+                    </div>
+
+                    <p class="mb-2">
+                        Jika gradien garis <span>$g$</span> adalah <span>$m_g$</span>,
+                        maka gradien garis <span>$h$</span> adalah:
+                    </p>
+
+                    <div class="rumus-box mb-3" style="width: fit-content;">
+                        <span>$m_h = -\dfrac{1}{m_g}$</span>
+                    </div>
+
+                    <p class="mb-2">
+                        Karena garis <span>$h$</span> melalui titik <span>$(x_1, y_1)$</span>
+                        dan memiliki gradien <span>$m_h$</span>, maka bentuk persamaannya adalah:
+                    </p>
+
+                    <div class="rumus-box mb-0" style="width: fit-content;">
+                        <span>$y - y_1 = m_h(x - x_1)$</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -337,24 +347,30 @@
 
             <p class="mt-3">
                 Untuk menentukan persamaan garis yang melalui satu titik dan tegak lurus dengan garis lain,
-                hal pertama yang perlu diperhatikan adalah <b>gradien</b> kedua garis tersebut.
+                kita perlu mengingat kembali hubungan gradien dua garis yang saling tegak lurus.
             </p>
 
             <p>
-                Dua garis yang saling tegak lurus mempunyai hubungan:
+                Pada subbab sebelumnya telah dipelajari bahwa dua garis yang saling tegak lurus
+                memiliki hasil kali gradien sama dengan <span>$-1$</span>.
             </p>
 
-            <div class="rumus-box mb-3 text-center">
+            <p>
+                Jika garis pertama memiliki gradien <span>$m_1$</span> dan garis kedua memiliki
+                gradien <span>$m_2$</span>, maka hubungan gradiennya dapat dituliskan sebagai:
+            </p>
+
+            <div class="rumus-box mb-3 text-center mx-auto" style="width: fit-content;">
                 <span>$m_1 \times m_2 = -1$</span>
             </div>
 
             <p>
-                Jika suatu garis memiliki gradien <span>$m$</span>, maka gradien garis yang tegak lurus
-                dengannya adalah:
+                Jika suatu garis memiliki gradien <span>$m$</span>, maka gradien garis yang
+                tegak lurus dengannya adalah:
             </p>
 
-            <div class="rumus-box mb-3 text-center">
-                <span>$m_{\perp} = -\dfrac{1}{m}$</span>
+            <div class="rumus-box mb-3 text-center mx-auto" style="width: fit-content;">
+                <span>$m_2 = -\dfrac{1}{m}$</span>
             </div>
 
             <p>
@@ -363,29 +379,26 @@
                 melalui satu titik dan gradien, yaitu:
             </p>
 
-            <div class="rumus-box mb-3 text-center">
+            <div class="rumus-box mb-3 text-center mx-auto" style="width: fit-content;">
                 <span>$y - y_1 = m(x - x_1)$</span>
             </div>
 
             <p>
-                Dengan demikian, langkah menentukan persamaan garis yang melalui satu titik dan tegak lurus
-                dengan garis lain adalah sebagai berikut:
+                Dengan demikian, langkah menentukan persamaan garis yang melalui satu titik dan
+                tegak lurus dengan garis lain adalah sebagai berikut:
             </p>
 
             <ol class="mb-3">
-                <li>Menentukan gradien garis yang diketahui.</li>
-                <li>Mencari gradien garis yang tegak lurus dengan menggunakan hubungan <span>$m_1 \times m_2 = -1$</span>.
+                <li>Menentukan gradien garis <span>$(m_1)$</span> yang diketahui.</li>
+                <li>
+                    Mencari gradien garis yang tegak lurus <span>$(m_2)$</span> dengan menggunakan
+                    hubungan <span>$m_1 \times m_2 = -1$</span>.
                 </li>
-                <li>Mensubstitusikan gradien baru dan titik yang dilalui ke persamaan <span>$y - y_1 = m(x - x_1)$</span>.
+                <li>
+                    Mensubstitusikan gradien baru dan titik yang dilalui ke persamaan
+                    <span>$y - y_1 = m(x - x_1)$</span>.
                 </li>
             </ol>
-
-            <p class="mb-0">
-                Jadi, jika sebuah garis melalui titik <span>$(x_1, y_1)$</span> dan tegak lurus dengan garis
-                yang bergradien <span>$m$</span>, maka gradien garis barunya adalah
-                <span>$-\dfrac{1}{m}$</span>, lalu persamaan garisnya dapat disusun dengan bentuk
-                <span>$y - y_1 = m_{\perp}(x - x_1)$</span>.
-            </p>
         </div>
     </div>
 
@@ -412,10 +425,10 @@
 
             <div class="row align-items-center mb-3">
                 <div class="col-md-5 mb-3 mb-md-0">
-                    <div class="rumus-box text-center" style="width: fit-content;">
-                        <span>$m_2 = -\dfrac{1}{m_1}$</span><br>
-                        <span>$m_2 = -\dfrac{1}{-4}$</span><br>
-                        <span>$m_2 = \dfrac{1}{4}$</span>
+                    <div class="rumus-box rumus-bertingkat text-center mx-auto" style="width: fit-content;">
+                        <div class="baris-rumus">$m_2 = -\dfrac{1}{m_1}$</div>
+                        <div class="baris-rumus">$m_2 = -\dfrac{1}{-4}$</div>
+                        <div class="baris-rumus">$m_2 = \dfrac{1}{4}$</div>
                     </div>
                 </div>
 
@@ -424,10 +437,10 @@
                 </div>
 
                 <div class="col-md-5">
-                    <div class="rumus-box text-center" style="width: fit-content;">
-                        <span>$m_2 \times m_1 = -1$</span><br>
-                        <span>$m_2 \times (-4) = -1$</span><br>
-                        <span>$m_2 = \dfrac{1}{4}$</span>
+                    <div class="rumus-box rumus-bertingkat text-center mx-auto" style="width: fit-content;">
+                        <div class="baris-rumus">$m_2 \times m_1 = -1$</div>
+                        <div class="baris-rumus">$m_2 \times (-4) = -1$</div>
+                        <div class="baris-rumus">$m_2 = \dfrac{1}{4}$</div>
                     </div>
                 </div>
             </div>
@@ -442,15 +455,15 @@
                 dan <span>$y_1=6$</span> ke rumus persamaan garis melalui satu titik:
             </p>
 
-            <div class="rumus-box mb-3" style="width: fit-content;">
-                <span>$y-y_1=m(x-x_1)$</span>
+            <div class="rumus-box rumus-bertingkat mb-3 mx-auto" style="width: fit-content;">
+                <div class="baris-rumus">$y-y_1=m(x-x_1)$</div>
             </div>
 
             <p>
                 <b>Coba lengkapi substitusi ke rumus berikut:</b>
             </p>
 
-            <div class="rumus-box mb-3" style="width: fit-content;">
+            <div class="rumus-box mb-3 mx-auto" style="width: fit-content;">
                 <span>$y-$</span>
                 <input type="text" id="cs_tl_sub_y1"
                     class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
@@ -501,10 +514,10 @@
 
                     <li>
                         Karena garis yang dicari tegak lurus, maka:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$m_2=-\dfrac{1}{m_1}$</span><br>
-                            <span>$m_2=-\dfrac{1}{-4}$</span><br>
-                            <span>$m_2=\dfrac{1}{4}$</span>
+                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                            <div class="baris-rumus">$m_2=-\dfrac{1}{m_1}$</div>
+                            <div class="baris-rumus">$m_2=-\dfrac{1}{-4}$</div>
+                            <div class="baris-rumus">$m_2=\dfrac{1}{4}$</div>
                         </div>
                     </li>
 
@@ -515,31 +528,31 @@
 
                     <li>
                         Substitusikan ke rumus <span>$y-y_1=m(x-x_1)$</span>:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y-6=\dfrac{1}{4}(x-8)$</span>
+                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                            <div class="baris-rumus">$y-6=\dfrac{1}{4}(x-8)$</div>
                         </div>
                     </li>
 
                     <li>
                         Uraikan ruas kanan:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y-6=\dfrac{1}{4}x-2$</span>
+                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                            <div class="baris-rumus">$y-6=\dfrac{1}{4}x-2$</div>
                         </div>
                     </li>
 
                     <li>
-                        Tambahkan <span>$6$</span> ke kedua ruas:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y=\dfrac{1}{4}x-2+6$</span><br>
-                            <span>$y=\dfrac{1}{4}x+4$</span>
+                        Pindahkan <span>$6$</span> ke ruas kanan:
+                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                            <div class="baris-rumus">$y=\dfrac{1}{4}x-2+6$</div>
+                            <div class="baris-rumus">$y=\dfrac{1}{4}x+4$</div>
                         </div>
                     </li>
 
                     <li>
                         Bentuk umum:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y=\dfrac{1}{4}x+4$</span><br>
-                            <span>$x-4y+16=0$</span>
+                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                            <div class="baris-rumus">$y=\dfrac{1}{4}x+4$</div>
+                            <div class="baris-rumus">$x-4y+16=0$</div>
                         </div>
                     </li>
                 </ol>
@@ -983,6 +996,38 @@
         // EKSPLORASI
         // =========================================================
         function cekEksplorasiTegakLurus() {
+            const inputIds = [
+                "eks_tl_1",
+                "eks_tl_2_atas",
+                "eks_tl_2_bawah",
+                "eks_tl_3",
+                "eks_tl_4",
+                "eks_tl_5"
+            ];
+
+            const pembahasan = document.getElementById("pembahasanEksplorasiTegakLurus");
+
+            const adaKosong = inputIds.some((id) => {
+                const el = document.getElementById(id);
+                return !el || el.value.trim() === "";
+            });
+
+            if (adaKosong) {
+                isiPesan(
+                    "feedbackEksplorasiTegakLurus",
+                    "Lengkapi semua isian terlebih dahulu.",
+                    "warning"
+                );
+
+                inputIds.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove("is-valid", "is-invalid");
+                });
+
+                if (pembahasan) pembahasan.classList.add("d-none");
+                return;
+            }
+
             const benar1 = cekIsian("eks_tl_1", ["-1"]);
             const benar2atas = cekIsian("eks_tl_2_atas", ["-1"]);
             const benar2bawah = cekIsian("eks_tl_2_bawah", ["mg", "m_g"]);
@@ -993,26 +1038,24 @@
             const semuaBenar =
                 benar1 && benar2atas && benar2bawah && benar3 && benar4 && benar5;
 
-            const kesimpulan = document.getElementById(
-                "kesimpulanEksplorasiTegakLurus",
-            );
-
             if (semuaBenar) {
                 isiPesan(
                     "feedbackEksplorasiTegakLurus",
-                    "Bagus, kamu sudah menemukan hubungan gradien dua garis yang saling tegak lurus dan bentuk persamaan garisnya.",
-                    "success",
+                    "Bagus, jawabanmu benar. Kamu sudah memahami hubungan gradien dua garis yang saling tegak lurus.",
+                    "success"
                 );
-                if (kesimpulan) kesimpulan.classList.remove("d-none");
+
+                if (pembahasan) pembahasan.classList.add("d-none");
                 return;
             }
 
             isiPesan(
                 "feedbackEksplorasiTegakLurus",
-                "Masih ada jawaban yang belum tepat. Coba perhatikan lagi hubungan gradien dua garis yang saling tegak lurus.",
-                "warning",
+                "Masih ada jawaban yang belum tepat. Perhatikan pembahasan berikut untuk membantu memahami isian yang benar.",
+                "warning"
             );
-            if (kesimpulan) kesimpulan.classList.add("d-none");
+
+            if (pembahasan) pembahasan.classList.remove("d-none");
         }
 
         // =========================

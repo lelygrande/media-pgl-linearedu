@@ -177,6 +177,20 @@
             width: 70px;
             text-align: center;
         }
+
+        /* Rumus Box terlalu mepet */
+        .rumus-bertingkat {
+            padding: 14px 20px;
+        }
+
+        .rumus-bertingkat div {
+            line-height: 2;
+            margin-bottom: 8px;
+        }
+
+        .rumus-bertingkat div:last-child {
+            margin-bottom: 0;
+        }
     </style>
 
     {{-- Slider Latihan --}}
@@ -197,6 +211,18 @@
             min-width: 100%;
             flex: 0 0 100%;
             box-sizing: border-box;
+        }
+    </style>
+
+    <style>
+        .jawaban-latihan.is-valid {
+            border: 2px solid #198754 !important;
+            background-color: #f0fff4 !important;
+        }
+
+        .jawaban-latihan.is-invalid {
+            border: 2px solid #dc3545 !important;
+            background-color: #fff5f5 !important;
         }
     </style>
 
@@ -272,33 +298,39 @@
             <div class="mt-3">
                 <button class="btn btn-palet btn-sm" onclick="cekEksplorasiSejajar()">Cek</button>
                 <div id="feedbackEksplorasiSejajar" class="mt-2"></div>
-            </div>
+                <div id="pembahasanEksplorasiSejajar" class="box-kesimpulan mt-3 d-none">
+                    <b>Pembahasan:</b>
 
-            <div id="kesimpulanEksplorasiSejajar" class="box-kesimpulan mt-3 d-none">
-                <b>Kesimpulan:</b>
-                <p class="mb-2">
-                    Persamaan garis yang melalui titik <span>$(x_1, y_1)$</span> dan sejajar dengan garis lain yang
-                    bergradien
-                    <span>$m$</span> adalah:
-                </p>
-                <div class="rumus-box" style="width: fit-content;">
-                    <span>$y-y_1 = m(x-x_1)$</span>
+                    <p class="mb-2 mt-2">
+                        Karena garis <span>$p$</span> sejajar dengan garis <span>$q$</span>,
+                        maka gradien kedua garis tersebut sama.
+                    </p>
+
+                    <div class="rumus-box mb-3" style="width: fit-content;">
+                        <span>$m_p = m_q$</span>
+                    </div>
+
+                    <p class="mb-2">
+                        Jika garis <span>$p$</span> memiliki gradien <span>$m$</span>,
+                        maka gradien garis <span>$q$</span> adalah:
+                    </p>
+
+                    <div class="rumus-box mb-3" style="width: fit-content;">
+                        <span>$m_q = m$</span>
+                    </div>
+
+                    <p class="mb-2">
+                        Karena garis <span>$q$</span> melalui titik <span>$(x_1, y_1)$</span>
+                        dan memiliki gradien <span>$m$</span>, maka bentuk persamaannya adalah:
+                    </p>
+
+                    <div class="rumus-box mb-0" style="width: fit-content;">
+                        <span>$y - y_1 = m(x - x_1)$</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <style>
-        .jawaban-latihan.is-valid {
-            border: 2px solid #198754 !important;
-            background-color: #f0fff4 !important;
-        }
-
-        .jawaban-latihan.is-invalid {
-            border: 2px solid #dc3545 !important;
-            background-color: #fff5f5 !important;
-        }
-    </style>
 
     {{-- ========================================================= --}}
     {{-- MATERI KONSEP --}}
@@ -308,47 +340,63 @@
             <span class="badge-sub">Persamaan Garis yang Melalui Satu Titik dan Sejajar dengan Garis Lain</span>
 
             <p class="mt-3">
-                Untuk menentukan persamaan garis yang melalui satu titik dan sejajar dengan garis lain, hal pertama yang
-                harus diperhatikan adalah <b>gradien</b> kedua garis tersebut.
+                Untuk menentukan persamaan garis yang melalui satu titik dan sejajar dengan garis lain,
+                kita perlu mengingat kembali sifat gradien garis sejajar yang telah dipelajari pada
+                subbab sebelumnya.
             </p>
 
             <p>
-                Dua garis yang saling sejajar mempunyai gradien yang sama. Jadi, jika suatu garis diketahui memiliki gradien
-                <span>$m$</span>, maka garis lain yang sejajar dengannya juga memiliki gradien <span>$m$</span>.
+                Dua garis yang sejajar memiliki gradien yang sama. Jika garis pertama memiliki gradien
+                <span>$m_1$</span> dan garis kedua memiliki gradien <span>$m_2$</span>, maka berlaku:
             </p>
 
-            <p>Hubungan gradien dua garis sejajar dapat dituliskan sebagai:</p>
-
-            <div class="rumus-box mb-3 text-center" style="width: fit-content">
+            <div class="rumus-box mb-3 text-center mx-auto" style="width: fit-content;">
                 <span>$m_1 = m_2$</span>
             </div>
 
             <p>
-                Setelah gradien garis diketahui, persamaan garis yang melalui titik <span>$(x_1, y_1)$</span> dapat
-                disusun dengan menggunakan bentuk persamaan garis melalui satu titik dan gradien, yaitu:
+                Artinya, gradien garis yang akan dicari sama dengan gradien garis yang diketahui.
             </p>
 
-            <div class="rumus-box mb-3 text-center" style="width: fit-content">
+            <p>
+                Setelah gradien garis diketahui, persamaan garis yang melalui titik
+                <span>$(x_1, y_1)$</span> dapat disusun menggunakan bentuk persamaan garis
+                melalui satu titik dan gradien, yaitu:
+            </p>
+
+            <div class="rumus-box mb-3 text-center mx-auto" style="width: fit-content;">
                 <span>$y - y_1 = m(x - x_1)$</span>
             </div>
 
             <p>
-                Dengan demikian, langkah menentukan persamaan garis yang melalui satu titik dan sejajar dengan garis lain
-                adalah sebagai berikut:
+                Pada rumus tersebut, <span>$x_1$</span> dan <span>$y_1$</span> merupakan
+                koordinat titik yang dilalui garis, sedangkan <span>$m$</span> merupakan
+                gradien garis yang sejajar dengan garis yang diketahui.
+            </p>
+
+            <p>
+                Langkah-langkah menentukan persamaan garis yang melalui satu titik dan sejajar
+                dengan garis lain adalah sebagai berikut:
             </p>
 
             <ol class="mb-3">
                 <li>Menentukan gradien garis yang diketahui.</li>
-                <li>Menggunakan gradien yang sama karena kedua garis saling sejajar.</li>
-                <li>Mensubstitusikan gradien dan titik yang dilalui ke persamaan <span>$y - y_1 = m(x - x_1)$</span>.</li>
+                <li>Menggunakan gradien yang sama karena kedua garis sejajar.</li>
+                <li>Menentukan titik yang dilalui garis baru, yaitu <span>$(x_1, y_1)$</span>.</li>
+                <li>
+                    Mensubstitusikan nilai gradien dan titik ke dalam rumus
+                    <span>$y - y_1 = m(x - x_1)$</span>.
+                </li>
+                <li>Menyederhanakan persamaan hingga diperoleh bentuk yang diminta.</li>
             </ol>
 
             <p class="mb-0">
-                Jadi, jika sebuah garis melalui titik <span>$(x_1, y_1)$</span> dan sejajar dengan garis yang bergradien
-                <span>$m$</span>, maka persamaan garisnya dapat ditentukan dengan bentuk:
+                Jadi, jika sebuah garis melalui titik <span>$(x_1, y_1)$</span> dan sejajar
+                dengan garis yang bergradien <span>$m$</span>, maka persamaan garisnya dapat
+                ditentukan dengan bentuk:
             </p>
 
-            <div class="rumus-box mt-3 text-center" style="width: fit-content">
+            <div class="rumus-box mt-3 text-center mx-auto" style="width: fit-content;">
                 <span>$y - y_1 = m(x - x_1)$</span>
             </div>
         </div>
@@ -365,16 +413,11 @@
                 <span>$y = 2x + 1$</span>.
             </p>
 
-            <p class="mb-2">
-                Garis <span>$y = 2x + 1$</span> memiliki gradien <span>$m=2$</span>.
-                Karena garis yang dicari sejajar, maka gradiennya juga <span>$m=2$</span>.
-            </p>
-
             <p>
                 <b>Coba lengkapi substitusi ke rumus berikut:</b>
             </p>
 
-            <div class="rumus-box mb-3" style="width: fit-content;">
+            <div class="rumus-box rumus-bertingkat mb-3 mx-auto" style="width: fit-content;">
                 <span>$y-$</span>
                 <input type="text" id="contoh_y1"
                     class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
@@ -409,42 +452,64 @@
             </div>
 
             <div id="pembahasanContohSejajar" class="box-kesimpulan mt-3 d-none">
-                <b>Pembahasan:</b>
+                <b>Penyelesaian:</b>
 
-                <ol class="mb-0 mt-2" style="line-height:1.9;">
-                    <li>
-                        Gradien garis <span>$y = 2x + 1$</span> adalah <span>$m = 2$</span>.
-                    </li>
+                <p class="mt-2 mb-2">
+                    Diketahui garis <span>$y = 2x + 1$</span> memiliki gradien:
+                </p>
 
-                    <li>
-                        Karena garis yang dicari sejajar dengan garis tersebut, maka gradiennya juga
-                        <span>$m = 2$</span>.
-                    </li>
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$m_1 = 2$</div>
+                </div>
 
-                    <li>
-                        Garis melalui titik <span>$A(2,3)$</span>, sehingga
-                        <span>$x_1=2$</span> dan <span>$y_1=3$</span>.
-                    </li>
+                <p class="mb-2">
+                    Karena garis yang dicari sejajar dengan garis tersebut, maka gradiennya sama.
+                </p>
 
-                    <li>
-                        Substitusikan ke rumus <span>$y-y_1=m(x-x_1)$</span>:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y-3=2(x-2)$</span>
-                        </div>
-                    </li>
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$m_1 = m_2$</div>
+                </div>
 
-                    <li>
-                        Sederhanakan:
-                        <div class="rumus-box my-2" style="width: fit-content;">
-                            <span>$y-3=2x-4$</span><br>
-                            <span>$y=2x-4+3$</span><br>
-                            <span>$y=2x-1$</span>
-                        </div>
-                    </li>
-                </ol>
+                <p class="mb-2">
+                    Sehingga:
+                </p>
+
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$m_2 = 2$</div>
+                </div>
+
+                <p class="mb-2">
+                    Garis yang dicari melalui titik <span>$A(2,3)$</span>, maka
+                    <span>$x_1 = 2$</span> dan <span>$y_1 = 3$</span>.
+                </p>
+
+                <p class="mb-2">
+                    Substitusikan titik <span>$(2,3)$</span> dan gradien
+                    <span>$m_2 = 2$</span> ke bentuk persamaan garis melalui satu titik:
+                </p>
+
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$y - y_1 = m(x - x_1)$</div>
+                </div>
+
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$y - 3 = 2(x - 2)$</div>
+                </div>
+
+                <p class="mb-2">
+                    Sederhanakan:
+                </p>
+
+                <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
+                    <div>$y - 3 = 2x - 4$</div>
+                    <div>$y = 2x - 4 + 3$</div>
+                    <div>$y = 2x - 1$</div>
+                </div>
 
                 <div class="alert alert-success mt-3 mb-0" style="border-radius:14px;">
-                    Jadi, persamaan garis yang dicari adalah <b>$y=2x-1$</b>.
+                    Jadi, persamaan garis yang melalui titik <span>$A(2,3)$</span>
+                    dan sejajar dengan garis <span>$y = 2x + 1$</span> adalah
+                    <b>$y = 2x - 1$</b>.
                 </div>
             </div>
         </div>
@@ -707,26 +772,54 @@
         }
 
         function cekEksplorasiSejajar() {
+            const inputIds = [
+                "eks_sejajar1",
+                "eks_sejajar2",
+                "eks_sejajar3",
+                "eks_sejajar4",
+                "eks_sejajar5"
+            ];
+
+            const feedback = document.getElementById("feedbackEksplorasiSejajar");
+            const pembahasan = document.getElementById("pembahasanEksplorasiSejajar");
+
+            // cek apakah masih ada isian kosong
+            const adaKosong = inputIds.some((id) => {
+                const el = document.getElementById(id);
+                return !el || normEksplorasi(el.value) === "";
+            });
+
+            if (adaKosong) {
+                feedback.innerHTML =
+                    '<div class="alert alert-warning py-2 mb-0">Lengkapi semua isian terlebih dahulu.</div>';
+
+                inputIds.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove("is-valid", "is-invalid");
+                });
+
+                if (pembahasan) pembahasan.classList.add("d-none");
+                return;
+            }
+
             const benar1 = cekIsianEksplorasi("eks_sejajar1", ["mq", "m_q"]);
             const benar2 = cekIsianEksplorasi("eks_sejajar2", ["m"]);
             const benar3 = cekIsianEksplorasi("eks_sejajar3", ["y1", "y_1"]);
             const benar4 = cekIsianEksplorasi("eks_sejajar4", ["m"]);
             const benar5 = cekIsianEksplorasi("eks_sejajar5", ["x1", "x_1"]);
 
-            const feedback = document.getElementById("feedbackEksplorasiSejajar");
-            const kesimpulan = document.getElementById("kesimpulanEksplorasiSejajar");
-
             if (benar1 && benar2 && benar3 && benar4 && benar5) {
                 feedback.innerHTML =
                     '<div class="alert alert-success py-2 mb-0">Bagus, kamu sudah menemukan bahwa garis sejajar memiliki gradien yang sama, sehingga persamaan garisnya dapat disusun dengan bentuk titik-gradien.</div>';
-                kesimpulan.classList.remove("d-none");
+
+                if (pembahasan) pembahasan.classList.add("d-none");
             } else {
                 feedback.innerHTML =
-                    '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Coba perhatikan lagi hubungan gradien dua garis yang sejajar.</div>';
-                kesimpulan.classList.add("d-none");
+                    '<div class="alert alert-warning py-2 mb-0">Masih ada jawaban yang belum tepat. Perhatikan pembahasan berikut untuk membantu memahami isian yang benar.</div>';
+
+                if (pembahasan) pembahasan.classList.remove("d-none");
             }
         }
-
         // =========================
         // CONTOH SOAL
         // Hanya cek substitusi y1, m, x1

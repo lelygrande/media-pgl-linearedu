@@ -244,8 +244,8 @@
         }
 
         /* =========================================
-               RESPONSIVE TABLET
-            ========================================= */
+                       RESPONSIVE TABLET
+                    ========================================= */
         @media (max-width: 992px) {
 
             .step-row {
@@ -270,8 +270,8 @@
         }
 
         /* =========================================
-               RESPONSIVE MOBILE
-            ========================================= */
+                       RESPONSIVE MOBILE
+                    ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- BOX ---------- */
@@ -401,7 +401,7 @@
         }
 
         /* =========================================
-                GEOGEBRA RESPONSIVE
+                        GEOGEBRA RESPONSIVE
                 ========================================= */
         #ggb-22 {
             width: 100%;
@@ -689,23 +689,24 @@
 
                 <p class="mb-3">
                     Diketahui persamaan garis:
-                    <b>\( y = 2x + 4 \)</b>
+                    <b>$y = 2x + 4$</b>
                 </p>
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
                     <p>Untuk mencari titik potong dengan sumbu x, substitusikan <b>\(y = 0\)</b>.</p>
-                    <p>\(0 = 2x + 4\)</p>
+                    <p>$y = 2x + 4$</p>
+                    <p>$0 = 2x + 4$</p>
 
                     <p>
-                        \(x =\)
+                        $x = $
                         <input type="text" id="l1_x_value"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
                             style="width:70px;">
                     </p>
 
                     <p>
-                        Titik potong sumbu x:
+                        Titik potong sumbu $x$:
                         (
                         <input type="text" id="l1_x_point_x"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -720,18 +721,19 @@
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">B. Titik potong dengan sumbu y</h6>
-                    <p>Untuk mencari titik potong dengan sumbu y, substitusikan <b>\(x = 0\)</b>.</p>
-                    <p>\(y = 2(0) + 4\)</p>
+                    <p>Untuk mencari titik potong dengan sumbu y, substitusikan <b>$x = 0$</b>.</p>
+                    <p>$y = 2x + 4$</p>
+                    <p>$y = 2(0) + 4$</p>
 
                     <p>
-                        \(y =\)
+                        $y =$
                         <input type="text" id="l1_y_value"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
                             style="width:70px;">
                     </p>
 
                     <p>
-                        Titik potong sumbu y:
+                        Titik potong sumbu $y$:
                         (
                         <input type="text" id="l1_y_point_x"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -773,20 +775,21 @@
             <div class="latihan-step" id="latihanStep2" style="display:none;">
                 <hr class="my-4">
 
-                <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk \(Ax + By + C = 0\)</h5>
+                <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk $Ax + By + C = 0$</h5>
 
                 <p class="mb-3">
                     Diketahui persamaan garis:
-                    <b>\(3x + 4y - 24 = 0\)</b>
+                    <b>$3x + 4y - 24 = 0$</b>
                 </p>
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
-                    <p>Untuk mencari titik potong dengan sumbu x, substitusikan <b>\(y = 0\)</b>.</p>
-                    <p>\(3x + 4(0) - 24 = 0\)</p>
+                    <p>Untuk mencari titik potong dengan sumbu x, substitusikan <b>$y = 0$</b>.</p>
+                    <p>$3x + 4y - 24 = 0$</p>
+                    <p>$3x + 4(0) - 24 = 0$</p>
 
                     <p>
-                        \(x =\)
+                        $x =$
                         <input type="text" id="l2_x_value"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
                             style="width:70px;">
@@ -808,11 +811,12 @@
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">B. Titik potong dengan sumbu y</h6>
-                    <p>Untuk mencari titik potong dengan sumbu y, substitusikan <b>\(x = 0\)</b>.</p>
-                    <p>\(3(0) + 4y - 24 = 0\)</p>
+                    <p>Untuk mencari titik potong dengan sumbu y, substitusikan <b>$x = 0$</b>.</p>
+                    <p>$3x + 4y - 24 = 0$</p>
+                    <p>$3(0) + 4y - 24 = 0$</p>
 
                     <p>
-                        \(y =\)
+                        $y =$
                         <input type="text" id="l2_y_value"
                             class="form-control form-control-sm d-inline-block text-center input-matematika"
                             style="width:70px;">
@@ -855,7 +859,7 @@
                     <p class="mb-1" style="font-weight:700;">Kesimpulan:</p>
                     <p class="mb-0">
                         Grafik persamaan garis lurus dapat digambar dengan menentukan dua titik potong,
-                        yaitu titik potong dengan sumbu x dan titik potong dengan sumbu y.
+                        yaitu titik potong dengan sumbu $x$ dan titik potong dengan sumbu $y$.
                         Setelah kedua titik diperoleh, hubungkan kedua titik tersebut sehingga terbentuk garis lurus.
                     </p>
                 </div>

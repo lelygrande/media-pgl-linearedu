@@ -16,7 +16,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:12px;">
-            <b>Gagal menyimpan:</b>
+            <b>Gagal menyimpan:</b> 
             <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -225,6 +225,242 @@
             }
         }
     </style>
+
+    {{-- Style Modal --}}
+    <style>
+        .modal-content {
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg,
+                    var(--primary-color),
+                    var(--primary-dark));
+            color: white;
+            border-bottom: none;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-title {
+            font-weight: 600;
+        }
+
+        .modal-body {
+            background-color: #f8fafc;
+        }
+
+        .modal-footer {
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, .15);
+        }
+
+        .btn-simpan {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 18px;
+        }
+
+        .btn-simpan:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .btn-batal {
+            border-radius: 10px;
+        }
+    </style>
+
+    <!-- Modal Tambah Siswa -->
+    <div class="modal fade" id="modalTambahSiswa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius:16px;">
+
+                <form action="{{ route('guru.daftarsiswa.store') }}" method="POST">
+                    @csrf
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">NIS</label>
+                            <input type="text" name="nis" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nama</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Kelas</label>
+                            <select name="kelas" class="form-select" required>
+                                <option value="">Pilih Kelas</option>
+                                <option value="8A">8A</option>
+                                <option value="8B">8B</option>
+                                <option value="8C">8C</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Jenis Kelamin</label>
+                            <select name="jenis_kelamin" class="form-select" required>
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control" required>
+
+                                <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+
+                                    <i class="bi bi-eye" id="iconEye"></i>
+
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-batal" data-bs-dismiss="modal">
+                            Batal
+                        </button>
+
+                        <button type="submit" class="btn btn-simpan">
+                            Simpan
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Siswa -->
+    <div class="modal fade" id="modalEditSiswa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius:16px;">
+
+                <form id="formEditSiswa" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Siswa</h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">NIS</label>
+                            <input type="text" id="edit_nis" name="nis" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nama</label>
+                            <input type="text" id="edit_nama" name="nama" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="edit_email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Kelas</label>
+                            <select id="edit_kelas" name="kelas" class="form-select" required>
+
+                                <option value="8A">8A</option>
+                                <option value="8B">8B</option>
+                                <option value="8C">8C</option>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Jenis Kelamin</label>
+
+                            <select id="edit_jk" name="jenis_kelamin" class="form-select" required>
+
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Password Baru
+                                <small class="text-muted">(opsional)</small>
+                            </label>
+
+                            <input type="password" name="password" class="form-control">
+
+                            <small class="text-muted">
+                                Kosongkan jika tidak ingin mengubah password.
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-batal" data-bs-dismiss="modal">
+                            Batal
+                        </button>
+
+                        <button type="submit" class="btn btn-simpan">
+                            Simpan
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
 
     <script>
         function togglePassword() {
