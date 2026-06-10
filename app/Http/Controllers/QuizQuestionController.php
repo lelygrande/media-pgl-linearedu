@@ -23,12 +23,17 @@ class QuizQuestionController extends Controller
     {
         $request->validate([
             'question_text'   => 'required|string',
-            'option_a'        => 'required|string',
-            'option_b'        => 'required|string',
-            'option_c'        => 'required|string',
-            'option_d'        => 'required|string',
+            'option_a' => 'nullable|string',
+            'option_b' => 'nullable|string',
+            'option_c' => 'nullable|string',
+            'option_d' => 'nullable|string',
             'correct_option'  => 'required|in:A,B,C,D',
             'question_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'option_a_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_b_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_c_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_d_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         DB::transaction(function () use ($request, $quizId) {
@@ -50,18 +55,38 @@ class QuizQuestionController extends Controller
             ]);
 
             $options = [
-                'A' => $request->option_a,
-                'B' => $request->option_b,
-                'C' => $request->option_c,
-                'D' => $request->option_d,
+                'A' => [
+                    'text' => $request->option_a,
+                    'image' => $request->file('option_a_image'),
+                ],
+                'B' => [
+                    'text' => $request->option_b,
+                    'image' => $request->file('option_b_image'),
+                ],
+                'C' => [
+                    'text' => $request->option_c,
+                    'image' => $request->file('option_c_image'),
+                ],
+                'D' => [
+                    'text' => $request->option_d,
+                    'image' => $request->file('option_d_image'),
+                ],
             ];
 
-            foreach ($options as $label => $text) {
+            foreach ($options as $label => $data) {
+                $optionImageName = null;
+
+                if ($data['image']) {
+                    $file = $data['image'];
+                    $optionImageName = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('img/kuis/opsi'), $optionImageName);
+                }
+
                 QuizOption::create([
                     'question_id' => $question->id,
                     'option_label' => $label,
-                    'option_text' => $text,
-                    'option_image' => null,
+                    'option_text' => $data['text'],
+                    'option_image' => $optionImageName,
                     'is_correct' => $request->correct_option === $label ? 1 : 0,
                 ]);
             }
@@ -84,14 +109,25 @@ class QuizQuestionController extends Controller
     public function update(Request $request, $questionId)
     {
         $request->validate([
-        'question_text'   => 'required|string',
-        'option_a'        => 'required|string',
-        'option_b'        => 'required|string',
-        'option_c'        => 'required|string',
-        'option_d'        => 'required|string',
-        'correct_option'  => 'required|in:A,B,C,D',
-        'question_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        'remove_image'    => 'nullable|boolean',
+            'question_text'   => 'required|string',
+            'option_a' => 'nullable|string',
+            'option_b' => 'nullable|string',
+            'option_c' => 'nullable|string',
+            'option_d' => 'nullable|string',
+            'correct_option'  => 'required|in:A,B,C,D',
+
+            'question_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'remove_image'    => 'nullable|boolean',
+
+            'option_a_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_b_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_c_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'option_d_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'remove_option_a_image' => 'nullable|boolean',
+            'remove_option_b_image' => 'nullable|boolean',
+            'remove_option_c_image' => 'nullable|boolean',
+            'remove_option_d_image' => 'nullable|boolean',
         ]);
 
         DB::transaction(function () use ($request, $questionId) {
@@ -99,21 +135,24 @@ class QuizQuestionController extends Controller
 
             $imageName = $question->question_image;
 
-            // Hapus gambar
+            // Hapus gambar soal
             if ($request->has('remove_image') && $request->remove_image == 1) {
                 if ($question->question_image) {
                     $oldPath = public_path('img/kuis/' . $question->question_image);
+
                     if (File::exists($oldPath)) {
                         File::delete($oldPath);
                     }
                 }
+
                 $imageName = null;
             }
 
-            // Upload gambar baru (override)
+            // Upload gambar soal baru
             if ($request->hasFile('question_image')) {
                 if ($question->question_image) {
                     $oldPath = public_path('img/kuis/' . $question->question_image);
+
                     if (File::exists($oldPath)) {
                         File::delete($oldPath);
                     }
@@ -137,14 +176,51 @@ class QuizQuestionController extends Controller
             ];
 
             foreach ($question->options as $option) {
+                $labelLower = strtolower($option->option_label);
+
+                $imageInputName = 'option_' . $labelLower . '_image';
+                $removeInputName = 'remove_option_' . $labelLower . '_image';
+
+                $optionImageName = $option->option_image;
+
+                // Hapus gambar opsi
+                if ($request->has($removeInputName) && $request->input($removeInputName) == 1) {
+                    if ($option->option_image) {
+                        $oldOptionPath = public_path('img/kuis/opsi/' . $option->option_image);
+
+                        if (File::exists($oldOptionPath)) {
+                            File::delete($oldOptionPath);
+                        }
+                    }
+
+                    $optionImageName = null;
+                }
+
+                // Upload gambar opsi baru
+                if ($request->hasFile($imageInputName)) {
+                    if ($option->option_image) {
+                        $oldOptionPath = public_path('img/kuis/opsi/' . $option->option_image);
+
+                        if (File::exists($oldOptionPath)) {
+                            File::delete($oldOptionPath);
+                        }
+                    }
+
+                    $file = $request->file($imageInputName);
+                    $optionImageName = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('img/kuis/opsi/'), $optionImageName);
+                }
+
                 $option->update([
                     'option_text' => $map[$option->option_label] ?? '',
+                    'option_image' => $optionImageName,
                     'is_correct' => $request->correct_option === $option->option_label ? 1 : 0,
                 ]);
             }
         });
 
         $question = QuizQuestion::findOrFail($questionId);
+
         return redirect()->route('kuis.soal', $question->quiz_id)->with('success', 'Soal berhasil diupdate.');
     }
 

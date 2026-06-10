@@ -4,6 +4,85 @@
 
 @section('content')
 
+    {{-- Style --}}
+    <style>
+        .option-help-box {
+            background: #f5f8ff;
+            border: 1px solid #dce7ff;
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        .option-help-box strong {
+            color: var(--primary-dark);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .option-help-box ul {
+            margin: 8px 0 0 18px;
+            padding: 0;
+        }
+
+        .option-card-admin {
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 14px;
+            background: #ffffff;
+            height: 100%;
+        }
+
+        .option-card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .option-badge-admin {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .option-card-title {
+            margin: 0;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .option-field-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .field-help {
+            display: block;
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .current-image-note {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+    </style>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h3 class="fw-bold mb-1" style="color: var(--primary-dark);">Manajemen Soal</h3>
@@ -70,7 +149,17 @@
                         @foreach ($question->options as $option)
                             <div class="mb-1">
                                 <strong>{{ $option->option_label }}.</strong>
-                                {{ $option->option_text }}
+
+                                @if ($option->option_image)
+                                    @if ($option->option_text && $option->option_text !== '-')
+                                        {{ $option->option_text }}
+                                    @endif
+
+                                    <span class="text-muted">[gambar]</span>
+                                @else
+                                    {{ $option->option_text }}
+                                @endif
+
                                 @if ($option->is_correct)
                                     <span class="badge bg-success ms-2">Benar</span>
                                 @endif
@@ -105,23 +194,44 @@
                             <input type="file" name="question_image" class="form-control">
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi A</label>
-                                <input type="text" name="option_a" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi B</label>
-                                <input type="text" name="option_b" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi C</label>
-                                <input type="text" name="option_c" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi D</label>
-                                <input type="text" name="option_d" class="form-control" required>
-                            </div>
+                        <div class="option-help-box">
+                            <strong>Petunjuk pengisian opsi jawaban</strong>
+                            <ul>
+                                <li>Isi <b>Teks jawaban</b> jika opsi berupa tulisan atau rumus.</li>
+                                <li>Isi <b>Gambar opsi</b> jika opsi berupa grafik atau gambar.</li>
+                                <li>Kalau opsi hanya berupa gambar, teks boleh dikosongkan atau isi tanda <b>-</b>.</li>
+                                <li>Format gambar yang disarankan: JPG, PNG, JPEG, atau WEBP.</li>
+                            </ul>
+                        </div>
+
+                        <div class="row g-3">
+                            @foreach (['A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd'] as $label => $key)
+                                <div class="col-md-6">
+                                    <div class="option-card-admin">
+                                        <div class="option-card-head">
+                                            <span class="option-badge-admin">{{ $label }}</span>
+                                            <p class="option-card-title">Opsi {{ $label }}</p>
+                                        </div>
+
+                                        <label class="option-field-label">Teks jawaban</label>
+                                        <input type="text" name="option_{{ $key }}" class="form-control"
+                                            placeholder="Contoh: garis lurus / 2x + y - 3 = 0">
+
+                                        <small class="field-help">
+                                            Isi bagian ini jika pilihan jawaban berbentuk teks. Untuk opsi gambar saja,
+                                            boleh kosong atau isi "-".
+                                        </small>
+
+                                        <label class="option-field-label">Gambar opsi</label>
+                                        <input type="file" name="option_{{ $key }}_image" class="form-control"
+                                            accept="image/*">
+
+                                        <small class="field-help">
+                                            Upload gambar jika opsi ini berupa grafik, diagram, atau gambar jawaban.
+                                        </small>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         <div class="mb-3">
@@ -177,23 +287,66 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi A</label>
-                                <input type="text" name="option_a" id="edit_option_a" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi B</label>
-                                <input type="text" name="option_b" id="edit_option_b" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi C</label>
-                                <input type="text" name="option_c" id="edit_option_c" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opsi D</label>
-                                <input type="text" name="option_d" id="edit_option_d" class="form-control" required>
-                            </div>
+                        <div class="option-help-box">
+                            <strong>Petunjuk edit opsi jawaban</strong>
+                            <ul>
+                                <li>Ubah <b>Teks jawaban</b> jika ingin mengganti tulisan opsi.</li>
+                                <li>Pilih <b>Gambar opsi baru</b> jika ingin mengganti gambar lama.</li>
+                                <li>Centang <b>Hapus gambar opsi</b> jika opsi tersebut tidak ingin memakai gambar lagi.
+                                </li>
+                                <li>Jika opsi hanya gambar, teks boleh dikosongkan atau isi tanda <b>-</b>.</li>
+                            </ul>
+                        </div>
+
+                        <div class="row g-3">
+                            @foreach (['A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd'] as $label => $key)
+                                <div class="col-md-6">
+                                    <div class="option-card-admin">
+                                        <div class="option-card-head">
+                                            <span class="option-badge-admin">{{ $label }}</span>
+                                            <p class="option-card-title">Opsi {{ $label }}</p>
+                                        </div>
+
+                                        <label class="option-field-label">Teks jawaban</label>
+                                        <input type="text" name="option_{{ $key }}"
+                                            id="edit_option_{{ $key }}" class="form-control"
+                                            placeholder="Contoh: garis lurus / 2x + y - 3 = 0">
+
+                                        <small class="field-help">
+                                            Ubah teks jika opsi berupa tulisan. Untuk opsi gambar saja, boleh kosong atau
+                                            isi "-".
+                                        </small>
+
+                                        <label class="option-field-label">Gambar opsi baru</label>
+                                        <input type="file" name="option_{{ $key }}_image"
+                                            class="form-control" accept="image/*">
+
+                                        <small class="field-help">
+                                            Kosongkan jika tidak ingin mengganti gambar lama.
+                                        </small>
+
+                                        <div class="mt-2" id="edit_option_{{ $key }}_image_preview_wrapper"
+                                            style="display:none;">
+                                            <small class="current-image-note">Gambar opsi saat ini:</small>
+                                            <br>
+                                            <img id="edit_option_{{ $key }}_image_preview"
+                                                class="img-fluid rounded border mt-1" style="max-width:180px;">
+                                        </div>
+
+                                        <div class="form-check mt-2" id="remove_option_{{ $key }}_image_wrapper"
+                                            style="display:none;">
+                                            <input class="form-check-input" type="checkbox"
+                                                name="remove_option_{{ $key }}_image" value="1"
+                                                id="remove_option_{{ $key }}_image">
+
+                                            <label class="form-check-label"
+                                                for="remove_option_{{ $key }}_image">
+                                                Hapus gambar opsi {{ $label }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         <div class="mb-3">
@@ -235,22 +388,63 @@
                     document.getElementById('edit_question_text').value = data.question_text ?? '';
 
                     let options = {
-                        A: '',
-                        B: '',
-                        C: '',
-                        D: ''
+                        A: {
+                            text: '',
+                            image: null
+                        },
+                        B: {
+                            text: '',
+                            image: null
+                        },
+                        C: {
+                            text: '',
+                            image: null
+                        },
+                        D: {
+                            text: '',
+                            image: null
+                        }
                     };
+
                     let correct = 'A';
 
                     (data.options || []).forEach(option => {
-                        options[option.option_label] = option.option_text ?? '';
+                        options[option.option_label] = {
+                            text: option.option_text ?? '',
+                            image: option.option_image ?? null
+                        };
+
                         if (option.is_correct) correct = option.option_label;
                     });
 
-                    document.getElementById('edit_option_a').value = options.A;
-                    document.getElementById('edit_option_b').value = options.B;
-                    document.getElementById('edit_option_c').value = options.C;
-                    document.getElementById('edit_option_d').value = options.D;
+                    ['A', 'B', 'C', 'D'].forEach(label => {
+                        const key = label.toLowerCase();
+
+                        document.getElementById(`edit_option_${key}`).value = options[label]
+                            .text;
+
+                        const optionPreviewWrapper = document.getElementById(
+                            `edit_option_${key}_image_preview_wrapper`);
+                        const optionPreviewImage = document.getElementById(
+                            `edit_option_${key}_image_preview`);
+                        const removeOptionWrapper = document.getElementById(
+                            `remove_option_${key}_image_wrapper`);
+                        const removeOptionCheckbox = document.getElementById(
+                            `remove_option_${key}_image`);
+
+                        if (options[label].image) {
+                            optionPreviewImage.src = `/img/kuis/opsi/${options[label].image}`;
+                            optionPreviewWrapper.style.display = 'block';
+                            removeOptionWrapper.style.display = 'block';
+                            removeOptionCheckbox.checked = false;
+                        } else {
+                            optionPreviewImage.src = '';
+                            optionPreviewWrapper.style.display = 'none';
+                            removeOptionWrapper.style.display = 'none';
+                            removeOptionCheckbox.checked = false;
+                        }
+                    });
+
                     document.getElementById('edit_correct_option').value = correct;
 
                     if (data.question_image) {

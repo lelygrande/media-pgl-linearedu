@@ -93,6 +93,7 @@ Route::prefix('guru')->group(function () {
         Route::get('/kuis/{id}', [QuizController::class, 'show'])->name('kuis.show');
         Route::put('/kuis/{id}', [QuizController::class, 'update'])->name('kuis.update');
 
+        // CRUD Soal Kuis
         Route::get('/kuis/{quiz}/soal', [QuizQuestionController::class, 'index'])->name('kuis.soal');
         Route::post('/kuis/{quiz}/soal', [QuizQuestionController::class, 'store'])->name('kuis.soal.store');
         Route::get('/soal/{question}', [QuizQuestionController::class, 'show'])->name('kuis.soal.show');

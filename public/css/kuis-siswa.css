@@ -71,7 +71,11 @@ body {
 
 .timer-box {
     min-width: 150px;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--primary-dark)
+    );
     color: var(--white);
     border-radius: 18px;
     padding: 18px 22px;
@@ -198,6 +202,8 @@ body {
     border-color: var(--section-dark);
 }
 
+/* Opsi */
+
 .option-label {
     width: 38px;
     height: 38px;
@@ -217,6 +223,29 @@ body {
     line-height: 1.5;
     font-weight: 600;
     padding-top: 6px;
+}
+
+
+.option-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.option-image {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    display: block;
+}
+
+@media (max-width: 576px) {
+    .option-image {
+        max-width: 100%;
+    }
 }
 
 .question-actions {
