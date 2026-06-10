@@ -476,11 +476,11 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('petunjuk') }}">
-                            Petunjuk Penggunaan
+                            Petunjuk Penggunaan Guru
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <form action="{{ route('guru.logout') }}" method="POST" class="d-inline">

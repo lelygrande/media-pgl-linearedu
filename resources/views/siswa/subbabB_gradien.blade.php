@@ -283,8 +283,8 @@
         }
 
         /* =========================================
-                        RESPONSIVE MOBILE
-                    ========================================= */
+                                    RESPONSIVE MOBILE
+                                ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- RUMUS ---------- */
@@ -316,13 +316,28 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Peserta didik dapat memahami konsep gradien dan menentukan gradien garis.</li>
+                <li>Peserta didik dapat memahami konsep gradien dan menentukan gradien garis dengan benar.</li>
             </ol>
         </div>
     </div>
 
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Pengertian Gradien (Kemiringan)</h2>
+
+    <p class="mb-3" style="line-height:1.8; text-align: justify;">
+        Kemiringan dapat dijumpai dalam kehidupan sehari-hari, misalnya pada jalan menanjak,
+        tangga, atap rumah, atau papan yang disandarkan. Contoh kemiringan dalam kehidupan
+        sehari-hari dapat dilihat pada Gambar 2.1.
+    </p>
+
+    <div class="text-center my-4">
+        <img src="{{ asset('img/gradien/contoh_kemiringan.png') }}" alt="Contoh Kemiringan dalam Sehari-hari"
+            class="zoomable img-fluid" style="max-width: 520px; cursor: zoom-in;">
+
+        <p class="mt-2 mb-0 text-center">
+            <small><strong>Gambar 2.1</strong> Contoh Kemiringan dalam Sehari-hari</small>
+        </p>
+    </div>
 
     <div class="box-eksplorasi mt-5">
         <div class="title-box">
@@ -458,7 +473,7 @@
                 $$
                 m = \frac{\Delta y}{\Delta x}
                 = \frac{\text{Perubahan panjang sisi tegak (vertikal)}}{\text{Perubahan panjang sisi
-                mendatar(horizontal)}}
+                mendatar (horizontal)}}
                 $$
             </div>
 
@@ -542,8 +557,12 @@
 
                         <div class="text-center mb-3">
                             <img class="zoomable" src="{{ asset('img/gradien/contohgradienpositif.png') }}"
-                                alt="Contoh gradien positif"
+                                alt="Garis bergradien positif"
                                 style="max-width: 360px; width: 100%; border-radius: 12px; border:1px solid #e5e7eb;">
+
+                            <p class="mt-2 mb-0 text-center">
+                                <small><strong>Gambar 2.3</strong> Garis bergradien positif</small>
+                            </p>
                         </div>
 
                         <p style="line-height:1.8; text-align:justify;">
@@ -575,8 +594,12 @@
 
                         <div class="text-center mb-3">
                             <img class="zoomable" src="{{ asset('img/gradien/contohgradiennegatif.png') }}"
-                                alt="Contoh gradien positif"
+                                alt="Garis bergradien negatif"
                                 style="max-width: 360px; width: 100%; border-radius: 12px; border:1px solid #e5e7eb;">
+
+                            <p class="mt-2 mb-0 text-center">
+                                <small><strong>Gambar 2.4</strong> Garis bergradien negatif</small>
+                            </p>
                         </div>
 
                         <p style="line-height:1.8; text-align:justify;">
@@ -606,8 +629,7 @@
 
     <div class="box-latihan mt-5 mb-4" id="latihanGradienBox">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
-
+            <span class="title-box">Latihan Soal</span>
             <!-- ===================== -->
             <!-- LATIHAN 1 -->
             <!-- ===================== -->
@@ -666,7 +688,6 @@
 
                 <div id="feedbackKlasifikasiGradien" class="mt-3"></div>
             </div>
-
             <!-- ===================== -->
             <!-- LATIHAN 2 -->
             <!-- ===================== -->
@@ -719,7 +740,6 @@
 
                 <div id="feedbackLatihan2Gradien" class="mt-3"></div>
             </div>
-
             <!-- ===================== -->
             <!-- LATIHAN 3 -->
             <!-- ===================== -->
@@ -771,7 +791,6 @@
         </div>
     </div>
 
-    {{-- </div> --}}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script>
         const riseSlider = document.getElementById("riseSlider");

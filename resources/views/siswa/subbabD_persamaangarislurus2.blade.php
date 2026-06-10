@@ -200,8 +200,8 @@
         }
 
         /* =========================================
-                        RESPONSIVE MOBILE
-                        ========================================= */
+                                    RESPONSIVE MOBILE
+                                    ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- RUMUS ---------- */
@@ -252,7 +252,7 @@
     </style>
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Persamaan Garis Lurus Melalui Dua Titik</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Persamaan Garis Lurus yang Melalui Dua Titik</h2>
 
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
@@ -366,21 +366,22 @@
     {{-- ========================================================= --}}
     <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
-            <span class="badge-sub">Persamaan Garis Lurus Melalui Dua Titik</span>
+            <span class="badge-sub">Persamaan Garis yang Lurus Melalui Dua Titik</span>
 
-            <p>
+            <p style="line-height:1.8; text-align: justify;">
                 Untuk menyusun persamaan garis yang melalui titik <span>$A(x_1, y_1)$</span> dan
                 <span>$B(x_2, y_2)$</span>, langkah pertama yang dilakukan adalah menentukan gradien garis yang
-                melalui kedua titik tersebut.
+                melalui kedua titik tersebut. Garis yang melalui kedua titik tersebut ditunjukkan pada Gambar 4.2.
             </p>
 
             {{-- GAMBAR --}}
             <div class="text-center my-4">
-                <img src="{{ asset('img/pgl/pgl_2titik.png') }}" alt="Garis melalui titik (x1,y1)" class="img-fluid"
-                    style="max-width:350px;">
-                <div class="small text-muted mt-2">
-                    Gambar: Garis yang melalui titik $(x_1, y_1)$ dan $(x_2, y_2)$
-                </div>
+                <img src="{{ asset('img/pgl/pgl_2titik.png') }}" alt="Garis yang melalui dua titik"
+                    class="img-fluid rounded zoomable" style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 4.2</strong> Garis yang melalui dua titik
+                </small>
             </div>
 
             <p>Nilai gradien diperoleh dari perbandingan perubahan nilai koordinat
@@ -477,8 +478,9 @@
                     Cek Jawaban
                 </button>
 
-                <button class="btn btn-tampil btn-sm" type="button" onclick="toggleSolusi('pembahasanContohSoal1')">
-                    Tampilkan Jawaban
+                <button id="btnPembahasanContohSoal1" class="btn btn-tampil btn-sm d-none" type="button"
+                    onclick="toggleSolusi('pembahasanContohSoal1')">
+                    Tampilkan Penyelesaian
                 </button>
 
                 <div id="feedbackContohSoal1" class="mt-2"></div>
@@ -558,7 +560,7 @@
     {{-- Latihan --}}
     <div class="box-latihan mt-5 mb-4" id="latihanD2Box">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             {{-- ===================== --}}
             {{-- LATIHAN 1 --}}
@@ -1123,18 +1125,24 @@
                 benarX1Bawah;
 
             const pembahasan = document.getElementById("pembahasanContohSoal1");
+            const btnPembahasan = document.getElementById("btnPembahasanContohSoal1");
+
+            // Setelah siswa mencoba 1 kali, tombol pembahasan muncul
+            if (btnPembahasan) {
+                btnPembahasan.classList.remove("d-none");
+            }
+
+            // Pembahasan tetap disembunyikan dulu sampai tombol diklik
+            if (pembahasan) {
+                pembahasan.classList.add("d-none");
+            }
 
             if (semuaBenar) {
                 isiFeedbackContoh(
                     "feedbackContohSoal1",
                     "success",
-                    "Benar. Nilai titik sudah tepat disubstitusikan ke rumus persamaan garis melalui dua titik.",
+                    "Benar. Nilai titik sudah tepat disubstitusikan ke rumus persamaan garis melalui dua titik. Kamu dapat menekan tombol Tampilkan Penyelesaian untuk melihat langkah lengkapnya."
                 );
-
-                if (pembahasan) {
-                    pembahasan.classList.remove("d-none");
-                    renderMathSafe(pembahasan);
-                }
 
                 return;
             }
@@ -1142,12 +1150,8 @@
             isiFeedbackContoh(
                 "feedbackContohSoal1",
                 "warning",
-                "Masih ada nilai yang belum tepat. Dari $A(1,3)$ diperoleh $x_1=1$ dan $y_1=3$, sedangkan dari $B(5,11)$ diperoleh $x_2=5$ dan $y_2=11$.",
+                "Masih ada nilai yang belum tepat. Perhatikan kembali urutan titik pertama sebagai $(x_1,y_1)$ dan titik kedua sebagai $(x_2,y_2)$."
             );
-
-            if (pembahasan) {
-                pembahasan.classList.add("d-none");
-            }
         }
 
         function toggleSolusi(id) {

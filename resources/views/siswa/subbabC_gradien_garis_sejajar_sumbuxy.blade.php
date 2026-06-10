@@ -189,13 +189,13 @@
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Peserta didik dapat memahami hubungan gradien pada garis-garis lurus.</li>
+                <li>Peserta didik dapat memahami hubungan gradien pada garis-garis lurus dengan benar.</li>
             </ol>
         </div>
     </div>
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Gradien yang Sejajar dengan $Sumbu-x$ dan $Sumbu-y$</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Gradien Garis yang Sejajar dengan $sumbu-x$ dan $sumbu-y$</h2>
 
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
@@ -507,7 +507,7 @@
     {{-- Materi sejajar sumbu-x --}}
     <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
-            <span class="badge-sub">Gradien Garis Sejajar $Sumbu\text{-}x$</span>
+            <span class="badge-sub">Gradien Garis Sejajar $sumbu\text{-}x$</span>
 
             <p>
                 Pada kegiatan eksplorasi sebelumnya, kamu telah menghitung gradien dari beberapa garis yang berbeda.
@@ -517,12 +517,18 @@
 
             <p>
                 Jika dua titik memiliki nilai $y$ yang sama, maka garis yang terbentuk akan berbentuk
-                <b>mendatar</b>. Garis mendatar inilah yang sejajar dengan $sumbu\text{-}x$.
+                <b>mendatar</b>. Garis mendatar inilah yang sejajar dengan $sumbu\text{-}x$,
+                sebagaimana ditunjukkan pada Gambar 3.1.
             </p>
 
             <div class="text-center mb-3">
-                <img src="{{ asset('img/hubungan gradien garis/garis_sejajar_sumbu_x.png') }}" class="img-fluid rounded">
-                <small class="text-muted d-block">Gambar garis yang sejajar dengan $sumbu\text{-}x$</small>
+                <img src="{{ asset('img/hubungan gradien garis/garis_sejajar_sumbu_x.png') }}"
+                    alt="Garis yang sejajar dengan sumbu x" class="img-fluid rounded zoomable"
+                    style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 3.1</strong> Garis yang sejajar dengan sumbu x
+                </small>
             </div>
 
             <p>
@@ -558,22 +564,28 @@
     {{-- Materi sejajar sumbu-y --}}
     <div class="card card-materi mb-4">
         <div class="card-body">
-            <span class="badge-sub">Gradien Garis Sejajar $Sumbu\text{-}y$</span>
+            <span class="badge-sub">Gradien Garis Sejajar $sumbu\text{-}y$</span>
 
             <p>
-                Pada kegiatan eksplorasi berikutnya, kamu juga telah menemukan bahwa beberapa garis memiliki
+                Pada kegiatan eksplorasi sebelumnya, kamu juga telah menemukan bahwa beberapa garis memiliki
                 pasangan titik dengan nilai $x$ yang sama. Meskipun titik-titiknya berbeda, garis-garis
                 tersebut menunjukkan pola yang sama.
             </p>
 
             <p>
                 Jika dua titik memiliki nilai $x$ yang sama, maka garis yang terbentuk akan berbentuk
-                <b>tegak</b> atau <b>vertikal</b>. Garis vertikal inilah yang sejajar dengan $sumbu\text{-}y$.
+                <b>tegak</b> atau <b>vertikal</b>. Garis vertikal inilah yang sejajar dengan $sumbu\text{-}y$,
+                sebagaimana ditunjukkan pada Gambar 3.2.
             </p>
 
             <div class="text-center mb-3">
-                <img src="{{ asset('img/hubungan gradien garis/garis_sejajar_sumbu_y.png') }}" class="img-fluid rounded">
-                <small class="text-muted d-block">Gambar garis yang sejajar dengan $sumbu\text{-}y$</small>
+                <img src="{{ asset('img/hubungan gradien garis/garis_sejajar_sumbu_y.png') }}"
+                    alt="Garis yang sejajar dengan sumbu y" class="img-fluid rounded zoomable"
+                    style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 3.2</strong> Garis yang sejajar dengan sumbu y
+                </small>
             </div>
 
             <p>
@@ -614,7 +626,7 @@
     {{-- Perbandingan --}}
     <div class="card card-materi mb-4">
         <div class="card-body">
-            <span class="badge-sub">Perbandingan Garis Sejajar $Sumbu\text{-}x$ dan $Sumbu\text{-}y$</span>
+            <span class="badge-sub">Perbandingan Garis Sejajar $sumbu\text{-}x$ dan $sumbu\text{-}y$</span>
 
             <p>
                 Dari dua materi sebelumnya, dapat dilihat bahwa garis sejajar $sumbu\text{-}x$ dan garis sejajar
@@ -744,7 +756,7 @@
     {{-- Latihan --}}
     <div class="box-latihan mt-5" id="latihanC1Box">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             <p>
                 Kerjakan latihan berikut berdasarkan pemahamanmu tentang garis yang sejajar dengan sumbu-x dan sumbu-y.

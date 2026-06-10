@@ -171,8 +171,8 @@
         }
 
         /* =========================================
-            GEOGEBRA RESPONSIVE
-            ========================================= */
+                            GEOGEBRA RESPONSIVE
+                            ========================================= */
 
         #ggb-eksplorasi-tegak {
             width: 100%;
@@ -346,16 +346,21 @@
             <p class="mt-3" style="line-height:1.8;">
                 Berdasarkan hasil eksplorasi, diperoleh bahwa pada dua garis yang saling tegak lurus
                 terdapat hubungan khusus antara gradien kedua garis tersebut.
-                Perhatikan gambar berikut.
+                Hubungan dua garis yang saling tegak lurus dapat diamati pada Gambar 3.5.
             </p>
 
             <div class="text-center my-4">
                 <img src="{{ asset('img/hubungan gradien garis/gradiengarissalingtegaklurus.png') }}"
-                    alt="Gradien garis saling tegak lurus" class="img-fluid" style="max-width:420px;">
+                    alt="Dua garis yang saling tegak lurus" class="img-fluid rounded zoomable"
+                    style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 3.5</strong> Dua garis yang saling tegak lurus
+                </small>
             </div>
 
             <p style="line-height:1.8;">
-                Pada gambar di atas, garis <b>$k$</b> dan garis <b>$l$</b> berpotongan membentuk sudut siku-siku,
+                Pada Gambar 3.5, garis <b>$k$</b> dan garis <b>$l$</b> berpotongan membentuk sudut siku-siku,
                 sehingga kedua garis tersebut saling tegak lurus.
             </p>
 
@@ -404,8 +409,9 @@
                 <li>Garis $a$ melalui titik $(1,2)$ dan $(5,6)$.</li>
                 <li>Garis $b$ melalui titik $(3,4)$ dan $(7,0)$.</li>
             </ul>
-            <p style="line-height:1.8;">
-                Tentukan apakah kedua garis tersebut saling tegak lurus.
+
+            <p class="mt-3" style="line-height:1.8;">
+                <b>1.</b> Tentukan persamaan garis manakah yang tegak lurus dengan garis <b>$y = 3x - 2$</b>.
             </p>
 
             <div class="border rounded-4 p-3 mb-3" style="background:#f7f9fc;">
@@ -457,7 +463,7 @@
 
     <div class="box-latihan mt-5 mb-4" id="latihanC3Box">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             <!-- ===================== -->
             <!-- LATIHAN 1 -->

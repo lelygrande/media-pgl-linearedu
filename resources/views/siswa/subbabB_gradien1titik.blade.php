@@ -5,8 +5,8 @@
 
     <style>
         /* =========================================
-            RESPONSIVE MOBILE
-            ========================================= */
+                    RESPONSIVE MOBILE
+                    ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- P5 CANVAS ---------- */
@@ -99,7 +99,7 @@
     </style>
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien yang melewati titik $(0, 0)$ dan $A(x,y)$</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Gradien garis yang melewati titik $(0, 0)$ dan $A(x_1,y_1)$</h2>
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="{{ asset('js/subbabB/eksplorasi_segaris.js') }}"></script>
@@ -107,21 +107,26 @@
     {{-- Materi --}}
     <div class="card card-materi mb-4">
         <div class="card-body p-4">
-            <p class="mb-3" style="line-height: 1.8;">
-                Untuk menentukan gradien garis yang melalui titik pusat $(0,0)$ dan titik lain $A(x,y)$, kita cukup
-                memperhatikan koordinat titik $A(x,y)$. Gradien menyatakan perbandingan perubahan nilai pada sumbu $y$
-                terhadap perubahan nilai pada sumbu $x$.
+            <p class="mb-3" style="line-height: 1.8; text-align: justify;">
+                Untuk menentukan gradien garis yang melalui titik pusat $(0,0)$ dan titik lain $A(x_1,y_1)$,
+                kita cukup memperhatikan koordinat titik $A(x_1,y_1)$. Penjelasan tersebut dapat dilihat pada
+                Gambar 2.5.
             </p>
 
             {{-- Ilustrasi --}}
             <div class="img-grid mb-3">
                 <figure>
-                    <img class="zoomable" src="{{ asset('img/gradien/gradiensatutitik.png') }}" alt="Ilustrasi Gambar 2.1">
-                    <figcaption class="mt-2 text-muted" style="font-size: 13px;">Gambar 2.1</figcaption>
+                    <img class="zoomable" src="{{ asset('img/gradien/gradiensatutitik.png') }}"
+                        alt="Garis yang melewati titik pusat dan titik A" style="max-width: 360px; width: 100%;">
+
+                    <figcaption class="mt-2 text-muted text-center" style="font-size: 13px;">
+                        <strong>Gambar 2.5</strong> Garis yang melewati $(0,0)$ dan $A(x_1,y_1)$
+                    </figcaption>
                 </figure>
             </div>
 
-            <p class="mb-2" style="line-height: 1.8;">
+            <p class="mb-2" style="line-height: 1.8; text-align: justify;">
+                Gradien garis pada Gambar 2.5 dapat diketahui dari perbandingan nilai $y_1$ terhadap $x_1$.
                 Secara umum, gradien garis yang melalui titik $(0,0)$ dan titik $A(x_1,y_1)$ dirumuskan:
             </p>
 
@@ -233,7 +238,7 @@
     <div class="box-latihan mt-5 mb-4">
         <div class="card-body p-2">
 
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             <div id="latihan1" class="latihan-step">
 

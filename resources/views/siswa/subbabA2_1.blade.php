@@ -241,8 +241,8 @@
         }
 
         /* =========================================
-                                                               RESPONSIVE MOBILE
-                                                            ========================================= */
+                                                                   RESPONSIVE MOBILE
+                                                                ========================================= */
         @media (max-width: 768px) {
 
             /* ---------- GAMBAR ---------- */
@@ -344,7 +344,7 @@
         <h5 class="mb-2" style="font-weight:700;">2.1 Menggambar Grafik Persamaan menggunakan Beberapa Titik</h5>
 
         <p class="mb-3" style="line-height:1.7;">
-            Persamaan garis lurus tidak hanya dapat dituliskan dalam bentuk aljabar,
+            Persamaan garis lurus tidak hanya dapat dinyatakan dalam bentuk aljabar,
             tetapi juga dapat direpresentasikan dalam bentuk grafik. Dengan menggambarkan grafik,
             kita dapat memahami hubungan antara dua variabel secara lebih jelas dan visual.
             Berikut ini akan dibahas cara menggambar grafik persamaan garis lurus.
@@ -356,7 +356,7 @@
         </p>
 
         <ol class="mb-0" style="line-height:1.7; padding-left: 18px;">
-            <li>Tentukan beberapa titik yang memenuhi persamaan garis lurus dengan terlebih dahulu memilih nilai $x$,
+            <li>Tentukan titik-titik yang memenuhi persamaan garis lurus dengan terlebih dahulu memilih beberapa nilai $x$,
                 kemudian hitung nilai $y$ yang sesuai.</li>
             <li>Buatlah tabel pasangan nilai $x$ dan $y$ yang memenuhi persamaan garis lurus.</li>
             <li>Gambarkan pasangan berurutan $(x, y)$ sebagai titik-titik pada bidang koordinat Kartesius.</li>
@@ -374,7 +374,7 @@
                     style="max-width:520px; cursor:zoom-in;">
 
                 <figcaption class="figure-caption text-center mt-2">
-                    Ilustrasi sepeda dengan jarak dan jam
+                    <strong>Gambar 1.4</strong> Ilustrasi perubahan jarak tempuh sepeda terhadap waktu
                 </figcaption>
             </figure>
         </div>

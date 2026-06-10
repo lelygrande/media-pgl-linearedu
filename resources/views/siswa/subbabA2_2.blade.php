@@ -441,10 +441,10 @@
 
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">2.2 Menggambar Grafik Persamaan Garis Lurus</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">2. Menggambar Grafik Persamaan Garis Lurus</h2>
 
     <div class="box-info mb-3">
-        <h5 class="mb-2" style="font-weight:700;">Menggambar Grafik Persamaan menggunakan Dua Titik</h5>
+        <h5 class="mb-2" style="font-weight:700;">2.2 Menggambar Grafik Persamaan menggunakan Dua Titik</h5>
         <p class="mb-3" style="line-height:1.7;">
             Dalam menggambar grafik persamaan garis lurus, kita tidak selalu membutuhkan banyak titik.
             Secara matematis, <b>sebuah garis lurus dapat ditentukan hanya oleh dua titik</b>.

@@ -180,7 +180,7 @@
     {{-- Subjudul --}}
     <h2 class="mt-2 mb-3" style="font-weight: 600;">3. Gradien garis yang melewati dua titik</h2>
 
-    <div class="box-eksplorasi mt-4 mb-4">
+    <div class="box-eksplorasi mt-5 mb-4">
         <div class="title-box">Eksplorasi</div>
 
         <p class="mb-3" style="line-height:1.7;">
@@ -201,9 +201,11 @@
 
         <div class="text-center mb-3">
             <img class="zoomable" src="{{ asset('img/gradien/gradienduatitik.png') }}"
+                alt="Perpindahan dari titik A ke titik B"
                 style="max-width:300px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
+
             <div class="text-muted mt-2" style="font-size:13px;">
-                Perpindahan dari titik A ke titik B
+                <strong>Gambar 2.6</strong> Perpindahan dari titik A ke titik B
             </div>
         </div>
 
@@ -272,12 +274,16 @@
                 Perhatikan sebuah garis yang melalui dua titik berikut.
                 Titik pertama adalah \((x_1,y_1)\) dan titik kedua adalah \((x_2,y_2)\).
             </p>
+            <p class="mb-2" style="line-height:1.8; text-align: justify;">
+                Misalkan kita menggambar garis yang melalui dua titik umum \((x_1,y_1)\) dan \((x_2,y_2)\),
+                seperti ditunjukkan pada Gambar 2.7.
+            </p>
 
             <div class="ka-figure">
                 <img class="zoomable" src="{{ asset('img/gradien/duatitik1.png') }}" alt="Garis melalui dua titik">
 
                 <div class="ka-caption">
-                    Garis melalui dua titik \((x_1,y_1)\) dan \((x_2,y_2)\)
+                    <strong>Gambar 2.7</strong> Garis yang melalui dua titik
                 </div>
             </div>
 
@@ -326,7 +332,7 @@
                 <img class="zoomable" src="{{ asset('img/gradien/duatitik2.png') }}" alt="Perubahan Δx">
 
                 <div class="ka-caption">
-                    Panah menunjukkan perubahan \(\Delta x\)
+                    <strong>Gambar 2.8</strong> Perubahan pada x
                 </div>
             </div>
 
@@ -377,7 +383,7 @@
                 <img class="zoomable" src="{{ asset('img/gradien/duatitik3.png') }}" alt="Perubahan Δy">
 
                 <div class="ka-caption">
-                    Panah menunjukkan perubahan \(\Delta y\)
+                    <strong>Gambar 2.9</strong> Perubahan pada y
                 </div>
             </div>
 
@@ -466,25 +472,25 @@
 
                 <div class="row g-2 mt-3">
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">$x₁$</label>
+                        <label class="form-label mb-1">$x_1$</label>
                         <input id="x1" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">$y₁$</label>
+                        <label class="form-label mb-1">$y_1$</label>
                         <input id="y1" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">$x₂$</label>
+                        <label class="form-label mb-1">$x_2$</label>
                         <input id="x2" type="number" class="form-control" placeholder="...">
                     </div>
                     <div class="col-6 col-md-3">
-                        <label class="form-label mb-1">$y₂$</label>
+                        <label class="form-label mb-1">$y_2$</label>
                         <input id="y2" type="number" class="form-control" placeholder="...">
                     </div>
                 </div>
 
                 <div class="d-flex gap-2 mt-3 flex-wrap">
-                    <button class="btn btn-palet btn-sm" onclick="checkStep1()">Check</button>
+                    <button class="btn btn-palet btn-sm" onclick="checkStep1()">Cek</button>
                 </div>
 
                 <div id="fb_s1" class="mt-2"></div>
@@ -501,7 +507,7 @@
                     <div id="katex_step2" class="rumus-box"></div>
 
                     <div class="d-flex gap-2 mt-3 flex-wrap">
-                        <button class="btn btn-palet btn-sm" onclick="unlockStep3()">Continue</button>
+                        <button class="btn btn-palet btn-sm" onclick="unlockStep3()">Lanjut</button>
                     </div>
                 </div>
             </div>
@@ -515,10 +521,10 @@
 
                 <div id="s3_body" style="display:none;" class="mt-3">
                     <label class="form-label mb-1">m</label>
-                    <input id="m" type="text" class="form-control" placeholder="Masukkan gradien">
+                    <input id="m" type="text" class="form-control" style="width: 100px" placeholder="Masukkan gradien">
 
                     <div class="d-flex gap-2 mt-3 flex-wrap">
-                        <button class="btn btn-palet btn-sm" onclick="checkStep3()">Check</button>
+                        <button class="btn btn-palet btn-sm" onclick="checkStep3()">Cek</button>
                     </div>
 
                     <div id="fb_s3" class="mt-2"></div>
@@ -527,7 +533,7 @@
 
             {{-- HINTS + SOLUTION --}}
             <div class="d-flex gap-2 flex-wrap">
-                <button class="btn btn-palet btn-sm" onclick="hintNext()">Hint</button>
+                <button class="btn btn-palet btn-sm" onclick="hintNext()">Petunjuk</button>
                 <button class="btn btn-palet btn-sm" onclick="showSolution()">Tunjukkan Penyelesaian</button>
                 <button class="btn btn-palet btn-sm" onclick="resetAll()">Reset</button>
             </div>

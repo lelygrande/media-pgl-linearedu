@@ -387,7 +387,9 @@
                     <img src="{{ asset('img/koordinatkartesius.jpg') }}" alt="Bidang Koordinat Kartesius"
                         class="materi-img zoomable img-koordinat">
                 </div>
-
+                <p class="mt-2 mb-0 text-center"> <small><strong>Gambar 1.1</strong> Contoh titik pada bidang koordinat
+                        Kartesius</small> </p>
+                <br>
                 <p style="text-align: justify;">
                     Sistem koordinat Kartesius terdiri atas dua sumbu yang saling tegak lurus,
                     yaitu sumbu X (mendatar) dan sumbu Y (tegak).
@@ -399,6 +401,8 @@
                     <img src="{{ asset('img/titikpotong00.png') }}" alt="Titik Asal (0,0)"
                         class="materi-img zoomable img-titik-asal" style="width: 300px">
                 </div>
+                <p class="mt-2 mb-0 text-center"> <small><strong>Gambar 1.2</strong> Sumbu koordinat kartesius</small> </p>
+                <br>
 
                 <p style="text-align: justify;">
                     Setiap posisi pada bidang koordinat dinyatakan dalam bentuk pasangan bilangan
@@ -832,6 +836,12 @@
 
                 originX = p.width / 2;
                 originY = p.height / 2;
+
+                // klik hanya aktif di canvas saja
+                canvas.mousePressed(function() {
+                    handleInput();
+                    return false;
+                });
             };
 
             p.draw = function() {
@@ -874,11 +884,6 @@
                     y: titik.y,
                 });
             }
-
-            // desktop
-            p.mousePressed = function() {
-                handleInput();
-            };
 
             // =========================
             // GRID

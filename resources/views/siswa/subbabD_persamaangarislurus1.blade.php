@@ -154,20 +154,20 @@
     </style>
 
     {{-- Judul --}}
-    <h1 class="mb-3" style="font-weight: 600;">D. Persamaan Garis Lurus</h1>
+    <h1 class="mb-3" style="font-weight: 600;">D. Menentukan Persamaan Garis Lurus</h1>
 
     {{-- Tujuan Pembelajaran --}}
     <div class="card card-tujuan mb-4">
         <div class="card-body">
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
-                <li>Peserta didik dapat menentukan persamaan garis lurus</li>
+                <li>Peserta didik dapat menentukan persamaan garis lurus dengan tepat.</li>
             </ol>
         </div>
     </div>
 
     {{-- Subjudul --}}
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Persamaan Garis Lurus Melalui Satu Titik dengan Gradien</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Persamaan Garis Lurus Melalui Satu Titik dan Gradien</h2>
 
     {{-- ========================================================= --}}
     {{-- EKSPLORASI --}}
@@ -261,9 +261,48 @@
                     <button class="btn btn-palet btn-sm" onclick="cekEksplorasi()">Cek</button>
                     <div id="feedbackEksplorasi" class="mt-2"></div>
                 </div>
-
+                <button type="button" id="btnPembahasanEksplorasi" class="btn btn-tampil btn-sm mt-2 d-none"
+                    onclick="tampilkanPembahasanEksplorasi()">
+                    Tampilkan Pembahasan
+                </button>
             </div>
+        </div>
 
+        <div id="pembahasanEksplorasi" class="mt-3 d-none">
+            <div class="box-kesimpulan">
+                <b>Pembahasan:</b><br><br>
+
+                Karena garis melalui titik \((x_1, y_1)\), maka nilai \(x = x_1\) dan \(y = y_1\)
+                disubstitusikan ke bentuk umum persamaan garis lurus.
+
+                <div class="rumus-box mt-2 mb-2">
+                    \(y = mx + c\)
+                </div>
+
+                Setelah disubstitusikan, diperoleh:
+
+                <div class="rumus-box mt-2 mb-2">
+                    \(y_1 = m(x_1) + c\)
+                </div>
+
+                Dari persamaan tersebut, nilai \(c\) dapat ditentukan sebagai:
+
+                <div class="rumus-box mt-2 mb-2">
+                    \(c = y_1 - mx_1\)
+                </div>
+
+                Substitusikan kembali nilai \(c\) ke persamaan awal:
+
+                <div class="rumus-box mt-2 mb-2">
+                    \(y = mx + (y_1 - mx_1)\)
+                </div>
+
+                Susun kembali persamaan tersebut, sehingga diperoleh:
+
+                <div class="rumus-box mt-2 mb-0">
+                    \(y - y_1 = m(x - x_1)\)
+                </div>
+            </div>
         </div>
 
         <div class="box-kesimpulan mt-3 d-none" id="kesimpulanEksplorasi" style="width: fit-content;">
@@ -291,16 +330,18 @@
             {{-- GAMBAR --}}
             <div class="text-center my-4">
                 <img src="{{ asset('img/pgl/garis bergradien m yang melalui 1titik.png') }}"
-                    alt="Garis melalui titik (x1,y1)" class="img-fluid" style="max-width:350px;">
-                <div class="small text-muted mt-2">
-                    Gambar: Garis bergradien $m$ yang melalui titik $(x_1, y_1)$
-                </div>
+                    alt="Garis bergradien m yang melalui titik (x1,y1)" class="img-fluid rounded zoomable"
+                    style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 4.1</strong> Garis bergradien $m$ yang melalui $(x_1, y_1)$
+                </small>
             </div>
 
-
             <p style="line-height:1.8;">
-                Dari gambar tersebut, terlihat bahwa perubahan nilai $y$ terhadap $y_1$ sebanding dengan perubahan nilai $x$
-                terhadap $x_1$ sesuai dengan gradien garis.
+                Gambar 4.1 memperlihatkan suatu garis lurus yang memiliki gradien $m$ dan melalui titik $(x_1, y_1)$.
+                Untuk menentukan persamaan garis tersebut, kita dapat mengambil sebuah titik sembarang $(x,y)$
+                yang berada pada garis.
             </p>
 
             <p style="line-height:1.8;">
@@ -531,7 +572,7 @@
 
     <div class="box-latihan mt-5 mb-4">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             {{-- ======================= --}}
             {{-- LATIHAN NO 1 --}}
@@ -887,6 +928,46 @@
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script>
+        function renderMathPadaElemen(el) {
+            if (window.renderMathInElement && el) {
+                renderMathInElement(el, {
+                    delimiters: [{
+                            left: "$$",
+                            right: "$$",
+                            display: true
+                        },
+                        {
+                            left: "$",
+                            right: "$",
+                            display: false
+                        },
+                        {
+                            left: "\\(",
+                            right: "\\)",
+                            display: false
+                        },
+                        {
+                            left: "\\[",
+                            right: "\\]",
+                            display: true
+                        },
+                    ],
+                    throwOnError: false,
+                });
+            }
+        }
+
+        function tampilkanPetunjukEksplorasi(pesan) {
+            const fb = document.getElementById("feedbackEksplorasi");
+            const btnPembahasan = document.getElementById("btnPembahasanEksplorasi");
+            const kesimpulan = document.getElementById("kesimpulanEksplorasi");
+
+            fb.innerHTML = `<div class="alert alert-warning py-2 mb-0">${pesan}</div>`;
+            kesimpulan.classList.add("d-none");
+            btnPembahasan.classList.remove("d-none");
+
+            renderMathPadaElemen(fb);
+        }
         // Eksplorasi
         function cekEksplorasi() {
             const subX1 = document.getElementById("sub_x1").value.trim().toLowerCase();
@@ -898,6 +979,8 @@
 
             const fb = document.getElementById("feedbackEksplorasi");
             const kesimpulan = document.getElementById("kesimpulanEksplorasi");
+            const btnPembahasan = document.getElementById("btnPembahasanEksplorasi");
+            const pembahasan = document.getElementById("pembahasanEksplorasi");
 
             const normal = (teks) => {
                 return teks
@@ -919,57 +1002,49 @@
             const benarSubC2 = vSubC2 === "y1-mx1" || vSubC2 === "y1-m(x1)";
             const benarAkhir = vY1 === "y1" && vX1 === "x1";
 
-            let pesan = [];
-
             if (!benarSubX1) {
-                pesan.push(
-                    "Pada langkah substitusi, nilai pengganti untuk $x$ adalah $x_1$.",
+                tampilkanPetunjukEksplorasi(
+                    "Petunjuk: karena titik yang dilalui adalah $(x_1, y_1)$, maka nilai pengganti untuk $x$ adalah $x_1$."
                 );
+                return;
             }
 
             if (!benarC) {
-                pesan.push(
-                    "Perhatikan kembali bentuk nilai $c$, yaitu $c = y_1 - mx_1$.",
+                tampilkanPetunjukEksplorasi(
+                    "Petunjuk: dari bentuk $y_1 = m(x_1) + c$, pindahkan $m(x_1)$ ke ruas kiri untuk menentukan nilai $c$."
                 );
+                return;
             }
 
             if (!benarSubC2) {
-                pesan.push(
-                    "Nilai $c$ yang disubstitusikan kembali adalah $y_1 - mx_1$.",
+                tampilkanPetunjukEksplorasi(
+                    "Petunjuk: nilai $c$ yang disubstitusikan kembali ke persamaan awal adalah $y_1 - mx_1$."
                 );
+                return;
             }
 
             if (!benarAkhir) {
-                pesan.push(
-                    "Pada bentuk akhir, ruas kiri berisi $y - y_1$ dan di dalam kurung tertulis $(x - x_1)$.",
+                tampilkanPetunjukEksplorasi(
+                    "Petunjuk: bentuk akhir persamaan garis melalui satu titik dan gradien adalah $y - y_1 = m(x - x_1)$."
                 );
+                return;
             }
 
-            if (benarSubX1 && benarC && benarSubC2 && benarAkhir) {
-                fb.innerHTML =
-                    "<span class='text-success fw-bold'>Bagus! Kamu berhasil menemukan bentuk persamaan garis.</span>";
-                kesimpulan.classList.remove("d-none");
-            } else {
-                fb.innerHTML =
-                    "<span class='text-danger'>" + pesan.join("<br>") + "</span>";
-                kesimpulan.classList.add("d-none");
-            }
+            fb.innerHTML =
+                "<div class='alert alert-success py-2 mb-0 fw-bold'>Bagus! Kamu berhasil menemukan bentuk persamaan garis.</div>";
 
-            if (window.renderMathInElement) {
-                renderMathInElement(fb, {
-                    delimiters: [{
-                            left: "$$",
-                            right: "$$",
-                            display: true
-                        },
-                        {
-                            left: "$",
-                            right: "$",
-                            display: false
-                        },
-                    ],
-                });
-            }
+            kesimpulan.classList.remove("d-none");
+            btnPembahasan.classList.add("d-none");
+            pembahasan.classList.add("d-none");
+
+            renderMathPadaElemen(fb);
+        }
+
+        function tampilkanPembahasanEksplorasi() {
+            const pembahasan = document.getElementById("pembahasanEksplorasi");
+
+            pembahasan.classList.remove("d-none");
+            renderMathPadaElemen(pembahasan);
         }
 
         // Contoh Soal

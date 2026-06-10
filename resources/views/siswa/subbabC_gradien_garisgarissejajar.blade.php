@@ -319,7 +319,8 @@
 
             <p>
                 Untuk memperjelas konsep tersebut, sekarang perhatikan dua garis berikut, yaitu garis
-                <b>$k$</b> dan garis <b>$l$</b>. Meskipun pada eksplorasi sebelumnya kita mengamati lebih dari
+                <b>$k$</b> dan garis <b>$l$</b>, seperti ditunjukkan pada Gambar 3.3. Meskipun pada eksplorasi sebelumnya
+                kita mengamati lebih dari
                 dua garis, konsep garis sejajar dapat dijelaskan dengan membandingkan dua garis saja.
             </p>
 
@@ -329,9 +330,13 @@
             </p>
 
             <div class="text-center mb-3">
-                <img src="{{ asset('img/hubungan gradien garis/gradiengaris2sejajar.png') }}" class="img-fluid rounded"
-                    alt="Dua garis sejajar" style="max-height: 320px;">
-                <small class="text-muted d-block">Gambar dua garis yang sejajar</small>
+                <img src="{{ asset('img/hubungan gradien garis/gradiengaris2sejajar.png') }}"
+                    class="img-fluid rounded zoomable" alt="Dua garis yang sejajar"
+                    style="max-width:300px; width:100%; cursor:zoom-in;">
+
+                <small class="text-muted d-block mt-2">
+                    <strong>Gambar 3.3</strong> Dua garis yang sejajar
+                </small>
             </div>
 
             <p>
@@ -366,7 +371,11 @@
 
             <div class="box-kesimpulan">
                 <b>Kesimpulan:</b><br>
-                Jika dua garis memiliki gradien yang sama, maka kedua garis tersebut sejajar.
+                Dua garis sejajar pasti memiliki gradien yang sama.
+            </div>
+
+            <div class="rumus-box text-center mt-3">
+                $$ m_1 = m_2 $$
             </div>
 
             <div class="rumus-box text-center mt-3">
@@ -380,7 +389,7 @@
     {{-- ========================================================= --}}
     <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
-            <span class="title-box">Contoh Soal</span>
+            <span class="title-box">Contoh</span>
 
             <p>
                 Diketahui garis <b>$k$</b> melalui titik $A(2,3)$ dan $B(6,7)$,
@@ -446,7 +455,7 @@
 
     <div class="box-latihan mt-5 mb-4" id="latihanC2Box">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             <!-- ===================== -->
             <!-- LATIHAN 1 -->
@@ -628,7 +637,6 @@
                     </div>
 
                     <p>Substitusikan ke persamaannya</p>
-
                     <div class="mb-3 d-flex align-items-center gap-2 flex-wrap" style="line-height:2;">
                         <div class="frac-input">
                             <div class="top">

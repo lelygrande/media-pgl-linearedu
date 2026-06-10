@@ -176,7 +176,7 @@
         }
     </style>
 
-    <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Gradien dari Suatu Persamaan Garis Lurus</h2>
+    <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Gradien dari Persamaan Garis Lurus</h2>
 
     <div class="box-eksplorasi mt-4">
 
@@ -184,19 +184,19 @@
             Eksplorasi
         </div>
 
-        <p class="mb-3" style="line-height:1.7;">
-            Perhatikan gambar di samping. Terdapat sebuah garis dengan persamaan
+        <p class="mb-3" style="line-height:1.7; text-align: justify;">
+            Perhatikan Gambar 2.10. Pada gambar tersebut terdapat sebuah garis dengan persamaan
             <b>\(y=-x+4\)</b> yang melalui titik <b>A</b>, <b>B</b>, dan <b>C</b>.
         </p>
 
         <div class="text-center mb-2">
             <img class="zoomable" src="{{ asset('img/gradien/eksplorasipersamaan.png') }}"
-                alt="Grafik garis y = -x + 4 melalui titik A, B, dan C"
+                alt="Grafik garis persamaan y=-x+4"
                 style="max-width:420px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
         </div>
 
         <div class="text-center text-muted mb-3" style="font-size:13px;">
-            Gambar garis \(y=-x+4\) yang melalui titik A, B, dan C
+            <strong>Gambar 2.10</strong> Grafik garis persamaan \(y=-x+4\)
         </div>
 
         <p class="mb-3">
@@ -754,15 +754,16 @@
             <span class="title-box">Contoh</span>
 
             <p style="line-height:1.8; text-align:justify;">
-                Perhatikan persamaan <b>$4y = 2x - 8$</b>. Susunlah potongan langkah berikut agar menjadi urutan yang benar
+                Perhatikan persamaan <b>$6y = -3x + 12$</b>. Susunlah potongan langkah berikut agar menjadi urutan yang
+                benar
                 untuk mengubah persamaan tersebut ke bentuk <b>$y = mx + c$</b>.
             </p>
 
             <div class="sort-bank mb-3" id="sortBank">
-                <div class="sort-item" draggable="true" data-step="2">$y = \frac{2x - 8}{4}$</div>
-                <div class="sort-item" draggable="true" data-step="4">$m = \frac{1}{2}$</div>
-                <div class="sort-item" draggable="true" data-step="1">$4y = 2x - 8$</div>
-                <div class="sort-item" draggable="true" data-step="3">$y = \frac{1}{2}x - 2$</div>
+                <div class="sort-item" draggable="true" data-step="2">$y = \frac{-3x + 12}{6}$</div>
+                <div class="sort-item" draggable="true" data-step="4">$m = -\frac{1}{2}$</div>
+                <div class="sort-item" draggable="true" data-step="1">$6y = -3x + 12$</div>
+                <div class="sort-item" draggable="true" data-step="3">$y = -\frac{1}{2}x + 2$</div>
             </div>
 
             <div class="step-card">
@@ -783,7 +784,7 @@
 
     <div class="box-latihan mt-5 mb-4" id="latihanGradienB4Box">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
             <!-- ===================== -->
             <!-- LATIHAN 1 -->
             <!-- ===================== -->
@@ -924,6 +925,7 @@
             </div>
         </div>
     </div>
+
     <script>
         // Eksplorasi
         function normJawaban(teks) {
@@ -1215,7 +1217,7 @@
                 kesimpulan.classList.remove("d-none");
             } else {
                 let pesan =
-                `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
+                    `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
 
                 if (!benar1) {
                     pesan +=
@@ -1464,7 +1466,7 @@
 
             if (benar === 4) {
                 fb.innerHTML = alertSuccess(
-                    "Urutanmu sudah benar. Dari persamaan \\(4y = 2x - 8\\) diperoleh \\(y = \\frac{1}{2}x - 2\\), sehingga gradiennya adalah \\(\\frac{1}{2}\\).",
+                    "Urutanmu sudah benar. Dari persamaan \\(6y = -3x + 12\\) diperoleh \\(y = -\\frac{1}{2}x + 2\\), sehingga gradiennya adalah \\(- \\frac{1}{2}\\).",
                 );
             } else {
                 fb.innerHTML = alertInfo(

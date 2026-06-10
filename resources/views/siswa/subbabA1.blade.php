@@ -498,7 +498,7 @@
             <h5>Tujuan Pembelajaran:</h5>
             <ol>
                 <li>Peserta didik dapat memahami konsep dasar persamaan garis lurus dengan benar.</li>
-                <li>Peserta didik dapat menggambar grafik persamaan garis lurus dengan tepat</li>
+                <li>Peserta didik dapat menggambar grafik persamaan garis lurus dengan tepat.</li>
             </ol>
         </div>
     </div>
@@ -651,11 +651,12 @@
 
                     <p>Pada bentuk $Ax + By + C = 0$:</p>
 
-                    <ul>
-                        <li>$A$ adalah koefisien dari $x$</li>
-                        <li>$B$ adalah koefisien dari $y$</li>
-                        <li>$C$ adalah konstanta</li>
+                    <ul class="mb-0">
+                        <li>$A$ dan $B$ adalah koefisien.</li>
+                        <li>$C$ adalah konstanta.</li>
+                        <li>$A$ dan $B$ tidak boleh keduanya nol.</li>
                     </ul>
+                    <br>
 
                     <p class="mb-2" style="text-align: justify;">
                         Sekarang, coba perhatikan contoh berikut: $3x + 2y - 6 = 0$.
@@ -712,8 +713,7 @@
             <img src="{{ asset('img/p1.png') }}" alt="Grafik persamaan y = 3x - 2" class="zoomable img-fluid"
                 style="max-width:300px; cursor:zoom-in;">
 
-            <figcaption class="figure-caption text-center mt-2">
-                Grafik persamaan $y = 3x - 2$
+            <figcaption class="figure-caption text-center mt-2"> <strong>Gambar 1.3</strong> Grafik Persamaan $y = 3x - 2$
             </figcaption>
         </figure>
     </div>
