@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GuruAuthController;
 use App\Http\Controllers\GuruDashboardController;
+use App\Http\Controllers\LatihanProgressController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProgressBelajarController;
 use App\Http\Controllers\ProgressSiswaController;
@@ -38,6 +39,10 @@ Route::middleware('auth:siswa')->group(function () {
     // Menandai latihan materi selesai
     Route::post('/materi/{id}/complete', [MateriController::class, 'complete'])->name('materi.complete');
 
+    // Route untuk menyimpan progress materi
+    Route::post('/materi/{materiId}/latihan-progress', [LatihanProgressController::class, 'store'])
+        ->name('latihan.progress.store');
+
     // Progress belajar
     Route::get('/siswa/progress-belajar', [MateriController::class, 'progress'])->name('progress-belajar');
     Route::get('siswa/progress-belajar', [ProgressBelajarController::class, 'index'])->name('progress-belajar');
@@ -47,9 +52,13 @@ Route::middleware('auth:siswa')->group(function () {
     Route::post('/quiz/{id}/submit', [QuizSiswaController::class, 'submit'])->name('quiz.submit');
 });
 
-// Progress
+// Materi Progress
 Route::post('/materi/{id}/complete', [MateriController::class, 'complete'])
     ->name('materi.complete');
+
+
+
+
 
 // ====================
 // GURU

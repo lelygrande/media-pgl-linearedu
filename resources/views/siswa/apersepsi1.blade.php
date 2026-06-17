@@ -10,6 +10,314 @@
             line-height: 1.7;
         }
 
+        /* Aktivitas menempatkan titik pada koordinat */
+        .info-aktivitas {
+            background: #f8fbff;
+            border: 1px solid rgba(74, 118, 184, .25);
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        #canvas-letak-titik canvas {
+            max-width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Petunjuk Detail */
+
+        .petunjuk-detail {
+            background: #f8fbff;
+            border: 1px solid rgba(74, 118, 184, .25);
+            border-left: 5px solid #4a76b8;
+            border-radius: 12px;
+            padding: 14px 16px;
+            line-height: 1.75;
+        }
+
+        .petunjuk-detail p {
+            margin-bottom: 8px;
+        }
+
+        .petunjuk-detail ol,
+        .petunjuk-detail ul {
+            padding-left: 22px;
+            margin-bottom: 0;
+        }
+
+        .petunjuk-detail li {
+            margin-bottom: 6px;
+        }
+
+        .petunjuk-subtitle {
+            font-weight: 700;
+            color: #315f9e;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+
+        .petunjuk-catatan {
+            background: #ffffff;
+            border: 1px dashed rgba(74, 118, 184, .45);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-top: 12px;
+        }
+
+        /* Petunjuk Scroll */
+        .petunjuk-scroll {
+            max-height: 430px;
+            overflow-y: auto;
+            padding-right: 12px;
+        }
+
+        /* Scrollbar agar lebih rapi */
+        .petunjuk-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .petunjuk-scroll::-webkit-scrollbar-track {
+            background: #eef5ff;
+            border-radius: 10px;
+        }
+
+        .petunjuk-scroll::-webkit-scrollbar-thumb {
+            background: #4a76b8;
+            border-radius: 10px;
+        }
+
+        .petunjuk-scroll::-webkit-scrollbar-thumb:hover {
+            background: #315f9e;
+        }
+
+        /* Di HP jangan terlalu tinggi */
+        @media (max-width: 768px) {
+            .petunjuk-scroll {
+                max-height: 360px;
+            }
+        }
+
+        /* Eksplorasi Titik */
+        .eksplorasi-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.95fr;
+            gap: 20px;
+            align-items: start;
+            margin-top: 16px;
+        }
+
+        .eksplorasi-media {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .eksplorasi-media .canvas-responsive {
+            margin-top: 0 !important;
+        }
+
+        @media (max-width: 992px) {
+            .eksplorasi-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .garis-check-section {
+            margin-top: 28px;
+        }
+
+        .garis-check-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #22324a;
+            margin-bottom: 12px;
+        }
+
+        .garis-check-box {
+            background: #ffffff;
+            border: 1px solid rgba(74, 118, 184, .22);
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .04);
+        }
+
+        .petunjuk-garis-box {
+            background: #f8fbff;
+            border: 1px solid rgba(74, 118, 184, .25);
+            border-left: 5px solid #4a76b8;
+            border-radius: 12px;
+            padding: 12px 14px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .soal-garis-item {
+            border-bottom: 1px dashed rgba(74, 118, 184, .25);
+            padding: 14px 0;
+        }
+
+        .soal-garis-item:last-child {
+            border-bottom: none;
+        }
+
+        .soal-garis-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #22324a;
+        }
+
+        .opsi-garis-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .opsi-garis-row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fbff;
+            border: 1px solid #d7e6f8;
+            border-radius: 12px;
+            padding: 10px 14px;
+            cursor: pointer;
+            min-width: 230px;
+            margin: 0;
+        }
+
+        .opsi-garis-row label:hover {
+            background: #eef5ff;
+        }
+
+        .feedback-garis {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .feedback-garis.salah {
+            display: block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            color: #664d03;
+        }
+
+        .feedback-garis.benar {
+            display: block;
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            color: #0f5132;
+        }
+
+        .penyelesaian-garis-box {
+            display: none;
+            margin-top: 18px;
+            background: #ffffff;
+            border: 1px solid rgba(74, 118, 184, .22);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .penyelesaian-garis-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .garis-check-title {
+                font-size: 1.15rem;
+            }
+
+            .garis-check-box {
+                padding: 16px;
+            }
+
+            .opsi-garis-row label {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        .status-garis {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .status-garis.benar {
+            color: #198754;
+        }
+
+        .status-garis.salah {
+            color: #dc3545;
+        }
+
+        .status-garis.belum {
+            color: #b58100;
+        }
+
+        /* Penyelesaian */
+        .penyelesaian-garis-box {
+            display: none;
+            margin-top: 18px;
+            background: #ffffff;
+            border: 1px solid rgba(74, 118, 184, .22);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .penyelesaian-garis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 300px);
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .penyelesaian-garis-item {
+            width: 300px;
+            margin: 0;
+            background: #f8fbff;
+            border: 1px solid rgba(74, 118, 184, .22);
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .penyelesaian-garis-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .penyelesaian-garis-item figcaption {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #22324a;
+        }
+
+        @media (max-width: 768px) {
+            .penyelesaian-garis-grid {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            .penyelesaian-garis-item {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Button Biru */
         .btn-palet {
             background-color: var(--primary-color);
             color: white;
@@ -24,6 +332,7 @@
             background-color: var(--primary-dark);
             color: white;
         }
+
 
         /* ===== Responsive Apersepsi ===== */
         .apersepsi-container {
@@ -88,8 +397,12 @@
             width: 100%;
         }
 
-        /* ===== GeoGebra dan Canvas ===== */
-        .ggb-responsive,
+        /* ===== Canvas ===== */
+
+        .eksplorasi-media .canvas-responsive {
+            padding: 6px;
+        }
+
         .canvas-responsive {
             width: 100%;
             overflow-x: auto;
@@ -101,91 +414,10 @@
             padding: 8px;
         }
 
-        #ggb-element,
-        #canvas-container,
-        #canvas-latihan-buat {
-            width: 100%;
-            min-height: 320px;
-        }
-
-        #canvas-container canvas,
-        #canvas-latihan-buat canvas {
-            max-width: 100% !important;
-            height: auto !important;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* ===== Input Koordinat ===== */
-        .input-koordinat {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .input-koordinat label {
-            font-weight: 600;
-        }
-
-        .input-koordinat .form-control {
-            max-width: 120px;
-            margin-top: 4px;
-        }
-
-        .radio-option {
-            display: block;
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
         .aksi-latihan {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-        }
-
-        /* ===== Tabel Posisi Titik ===== */
-        .table-responsive {
-            width: fit-content;
-            max-width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 8px;
-        }
-
-        .tabel-posisi {
-            width: auto !important;
-            min-width: 0 !important;
-            max-width: none !important;
-            margin-bottom: 0;
-            table-layout: fixed;
-        }
-
-        .tabel-posisi th,
-        .tabel-posisi td {
-            vertical-align: middle;
-            padding: 12px 14px;
-        }
-
-        .tabel-posisi th:nth-child(1),
-        .tabel-posisi td:nth-child(1),
-        .tabel-posisi th:nth-child(2),
-        .tabel-posisi td:nth-child(2) {
-            width: 85px;
-            min-width: 85px;
-        }
-
-        .tabel-posisi th:nth-child(3),
-        .tabel-posisi td:nth-child(3) {
-            width: 220px;
-            min-width: 220px;
-        }
-
-        .input-posisi {
-            width: 140px !important;
-            max-width: 140px;
-            margin: 0 auto;
         }
 
         .medium-zoom-overlay {
@@ -252,12 +484,10 @@
                 max-width: 220px;
             }
 
-            .ggb-responsive,
             .canvas-responsive {
                 padding: 6px;
             }
 
-            #ggb-element,
             #canvas-container,
             #canvas-latihan-buat {
                 min-height: 280px;
@@ -332,675 +562,755 @@
             .gambar-wrapper img {
                 max-height: 240px;
             }
+        }
 
-            .img-titik-asal {
-                max-width: 200px;
-            }
+        /* Canvas untuk menaruh titik2 dan menghubungkan garis */
+        .visual-garis {
+            margin: 14px 0 16px;
+            padding: 14px;
+            border: 1px dashed #d8e4f2;
+            border-radius: 14px;
+            background: #fbfdff;
+        }
 
-            #ggb-element,
-            #canvas-container,
-            #canvas-latihan-buat {
-                min-height: 240px;
-            }
+        .canvas-garis {
+            display: block;
+            width: 100%;
+            max-width: 340px;
+            height: auto;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #dbe5f1;
+            border-radius: 12px;
+        }
 
-            .tabel-posisi {
-                min-width: 360px !important;
-            }
+        .btn-visual-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
 
-            .tabel-posisi th:nth-child(1),
-            .tabel-posisi td:nth-child(1),
-            .tabel-posisi th:nth-child(2),
-            .tabel-posisi td:nth-child(2) {
-                width: 60px;
-                min-width: 60px;
-            }
+        .btn-mini-garis {
+            border: none;
+            border-radius: 999px;
+            padding: 7px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #315f9c;
+            color: #ffffff;
+            cursor: pointer;
+        }
 
-            .tabel-posisi th:nth-child(3),
-            .tabel-posisi td:nth-child(3) {
-                width: 170px;
-                min-width: 170px;
-            }
+        .btn-mini-garis.reset {
+            background: #6c757d;
+        }
 
-            .input-posisi {
-                width: 110px !important;
-                max-width: 110px;
-            }
+        .catatan-visual {
+            margin: 10px 0 0;
+            font-size: 14px;
+            text-align: center;
+            color: #4b5563;
+        }
+
+        /* Alat bantu plotting */
+        .plot-bebas-box {
+            padding: 16px;
+            border: 1px solid #dbe5f1;
+            border-radius: 16px;
+            background: #fbfdff;
+        }
+
+        .plot-bebas-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .info-plot-bebas {
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: #eef6ff;
+            color: #1f2937;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .canvas-plot-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .canvas-plot-wrapper canvas {
+            max-width: 100%;
+            height: auto !important;
+            border: 1px solid #dbe5f1;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .plot-btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-mini-garis {
+            border: none;
+            border-radius: 999px;
+            padding: 7px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #315f9c;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-mini-garis:hover {
+            opacity: 0.9;
+        }
+
+        .btn-mini-garis.reset {
+            background: #6c757d;
+        }
+
+        .status-plot-bebas {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            color: #4b5563;
+        }
+
+        .status-plot-bebas.benar {
+            color: #198754;
+            font-weight: 700;
+        }
+
+        .status-plot-bebas.salah {
+            color: #dc3545;
+            font-weight: 700;
         }
     </style>
 
     <div class="container mt-4 apersepsi-container">
-
         <div class="card shadow-sm mb-4 apersepsi-card">
             <div class="card-body">
-
                 <h1 class="mb-3" style="font-weight: 600;">Apersepsi</h1>
 
                 <p style="text-align: justify;">
-                    Dalam kehidupan sehari-hari, suatu lokasi dapat ditentukan dengan menggunakan dua informasi arah.
-                    Misalnya pada peta kawasan lahan basah, posisi suatu objek seperti tanaman atau rumah
-                    dapat ditentukan berdasarkan arah mendatar dan arah tegak.
-                    Untuk menyatakan posisi tersebut secara tepat, digunakan suatu sistem
-                    yang disebut <strong>sistem koordinat Kartesius</strong>.
+                    Sebelum memahami pengertian Persamaan Garis Lurus, ada baiknya kamu
+                    mengingat kembali materi tentang koordinat Kartesius. Persamaan garis lurus
+                    digambarkan pada bidang koordinat Kartesius. Oleh karena itu, kamu perlu
+                    memahami kembali cara menentukan letak suatu titik pada bidang koordinat
+                    Kartesius.
+                </p>
+
+                <h5 class="mt-4 mb-3" style="font-weight: 700;">Koordinat Kartesius</h5>
+
+                <p style="text-align: justify;">
+                    Pada materi sebelumnya, kamu telah mengenal bidang koordinat Kartesius.
+                    Bidang koordinat Kartesius memiliki dua sumbu yang saling tegak lurus,
+                    yaitu sumbu mendatar yang disebut <strong>sumbu X</strong> dan sumbu tegak
+                    yang disebut <strong>sumbu Y</strong>.
+                </p>
+
+                <p style="text-align: justify;">
+                    Titik potong antara sumbu X dan sumbu Y disebut <strong>titik asal</strong>
+                    atau <strong>titik pusat koordinat</strong>. Titik asal dinyatakan dengan
+                    <strong>O(0,0)</strong>.
                 </p>
 
                 <div class="text-center my-4 gambar-wrapper">
-                    <img src="{{ asset('img/koordinatkartesius.jpg') }}" alt="Bidang Koordinat Kartesius"
+                    <img src="{{ asset('img/koordinatkartesisus.png') }}" alt="Bidang Koordinat Kartesius"
                         class="materi-img zoomable img-koordinat">
                 </div>
-                <p class="mt-2 mb-0 text-center"> <small><strong>Gambar 1.1</strong> Contoh titik pada bidang koordinat
-                        Kartesius</small> </p>
+
+                <p class="mt-2 mb-0 text-center">
+                    <small><strong>Gambar 1.1</strong> Bidang koordinat Kartesius</small>
+                </p>
                 <br>
-                <p style="text-align: justify;">
-                    Sistem koordinat Kartesius terdiri atas dua sumbu yang saling tegak lurus,
-                    yaitu sumbu X (mendatar) dan sumbu Y (tegak).
-                    Titik perpotongan kedua sumbu tersebut disebut <strong>titik asal</strong>
-                    dan dinyatakan dengan (0,0).
-                </p>
-
-                <div class="text-center my-4">
-                    <img src="{{ asset('img/titikpotong00.png') }}" alt="Titik Asal (0,0)"
-                        class="materi-img zoomable img-titik-asal" style="width: 300px">
-                </div>
-                <p class="mt-2 mb-0 text-center"> <small><strong>Gambar 1.2</strong> Sumbu koordinat kartesius</small> </p>
-                <br>
-
-                <p style="text-align: justify;">
-                    Setiap posisi pada bidang koordinat dinyatakan dalam bentuk pasangan bilangan
-                    <strong>(x, y)</strong>.
-                    Pasangan bilangan tersebut menunjukkan letak suatu <strong>titik</strong>
-                    pada bidang koordinat Kartesius.
-                </p>
-
-                <p style="text-align: justify;">
-                    Agar lebih memahami bagaimana suatu titik ditentukan oleh pasangan bilangan
-                    tersebut, lakukanlah aktivitas berikut.
-                </p>
             </div>
         </div>
 
-        {{-- Eksplorasi Titik --}}
-        <div class="position-relative apersepsi-section">
+        <div class="mt-4">
+            <h5 style="font-weight: 700;">a. Menggambar Titik pada Koordinat Kartesius</h5>
 
-            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
-                Eksplorasi Titik
-            </div>
+            <p style="text-align: justify;">
+                Setiap titik pada bidang koordinat Kartesius dinyatakan dalam bentuk pasangan
+                berurutan <strong>(x, y)</strong>. Nilai <strong>x</strong> menunjukkan posisi titik
+                pada sumbu-X dan disebut <strong>absis</strong>, sedangkan nilai <strong>y</strong>
+                menunjukkan posisi titik pada sumbu-Y dan disebut <strong>ordinat</strong>.
+                Oleh karena itu, letak suatu titik pada bidang koordinat dapat ditentukan
+                dengan memperhatikan pasangan bilangan tersebut.
+            </p>
 
-            <div class="box-pengantar mt-3 mb-3">
-                Pada aktivitas ini kamu akan mengeksplorasi bagaimana posisi sebuah titik
-                ditentukan oleh dua bilangan, yaitu $x$ dan $y$.
+            <p style="text-align: justify;">
+                Perhatikan gambar berikut. Pada gambar tersebut terdapat beberapa titik pada
+                bidang koordinat Kartesius. Setiap titik dapat dituliskan dalam bentuk
+                pasangan koordinat sesuai dengan letaknya pada sumbu-X dan sumbu-Y.
+            </p>
 
-                <br><br>
-
-                <b>Lakukan langkah berikut:</b>
-                <ol class="mb-0 mt-2">
-                    <li>Geser titik A ke arah kanan dan ke kiri.</li>
-                    <li>Perhatikan bagaimana nilai <b>x</b> berubah.</li>
-                    <li>Selanjutnya geser titik A ke arah atas dan ke bawah.</li>
-                    <li>Perhatikan bagaimana nilai <b>y</b> berubah.</li>
-                </ol>
-
-                Amati perubahan nilai koordinat yang ditampilkan pada titik tersebut.
-            </div>
-
-            <div class="ggb-responsive mt-4">
-                <div id="ggb-element"></div>
-            </div>
-
-            <div class="mt-4">
-
-                <p>
-                    Setelah melakukan pengamatan terhadap pergerakan titik,
-                    jawablah pertanyaan berikut berdasarkan hasil eksplorasimu.
-                </p>
-
-                <div class="mb-3">
-                    <p>1. Apa yang terjadi pada nilai x ketika titik digeser ke arah kanan?</p>
-
-                    <label class="radio-option">
-                        <input type="radio" name="q1" value="a"> a. Nilai x berkurang
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q1" value="b"> b. Nilai x tetap
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q1" value="c"> c. Nilai x bertambah
-                    </label>
-
-                    <div id="result1" class="mt-1"></div>
+            <div class="contoh-koordinat-wrap my-4">
+                <div class="contoh-koordinat-gambar">
+                    <img src="{{ asset('img/contoh-titik-koordinat.png') }}"
+                        alt="Contoh titik pada bidang koordinat Kartesius" class="materi-img zoomable"
+                        style="max-width: 300px">
+                    <p class="mt-2 mb-0 text-center">
+                        <small><strong>Gambar 3.2</strong> Contoh titik pada bidang koordinat Kartesius</small>
+                    </p>
                 </div>
 
-                <div class="mb-3">
-                    <p>2. Apa yang terjadi pada nilai y ketika titik digeser ke arah atas?</p>
-
-                    <label class="radio-option">
-                        <input type="radio" name="q2" value="a"> a. Nilai y tetap
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q2" value="b"> b. Nilai y bertambah
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q2" value="c"> c. Nilai y berkurang
-                    </label>
-
-                    <div id="result2" class="mt-1"></div>
-                </div>
-
-                <div class="mb-3">
-                    <p>3. Apa yang terjadi jika titik digeser ke kiri dan ke bawah?</p>
-
-                    <label class="radio-option">
-                        <input type="radio" name="q3" value="a"> a. Nilai x dan y berkurang
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q3" value="b"> b. Nilai x bertambah dan y berkurang
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="q3" value="c"> c. Nilai x dan y bertambah
-                    </label>
-
-                    <div id="result3" class="mt-1"></div>
-                </div>
-
-                <button class="btn-palet btn mt-2" onclick="cekJawaban()">Cek Jawaban</button>
-
-                <div id="kesimpulanBox" class="mt-4 p-3 border border-success rounded bg-light" style="display:none;">
-                    <strong>Kesimpulan:</strong><br>
-                    Pada bidang koordinat Kartesius, posisi suatu titik ditentukan oleh pasangan
-                    bilangan <b>(x, y)</b>.
-
-                    <ul class="mb-0 mt-2">
-                        <li>Nilai <b>x</b> menunjukkan posisi titik secara mendatar.</li>
-                        <li>Nilai <b>y</b> menunjukkan posisi titik secara tegak.</li>
+                <div class="contoh-koordinat-daftar">
+                    <p><strong>Penulisan titik koordinat:</strong></p>
+                    <ul class="mb-0">
+                        <li><strong>A</strong> = (2, 1)</li>
+                        <li><strong>B</strong> = (-2, 3)</li>
+                        <li><strong>C</strong> = (-3, -1)</li>
+                        <li><strong>D</strong> = (4, -3)</li>
+                        <li><strong>E</strong> = (3, 0)</li>
+                        <li><strong>F</strong> = (0, 2)</li>
                     </ul>
+                </div>
+            </div>
 
-                    Dengan demikian, setiap titik pada bidang koordinat dapat dinyatakan
-                    dalam bentuk pasangan berurutan <b>(x, y)</b>.
+            <div class="cara-menentukan-box">
+                <h6 class="mb-2"><strong>Cara Menentukan Letak Titik</strong></h6>
+                <ol class="mb-0">
+                    <li>Bacalah pasangan koordinat dalam bentuk <strong>(x, y)</strong>.</li>
+                    <li>Tentukan nilai <strong>x</strong> terlebih dahulu pada sumbu-X.</li>
+                    <li>
+                        Jika <strong>x</strong> bernilai positif, bergerak ke <strong>kanan</strong>.
+                        Jika <strong>x</strong> bernilai negatif, bergerak ke <strong>kiri</strong>.
+                    </li>
+                    <li>
+                        Setelah itu, tentukan nilai <strong>y</strong> pada sumbu-Y.
+                        Jika <strong>y</strong> bernilai positif, bergerak ke <strong>atas</strong>.
+                        Jika <strong>y</strong> bernilai negatif, bergerak ke <strong>bawah</strong>.
+                    </li>
+                    <li>Titik perpotongan kedua arah tersebut merupakan letak titik yang dimaksud.</li>
+                </ol>
+            </div>
+
+            <div class="contoh-koordinat-box mt-3">
+                <p class="mb-2"><strong>Contoh:</strong></p>
+                <p class="mb-1">
+                    Titik <strong>A(2,1)</strong> berarti dari titik asal <strong>O(0,0)</strong>,
+                    bergerak <strong>2 satuan ke kanan</strong> dan <strong>1 satuan ke atas</strong>.
+                </p>
+                <p class="mb-0">
+                    Titik <strong>B(-2,3)</strong> berarti dari titik asal <strong>O(0,0)</strong>,
+                    bergerak <strong>2 satuan ke kiri</strong> dan <strong>3 satuan ke atas</strong>.
+                </p>
+            </div>
+        </div>
+
+        {{-- Eksplorasi Menentukan Letak Titik --}}
+        <div class="position-relative apersepsi-section mt-5">
+
+            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
+                Eksplorasi Menentukan Letak Titik
+            </div>
+
+            <div class="eksplorasi-layout">
+                <div class="box-pengantar petunjuk-detail petunjuk-scroll mt-3 mb-3">
+                    <div class="petunjuk-subtitle">Petunjuk aktivitas:</div>
+
+                    <ol>
+                        <li>Perhatikan titik yang harus ditempatkan.</li>
+                        <li>Baca angka pertama sebagai nilai <b>x</b>.</li>
+                        <li>Baca angka kedua sebagai nilai <b>y</b>.</li>
+                        <li>Klik posisi titik pada perpotongan garis koordinat yang sesuai.</li>
+                        <li>Jika titik yang kamu klik benar, titik akan muncul pada bidang koordinat dan kamu akan lanjut ke
+                            titik berikutnya.</li>
+                        <li>Jika titik yang kamu klik salah, akan muncul tanda silang, lalu baca petunjuk dan coba klik
+                            kembali.</li>
+                    </ol>
+
+                    <div class="petunjuk-catatan">
+                        <b>Contoh:</b> Titik <b>A(2,3)</b> berarti dari titik asal
+                        <b>O(0,0)</b>, bergerak 2 satuan ke kanan dan 3 satuan ke atas.
+                    </div>
+                </div>
+
+                <div class="eksplorasi-media mt-3">
+                    <div class="canvas-responsive">
+                        <div id="canvas-letak-titik"></div>
+                    </div>
+
+                    <div id="infoLetakTitik" class="info-aktivitas">
+                        Klik posisi titik <b>A(2,3)</b> pada bidang koordinat.
+                    </div>
+
+                    <div class="aksi-latihan mt-2">
+                        <button class="btn-palet btn btn-sm" onclick="resetLetakTitik()">Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        {{-- Eksplorasi Titik pada Bidang Koordinat --}}
-        <div class="position-relative apersepsi-section mt-5">
-
-            <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
-                Eksplorasi Titik pada Bidang Koordinat
-            </div>
-
-            <p class="mt-3">
-                Setelah memahami bahwa posisi titik dinyatakan dengan pasangan berurutan (x,y),
-                sekarang kamu akan mencoba menentukan posisi titik berdasarkan nilai x dan y
-                yang diberikan.
+        <div class="mt-4">
+            <h5 style="font-weight: 700;">b. Menggambar Garis pada Koordinat Kartesius</h5>
+            <p class="mt-3" style="text-align: justify;">
+                Setelah kamu dapat menentukan letak titik pada bidang koordinat Kartesius,
+                sekarang kamu akan mengamati bagaimana beberapa titik dapat dihubungkan
+                sehingga membentuk sebuah garis.
             </p>
 
-            <div class="box-pengantar mt-3 mb-3">
-                Pada aktivitas ini kamu akan mencoba menentukan posisi titik berdasarkan nilai
-                <b>x</b> dan <b>y</b>.
+            <p style="text-align: justify;">
+                Sebuah garis lurus dapat digambar dengan menggunakan sedikitnya dua titik
+                pada bidang koordinat. Jika beberapa titik berada pada arah atau pola yang
+                sama, maka titik-titik tersebut dapat dihubungkan dan membentuk garis lurus.
+            </p>
 
-                <br><br>
+            <div class="box-pengantar petunjuk-detail mt-3 mb-3">
+                <div class="petunjuk-subtitle">Perhatikan ilustrasi berikut:</div>
 
-                <b>Petunjuk:</b>
-                <ul class="mb-0 mt-2">
-                    <li>Ubah nilai X dan Y pada kotak input.</li>
-                    <li>Perhatikan bagaimana posisi titik berpindah pada bidang koordinat.</li>
-                    <li>Tentukan pasangan berurutan yang sesuai pada tabel.</li>
-                </ul>
+                <p style="text-align: justify;">
+                    Misalkan terdapat titik <b>A(0,1)</b>, <b>B(1,2)</b>,
+                    <b>C(2,3)</b>, dan <b>D(3,4)</b>. Titik-titik tersebut terletak
+                    pada bidang koordinat Kartesius. Jika titik-titik itu dihubungkan
+                    secara berurutan, maka akan terbentuk sebuah garis lurus.
+                </p>
+
+                <div class="text-center my-4 gambar-wrapper">
+                    <img src="{{ asset('img/ilustrasi-garis-lurus.png') }}"
+                        alt="Ilustrasi titik-titik pembentuk garis lurus" class="materi-img zoomable img-koordinat">
+                </div>
+
+                <p class="mt-2 mb-0 text-center">
+                    <small><strong>Gambar 3.3</strong> Titik-titik pada bidang koordinat yang membentuk garis lurus</small>
+                </p>
             </div>
-
-            <div class="mb-3 input-koordinat">
-                <label>
-                    X:
-                    <input type="number" id="inputX" value="0" class="form-control">
-                </label>
-
-                <label>
-                    Y:
-                    <input type="number" id="inputY" value="0" class="form-control">
-                </label>
-            </div>
-
-            <div class="canvas-responsive mt-3">
-                <div id="canvas-container"></div>
-            </div>
-
-            <h5 class="mt-4"><strong>Lengkapilah Posisi Titik Berikut</strong></h5>
-
-            <div class="table-responsive" style="width: fit-content; max-width: 100%; overflow-x: auto;">
-                <table class="table table-bordered text-center" style="width: auto; table-layout: fixed; margin-bottom: 0;">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="width: 80px;">x</th>
-                            <th style="width: 80px;">y</th>
-                            <th style="width: 220px;">Posisi Titik</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="vertical-align: middle;">3</td>
-                            <td style="vertical-align: middle;">2</td>
-                            <td style="vertical-align: middle;">
-                                <input type="text" id="p1" class="form-control text-center"
-                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;">-2</td>
-                            <td style="vertical-align: middle;">4</td>
-                            <td style="vertical-align: middle;">
-                                <input type="text" id="p2" class="form-control text-center"
-                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;">-3</td>
-                            <td style="vertical-align: middle;">-1</td>
-                            <td style="vertical-align: middle;">
-                                <input type="text" id="p3" class="form-control text-center"
-                                    placeholder="(x,y)" style="width: 140px; margin: 0 auto;">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <button class="btn-palet btn" onclick="cekTitik()">Cek Jawaban</button>
-
-            <div id="hasilTitik" class="mt-3"></div>
         </div>
 
-        {{-- Latihan Membuat Titik --}}
+        {{-- Eksplorasi Menentukan Titik-Titik yang Membentuk Garis Lurus --}}
         <div class="position-relative apersepsi-section mt-5">
 
             <div class="position-absolute px-3 py-2 text-white fw-bold section-label">
-                Latihan Membuat Titik
+                Eksplorasi Menentukan Titik-Titik yang Membentuk Garis Lurus
             </div>
 
-            <p class="mt-3">
-                Sekarang kamu sudah dapat membaca posisi titik pada bidang koordinat.
-                Selanjutnya, cobalah menempatkan titik secara mandiri berdasarkan pasangan
-                bilangan yang diberikan.
-            </p>
+            <div class="garis-check-box mt-3">
 
-            <div class="box-pengantar mt-3 mb-3">
-                Pada latihan ini kamu akan menempatkan titik pada bidang koordinat
-                dengan cara <b>mengklik</b> lokasi yang sesuai.
+                <div class="petunjuk-garis-box">
+                    <strong>Petunjuk eksplorasi:</strong><br>
+                    Gunakan alat bantu bidang koordinat berikut untuk membuat tiga titik secara mandiri.
+                    Klik tiga posisi titik pada bidang Kartesius, lalu klik tombol <strong>Lihat Garis</strong>.
+                    Amati apakah ketiga titik tersebut berada pada satu garis yang sama atau tidak.
+                    Setelah memahami bentuk titik-titik yang membentuk garis lurus, kerjakan soal berikut
+                    dengan memilih jawaban yang sesuai.
+                </div>
 
-                <br><br>
+                <div class="plot-bebas-box mt-3 mb-4">
+                    <div class="plot-bebas-title">
+                        Aktivitas Membuat Garis Lurus
+                    </div>
 
-                Ingat bahwa suatu titik dinyatakan dengan pasangan berurutan
-                <b>(x,y)</b>.
+                    <div id="infoPlotBebas" class="info-plot-bebas">
+                        Klik 3 titik pada bidang koordinat Kartesius.
+                    </div>
 
-                <br><br>
+                    <div id="canvas-plot-bebas" class="canvas-plot-wrapper"></div>
 
-                <b>Tugasmu:</b>
-                <ul class="mb-0 mt-2">
-                    <li>Klik posisi yang sesuai untuk titik B, C, dan D.</li>
-                    <li>Perhatikan arah mendatar (x) dan arah tegak (y).</li>
-                    <li>Jika terjadi kesalahan, gunakan tombol <b>Reset</b>.</li>
-                </ul>
+                    <div class="plot-btn-row">
+                        <button type="button" class="btn-mini-garis" onclick="lihatGarisPlotBebas()">
+                            Lihat Garis
+                        </button>
+
+                        <button type="button" class="btn-mini-garis reset" onclick="resetPlotBebas()">
+                            Reset
+                        </button>
+                    </div>
+
+                    <div id="statusPlotBebas" class="status-plot-bebas"></div>
+                </div>
+
+                <div class="soal-garis-item" id="itemGaris1">
+                    <div class="soal-garis-title">
+                        1. $A(0,0)$, $B(1,1)$, $C(2,2)$
+                    </div>
+
+                    <div class="opsi-garis-row">
+                        <label>
+                            <input type="radio" name="garis1" value="ya">
+                            Membentuk garis lurus
+                        </label>
+
+                        <label>
+                            <input type="radio" name="garis1" value="tidak">
+                            Tidak membentuk garis lurus
+                        </label>
+                    </div>
+
+                    <div id="statusGaris1" class="status-garis"></div>
+                </div>
+
+                <div class="soal-garis-item" id="itemGaris2">
+                    <div class="soal-garis-title">
+                        2. $D(2,-2)$, $E(1,-1)$, $F(0,0)$
+                    </div>
+
+                    <div class="opsi-garis-row">
+                        <label>
+                            <input type="radio" name="garis2" value="ya">
+                            Membentuk garis lurus
+                        </label>
+
+                        <label>
+                            <input type="radio" name="garis2" value="tidak">
+                            Tidak membentuk garis lurus
+                        </label>
+                    </div>
+
+                    <div id="statusGaris2" class="status-garis"></div>
+                </div>
+
+                <div class="soal-garis-item" id="itemGaris3">
+                    <div class="soal-garis-title">
+                        3. $G(-2,1)$, $H(1,0)$, $I(4,3)$
+                    </div>
+
+                    <div class="opsi-garis-row">
+                        <label>
+                            <input type="radio" name="garis3" value="ya">
+                            Membentuk garis lurus
+                        </label>
+
+                        <label>
+                            <input type="radio" name="garis3" value="tidak">
+                            Tidak membentuk garis lurus
+                        </label>
+                    </div>
+
+                    <div id="statusGaris3" class="status-garis"></div>
+                </div>
+
+                <div class="soal-garis-item" id="itemGaris4">
+                    <div class="soal-garis-title">
+                        4. $J(2,-2)$, $K(3,0)$, $L(1,1)$
+                    </div>
+
+                    <div class="opsi-garis-row">
+                        <label>
+                            <input type="radio" name="garis4" value="ya">
+                            Membentuk garis lurus
+                        </label>
+
+                        <label>
+                            <input type="radio" name="garis4" value="tidak">
+                            Tidak membentuk garis lurus
+                        </label>
+                    </div>
+
+                    <div id="statusGaris4" class="status-garis"></div>
+                </div>
+
+                <button class="btn-palet btn mt-3" onclick="cekGarisLurus()">
+                    Cek Jawaban
+                </button>
+
+                <div id="feedbackGarisLurus" class="feedback-garis"></div>
+
+                <div id="penyelesaianGarisLurus" class="penyelesaian-garis-box">
+                    <p class="mb-3">
+                        <strong>Penyelesaian:</strong>
+                    </p>
+
+                    <div class="penyelesaian-garis-grid">
+
+                        <figure class="penyelesaian-garis-item">
+                            <div class="label-penyelesaian">Jawaban No. 1</div>
+
+                            <img src="{{ asset('img/apersepsi/gambar1.png') }}" alt="Jawaban nomor 1 titik A, B, dan C"
+                                class="zoomable">
+
+                            <figcaption>
+                                Titik-titik $A(0,0)$, $B(1,1)$, dan $C(2,2)$ berada pada satu garis yang sama.
+                                Jadi, titik-titik tersebut <strong>membentuk garis lurus</strong>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="penyelesaian-garis-item">
+                            <div class="label-penyelesaian">Jawaban No. 2</div>
+
+                            <img src="{{ asset('img/apersepsi/gambar2.png') }}" alt="Jawaban nomor 2 titik D, E, dan F"
+                                class="zoomable">
+
+                            <figcaption>
+                                Titik-titik $D(2,-2)$, $E(1,-1)$, dan $F(0,0)$ berada pada satu garis yang sama.
+                                Jadi, titik-titik tersebut <strong>membentuk garis lurus</strong>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="penyelesaian-garis-item">
+                            <div class="label-penyelesaian">Jawaban No. 3</div>
+
+                            <img src="{{ asset('img/apersepsi/gambar3.png') }}" alt="Jawaban nomor 3 titik G, H, dan I"
+                                class="zoomable">
+
+                            <figcaption>
+                                Titik-titik $G(-2,1)$, $H(1,0)$, dan $I(4,3)$ tidak berada pada satu garis yang sama.
+                                Jadi, titik-titik tersebut <strong>tidak membentuk garis lurus</strong>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="penyelesaian-garis-item">
+                            <div class="label-penyelesaian">Jawaban No. 4</div>
+
+                            <img src="{{ asset('img/apersepsi/gambar4.png') }}" alt="Jawaban nomor 4 titik J, K, dan L"
+                                class="zoomable">
+
+                            <figcaption>
+                                Titik-titik $J(2,-2)$, $K(3,0)$, dan $L(1,1)$ tidak berada pada satu garis yang sama.
+                                Jadi, titik-titik tersebut <strong>tidak membentuk garis lurus</strong>.
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="box-pengantar mt-4">
+                        <p style="text-align: justify;">
+                            Berdasarkan aktivitas sebelumnya, dapat diketahui bahwa beberapa titik
+                            pada bidang koordinat Kartesius dapat membentuk garis lurus apabila
+                            titik-titik tersebut terletak pada satu garis yang sama.
+                        </p>
+
+                        <p style="text-align: justify;">
+                            Garis lurus yang terbentuk pada bidang koordinat dapat dinyatakan dalam
+                            bentuk persamaan. Persamaan inilah yang disebut sebagai
+                            <strong>Persamaan Garis Lurus</strong>.
+                        </p>
+
+                        <p style="text-align: justify;" class="mb-0">
+                            Selanjutnya, kamu akan mempelajari bentuk umum Persamaan Garis Lurus.
+                        </p>
+                    </div>
+                </div>
             </div>
-
-            <ul>
-                <li>$B (2,3)$</li>
-                <li>$C (-7,3)$</li>
-                <li>$D (5,-4)$</li>
-            </ul>
-
-            <div class="canvas-responsive">
-                <div id="canvas-latihan-buat"></div>
-            </div>
-
-            <div class="aksi-latihan mt-3">
-                <button class="btn-palet btn btn-sm" onclick="cekTitikBuat()">Cek Jawaban</button>
-                <button class="btn-palet btn btn-sm" onclick="resetTitik()">Reset</button>
-            </div>
-
-            <div id="hasilLatihanBuat" class="mt-3"></div>
         </div>
     </div>
 
-    {{-- GeoGebra --}}
-    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    {{-- Aktivitas P5 --}}
 
+    {{-- Menentukan titik pada Bidang Kartesius --}}
     <script>
-        let applet = null;
+        // Aktivitas Menentukan letak titik pada koordinat Kartesius
+        let targetLetakTitik = [{
+                nama: "A",
+                x: 2,
+                y: 3
+            },
+            {
+                nama: "B",
+                x: -2,
+                y: 3
+            },
+            {
+                nama: "C",
+                x: 2,
+                y: -3
+            },
+            {
+                nama: "D",
+                x: -3,
+                y: -2
+            },
+        ];
 
-        // =========================
-        // Responsive Size
-        // =========================
-        function getGgbSize() {
+        let indeksLetakTitik = 0;
+        let titikLetakBenar = [];
+        let titikLetakPercobaan = null;
 
-            const container = document.querySelector('.ggb-responsive');
+        function petunjukArahTitik(titik) {
+            let arahX = "";
 
-            const width = container ?
-                container.clientWidth - 16 :
-                700;
-
-            // MOBILE
-            if (window.innerWidth <= 768) {
-
-                return {
-                    width: Math.max(320, width),
-                    height: 320
-                };
-            }
-
-            // DESKTOP
-            return {
-                width: Math.min(400, width),
-                height: 400
-            };
-        }
-
-        // =========================
-        // On Load GeoGebra
-        // =========================
-        function ggbOnLoad(api) {
-
-            // tampilan grafik saja
-            api.setPerspective("G");
-
-            // grid & axis
-            api.setAxesVisible(true, true);
-            api.setGridVisible(true);
-
-            // grid sederhana
-            api.setGraphicsOptions(1, {
-                gridType: 0,
-            });
-
-            api.setAxisSteps(1, 1, 1, 1);
-
-            // koordinat responsive
-            if (window.innerWidth <= 768) {
-
-                // mobile lebih zoom
-                api.setCoordSystem(-5, 5, -5, 5);
-
+            if (titik.x > 0) {
+                arahX = `${titik.x} satuan ke kanan`;
+            } else if (titik.x < 0) {
+                arahX = `${Math.abs(titik.x)} satuan ke kiri`;
             } else {
-
-                // desktop
-                api.setCoordSystem(-6, 6, -6, 6);
+                arahX = `tetap pada sumbu Y`;
             }
 
-            // titik eksplorasi
-            api.evalCommand("A=(1,1)");
+            let arahY = "";
 
-            api.setLabelVisible("A", true);
-
-            api.setPointSize("A", 6);
-
-            api.setColor("A", 0, 102, 204);
-        }
-
-        // =========================
-        // Init GeoGebra
-        // =========================
-        function loadGeoGebra() {
-
-            const ggbSize = getGgbSize();
-
-            const params = {
-
-                appName: "classic",
-
-                id: "ggbApplet",
-
-                width: ggbSize.width,
-                height: ggbSize.height,
-
-                showToolBar: false,
-                showAlgebraInput: false,
-                showMenuBar: false,
-
-                showZoomButtons: false,
-                showFullscreenButton: false,
-
-                enableShiftDragZoom: true,
-                enableRightClick: false,
-
-                showResetIcon: true,
-
-                appletOnLoad: ggbOnLoad
-            };
-
-            applet = new GGBApplet(params, true);
-
-            applet.inject('ggb-element');
-        }
-
-        // =========================
-        // Load
-        // =========================
-        window.addEventListener("load", function() {
-
-            loadGeoGebra();
-
-        });
-    </script>
-
-    {{-- Cek Jawaban Eksplorasi GeoGebra --}}
-    <script>
-        function cekJawaban() {
-            const kunci = {
-                q1: "c",
-                q2: "b",
-                q3: "a"
-            };
-
-            let benarSemua = true;
-
-            for (let key in kunci) {
-                const jawaban = document.querySelector(`input[name="${key}"]:checked`);
-                const resultDiv = document.getElementById("result" + key.slice(1));
-
-                if (!jawaban) {
-                    resultDiv.innerHTML = "<span class='text-warning'>Pilih salah satu jawaban</span>";
-                    benarSemua = false;
-                } else if (jawaban.value === kunci[key]) {
-                    resultDiv.innerHTML = "<span class='text-success'>✓ Benar</span>";
-                } else {
-                    resultDiv.innerHTML = "<span class='text-danger'>✗ Salah</span>";
-                    benarSemua = false;
-                }
-            }
-
-            if (benarSemua) {
-                document.getElementById("kesimpulanBox").style.display = "block";
+            if (titik.y > 0) {
+                arahY = `${titik.y} satuan ke atas`;
+            } else if (titik.y < 0) {
+                arahY = `${Math.abs(titik.y)} satuan ke bawah`;
             } else {
-                document.getElementById("kesimpulanBox").style.display = "none";
+                arahY = `tetap pada sumbu X`;
             }
+
+            return `Dari O(0,0), bergerak ${arahX}, lalu ${arahY}.`;
         }
-    </script>
 
-    {{-- p5 --}}
-    <script src="{{ asset('js/subbabA/eksplorasititik1.js') }}"></script>
-    <script>
-        let titikSiswa = [];
-        let daftarNama = ["B", "C", "D"];
+        function updateInfoLetakTitik() {
+            const infoBox = document.getElementById("infoLetakTitik");
 
-        const sketch = (p) => {
-            const gridSize = 400;
+            if (!infoBox) return;
+
+            if (indeksLetakTitik >= targetLetakTitik.length) {
+                infoBox.innerHTML =
+                    `Bagus, kamu sudah bisa menempatkan titik pada bidang koordinat Kartesius dengan baik.`;
+                return;
+            }
+
+            const titik = targetLetakTitik[indeksLetakTitik];
+
+            infoBox.innerHTML =
+                `Klik posisi titik <b>${titik.nama}(${titik.x},${titik.y})</b> pada bidang koordinat. ` +
+                petunjukArahTitik(titik);
+        }
+        const sketchLetakTitik = (p) => {
+            const canvasW = 360;
+            const canvasH = 340;
+            const gridSize = 280;
 
             let originX;
             let originY;
             let scaleUnit;
 
-            let lastClickTime = 0;
-
             p.setup = function() {
-                let canvas = p.createCanvas(450, 500);
+                const canvas = p.createCanvas(canvasW, canvasH);
+                canvas.parent("canvas-letak-titik");
 
-                canvas.parent("canvas-latihan-buat");
+                originX = canvasW / 2;
+                originY = 25 + gridSize / 2;
+                scaleUnit = gridSize / 10;
 
-                scaleUnit = gridSize / 20;
-
-                originX = p.width / 2;
-                originY = p.height / 2;
-
-                // klik hanya aktif di canvas saja
                 canvas.mousePressed(function() {
-                    handleInput();
+                    handleKlikLetakTitik();
                     return false;
                 });
             };
 
             p.draw = function() {
-                p.background(245);
-
+                p.background(250);
                 drawGrid();
-                drawTitik();
-                drawInfo();
+                drawTitikBenar();
+
+                if (titikLetakPercobaan) {
+                    drawTitikPercobaan();
+                }
             };
 
-            // =========================
-            // CLICK INPUT
-            // =========================
-            function handleInput() {
+            function handleKlikLetakTitik() {
+                if (indeksLetakTitik >= targetLetakTitik.length) return;
 
-                // cegah double trigger
-                if (p.millis() - lastClickTime < 300) {
-                    return;
+                const koordinat = pixelToCoord(p.mouseX, p.mouseY);
+
+                if (!koordinat) return;
+
+                const target = targetLetakTitik[indeksLetakTitik];
+
+                if (koordinat.x === target.x && koordinat.y === target.y) {
+                    titikLetakBenar.push({
+                        nama: target.nama,
+                        x: target.x,
+                        y: target.y,
+                    });
+
+                    titikLetakPercobaan = null;
+                    indeksLetakTitik++;
+
+                    updateInfoLetakTitik();
+                } else {
+                    titikLetakPercobaan = {
+                        x: koordinat.x,
+                        y: koordinat.y,
+                    };
                 }
-
-                lastClickTime = p.millis();
-
-                // maksimal 3 titik
-                if (titikSiswa.length >= 3) {
-                    return;
-                }
-
-                const titik = pixelToCoord(
-                    p.mouseX,
-                    p.mouseY
-                );
-
-                if (!titik) {
-                    return;
-                }
-
-                titikSiswa.push({
-                    nama: daftarNama[titikSiswa.length],
-                    x: titik.x,
-                    y: titik.y,
-                });
             }
 
-            // =========================
-            // GRID
-            // =========================
             function drawGrid() {
                 p.push();
 
-                p.translate(originX, originY);
-
-                // grid
                 p.stroke(220);
-
-                for (let i = -10; i <= 10; i++) {
-                    p.line(i * scaleUnit, -200, i * scaleUnit, 200);
-
-                    p.line(-200, i * scaleUnit, 200, i * scaleUnit);
-                }
-
-                // axis
-                p.stroke(0);
-
-                p.strokeWeight(2);
-
-                p.line(-200, 0, 200, 0);
-
-                p.line(0, -200, 0, 200);
-
                 p.strokeWeight(1);
 
-                // ticks
-                for (let i = -10; i <= 10; i++) {
-                    p.line(i * scaleUnit, -5, i * scaleUnit, 5);
+                for (let i = -5; i <= 5; i++) {
+                    const x = originX + i * scaleUnit;
+                    const y = originY - i * scaleUnit;
 
-                    p.line(-5, i * scaleUnit, 5, i * scaleUnit);
+                    p.line(x, originY - gridSize / 2, x, originY + gridSize / 2);
+                    p.line(originX - gridSize / 2, y, originX + gridSize / 2, y);
                 }
 
-                // numbers
+                p.stroke(0);
+                p.strokeWeight(2);
+
+                p.line(originX - gridSize / 2 - 10, originY, originX + gridSize / 2 + 10, originY);
+                p.line(originX, originY + gridSize / 2 + 10, originX, originY - gridSize / 2 - 10);
+
                 p.noStroke();
-
                 p.fill(0);
-
                 p.textSize(12);
 
-                for (let i = -10; i <= 10; i++) {
+                for (let i = -5; i <= 5; i++) {
                     if (i !== 0) {
-                        p.text(i, i * scaleUnit - 4, 18);
-
-                        p.text(i, -18, -i * scaleUnit + 4);
+                        p.text(i, originX + i * scaleUnit - 4, originY + 18);
+                        p.text(i, originX - 20, originY - i * scaleUnit + 4);
                     }
                 }
 
-                p.text("0", 6, 15);
+                p.text("O", originX + 6, originY + 16);
+                p.text("x", originX + gridSize / 2 + 16, originY - 8);
+                p.text("y", originX + 8, originY - gridSize / 2 - 16);
 
                 p.pop();
             }
 
-            // =========================
-            // DRAW TITIK
-            // =========================
-            function drawTitik() {
+            function drawTitikBenar() {
                 p.push();
 
-                p.translate(originX, originY);
+                titikLetakBenar.forEach((t) => {
+                    const px = originX + t.x * scaleUnit;
+                    const py = originY - t.y * scaleUnit;
 
-                titikSiswa.forEach((t) => {
-                    p.fill("red");
-
+                    p.fill(0, 102, 204);
                     p.noStroke();
-
-                    p.circle(t.x * scaleUnit, -t.y * scaleUnit, 10);
+                    p.circle(px, py, 11);
 
                     p.fill(0);
-
                     p.textSize(14);
-
-                    p.text(t.nama, t.x * scaleUnit + 8, -t.y * scaleUnit - 8);
+                    p.text(`${t.nama}(${t.x},${t.y})`, px + 8, py - 8);
                 });
 
                 p.pop();
             }
 
-            // =========================
-            // INFO
-            // =========================
-            function drawInfo() {
-                p.fill(0);
+            function drawTitikPercobaan() {
+                const px = originX + titikLetakPercobaan.x * scaleUnit;
+                const py = originY - titikLetakPercobaan.y * scaleUnit;
 
-                p.noStroke();
+                p.push();
 
-                p.textSize(13);
+                p.stroke(220, 0, 0);
+                p.strokeWeight(3);
+                p.line(px - 6, py - 6, px + 6, py + 6);
+                p.line(px + 6, py - 6, px - 6, py + 6);
 
-                if (titikSiswa.length < 3) {
-                    p.text(
-                        `Klik untuk menempatkan titik ${daftarNama[titikSiswa.length]}`,
-                        20,
-                        480,
-                    );
-                } else {
-                    p.text(
-                        `Semua titik sudah ditempatkan. Klik "Cek Jawaban".`,
-                        20,
-                        480,
-                    );
-                }
+                p.pop();
             }
 
-            // =========================
-            // PIXEL TO COORD
-            // =========================
             function pixelToCoord(px, py) {
-                let x = Math.round((px - originX) / scaleUnit);
+                const batasKiri = originX - gridSize / 2;
+                const batasKanan = originX + gridSize / 2;
+                const batasAtas = originY - gridSize / 2;
+                const batasBawah = originY + gridSize / 2;
 
-                let y = Math.round((originY - py) / scaleUnit);
+                if (px < batasKiri || px > batasKanan || py < batasAtas || py > batasBawah) {
+                    return null;
+                }
 
-                x = p.constrain(x, -10, 10);
-
-                y = p.constrain(y, -10, 10);
+                const x = Math.round((px - originX) / scaleUnit);
+                const y = Math.round((originY - py) / scaleUnit);
 
                 return {
                     x,
@@ -1009,87 +1319,381 @@
             }
         };
 
-        new p5(sketch);
-
-        // =========================
-        // CEK JAWABAN
-        // =========================
-        function cekTitikBuat() {
-            const target = [{
-                    nama: "B",
-                    x: 2,
-                    y: 3
-                },
-                {
-                    nama: "C",
-                    x: -7,
-                    y: 3
-                },
-                {
-                    nama: "D",
-                    x: 5,
-                    y: -4
-                },
-            ];
-
-            let benar = target.every((t) =>
-                titikSiswa.some((s) => s.nama === t.nama && s.x === t.x && s.y === t.y),
-            );
-
-            if (benar) {
-                document.getElementById("hasilLatihanBuat").innerHTML =
-                    "<div class='alert alert-success'>Semua titik (B, C, D) sudah benar</div>";
-            } else {
-                document.getElementById("hasilLatihanBuat").innerHTML =
-                    "<div class='alert alert-danger'>Masih ada titik yang belum tepat</div>";
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.getElementById("canvas-letak-titik")) {
+                new p5(sketchLetakTitik);
+                updateInfoLetakTitik();
             }
-        }
+        });
 
-        // =========================
-        // RESET
-        // =========================
-        function resetTitik() {
-            titikSiswa = [];
+        function resetLetakTitik() {
+            indeksLetakTitik = 0;
+            titikLetakBenar = [];
+            titikLetakPercobaan = null;
 
-            document.getElementById("hasilLatihanBuat").innerHTML = "";
+            updateInfoLetakTitik();
         }
     </script>
 
-    {{-- Cek Jawaban Posisi Titik --}}
+    {{-- Plotting Mandiri --}}
     <script>
-        function normalisasi(input) {
-            return input.replace(/\s/g, "").replace(/[()]/g, "").toLowerCase();
-        }
+        let titikPlotBebas = [];
+        let garisPlotBebasAktif = false;
 
-        function cekTitik() {
-            const kunci = {
-                p1: "3,2",
-                p2: "-2,4",
-                p3: "-3,-1"
+        function updateInfoPlotBebas() {
+            const infoBox = document.getElementById("infoPlotBebas");
+            const statusBox = document.getElementById("statusPlotBebas");
+
+            if (!infoBox) return;
+
+            const jumlah = titikPlotBebas.length;
+
+            if (jumlah < 3) {
+                infoBox.innerHTML =
+                    `Klik titik ke-${jumlah + 1} pada bidang koordinat Kartesius. ` +
+                    `Kamu sudah membuat <b>${jumlah}</b> dari <b>3</b> titik.`;
+
+                if (statusBox) {
+                    statusBox.classList.remove("benar", "salah");
+                    statusBox.innerHTML = "";
+                }
+            } else {
+                infoBox.innerHTML =
+                    `Kamu sudah membuat 3 titik. Klik <b>Lihat Garis</b> untuk melihat apakah ketiga titik membentuk garis lurus.`;
+            }
+        }
+        const sketchPlotBebas = (p) => {
+            const canvasW = 380;
+            const canvasH = 360;
+            const gridSize = 280;
+
+            let originX;
+            let originY;
+            let scaleUnit;
+
+            p.setup = function() {
+                const canvas = p.createCanvas(canvasW, canvasH);
+                canvas.parent("canvas-plot-bebas");
+
+                originX = canvasW / 2;
+                originY = 30 + gridSize / 2;
+                scaleUnit = gridSize / 10;
+
+                canvas.mousePressed(function() {
+                    handleKlikPlotBebas();
+                    return false;
+                });
             };
 
-            let benarSemua = true;
+            p.draw = function() {
+                p.background(250);
+                drawGrid();
 
-            for (let key in kunci) {
-                let jawaban = normalisasi(document.getElementById(key).value);
+                if (garisPlotBebasAktif && titikPlotBebas.length === 3) {
+                    drawGarisDariDuaTitikPertama();
+                    drawGarisPenghubungTitik();
+                }
 
-                if (jawaban === normalisasi(kunci[key])) {
-                    document.getElementById(key).classList.remove("is-invalid");
-                    document.getElementById(key).classList.add("is-valid");
+                drawTitikPlotBebas();
+            };
+
+            function handleKlikPlotBebas() {
+                if (titikPlotBebas.length >= 3) {
+                    const statusBox = document.getElementById("statusPlotBebas");
+
+                    if (statusBox) {
+                        statusBox.classList.remove("benar", "salah");
+                        statusBox.innerHTML =
+                            `Kamu sudah membuat 3 titik. Klik <b>Reset</b> jika ingin mencoba titik lain.`;
+                    }
+
+                    return;
+                }
+
+                const koordinat = pixelToCoord(p.mouseX, p.mouseY);
+
+                if (!koordinat) return;
+
+                const sudahAda = titikPlotBebas.some((t) => {
+                    return t.x === koordinat.x && t.y === koordinat.y;
+                });
+
+                if (sudahAda) {
+                    const statusBox = document.getElementById("statusPlotBebas");
+
+                    if (statusBox) {
+                        statusBox.classList.remove("benar", "salah");
+                        statusBox.innerHTML =
+                            `Titik tersebut sudah dipilih. Pilih titik lain.`;
+                    }
+
+                    return;
+                }
+
+                const label = ["A", "B", "C"][titikPlotBebas.length];
+
+                titikPlotBebas.push({
+                    nama: label,
+                    x: koordinat.x,
+                    y: koordinat.y
+                });
+
+                garisPlotBebasAktif = false;
+                updateInfoPlotBebas();
+            }
+
+            function drawGrid() {
+                p.push();
+
+                p.stroke(220);
+                p.strokeWeight(1);
+
+                for (let i = -5; i <= 5; i++) {
+                    const x = originX + i * scaleUnit;
+                    const y = originY - i * scaleUnit;
+
+                    p.line(x, originY - gridSize / 2, x, originY + gridSize / 2);
+                    p.line(originX - gridSize / 2, y, originX + gridSize / 2, y);
+                }
+
+                p.stroke(0);
+                p.strokeWeight(2);
+
+                p.line(originX - gridSize / 2 - 10, originY, originX + gridSize / 2 + 10, originY);
+                p.line(originX, originY + gridSize / 2 + 10, originX, originY - gridSize / 2 - 10);
+
+                p.noStroke();
+                p.fill(0);
+                p.textSize(12);
+
+                for (let i = -5; i <= 5; i++) {
+                    if (i !== 0) {
+                        p.text(i, originX + i * scaleUnit - 4, originY + 18);
+                        p.text(i, originX - 20, originY - i * scaleUnit + 4);
+                    }
+                }
+
+                p.text("O", originX + 6, originY + 16);
+                p.text("x", originX + gridSize / 2 + 16, originY - 8);
+                p.text("y", originX + 8, originY - gridSize / 2 - 16);
+
+                p.pop();
+            }
+
+            function drawTitikPlotBebas() {
+                p.push();
+
+                titikPlotBebas.forEach((t) => {
+                    const px = originX + t.x * scaleUnit;
+                    const py = originY - t.y * scaleUnit;
+
+                    p.fill(0, 102, 204);
+                    p.noStroke();
+                    p.circle(px, py, 11);
+
+                    p.fill(0);
+                    p.textSize(14);
+                    p.text(`${t.nama}(${t.x},${t.y})`, px + 8, py - 8);
+                });
+
+                p.pop();
+            }
+
+            function drawGarisDariDuaTitikPertama() {
+                const p1 = titikPlotBebas[0];
+                const p2 = titikPlotBebas[1];
+
+                let awal;
+                let akhir;
+
+                if (p1.x === p2.x) {
+                    awal = {
+                        x: p1.x,
+                        y: -5
+                    };
+                    akhir = {
+                        x: p1.x,
+                        y: 5
+                    };
                 } else {
-                    document.getElementById(key).classList.remove("is-valid");
-                    document.getElementById(key).classList.add("is-invalid");
-                    benarSemua = false;
+                    const m = (p2.y - p1.y) / (p2.x - p1.x);
+
+                    awal = {
+                        x: -5,
+                        y: m * (-5 - p1.x) + p1.y
+                    };
+
+                    akhir = {
+                        x: 5,
+                        y: m * (5 - p1.x) + p1.y
+                    };
+                }
+
+                const awalPx = coordToPixel(awal);
+                const akhirPx = coordToPixel(akhir);
+
+                p.push();
+
+                p.stroke(25, 135, 84);
+                p.strokeWeight(3);
+                p.line(awalPx.x, awalPx.y, akhirPx.x, akhirPx.y);
+
+                p.pop();
+            }
+
+            function drawGarisPenghubungTitik() {
+                const p1 = coordToPixel(titikPlotBebas[0]);
+                const p2 = coordToPixel(titikPlotBebas[1]);
+                const p3 = coordToPixel(titikPlotBebas[2]);
+
+                p.push();
+
+                p.stroke(220, 53, 69);
+                p.strokeWeight(2);
+                p.drawingContext.setLineDash([6, 6]);
+
+                p.line(p1.x, p1.y, p2.x, p2.y);
+                p.line(p2.x, p2.y, p3.x, p3.y);
+
+                p.drawingContext.setLineDash([]);
+
+                p.pop();
+            }
+
+            function coordToPixel(titik) {
+                return {
+                    x: originX + titik.x * scaleUnit,
+                    y: originY - titik.y * scaleUnit
+                };
+            }
+
+            function pixelToCoord(px, py) {
+                const batasKiri = originX - gridSize / 2;
+                const batasKanan = originX + gridSize / 2;
+                const batasAtas = originY - gridSize / 2;
+                const batasBawah = originY + gridSize / 2;
+
+                if (px < batasKiri || px > batasKanan || py < batasAtas || py > batasBawah) {
+                    return null;
+                }
+
+                const x = Math.round((px - originX) / scaleUnit);
+                const y = Math.round((originY - py) / scaleUnit);
+
+                return {
+                    x,
+                    y
+                };
+            }
+        };
+
+        function lihatGarisPlotBebas() {
+            const statusBox = document.getElementById("statusPlotBebas");
+
+            if (titikPlotBebas.length < 3) {
+                if (statusBox) {
+                    statusBox.innerHTML = `Buat 3 titik terlebih dahulu sebelum melihat garis.`;
+                }
+
+                return;
+            }
+
+            garisPlotBebasAktif = true;
+
+            if (statusBox) {
+                statusBox.innerHTML = `Perhatikan posisi ketiga titik pada bidang koordinat.`;
+            }
+        }
+
+        function resetPlotBebas() {
+            titikPlotBebas = [];
+            garisPlotBebasAktif = false;
+
+            const statusBox = document.getElementById("statusPlotBebas");
+
+            if (statusBox) {
+                statusBox.classList.remove("benar", "salah");
+                statusBox.innerHTML = "";
+            }
+
+            updateInfoPlotBebas();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.getElementById("canvas-plot-bebas")) {
+                new p5(sketchPlotBebas);
+                updateInfoPlotBebas();
+            }
+        });
+    </script>
+
+    {{-- Menentukan apakah titik2 membuat sebuah garis lurus --}}
+    <script>
+        function cekGarisLurus() {
+            const kunci = {
+                garis1: "ya",
+                garis2: "ya",
+                garis3: "tidak",
+                garis4: "tidak"
+            };
+
+            let jumlahBenar = 0;
+            let jumlahTerjawab = 0;
+            const totalSoal = 4;
+
+            for (let i = 1; i <= totalSoal; i++) {
+                const nama = "garis" + i;
+                const status = document.getElementById("statusGaris" + i);
+                const jawaban = document.querySelector(`input[name="${nama}"]:checked`);
+
+                status.className = "status-garis";
+                status.innerHTML = "";
+
+                if (!jawaban) {
+                    status.classList.add("belum");
+                    status.innerHTML = "Pilih salah satu jawaban.";
+                    continue;
+                }
+
+                jumlahTerjawab++;
+
+                if (jawaban.value === kunci[nama]) {
+                    jumlahBenar++;
+
+                    status.classList.add("benar");
+                    status.innerHTML = "Benar";
+                } else {
+                    status.classList.add("salah");
+                    status.innerHTML = "Coba amati kembali letak titik-titiknya.";
                 }
             }
 
-            if (benarSemua) {
-                document.getElementById("hasilTitik").innerHTML =
-                    "<div class='alert alert-success'>Semua jawaban benar</div>";
-            } else {
-                document.getElementById("hasilTitik").innerHTML =
-                    "<div class='alert alert-danger'>Masih ada jawaban yang salah</div>";
+            const feedback = document.getElementById("feedbackGarisLurus");
+            const penyelesaian = document.getElementById("penyelesaianGarisLurus");
+
+            feedback.className = "feedback-garis";
+            feedback.innerHTML = "";
+            penyelesaian.style.display = "none";
+
+            if (jumlahTerjawab < totalSoal) {
+                feedback.classList.add("salah");
+                feedback.innerHTML =
+                    `Masih ada soal yang belum dijawab. Kamu menjawab <b>${jumlahBenar}</b> dari <b>${totalSoal}</b> soal benar.`;
+                return;
             }
+
+            if (jumlahBenar < totalSoal) {
+                feedback.classList.add("salah");
+                feedback.innerHTML =
+                    `Masih ada jawaban yang salah. Kamu menjawab <b>${jumlahBenar}</b> dari <b>${totalSoal}</b> soal benar. Perbaiki soal yang bertanda salah.`;
+                return;
+            }
+
+            feedback.classList.add("benar");
+            feedback.innerHTML =
+                `Bagus, semua jawaban benar. Kamu sudah dapat menentukan titik-titik yang membentuk garis lurus dan yang tidak membentuk garis lurus.`;
+
+            penyelesaian.style.display = "block";
         }
     </script>
 

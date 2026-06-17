@@ -308,6 +308,17 @@
             border: 1px solid #dbe5f1;
         }
 
+         /* ===== Petunjuk Latihan ===== */
+        .petunjuk-mini-latihan {
+            background: #fffdf5;
+            border: 1px solid #ffe69c;
+            border-radius: 12px;
+            padding: 10px 12px;
+            line-height: 1.6;
+            margin: 10px 0 14px;
+            font-size: 0.95rem;
+        }
+
         /* Zoom Gambar */
         .zoomable {
             cursor: zoom-in;

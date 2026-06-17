@@ -29,12 +29,15 @@
         }
 
         .rumus-box {
-            background: #f7f9fc;
+            background: #f8fbff;
             border: 1px solid #dbe5f1;
-            border-radius: 12px;
-            padding: 14px 16px;
+            border-radius: 14px;
+            padding: 10px 18px;
+            margin: 12px auto;
+            width: fit-content;
+            max-width: 100%;
             overflow-x: auto;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .badge-contoh {
@@ -531,32 +534,46 @@
                 </small>
             </div>
 
-            <p>
-                Untuk mengetahui gradiennya, kita gunakan rumus gradien berikut.
+            <p style="line-height:1.8; text-align:justify;">
+                Pada Gambar 3.1, terlihat garis yang melalui titik <b>$A(-2,2)$</b>
+                dan <b>$B(4,2)$</b>. Garis tersebut sejajar dengan $sumbu\text{-}x$.
+                Untuk menghitung gradien garis tersebut, gunakan rumus gradien berikut.
             </p>
 
             <div class="rumus-box text-center mb-3">
                 $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
             </div>
 
-            <p>
-                Karena nilai $y$ kedua titik sama, maka selisih $y_2 - y_1$ selalu bernilai $0$.
-                Akibatnya, pada perhitungan gradien diperoleh:
+            <p style="line-height:1.8; text-align:justify;">
+                Dari titik <b>$A(-2,2)$</b>, diperoleh $x_1 = -2$ dan $y_1 = 2$.
+                Dari titik <b>$B(4,2)$</b>, diperoleh $x_2 = 4$ dan $y_2 = 2$.
             </p>
 
-            <div class="rumus-box text-center mb-3">
-                $$ m = \frac{0}{x_2 - x_1} = 0 $$
+            <p style="line-height:1.8; text-align:justify;">
+                Substitusikan nilai tersebut ke dalam rumus gradien.
+            </p>
+
+            <div class="text-center mb-3" style="font-size:20px;">
+                \[
+                \begin{aligned}
+                m &= \frac{y_2 - y_1}{x_2 - x_1} \\
+                &= \frac{2 - 2}{4 - (-2)} \\
+                &= \frac{0}{6} \\
+                &= 0
+                \end{aligned}
+                \]
             </div>
 
-            <p>
-                Hal ini menunjukkan bahwa garis yang tidak naik dan tidak turun, atau garis yang berbentuk
-                mendatar, selalu memiliki gradien $0$.
+            <p style="line-height:1.8; text-align:justify;">
+                Berdasarkan perhitungan tersebut, diperoleh gradien garis adalah $0$.
+                Hal ini terjadi karena nilai $y$ pada kedua titik sama, sehingga garis tidak naik
+                dan tidak turun. Garis seperti ini disebut garis mendatar atau garis yang sejajar
+                dengan $sumbu\text{-}x$.
             </p>
 
             <div class="box-kesimpulan">
                 <b>Kesimpulan:</b><br>
-                Jika dua titik memiliki nilai $y$ yang sama, maka garis tersebut sejajar dengan $sumbu\text{-}x$
-                dan gradiennya adalah $0$.
+                Jika garis sejajar dengan $sumbu\text{-}x$, maka nilai gradiennya adalah $0$.
             </div>
         </div>
     </div>
@@ -588,56 +605,50 @@
                 </small>
             </div>
 
-            <p>
-                Untuk mengetahui gradiennya, kita gunakan rumus gradien berikut.
+            <p style="line-height:1.8; text-align:justify;">
+                Pada Gambar 3.2, terlihat garis yang melalui titik <b>$A(1,3)$</b>
+                dan <b>$B(1,-3)$</b>. Garis tersebut sejajar dengan $sumbu\text{-}y$.
+                Untuk menghitung gradien garis tersebut, gunakan rumus gradien berikut.
             </p>
 
             <div class="rumus-box text-center mb-3">
                 $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
             </div>
 
-            <p>
-                Karena nilai $x$ kedua titik sama, maka selisih $x_2 - x_1$ selalu bernilai $0$.
-                Akibatnya, pada perhitungan gradien kita memperoleh bentuk:
+            <p style="line-height:1.8; text-align:justify;">
+                Dari titik <b>$A(1,3)$</b>, diperoleh $x_1 = 1$ dan $y_1 = 3$.
+                Dari titik <b>$B(1,-3)$</b>, diperoleh $x_2 = 1$ dan $y_2 = -3$.
             </p>
 
-            <div class="rumus-box text-center mb-3">
-                $$ m = \frac{y_2 - y_1}{0} $$
+            <p style="line-height:1.8; text-align:justify;">
+                Substitusikan nilai tersebut ke dalam rumus gradien.
+            </p>
+
+            <div class="text-center mb-3" style="font-size:18px; line-height: 1.5">
+                \[
+                \begin{aligned}
+                m &= \frac{y_2 - y_1}{x_2 - x_1} \\
+                &= \frac{-3 - 3}{1 - 1} \\
+                &= \frac{-6}{0}
+                \end{aligned}
+                \]
             </div>
 
-            <p>
-                Dalam matematika, pembagian dengan $0$ tidak dapat dilakukan. Oleh karena itu,
-                gradien garis yang sejajar dengan $sumbu\text{-}y$ dinyatakan tidak terdefinisi.
+            <p style="line-height:1.8; text-align:justify;">
+                Berdasarkan perhitungan tersebut, penyebut pecahan bernilai $0$.
+                Dalam matematika, pembagian dengan $0$ tidak dapat dilakukan.
+                Oleh karena itu, gradien garis yang sejajar dengan $sumbu\text{-}y$
+                dinyatakan <b>tidak terdefinisi</b>.
             </p>
 
-            <p>
-                Jadi, setiap garis yang tegak atau sejajar dengan $sumbu\text{-}y$ tidak memiliki nilai gradien
-                berupa bilangan tertentu.
+            <p style="line-height:1.8; text-align:justify;">
+                Hal ini terjadi karena nilai $x$ pada kedua titik sama, sehingga garis berbentuk
+                tegak atau vertikal.
             </p>
 
             <div class="box-kesimpulan">
                 <b>Kesimpulan:</b><br>
-                Jika dua titik memiliki nilai $x$ yang sama, maka garis tersebut sejajar dengan $sumbu\text{-}y$
-                dan gradiennya tidak terdefinisi.
-            </div>
-        </div>
-    </div>
-
-    {{-- Perbandingan --}}
-    <div class="card card-materi mb-4">
-        <div class="card-body">
-            <span class="badge-sub">Perbandingan Garis Sejajar $sumbu\text{-}x$ dan $sumbu\text{-}y$</span>
-
-            <p>
-                Dari dua materi sebelumnya, dapat dilihat bahwa garis sejajar $sumbu\text{-}x$ dan garis sejajar
-                $sumbu\text{-}y$
-                memiliki ciri yang berbeda.
-            </p>
-
-            <div class="box-kesimpulan">
-                <b>Perbandingan:</b><br><br>
-                Jika nilai $y$ sama → garis <b>mendatar</b> → sejajar dengan $sumbu\text{-}x$ → gradien $0$<br>
-                Jika nilai $x$ sama → garis <b>tegak</b> → sejajar dengan $sumbu\text{-}y$ → gradien tidak terdefinisi
+                Jika garis sejajar dengan $sumbu\text{-}y$, maka gradiennya tidak terdefinisi.
             </div>
         </div>
     </div>
@@ -647,111 +658,119 @@
         <div class="card-body">
             <span class="title-box">Contoh</span>
 
-            <p>
-                Rina berjalan di jalan lurus dari titik $A(-2,3)$ ke $B(4,3)$.
-                Jalan tersebut tidak menanjak dan tidak menurun.
-                Apakah jalan itu sejajar dengan $sumbu\text{-}x$?
+            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                Tentukan apakah garis lurus berikut sejajar dengan $sumbu\text{-}x$ atau $sumbu\text{-}y$.
             </p>
 
-            <div class="quiz-card p-3">
-                <div id="contoh1-step1">
-                    <p>
-                        Coba bayangkan situasinya terlebih dahulu. Jika jalan yang dilalui Rina tidak menanjak
-                        dan tidak menurun, menurutmu jalan itu termasuk jalan yang bagaimana?
-                    </p>
+            <div class="mb-3" style="line-height:1.8;">
+                <p class="mb-1">a. Garis $k$ melalui $A(1,-2)$ dan $B(1,5)$</p>
+                <p class="mb-1">b. Garis $l$ melalui $C(-4,3)$ dan $D(2,3)$</p>
+                <p class="mb-1">c. Garis $m$ melalui $E(-1,-4)$ dan $F(5,-4)$</p>
+            </div>
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <button type="button" id="btn-c1-s1-naik" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step1('naik')">
-                            Naik
-                        </button>
-                        <button type="button" id="btn-c1-s1-turun" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step1('turun')">
-                            Turun
-                        </button>
-                        <button type="button" id="btn-c1-s1-datar" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step1('datar')">
-                            Datar
-                        </button>
-                    </div>
+            <p class="mb-2"><b>Jawab:</b></p>
 
-                    <div id="fb-contoh1-step1" class="mt-2"></div>
+            {{-- Jawaban a --}}
+            <div class="mb-4" style="line-height:1.8;">
+                <p class="mb-1">
+                    <b>a.</b> Gradien garis $k$, yaitu:
+                </p>
+
+                <p class="mb-1">
+                    Dari titik $A(1,-2)$, maka $x_1 = 1$ dan $y_1 = -2$.
+                </p>
+
+                <p class="mb-2">
+                    Dari titik $B(1,5)$, maka $x_2 = 1$ dan $y_2 = 5$.
+                </p>
+
+                <div class="text-center mb-2">
+                    \[
+                    \begin{aligned}
+                    m_{AB}
+                    &= \frac{y_2-y_1}{x_2-x_1} \\
+                    &= \frac{5-(-2)}{1-1} \\
+                    &= \frac{7}{0}
+                    \end{aligned}
+                    \]
                 </div>
 
-                <div id="contoh1-step2" class="d-none mt-3">
-                    <p>
-                        Betul, jalannya datar. Sekarang perhatikan titik $A(-2,3)$ dan $B(4,3)$.
-                        Dari kedua titik itu, adakah nilai koordinat yang tetap?
-                    </p>
+                <p class="mb-0">
+                    Karena penyebutnya $0$, maka gradien garis $k$ tidak terdefinisi.
+                    Jadi, garis $k$ sejajar dengan $sumbu\text{-}y$.
+                </p>
+            </div>
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <button type="button" id="btn-c1-s2-x" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step2('x')">
-                            Nilai $x$ sama
-                        </button>
-                        <button type="button" id="btn-c1-s2-y" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step2('y')">
-                            Nilai $y$ sama
-                        </button>
-                    </div>
+            {{-- Jawaban b --}}
+            <div class="mb-4" style="line-height:1.8;">
+                <p class="mb-1">
+                    <b>b.</b> Gradien garis $l$, yaitu:
+                </p>
 
-                    <div id="fb-contoh1-step2" class="mt-2"></div>
+                <p class="mb-1">
+                    Dari titik $C(-4,3)$, maka $x_1 = -4$ dan $y_1 = 3$.
+                </p>
+
+                <p class="mb-2">
+                    Dari titik $D(2,3)$, maka $x_2 = 2$ dan $y_2 = 3$.
+                </p>
+
+                <div class="text-center mb-2">
+                    \[
+                    \begin{aligned}
+                    m_{CD}
+                    &= \frac{y_2-y_1}{x_2-x_1} \\
+                    &= \frac{3-3}{2-(-4)} \\
+                    &= \frac{0}{6} \\
+                    &= 0
+                    \end{aligned}
+                    \]
                 </div>
 
-                <div id="contoh1-step3" class="d-none mt-3">
-                    <p>
-                        Ya, nilai $y$ pada kedua titik itu sama. Sekarang coba isi bentuk gradiennya.
-                    </p>
+                <p class="mb-0">
+                    Karena gradiennya $0$, maka garis $l$ sejajar dengan $sumbu\text{-}x$.
+                </p>
+            </div>
 
-                    <p class="mb-2">
-                        $m =$
-                        <span class="pecahan-inline align-middle ms-1">
-                            <input type="number" id="c1-atas" class="input-pecahan-inline">
-                            <span class="garis-pecahan-inline"></span>
-                            <input type="number" id="c1-bawah" class="input-pecahan-inline">
-                        </span>
-                    </p>
+            {{-- Jawaban c --}}
+            <div class="mb-0" style="line-height:1.8;">
+                <p class="mb-1">
+                    <b>c.</b> Gradien garis $m$, yaitu:
+                </p>
 
-                    <p class="text-muted mb-3">
-                        Isikan hasil pengurangan pada pembilang dan penyebut.
-                    </p>
+                <p class="mb-1">
+                    Dari titik $E(-1,-4)$, maka $x_1 = -1$ dan $y_1 = -4$.
+                </p>
 
-                    <button type="button" id="btn-c1-step3" class="btn btn-palet" onclick="cekContoh1Step3()">
-                        Cek Jawaban
-                    </button>
+                <p class="mb-2">
+                    Dari titik $F(5,-4)$, maka $x_2 = 5$ dan $y_2 = -4$.
+                </p>
 
-                    <div id="fb-contoh1-step3" class="mt-2"></div>
+                <div class="text-center mb-2">
+                    \[
+                    \begin{aligned}
+                    m_{EF}
+                    &= \frac{y_2-y_1}{x_2-x_1} \\
+                    &= \frac{-4-(-4)}{5-(-1)} \\
+                    &= \frac{0}{6} \\
+                    &= 0
+                    \end{aligned}
+                    \]
                 </div>
 
-                <div id="contoh1-step4" class="d-none mt-3">
-                    <p>
-                        Tepat, gradiennya bernilai $0$. Dari hasil itu, sekarang kita bisa menentukan bahwa
-                        garis tersebut sejajar dengan sumbu yang mana.
-                    </p>
-
-                    <div class="d-flex flex-wrap gap-2">
-                        <button type="button" id="btn-c1-s4-x" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step4('x')">
-                            $sumbu\text{-}x$
-                        </button>
-                        <button type="button" id="btn-c1-s4-y" class="btn btn-outline-primary"
-                            onclick="cekContoh1Step4('y')">
-                            $sumbu\text{-}y$
-                        </button>
-                    </div>
-
-                    <div id="fb-contoh1-step4" class="mt-2"></div>
-                </div>
-
-                <div id="contoh1-kesimpulan" class="box-kesimpulan d-none mt-3">
-                    <b>Kesimpulan:</b><br>
-                    Karena jalan yang dilalui Rina bersifat datar, titik $A(-2,3)$ dan $B(4,3)$
-                    memiliki nilai $y$ yang sama. Dari perhitungan diperoleh $m = 0$.
-                    Jadi, garis tersebut sejajar dengan $sumbu\text{-}x$.
-                </div>
+                <p class="mb-0">
+                    Karena gradiennya $0$, maka garis $m$ sejajar dengan $sumbu\text{-}x$.
+                </p>
             </div>
         </div>
     </div>
+
+    <script>
+        const MATERI_ID = @json($materi->id);
+        const MATERI_SLUG = @json($materi->slug);
+        const IS_MATERI_COMPLETED = @json((bool) ($materialProgress->is_completed ?? false));
+        const SAVED_LATIHAN = @json($latihanProgress ?? []);
+    </script>
 
     {{-- Latihan --}}
     <div class="box-latihan mt-5" id="latihanC1Box">
@@ -825,6 +844,10 @@
 
                 <div class="quiz-card p-3 mt-3">
                     <p><b>2.</b> Manakah garis berikut yang sejajar dengan <b>sumbu-y</b>?</p>
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk:</strong>
+                        Pilih salah satu jawaban yang paling tepat.
+                    </div>
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="latihan2" id="lat2-a" value="a">
@@ -883,6 +906,10 @@
                         <b>3.</b> Tentukan nilai <b>$a$</b> agar garis yang melalui titik
                         <b>$A(3a,8a)$</b> dan <b>$B(2a,4)$</b> sejajar dengan <b>sumbu-x</b>.
                     </p>
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk:</strong>
+                        Isilah setiap langkah penyelesaian pada kolom yang tersedia sampai diperoleh nilai \(a\).
+                    </div>
 
                     <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
                         <p class="mb-3"><b>Penyelesaian:</b></p>
@@ -1301,7 +1328,7 @@
         }
 
         /* =========================
-           EKSPLORASI SUMBU-X
+        EKSPLORASI SUMBU-X
         ========================= */
 
         function cekTabelX() {
@@ -1332,22 +1359,22 @@
 
             if (pesan.length === 0) {
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Bagus! Semua gradien sudah benar. Sekarang perhatikan hasilnya, lalu bandingkan ketiga gradien tersebut.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Bagus! Semua gradien sudah benar. Sekarang perhatikan hasilnya, lalu bandingkan ketiga gradien tersebut.
+                </div>
+            `;
                 disableMany(["mx1", "mx2", "mx3"]);
                 sembunyikanTombol("btn-tabel-x");
                 tampilkanStep("step-x-2");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                <b>Masih ada jawaban yang belum tepat:</b><br><br>
-                ${pesan.join("<br><br>")}
-                <br><br>
-                <b>Petunjuk:</b> Gunakan rumus <b>m = (y₂ - y₁)/(x₂ - x₁)</b>. Jika nilai <b>y</b> kedua titik sama, maka pembilangnya berapa?
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    <b>Masih ada jawaban yang belum tepat:</b><br><br>
+                    ${pesan.join("<br><br>")}
+                    <br><br>
+                    <b>Petunjuk:</b> Gunakan rumus <b>m = (y₂ - y₁)/(x₂ - x₁)</b>. Jika nilai <b>y</b> kedua titik sama, maka pembilangnya berapa?
+                </div>
+            `;
                 renderKatexById("feedback-x1");
             }
         }
@@ -1361,19 +1388,19 @@
             if (jawaban === "sama") {
                 tandaiOpsi(el, "benar");
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Tepat. Ketiga garis memiliki gradien yang sama.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Tepat. Ketiga garis memiliki gradien yang sama.
+                </div>
+            `;
                 disableOpsiKotak(container);
                 tampilkanStep("step-x-3");
             } else {
                 tandaiOpsi(el, "salah");
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba lihat kembali hasil gradien pada tabel. Apakah ketiganya menunjukkan pola yang sama?
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba lihat kembali hasil gradien pada tabel. Apakah ketiganya menunjukkan pola yang sama?
+                </div>
+            `;
             }
         }
 
@@ -1386,19 +1413,19 @@
             if (jawaban === "mendatar") {
                 tandaiOpsi(el, "benar");
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Benar. Karena nilai <b>y</b> tetap, garis yang terbentuk adalah garis mendatar.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Benar. Karena nilai <b>y</b> tetap, garis yang terbentuk adalah garis mendatar.
+                </div>
+            `;
                 disableOpsiKotak(container);
                 tampilkanStep("step-x-4");
             } else {
                 tandaiOpsi(el, "salah");
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba perhatikan lagi. Jika nilai <b>y</b> sama, garisnya tidak naik dan tidak turun.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba perhatikan lagi. Jika nilai <b>y</b> sama, garisnya tidak naik dan tidak turun.
+                </div>
+            `;
             }
         }
 
@@ -1406,10 +1433,10 @@
             const fb = document.getElementById("feedback-x4");
 
             fb.innerHTML = `
-        <div class="alert alert-success mt-2">
-            Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
-        </div>
-    `;
+            <div class="alert alert-success mt-2">
+                Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
+            </div>
+        `;
 
             tampilkanStep("kesimpulan-x");
             tampilkanStep("ggb-wrapper-x");
@@ -1417,7 +1444,7 @@
         }
 
         /* =========================
-           EKSPLORASI SUMBU-Y
+        EKSPLORASI SUMBU-Y
         ========================= */
 
         function cekTabelY() {
@@ -1451,10 +1478,10 @@
 
             if (pesan.length === 0) {
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Bagus! Bentuk gradien yang kamu isi sudah benar. Sekarang amati apa yang sama dari ketiga garis tersebut.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Bagus! Bentuk gradien yang kamu isi sudah benar. Sekarang amati apa yang sama dari ketiga garis tersebut.
+                </div>
+            `;
                 disableMany([
                     "py1-atas",
                     "py1-bawah",
@@ -1467,13 +1494,13 @@
                 tampilkanStep("step-y-2");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                <b>Masih ada jawaban yang belum tepat:</b><br><br>
-                ${pesan.join("<br><br>")}
-                <br><br>
-                <b>Petunjuk:</b> Gunakan rumus <b>m = (y₂ - y₁)/(x₂ - x₁)</b>, lalu perhatikan selisih nilai <b>x</b>.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    <b>Masih ada jawaban yang belum tepat:</b><br><br>
+                    ${pesan.join("<br><br>")}
+                    <br><br>
+                    <b>Petunjuk:</b> Gunakan rumus <b>m = (y₂ - y₁)/(x₂ - x₁)</b>, lalu perhatikan selisih nilai <b>x</b>.
+                </div>
+            `;
                 renderKatexById("feedback-y1");
             }
         }
@@ -1487,19 +1514,19 @@
             if (jawaban === "x-sama") {
                 tandaiOpsi(el, "benar");
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Tepat. Pada setiap pasangan titik, nilai <b>x</b> selalu sama. Karena itu, <b>x₂ - x₁ = 0</b>.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Tepat. Pada setiap pasangan titik, nilai <b>x</b> selalu sama. Karena itu, <b>x₂ - x₁ = 0</b>.
+                </div>
+            `;
                 disableOpsiKotak(container);
                 tampilkanStep("step-y-3");
             } else {
                 tandaiOpsi(el, "salah");
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba perhatikan lagi koordinat titik pada setiap garis. Nilai mana yang tetap, <b>x</b> atau <b>y</b>?
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba perhatikan lagi koordinat titik pada setiap garis. Nilai mana yang tetap, <b>x</b> atau <b>y</b>?
+                </div>
+            `;
             }
 
             renderKatexById("feedback-y2");
@@ -1514,19 +1541,19 @@
             if (jawaban === "tdk") {
                 tandaiOpsi(el, "benar");
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Benar. Karena penyebut pada gradien bernilai <b>0</b>, pembagian tidak dapat dilakukan, sehingga gradiennya <b>tidak terdefinisi</b>.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Benar. Karena penyebut pada gradien bernilai <b>0</b>, pembagian tidak dapat dilakukan, sehingga gradiennya <b>tidak terdefinisi</b>.
+                </div>
+            `;
                 disableOpsiKotak(container);
                 tampilkanStep("step-y-4");
             } else {
                 tandaiOpsi(el, "salah");
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba ingat kembali: apakah pembagian dengan <b>0</b> dapat dilakukan?
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba ingat kembali: apakah pembagian dengan <b>0</b> dapat dilakukan?
+                </div>
+            `;
             }
 
             renderKatexById("feedback-y3");
@@ -1541,19 +1568,19 @@
             if (jawaban === "tegak") {
                 tandaiOpsi(el, "benar");
                 fb.innerHTML = `
-            <div class="alert alert-success mt-2">
-                Tepat. Jika nilai <b>x</b> pada pasangan titik sama, garis yang terbentuk berbentuk <b>tegak</b> atau vertikal.
-            </div>
-        `;
+                <div class="alert alert-success mt-2">
+                    Tepat. Jika nilai <b>x</b> pada pasangan titik sama, garis yang terbentuk berbentuk <b>tegak</b> atau vertikal.
+                </div>
+            `;
                 disableOpsiKotak(container);
                 tampilkanStep("step-y-5");
             } else {
                 tandaiOpsi(el, "salah");
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba bayangkan titik-titik yang memiliki nilai <b>x</b> sama pada bidang koordinat. Garisnya akan bergerak ke arah mana?
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba bayangkan titik-titik yang memiliki nilai <b>x</b> sama pada bidang koordinat. Garisnya akan bergerak ke arah mana?
+                </div>
+            `;
             }
 
             renderKatexById("feedback-y4");
@@ -1563,10 +1590,10 @@
             const fb = document.getElementById("feedback-y5");
 
             fb.innerHTML = `
-        <div class="alert alert-success mt-2">
-            Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
-        </div>
-    `;
+            <div class="alert alert-success mt-2">
+                Bagus! Sekarang perhatikan kesimpulan yang terbentuk dari hasil eksplorasimu.
+            </div>
+        `;
 
             tampilkanStep("kesimpulan-y");
             tampilkanStep("ggb-wrapper-y");
@@ -1633,10 +1660,10 @@
                 renderKatexById("contoh1-step2");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba perhatikan lagi. Pada soal disebutkan bahwa jalan tidak menanjak dan tidak menurun.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba perhatikan lagi. Pada soal disebutkan bahwa jalan tidak menanjak dan tidak menurun.
+                </div>
+            `;
             }
         }
 
@@ -1650,10 +1677,10 @@
                 renderKatexById("contoh1-step3");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba perhatikan kembali koordinat titik $A(-2,3)$ dan $B(4,3)$.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba perhatikan kembali koordinat titik $A(-2,3)$ dan $B(4,3)$.
+                </div>
+            `;
                 renderKatexById("fb-contoh1-step2");
             }
         }
@@ -1671,10 +1698,10 @@
                 renderKatexById("contoh1-step4");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba hitung lagi. Selisih nilai $y$ adalah $3 - 3$, sedangkan selisih nilai $x$ adalah $4 - (-2)$.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba hitung lagi. Selisih nilai $y$ adalah $3 - 3$, sedangkan selisih nilai $x$ adalah $4 - (-2)$.
+                </div>
+            `;
                 renderKatexById("fb-contoh1-step3");
             }
         }
@@ -1689,10 +1716,10 @@
                 renderKatexById("contoh1-kesimpulan");
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mt-2">
-                Coba ingat kembali. Garis dengan gradien $0$ berbentuk mendatar dan sejajar dengan $sumbu\text{-}x$.
-            </div>
-        `;
+                <div class="alert alert-warning mt-2">
+                    Coba ingat kembali. Garis dengan gradien $0$ berbentuk mendatar dan sejajar dengan $sumbu\text{-}x$.
+                </div>
+            `;
                 renderKatexById("fb-contoh1-step4");
             }
         }
@@ -1749,6 +1776,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             renderKatex(document.getElementById("latihanC1Box") || document.body);
+            restoreProgressC1();
         });
 
         // =========================
@@ -1802,6 +1830,45 @@
         // =========================
         // SAVE PROGRESS
         // =========================
+        async function simpanProgressLatihan(latihanKey, tipe, jawaban, isCorrect) {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!LATIHAN_PROGRESS_URL || !csrfToken) {
+                console.error("URL atau CSRF kosong.", {
+                    LATIHAN_PROGRESS_URL,
+                    csrfToken,
+                });
+                return false;
+            }
+
+            try {
+                const response = await fetch(LATIHAN_PROGRESS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({
+                        latihan_key: latihanKey,
+                        tipe: tipe,
+                        jawaban: jawaban,
+                        is_correct: isCorrect,
+                    }),
+                });
+
+                const data = await response.json();
+                console.log("Simpan latihan C1:", data);
+
+                return response.ok;
+            } catch (error) {
+                console.error("Gagal menyimpan latihan C1:", error);
+                return false;
+            }
+        }
         async function saveProgressMateri() {
             const csrfToken = document
                 .querySelector('meta[name="csrf-token"]')
@@ -1885,10 +1952,59 @@
             if (el) el.innerHTML = "";
         }
 
+        // simpan jawaban latihan
+        function ambilJawabanLatihan1C1() {
+            const selected = [];
+
+            ["k", "l", "m", "n"].forEach((kode) => {
+                const el = document.getElementById(`lat1-${kode}`);
+                if (el?.checked) {
+                    selected.push(kode);
+                }
+            });
+
+            return {
+                selected: selected,
+            };
+        }
+
+        function ambilJawabanLatihan2C1() {
+            const pilihan = document.querySelector('input[name="latihan2"]:checked');
+
+            return {
+                latihan2: pilihan ? pilihan.value : "",
+            };
+        }
+
+        function ambilJawabanLatihan3C1() {
+            return {
+                x1_3: document.getElementById("x1_3")?.value.trim() ?? "",
+                y1_3: document.getElementById("y1_3")?.value.trim() ?? "",
+                x2_3: document.getElementById("x2_3")?.value.trim() ?? "",
+                y2_3: document.getElementById("y2_3")?.value.trim() ?? "",
+
+                m_3: document.getElementById("m_3")?.value.trim() ?? "",
+
+                kiri1_3: document.getElementById("kiri1_3")?.value.trim() ?? "",
+                subY2_3: document.getElementById("subY2_3")?.value.trim() ?? "",
+                subY1_3: document.getElementById("subY1_3")?.value.trim() ?? "",
+                subX2_3: document.getElementById("subX2_3")?.value.trim() ?? "",
+                subX1_3: document.getElementById("subX1_3")?.value.trim() ?? "",
+
+                kiri2_3: document.getElementById("kiri2_3")?.value.trim() ?? "",
+                hasilAtas_3: document.getElementById("hasilAtas_3")?.value.trim() ?? "",
+                hasilBawah_3: document.getElementById("hasilBawah_3")?.value.trim() ?? "",
+
+                pers1Kiri_3: document.getElementById("pers1Kiri_3")?.value.trim() ?? "",
+                pers1Kanan_3: document.getElementById("pers1Kanan_3")?.value.trim() ?? "",
+                hasilA_3: document.getElementById("hasilA_3")?.value.trim() ?? "",
+            };
+        }
+
         // =========================
         // LATIHAN 1
         // =========================
-        function cekLatihan1() {
+        async function cekLatihan1() {
             const k = document.getElementById("lat1-k")?.checked;
             const l = document.getElementById("lat1-l")?.checked;
             const m = document.getElementById("lat1-m")?.checked;
@@ -1900,20 +2016,26 @@
 
             if (k && l && !m && !n) {
                 fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                Benar! Garis <b>k</b> dan <b>l</b> sejajar dengan sumbu-x karena keduanya berbentuk <b>mendatar</b>.
-                Silakan lanjut ke latihan berikutnya.
-            </div>
-        `;
+                <div class="alert alert-success mb-0">
+                    Benar! Garis <b>k</b> dan <b>l</b> sejajar dengan sumbu-x karena keduanya berbentuk <b>mendatar</b>.
+                    Silakan lanjut ke latihan berikutnya.
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = false;
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1`,
+                    "checkbox",
+                    ambilJawabanLatihan1C1(),
+                    true
+                );
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Jawaban belum tepat. Coba perhatikan lagi garis yang berbentuk <b>mendatar</b>,
-                karena garis seperti itulah yang sejajar dengan <b>sumbu-x</b>.
-            </div>
-        `;
+                <div class="alert alert-warning mb-0">
+                    Jawaban belum tepat. Coba perhatikan lagi garis yang berbentuk <b>mendatar</b>,
+                    karena garis seperti itulah yang sejajar dengan <b>sumbu-x</b>.
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = true;
                 resetStepSetelah(2);
@@ -1938,7 +2060,7 @@
         // =========================
         // LATIHAN 2
         // =========================
-        function cekLatihan2() {
+        async function cekLatihan2() {
             const pilihan = document.querySelector('input[name="latihan2"]:checked');
             const fb = document.getElementById("fb-lat2");
             const nextBtn = document.getElementById("nextBtnLatihan2");
@@ -1947,10 +2069,10 @@
 
             if (!pilihan) {
                 fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Pilih salah satu jawaban terlebih dahulu.
-            </div>
-        `;
+                <div class="alert alert-warning mb-0">
+                    Pilih salah satu jawaban terlebih dahulu.
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = true;
                 resetStepSetelah(3);
@@ -1959,21 +2081,28 @@
 
             if (pilihan.value === "a") {
                 fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                Tepat! Garis melalui titik <b>(2,3)</b> dan <b>(2,8)</b> sejajar dengan
-                <b>sumbu-y</b> karena kedua titik memiliki nilai <b>x</b> yang sama.
-                Silakan lanjut ke latihan berikutnya.
-            </div>
-        `;
+                <div class="alert alert-success mb-0">
+                    Tepat! Garis melalui titik <b>(2,3)</b> dan <b>(2,8)</b> sejajar dengan
+                    <b>sumbu-y</b> karena kedua titik memiliki nilai <b>x</b> yang sama.
+                    Silakan lanjut ke latihan berikutnya.
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = false;
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L2`,
+                    "radio",
+                    ambilJawabanLatihan2C1(),
+                    true
+                );
+
             } else {
                 fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Jawaban belum tepat. Ingat, garis yang sejajar dengan <b>sumbu-y</b>
-                memiliki nilai <b>x</b> yang sama pada kedua titiknya.
-            </div>
-        `;
+                <div class="alert alert-warning mb-0">
+                    Jawaban belum tepat. Ingat, garis yang sejajar dengan <b>sumbu-y</b>
+                    memiliki nilai <b>x</b> yang sama pada kedua titiknya.
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = true;
                 resetStepSetelah(3);
@@ -2054,6 +2183,13 @@
                     renderKatex(akhir);
                 }
 
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L3`,
+                    "input",
+                    ambilJawabanLatihan3C1(),
+                    true
+                );
+
                 const saved = await saveProgressMateri();
 
                 if (saved) {
@@ -2062,10 +2198,10 @@
                     akhir.insertAdjacentHTML(
                         "beforeend",
                         `
-                <div class="alert alert-warning mt-2 mb-0">
-                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
-                </div>
-                `,
+            <div class="alert alert-warning mt-2 mb-0">
+                Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
+            </div>
+            `,
                     );
                 }
 
@@ -2082,14 +2218,14 @@
 
             if (!benarX1 || !benarY1 || !benarX2 || !benarY2) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: tentukan dulu koordinat tiap titik. Dari $A(3a,8a)$ diperoleh $x_1=3a$ dan $y_1=8a$, sedangkan dari $B(2a,4)$ diperoleh $x_2=2a$ dan $y_2=4$.",
+                    "Petunjuk: tentukan nilai $x_1$, $y_1$, $x_2$, dan $y_2$ berdasarkan urutan titik yang diberikan pada soal.",
                 );
                 return;
             }
 
             if (!benarM) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: karena garis sejajar dengan $sumbu\\text{-}x$, maka gradiennya adalah $0$.",
+                    "Petunjuk: gunakan sifat gradien garis yang sejajar dengan $sumbu\\text{-}x$.",
                 );
                 return;
             }
@@ -2102,28 +2238,28 @@
                 !benarSubX1
             ) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: substitusikan $m=0$, $y_2=4$, $y_1=8a$, $x_2=2a$, dan $x_1=3a$ ke rumus $m=\\frac{y_2-y_1}{x_2-x_1}$.",
+                    "Petunjuk: substitusikan nilai yang sudah diketahui ke dalam rumus gradien $m=\\frac{y_2-y_1}{x_2-x_1}$.",
                 );
                 return;
             }
 
             if (!benarKiri2 || !benarHasilAtas || !benarHasilBawah) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: sederhanakan hasil substitusi. Pembilang berasal dari $4-8a$, sedangkan penyebut berasal dari $2a-3a$.",
+                    "Petunjuk: sederhanakan hasil pengurangan pada pembilang dan penyebut secara teliti.",
                 );
                 return;
             }
 
             if (!benarPers1Kiri || !benarPers1Kanan) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: hilangkan pecahan dengan mengalikan kedua ruas dengan penyebutnya. Karena $0 \\times (-a)=0$, maka diperoleh $0=4-8a$.",
+                    "Petunjuk: hilangkan bentuk pecahan dengan mengalikan kedua ruas menggunakan penyebutnya.",
                 );
                 return;
             }
 
             if (!benarHasilA) {
                 tampilkanPetunjukLatihan3(
-                    "Petunjuk: dari $0=4-8a$, diperoleh $8a=4$, sehingga $a=\\frac{1}{2}$.",
+                    "Petunjuk: selesaikan persamaan yang diperoleh sampai nilai $a$ ditemukan.",
                 );
             }
         }
@@ -2164,6 +2300,144 @@
 
             if (akhir) {
                 akhir.classList.add("d-none");
+            }
+        }
+
+        // Save PROGRESS
+        function setCheckedSafe(id, checked) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.checked = checked;
+            }
+        }
+
+        function setValueSafe(id, value) {
+            const el = document.getElementById(id);
+            if (el && value !== undefined && value !== null) {
+                el.value = value;
+            }
+        }
+
+        function beriValid(ids) {
+            ids.forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("is-invalid");
+                    el.classList.add("is-valid");
+                }
+            });
+        }
+
+        function restoreLatihan1C1() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L1`]?.jawaban;
+
+            if (!saved || !Array.isArray(saved.selected)) return;
+
+            ["k", "l", "m", "n"].forEach((kode) => {
+                setCheckedSafe(`lat1-${kode}`, saved.selected.includes(kode));
+            });
+
+            const fb = document.getElementById("fb-lat1");
+            const nextBtn = document.getElementById("nextBtnLatihan1");
+            const latihan2 = document.getElementById("latihanStep2");
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Jawaban Latihan 1 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (nextBtn) nextBtn.disabled = false;
+            if (latihan2) latihan2.style.display = "block";
+        }
+
+        function restoreLatihan2C1() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L2`]?.jawaban;
+
+            if (!saved || !saved.latihan2) return;
+
+            const radio = document.querySelector(
+                `input[name="latihan2"][value="${saved.latihan2}"]`
+            );
+
+            if (radio) {
+                radio.checked = true;
+            }
+
+            const fb = document.getElementById("fb-lat2");
+            const nextBtn = document.getElementById("nextBtnLatihan2");
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Jawaban Latihan 2 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+            if (nextBtn) nextBtn.disabled = false;
+        }
+
+        function restoreLatihan3C1() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L3`]?.jawaban;
+
+            if (!saved) return;
+
+            Object.entries(saved).forEach(([id, value]) => {
+                setValueSafe(id, value);
+            });
+
+            beriValid(Object.keys(saved));
+
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+            const fb = document.getElementById("fbLatihan3");
+            const akhir = document.getElementById("pesanAkhirLatihan");
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Jawaban Latihan 3 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (akhir) {
+                akhir.classList.remove("d-none");
+            }
+
+            renderKatex(fb);
+            renderKatex(akhir);
+            bukaNextButton();
+        }
+
+        function restoreProgressC1() {
+            restoreLatihan1C1();
+            restoreLatihan2C1();
+            restoreLatihan3C1();
+
+            if (IS_MATERI_COMPLETED) {
+                const latihan2 = document.getElementById("latihanStep2");
+                const latihan3 = document.getElementById("latihanStep3");
+                const nextBtn1 = document.getElementById("nextBtnLatihan1");
+                const nextBtn2 = document.getElementById("nextBtnLatihan2");
+
+                if (latihan2) latihan2.style.display = "block";
+                if (latihan3) latihan3.style.display = "block";
+
+                if (nextBtn1) nextBtn1.disabled = false;
+                if (nextBtn2) nextBtn2.disabled = false;
+
+                bukaNextButton();
             }
         }
     </script>

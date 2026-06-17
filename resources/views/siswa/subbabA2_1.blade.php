@@ -162,6 +162,17 @@
     </style>
 
     <style>
+        /* ===== Petunjuk Latihan ===== */
+        .petunjuk-mini-latihan {
+            background: #fffdf5;
+            border: 1px solid #ffe69c;
+            border-radius: 12px;
+            padding: 10px 12px;
+            line-height: 1.6;
+            margin: 10px 0 14px;
+            font-size: 0.95rem;
+        }
+
         .input-latihan {
             width: 90px;
             padding: 6px 10px;
@@ -211,9 +222,9 @@
 
         .grafik-wrapper {
             width: 100%;
-            max-width: 870px;
+            max-width: 760px;
             margin: 0 auto;
-            overflow-x: auto;
+            overflow-x: hidden;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 12px;
@@ -221,6 +232,7 @@
         }
 
         #canvas-holder {
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -230,6 +242,7 @@
             max-width: 100% !important;
             height: auto !important;
             display: block;
+            border-radius: 8px;
         }
 
         .grafik-actions {
@@ -240,9 +253,7 @@
             flex-wrap: wrap;
         }
 
-        /* =========================================
-                                                                   RESPONSIVE MOBILE
-                                                                ========================================= */
+        /* RESPONSIVE MOBILE */
         @media (max-width: 768px) {
 
             /* ---------- GAMBAR ---------- */
@@ -328,6 +339,71 @@
                 margin-left: 0 !important;
             }
 
+        }
+    </style>
+
+    <style>
+        /* ===== Canvas Contoh 2.1 ===== */
+
+        .plot-contoh-row {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 24px;
+            align-items: start;
+            justify-content: center;
+        }
+
+        .plot-info-side {
+            width: 260px;
+            margin-top: 100px;
+        }
+
+        .plot-info-side .info-aktivitas {
+            min-height: 120px;
+        }
+
+        @media (max-width: 992px) {
+            .plot-contoh-row {
+                grid-template-columns: 1fr;
+            }
+
+            .plot-info-side {
+                width: 100%;
+                margin-top: 12px;
+            }
+        }
+
+        .canvas-responsive {
+            width: 100%;
+            max-width: 540px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 12px;
+            background: #fff;
+            padding: 8px;
+        }
+
+        #canvas-contoh-21 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #canvas-contoh-21 canvas {
+            width: 100% !important;
+            max-width: 520px !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .info-aktivitas {
+            background: #f8fbff;
+            border: 1px solid rgba(74, 118, 184, .25);
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
     </style>
 
@@ -448,27 +524,35 @@
             dan \((4,14)\). Titik-titik tersebut kemudian digambar pada bidang koordinat.
         </p>
 
-        <p class="mb-2" style="line-height:1.7;">
-            Jika titik-titik tersebut dihubungkan, akan terbentuk grafik garis lurus seperti berikut.
-        </p>
-
         <div class="box-info mb-3" style="background:#fff;">
             <p class="mb-2" style="font-weight:600;">
-                Tampilkan titik satu per satu, lalu hubungkan titik-titik tersebut menjadi garis.
+                Tempatkan titik-titik berikut pada bidang koordinat sesuai pasangan titik yang diperoleh dari tabel.
             </p>
 
-            <div id="canvas-contoh-21" class="mb-2"></div>
-
-            <div class="d-flex gap-2 flex-wrap">
-                <button class="btn-palet btn-sm" onclick="tampilTitik21('A')">Tampilkan Titik A</button>
-                <button class="btn-palet btn-sm" onclick="tampilTitik21('B')">Tampilkan Titik B</button>
-                <button class="btn-palet btn-sm" onclick="tampilTitik21('C')">Tampilkan Titik C</button>
-                <button class="btn-palet btn-sm" onclick="tampilTitik21('D')">Tampilkan Titik D</button>
-                <button class="btn-palet btn-sm" onclick="tampilGaris21()">Tampilkan Garis</button>
-                <button class="btn-palet btn-sm" onclick="resetContoh21()">Reset</button>
+            <div class="petunjuk-mini-latihan">
+                <strong>Petunjuk:</strong>
+                Klik titik pada bidang koordinat Kartesius sesuai urutan
+                $A(1,5)$, $B(2,8)$, $C(3,11)$, dan $D(4,14)$.
+                Jika titik yang kamu klik benar, titik akan muncul pada bidang koordinat.
+                Jika semua titik sudah tepat, titik-titik tersebut akan dihubungkan membentuk garis lurus.
             </div>
 
-            <div id="infoContoh21" class="mt-2"></div>
+            <div class="plot-contoh-row">
+                <div class="canvas-responsive">
+                    <div id="canvas-contoh-21"></div>
+                </div>
+
+                <div class="plot-info-side">
+                    <div id="infoContoh21" class="info-aktivitas">
+                        Klik titik <b>A(1,5)</b> pada bidang koordinat.
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn-palet btn btn-sm" onclick="resetContoh21()">Reset</button>
+                    </div>
+                </div>
+            </div>
+
             <script src="{{ asset('js/subbabA/pcontoh21.js') }}"></script>
         </div>
     </div>
@@ -484,11 +568,18 @@
             <div class="latihan-step" id="latihanStep1">
 
                 <p class="mb-2" style="max-width: 720px;">
-                    <b>1.</b> Diketahui persamaan garis lurus:<br>
-                    <b>$y = x - 3$</b><br><br>
-
-                    Isi tabel nilai $y$ lalu tuliskan pasangan $(x,y)$.
+                    <b>1.</b> Diketahui persamaan garis lurus:
+                    <b>$y = x - 3$</b>.
+                    Lengkapilah tabel berikut dengan menentukan nilai $y$ untuk setiap nilai $x$,
+                    kemudian tuliskan pasangan berurutan $(x,y)$ yang sesuai.
                 </p>
+
+                <div class="petunjuk-mini-latihan">
+                    <strong>Petunjuk:</strong>
+                    Substitusikan setiap nilai $x$ ke dalam persamaan $y = x - 3$.
+                    Setelah nilai $y$ diperoleh, tuliskan pasangan berurutan dalam bentuk $(x,y)$.
+                    Contoh penulisan pasangan titik: $1, -2$ atau $(1,-2)$.
+                </div>
 
                 <table class="tabel-garis" style="width: 500px">
                     <tr>
@@ -579,23 +670,6 @@
                         Lanjut ke Latihan 2
                     </button>
                 </div>
-
-                <div class="box-kesimpulan mt-3" id="kesimpulanLat1" style="display:none;">
-
-                    <p class="mb-1" style="font-weight:700;">
-                        Kesimpulan:
-                    </p>
-
-                    <p class="mb-0">
-                        Untuk menentukan pasangan berurutan $(x,y)$
-                        pada persamaan garis lurus:
-                        <br>1. Pilih nilai $x$ terlebih dahulu.
-                        <br>2. Substitusikan nilai $x$
-                        ke dalam persamaan untuk mendapatkan $y$.
-                        <br>3. Tuliskan pasangan berurutan
-                        dalam bentuk $(x,y)$.
-                    </p>
-                </div>
             </div>
 
             <!-- ===================== -->
@@ -606,11 +680,20 @@
                 <hr class="my-4">
 
                 <p class="mb-2" style="max-width: 720px;">
-                    <b>2.</b> Diketahui persamaan garis lurus:<br>
-                    <b>$y = 2x + 5$</b><br><br>
-
-                    Isi tabel, lalu tampilkan grafik.
+                    <b>2.</b> Diketahui persamaan garis lurus:
+                    <b>$y = 2x + 5$</b>.
+                    Tentukan nilai $y$ untuk setiap nilai $x$ pada tabel berikut.
+                    Setelah tabel benar, gunakan pasangan titik yang diperoleh untuk menggambar grafik
+                    pada bidang koordinat.
                 </p>
+
+                <div class="petunjuk-mini-latihan">
+                    <strong>Petunjuk:</strong>
+                    Hitung nilai $y$ dengan mensubstitusikan setiap nilai $x$ ke dalam persamaan
+                    $y = 2x + 5$. Setelah semua nilai $y$ diisi, klik tombol
+                    <strong>Cek Tabel</strong>. Jika tabel benar, bidang koordinat akan muncul
+                    dan kamu dapat mengeklik titik $A$, $B$, $C$, dan $D$ sesuai pasangan titik pada tabel.
+                </div>
 
                 <table class="tabel-garis" style="width: 500px">
                     <tr>
@@ -688,28 +771,17 @@
 
                 <div id="grafikSection" style="display:none; margin-top:20px;">
 
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk menggambar grafik:</strong>
+                        Perhatikan koordinat titik pada panel di samping bidang koordinat, lalu klik titik
+                        sesuai urutan $A$, $B$, $C$, dan $D$.
+                    </div>
+
                     <div class="grafik-wrapper">
                         <div id="canvas-holder"></div>
                     </div>
 
-                    <div id="feedbackGrafik" class="mt-2 fw-semibold">
-                    </div>
-                </div>
-
-                <div class="box-kesimpulan mt-3" id="kesimpulanLat2" style="display:none;">
-
-                    <p class="mb-1" style="font-weight:700;">
-                        Kesimpulan:
-                    </p>
-
-                    <p class="mb-0">
-                        Untuk menggambar grafik persamaan garis lurus:
-                        <br>1. Tentukan beberapa nilai $x$.
-                        <br>2. Hitung nilai $y$ yang sesuai.
-                        <br>3. Tuliskan pasangan berurutan $(x,y)$.
-                        <br>4. Plot titik-titik tersebut pada bidang koordinat.
-                        <br>5. Hubungkan titik-titiknya sehingga membentuk garis lurus.
-                    </p>
+                    <div id="feedbackGrafik" class="mt-2 fw-semibold"></div>
                 </div>
             </div>
         </div>
@@ -719,6 +791,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
+        const MATERI_ID = @json($materi->id);
+        const MATERI_SLUG = @json($materi->slug);
+        const IS_MATERI_COMPLETED = @json((bool) ($materialProgress->is_completed ?? false));
+        const SAVED_LATIHAN = @json($latihanProgress ?? []);
+        const LATIHAN_PROGRESS_URL = @json(route('latihan.progress.store', $materi->id));
+
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
@@ -837,6 +915,55 @@
         // =========================
         // SAVE PROGRESS
         // =========================
+
+        async function simpanProgressLatihan(latihanKey, tipe, jawaban, isCorrect) {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!LATIHAN_PROGRESS_URL) {
+                console.error("LATIHAN_PROGRESS_URL kosong.");
+                return false;
+            }
+
+            if (!csrfToken) {
+                console.error("CSRF token kosong.");
+                return false;
+            }
+
+            try {
+                const response = await fetch(LATIHAN_PROGRESS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({
+                        latihan_key: latihanKey,
+                        tipe: tipe,
+                        jawaban: jawaban,
+                        is_correct: isCorrect,
+                    }),
+                });
+
+                const text = await response.text();
+
+                console.log("STATUS SIMPAN:", response.status);
+                console.log("RESPONSE SIMPAN:", text);
+
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    return text;
+                }
+            } catch (error) {
+                console.error("Gagal menyimpan latihan:", error);
+                return false;
+            }
+        }
+
         async function saveProgressMateri() {
             const csrfToken = document
                 .querySelector('meta[name="csrf-token"]')
@@ -882,7 +1009,7 @@
         // =========================
         // LATIHAN 1 A2.1
         // =========================
-        function cekLatihan1A21() {
+        async function cekLatihan1A21() {
             const hasil = [
                 cekIsian("lat1_y1", "-5"),
                 cekIsian("lat1_y2", "-3"),
@@ -897,19 +1024,33 @@
 
             const nextBtn = document.getElementById("nextBtnLat1");
             const feedback = document.getElementById("feedbackLatihan1");
-            const boxKesimpulan = document.getElementById("kesimpulanLat1");
-
             if (!feedback) return;
+
+            if (hasil.every(Boolean)) {}
 
             if (hasil.every(Boolean)) {
                 feedback.innerHTML = `<span style="color:#15803d;">Bagus! Semua jawaban benar.</span>`;
 
-                if (boxKesimpulan) boxKesimpulan.style.display = "block";
                 if (nextBtn) nextBtn.disabled = false;
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1`,
+                    "input", {
+                        lat1_y1: document.getElementById("lat1_y1")?.value.trim() ?? "",
+                        lat1_y2: document.getElementById("lat1_y2")?.value.trim() ?? "",
+                        lat1_y3: document.getElementById("lat1_y3")?.value.trim() ?? "",
+                        lat1_y4: document.getElementById("lat1_y4")?.value.trim() ?? "",
+
+                        lat1_pair1: document.getElementById("lat1_pair1")?.value.trim() ?? "",
+                        lat1_pair2: document.getElementById("lat1_pair2")?.value.trim() ?? "",
+                        lat1_pair3: document.getElementById("lat1_pair3")?.value.trim() ?? "",
+                        lat1_pair4: document.getElementById("lat1_pair4")?.value.trim() ?? "",
+                    },
+                    true
+                );
             } else {
                 feedback.innerHTML = `<span style="color:#b91c1c;">Masih ada yang salah.</span>`;
 
-                if (boxKesimpulan) boxKesimpulan.style.display = "none";
                 if (nextBtn) nextBtn.disabled = true;
 
                 resetStepSetelah(2);
@@ -940,11 +1081,9 @@
             });
 
             const feedback = document.getElementById("feedbackLatihan1");
-            const boxKesimpulan = document.getElementById("kesimpulanLat1");
             const nextBtn = document.getElementById("nextBtnLat1");
 
             if (feedback) feedback.innerHTML = "";
-            if (boxKesimpulan) boxKesimpulan.style.display = "none";
             if (nextBtn) nextBtn.disabled = true;
 
             resetStepSetelah(2);
@@ -953,7 +1092,7 @@
         // =========================
         // LATIHAN 2 A2.1
         // =========================
-        function cekTabelA21() {
+        async function cekTabelA21() {
             const inputIds = ["y1", "y2", "y3", "y4"];
 
             const kosong = inputIds.some((id) => {
@@ -963,7 +1102,6 @@
 
             const feedbackTabel = document.getElementById("feedbackTabel");
             const grafikSection = document.getElementById("grafikSection");
-            const boxKesimpulan = document.getElementById("kesimpulanLat2");
 
             if (kosong) {
                 inputIds.forEach((id) => {
@@ -979,7 +1117,6 @@
                 }
 
                 if (grafikSection) grafikSection.style.display = "none";
-                if (boxKesimpulan) boxKesimpulan.style.display = "none";
                 return;
             }
 
@@ -1008,6 +1145,7 @@
             const ok = benar1 && benar2 && benar3 && benar4;
 
             if (ok) {
+
                 window.tablePairs = [{
                         label: "A",
                         x: -4,
@@ -1030,6 +1168,18 @@
                     },
                 ];
 
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L2_TABEL`,
+                    "input", {
+                        y1: y1,
+                        y2: y2,
+                        y3: y3,
+                        y4: y4,
+                        pairs: window.tablePairs,
+                    },
+                    true
+                );
+
                 if (window.loadTargetsFromTable) {
                     window.loadTargetsFromTable(window.tablePairs);
                 }
@@ -1044,10 +1194,6 @@
                     scrollKeStep("grafikSection");
                 }
 
-                if (boxKesimpulan) {
-                    boxKesimpulan.style.display = "none";
-                }
-
                 if (window.resetPointsToStart) {
                     window.resetPointsToStart();
                 }
@@ -1058,7 +1204,6 @@
                 }
 
                 if (grafikSection) grafikSection.style.display = "none";
-                if (boxKesimpulan) boxKesimpulan.style.display = "none";
             }
         }
 
@@ -1083,11 +1228,9 @@
 
             const feedbackTabel = document.getElementById("feedbackTabel");
             const grafikSection = document.getElementById("grafikSection");
-            const boxKesimpulan = document.getElementById("kesimpulanLat2");
 
             if (feedbackTabel) feedbackTabel.innerHTML = "";
             if (grafikSection) grafikSection.style.display = "none";
-            if (boxKesimpulan) boxKesimpulan.style.display = "none";
 
             renderMathSafe(document.getElementById("latihanStep2"));
 
@@ -1097,7 +1240,6 @@
         }
 
         async function checkAnswersA21() {
-
             let benar = false;
 
             if (typeof window.checkAnswers === "function") {
@@ -1106,7 +1248,23 @@
 
             if (!benar) return;
 
+            await simpanProgressLatihan(
+                `${MATERI_SLUG}_L2`,
+                "grafik", {
+                    y1: document.getElementById("y1")?.value.trim() ?? "",
+                    y2: document.getElementById("y2")?.value.trim() ?? "",
+                    y3: document.getElementById("y3")?.value.trim() ?? "",
+                    y4: document.getElementById("y4")?.value.trim() ?? "",
+                    pairs: window.tablePairs ?? [],
+                    titikSiswa: typeof window.getTitikSiswaA21 === "function" ?
+                        window.getTitikSiswaA21() : [],
+                    plottingBenar: true,
+                },
+                true
+            );
+
             const saved = await saveProgressMateri();
+
             if (saved) {
                 bukaNextButton();
             }
@@ -1114,10 +1272,8 @@
 
         function resetGrafikA21() {
             const feedbackGrafik = document.getElementById("feedbackGrafik");
-            const boxKesimpulan = document.getElementById("kesimpulanLat2");
 
             if (feedbackGrafik) feedbackGrafik.innerHTML = "";
-            if (boxKesimpulan) boxKesimpulan.style.display = "none";
 
             if (window.resetPointsToStart) {
                 window.resetPointsToStart();
@@ -1129,26 +1285,27 @@
         // =========================
 
         const sketchLatihanA21 = (p) => {
-            const gridSize = 500;
-            const leftMargin = 40;
+            const canvasW = 720;
+            const canvasH = 430;
+
+            const gridSize = 340;
+            const leftMargin = 44;
             const topMargin = 40;
 
-            let originX, originY, scaleUnit;
+            let originX;
+            let originY;
+            let scaleUnit;
 
             let titikSiswa = [];
-
-            let plottingSelesai = false;
             let plottingBenar = false;
-
             let feedbackPlot = "Klik titik A, B, C, dan D pada bidang koordinat.";
 
             p.setup = function() {
-                p.createCanvas(760, 600);
+                const canvas = p.createCanvas(canvasW, canvasH);
+                canvas.parent("canvas-holder");
 
                 scaleUnit = gridSize / 20;
-
                 originX = leftMargin + gridSize / 2;
-
                 originY = topMargin + gridSize / 2;
             };
 
@@ -1156,9 +1313,7 @@
                 p.background(255);
 
                 drawGrid();
-
                 drawPanelKanan();
-
                 drawPoints();
 
                 if (plottingBenar) {
@@ -1166,38 +1321,29 @@
                 }
             };
 
-
             // =========================
             // CLICK INPUT
             // =========================
             let lastClickTime = 0;
 
             function handleInput() {
-
-                // cegah double trigger mobile
-                if (p.millis() - lastClickTime < 300) {
-                    return;
-                }
+                if (p.millis() - lastClickTime < 300) return;
 
                 lastClickTime = p.millis();
 
-                if (!window.tablePairs) return;
+                if (!window.tablePairs || !window.tablePairs.length) {
+                    feedbackPlot = "Isi dan cek tabel terlebih dahulu.";
+                    return;
+                }
 
                 if (plottingBenar) return;
-
                 if (titikSiswa.length >= 4) return;
 
-                const pt = pixelToCoord(
-                    p.mouseX,
-                    p.mouseY
-                );
-
+                const pt = pixelToCoord(p.mouseX, p.mouseY);
                 if (!pt) return;
 
-                const nama =
-                    window.tablePairs[
-                        titikSiswa.length
-                    ].label;
+                const target = window.tablePairs[titikSiswa.length];
+                const nama = target.label;
 
                 titikSiswa.push({
                     nama,
@@ -1206,9 +1352,10 @@
                 });
 
                 if (titikSiswa.length < 4) {
+                    const targetBerikutnya = window.tablePairs[titikSiswa.length];
 
                     feedbackPlot =
-                        `Titik ${nama} dipilih di (${pt.x}, ${pt.y}).`;
+                        `Titik ${nama} dipilih di (${pt.x}, ${pt.y}). Selanjutnya klik titik ${targetBerikutnya.label}(${targetBerikutnya.x}, ${targetBerikutnya.y}).`;
 
                     return;
                 }
@@ -1221,13 +1368,10 @@
             };
 
             function cekJawaban() {
-                plottingSelesai = true;
-
                 plottingBenar = true;
 
                 for (let i = 0; i < 4; i++) {
                     const siswa = titikSiswa[i];
-
                     const target = window.tablePairs[i];
 
                     if (siswa.x !== target.x || siswa.y !== target.y) {
@@ -1236,34 +1380,23 @@
                     }
                 }
 
-                const feedbackGrafik = document.getElementById("feedbackGrafik");
-
                 if (plottingBenar) {
-                    feedbackPlot = "Bagus! Semua titik sudah benar.";
-
-                    const boxKesimpulan = document.getElementById("kesimpulanLat2");
-
-                    if (boxKesimpulan) {
-                        boxKesimpulan.style.display = "block";
-                    }
-                    // SAVE PROGRESS
+                    feedbackPlot =
+                        "Bagus! Semua titik sudah tepat dan membentuk garis lurus. Silakan lanjut ke materi selanjutnya.";
                     checkAnswersA21();
                 } else {
-                    feedbackPlot = "Masih ada titik yang salah.";
+                    feedbackPlot =
+                        "Masih ada titik yang belum tepat. Perhatikan kembali koordinat A, B, C, dan D pada panel petunjuk.";
 
                     setTimeout(() => {
                         resetPlot();
-                    }, 1200);
+                    }, 1800);
                 }
             }
 
             function resetPlot() {
                 titikSiswa = [];
-
-                plottingSelesai = false;
-
                 plottingBenar = false;
-
                 feedbackPlot = "Klik titik A, B, C, dan D pada bidang koordinat.";
             }
 
@@ -1275,19 +1408,34 @@
                 return plottingBenar;
             };
 
+            // Simpan Titik dan Restore
+            window.getTitikSiswaA21 = function() {
+                return titikSiswa;
+            };
+
+            window.restorePlotA21 = function(points) {
+                if (!Array.isArray(points) || points.length === 0) return;
+
+                titikSiswa = points;
+                plottingBenar = true;
+                feedbackPlot =
+                    "Jawaban grafik sudah tersimpan. Titik A, B, C, dan D sudah tepat dan membentuk garis lurus.";
+            };
+
+            // =========================
+            // GRID
+            // =========================
             function drawGrid() {
                 p.stroke(230);
                 p.strokeWeight(1);
 
                 for (let x = -10; x <= 10; x++) {
                     const px = originX + x * scaleUnit;
-
                     p.line(px, topMargin, px, topMargin + gridSize);
                 }
 
                 for (let y = -10; y <= 10; y++) {
                     const py = originY - y * scaleUnit;
-
                     p.line(leftMargin, py, leftMargin + gridSize, py);
                 }
 
@@ -1295,22 +1443,18 @@
                 p.strokeWeight(2);
 
                 p.line(leftMargin, originY, leftMargin + gridSize, originY);
-
                 p.line(originX, topMargin, originX, topMargin + gridSize);
 
                 p.noStroke();
-
                 p.fill(0);
-
                 p.textAlign(p.CENTER, p.CENTER);
-
-                p.textSize(12);
+                p.textSize(11);
 
                 for (let i = -10; i <= 10; i++) {
                     const px = originX + i * scaleUnit;
 
                     if (i !== 0) {
-                        p.text(i, px, originY + 16);
+                        p.text(i, px, originY + 14);
                     }
                 }
 
@@ -1318,67 +1462,94 @@
                     const py = originY - j * scaleUnit;
 
                     if (j !== 0) {
-                        p.text(j, originX - 16, py);
+                        p.text(j, originX - 14, py);
                     }
                 }
 
-                p.text("0", originX - 10, originY + 16);
+                p.text("0", originX - 10, originY + 14);
 
-                p.textSize(16);
-
-                p.text("X", leftMargin + gridSize + 15, originY);
-
+                p.textSize(15);
+                p.text("X", leftMargin + gridSize + 14, originY);
                 p.text("Y", originX, topMargin - 15);
             }
 
+            // =========================
+            // PANEL KANAN
+            // =========================
             function drawPanelKanan() {
-                const panelX = 565;
-                const panelW = 170;
+                const panelX = 430;
+                const panelY = 38;
+                const panelW = 260;
 
                 p.noStroke();
-
                 p.fill(0);
-
                 p.textAlign(p.LEFT, p.TOP);
 
-                p.textSize(16);
+                p.textSize(17);
+                p.text("Petunjuk", panelX, panelY);
 
-                p.text("Petunjuk", panelX, 40);
+                p.textSize(13);
 
-                p.textSize(14);
+                let daftarKoordinat = "Koordinat titik:\n";
 
-                const petunjuk =
-                    "1. Klik titik A.\n" +
-                    "2. Klik titik B.\n" +
-                    "3. Klik titik C.\n" +
-                    "4. Klik titik D.\n" +
-                    "5. Sistem akan memeriksa\n" +
-                    "   apakah titik sudah benar.";
+                if (window.tablePairs && window.tablePairs.length) {
+                    window.tablePairs.forEach((t) => {
+                        daftarKoordinat += `${t.label}(${t.x}, ${t.y})\n`;
+                    });
+                } else {
+                    daftarKoordinat += "Isi tabel dan klik Cek Tabel dulu.\n";
+                }
 
-                p.text(petunjuk, panelX, 70, panelW, 150);
+                p.text(daftarKoordinat, panelX, panelY + 32, panelW, 95);
 
-                p.text(feedbackPlot, panelX, 250, panelW, 120);
+                let targetText = "";
+
+                if (window.tablePairs && window.tablePairs.length && titikSiswa.length < 4 && !plottingBenar) {
+                    const target = window.tablePairs[titikSiswa.length];
+
+                    targetText =
+                        `Titik yang harus diklik:\n` +
+                        `${target.label}(${target.x}, ${target.y})\n\n` +
+                        `Klik titik pada bidang koordinat\n` +
+                        `Kartesius sesuai koordinat\n` +
+                        `yang ditampilkan.\n\n` +
+                        `Setelah titik A, B, C, dan D\n` +
+                        `tepat, titik-titik tersebut\n` +
+                        `akan dihubungkan membentuk\n` +
+                        `garis lurus.`;
+                } else if (plottingBenar) {
+                    targetText =
+                        `Semua titik sudah tepat.\n\n` +
+                        `Titik A, B, C, dan D\n` +
+                        `dihubungkan sehingga\n` +
+                        `membentuk garis lurus.`;
+                } else {
+                    targetText =
+                        `Isi tabel dan klik Cek Tabel\n` +
+                        `terlebih dahulu.`;
+                }
+                p.text(targetText, panelX, panelY + 120, panelW, 185);
+
+                p.fill(plottingBenar ? "#15803d" : "#111827");
+                p.text(feedbackPlot, panelX, panelY + 325, panelW, 80);
             }
 
+            // =========================
+            // TITIK DAN GARIS
+            // =========================
             function drawPoints() {
                 titikSiswa.forEach((titik) => {
                     const px = toPixelX(titik.x);
-
                     const py = toPixelY(titik.y);
 
                     p.fill(220, 0, 0);
-
                     p.noStroke();
-
                     p.circle(px, py, 10);
 
                     p.fill(0);
-
                     p.textAlign(p.LEFT, p.BOTTOM);
-
                     p.textSize(13);
-
-                    p.text(titik.nama, px + 8, py - 4);
+                    p.text(`${titik.nama}(${titik.x}, ${titik.y})`, px + 8, py - 4);
                 });
             }
 
@@ -1386,13 +1557,10 @@
                 if (!plottingBenar) return;
 
                 const A = titikSiswa[0];
-
                 const D = titikSiswa[3];
 
                 p.stroke(30, 150, 70);
-
                 p.strokeWeight(3);
-
                 p.line(toPixelX(A.x), toPixelY(A.y), toPixelX(D.x), toPixelY(D.y));
             }
 
@@ -1407,11 +1575,9 @@
                 }
 
                 let x = Math.round((px - originX) / scaleUnit);
-
                 let y = Math.round((originY - py) / scaleUnit);
 
                 x = p.constrain(x, -10, 10);
-
                 y = p.constrain(y, -10, 10);
 
                 return {
@@ -1428,6 +1594,179 @@
                 return originY - y * scaleUnit;
             }
         };
+
+        // RESTORE JAWABAN
+        function setValueSafe(id, value) {
+            const el = document.getElementById(id);
+            if (el && value !== undefined && value !== null) {
+                el.value = value;
+            }
+        }
+
+        function restoreLatihan1A21() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L1`]?.jawaban;
+
+            if (!saved) return;
+
+            setValueSafe("lat1_y1", saved.lat1_y1);
+            setValueSafe("lat1_y2", saved.lat1_y2);
+            setValueSafe("lat1_y3", saved.lat1_y3);
+            setValueSafe("lat1_y4", saved.lat1_y4);
+
+            setValueSafe("lat1_pair1", saved.lat1_pair1);
+            setValueSafe("lat1_pair2", saved.lat1_pair2);
+            setValueSafe("lat1_pair3", saved.lat1_pair3);
+            setValueSafe("lat1_pair4", saved.lat1_pair4);
+
+            [
+                "lat1_y1",
+                "lat1_y2",
+                "lat1_y3",
+                "lat1_y4",
+                "lat1_pair1",
+                "lat1_pair2",
+                "lat1_pair3",
+                "lat1_pair4",
+            ].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("is-invalid");
+                    el.classList.add("is-valid");
+                }
+            });
+
+            const nextBtn = document.getElementById("nextBtnLat1");
+            const feedback = document.getElementById("feedbackLatihan1");
+            const latihan2 = document.getElementById("latihanStep2");
+
+            if (nextBtn) nextBtn.disabled = false;
+            if (latihan2) latihan2.style.display = "block";
+
+            if (feedback) {
+                feedback.innerHTML =
+                    `<span style="color:#15803d;">Jawaban Latihan 1 sudah tersimpan.</span>`;
+            }
+        }
+
+        function updatePairsLatihan2A21(y1, y2, y3, y4) {
+            const pair1 = document.getElementById("pair1");
+            const pair2 = document.getElementById("pair2");
+            const pair3 = document.getElementById("pair3");
+            const pair4 = document.getElementById("pair4");
+
+            if (pair1) pair1.innerHTML = `$A(-4, ${y1})$`;
+            if (pair2) pair2.innerHTML = `$B(-2, ${y2})$`;
+            if (pair3) pair3.innerHTML = `$C(0, ${y3})$`;
+            if (pair4) pair4.innerHTML = `$D(2, ${y4})$`;
+
+            renderMathSafe(document.getElementById("latihanStep2"));
+        }
+
+        function restoreGrafikJikaSiap(points) {
+            if (typeof window.restorePlotA21 === "function") {
+                window.restorePlotA21(points);
+                return;
+            }
+
+            setTimeout(() => {
+                restoreGrafikJikaSiap(points);
+            }, 300);
+        }
+
+        function restoreLatihan2A21() {
+            const savedFinal = SAVED_LATIHAN[`${MATERI_SLUG}_L2`]?.jawaban;
+            const savedTabel = SAVED_LATIHAN[`${MATERI_SLUG}_L2_TABEL`]?.jawaban;
+
+            const saved = savedFinal || savedTabel;
+
+            if (!saved) return;
+
+            const y1 = saved.y1 ?? "";
+            const y2 = saved.y2 ?? "";
+            const y3 = saved.y3 ?? "";
+            const y4 = saved.y4 ?? "";
+
+            setValueSafe("y1", y1);
+            setValueSafe("y2", y2);
+            setValueSafe("y3", y3);
+            setValueSafe("y4", y4);
+
+            ["y1", "y2", "y3", "y4"].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("is-invalid");
+                    el.classList.add("is-valid");
+                }
+            });
+
+            updatePairsLatihan2A21(y1, y2, y3, y4);
+
+            window.tablePairs = saved.pairs ?? [{
+                    label: "A",
+                    x: -4,
+                    y: Number(norm(y1))
+                },
+                {
+                    label: "B",
+                    x: -2,
+                    y: Number(norm(y2))
+                },
+                {
+                    label: "C",
+                    x: 0,
+                    y: Number(norm(y3))
+                },
+                {
+                    label: "D",
+                    x: 2,
+                    y: Number(norm(y4))
+                },
+            ];
+
+            const latihan2 = document.getElementById("latihanStep2");
+            const grafikSection = document.getElementById("grafikSection");
+            const feedbackTabel = document.getElementById("feedbackTabel");
+
+            if (latihan2) latihan2.style.display = "block";
+            if (grafikSection) grafikSection.style.display = "block";
+
+            if (feedbackTabel) {
+                feedbackTabel.innerHTML =
+                    `<span style="color:#15803d;">Tabel Latihan 2 sudah tersimpan.</span>`;
+            }
+
+            if (savedFinal && savedFinal.plottingBenar) {
+                restoreGrafikJikaSiap(savedFinal.titikSiswa ?? []);
+
+                if (feedbackTabel) {
+                    feedbackTabel.innerHTML =
+                        `<span style="color:#15803d;">Latihan 2 sudah selesai dan tersimpan.</span>`;
+                }
+
+                bukaNextButton();
+            }
+        }
+
+        function restoreProgressA21() {
+            if (IS_MATERI_COMPLETED) {
+                const latihan2 = document.getElementById("latihanStep2");
+                const grafikSection = document.getElementById("grafikSection");
+                const nextBtnLat1 = document.getElementById("nextBtnLat1");
+
+                if (latihan2) latihan2.style.display = "block";
+                if (grafikSection) grafikSection.style.display = "block";
+                if (nextBtnLat1) nextBtnLat1.disabled = false;
+
+                bukaNextButton();
+            }
+
+            restoreLatihan1A21();
+            restoreLatihan2A21();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            restoreProgressA21();
+        });
 
         new p5(sketchLatihanA21, "canvas-holder");
     </script>

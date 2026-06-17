@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use App\Models\MaterialProgress;
 use App\Models\QuizAttempt;
+use App\Models\LatihanProgress;
 use Illuminate\Support\Facades\Auth;
 
 class MateriController extends Controller
@@ -119,15 +120,33 @@ class MateriController extends Controller
             ->where('materi_id', $materi->id)
             ->first();
 
+        // Query untuk menyimpan jawaban latihan
+        $latihanProgress = LatihanProgress::where('student_id', $studentId)
+            ->where('materi_id', $materi->id)
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [
+                    $item->latihan_key => [
+                        'tipe' => $item->tipe,
+                        'jawaban' => $item->jawaban_json,
+                        'is_correct' => (bool) $item->is_correct,
+                    ]
+                ];
+            });
+
         return view($materi->view_path, compact(
             'materi',
             'previousMateri',
             'nextMateri',
             'quizBab',
             'materialProgress',
+            'latihanProgress',
             'unlockedSlugs',
             'passedQuizIds',
-            'canAccessQuizA'
+            'canAccessQuizA',
+            'canAccessQuizB',
+            'canAccessQuizC',
+            'canAccessQuizD'
         ));
     }
 

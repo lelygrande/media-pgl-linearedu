@@ -1,178 +1,279 @@
-let titikMuncul21 = [];       // titik yang sudah ditampilkan
-let garisMuncul21 = false;    // apakah garis ditampilkan
+// =========================
+// Contoh 2.1 - Plotting Titik Interaktif
+// =========================
 
-// Titik untuk persamaan y = 3x + 2
-const target21 = [
-  { nama: "A", x: 1, y: 5 },
-  { nama: "B", x: 2, y: 8 },
-  { nama: "C", x: 3, y: 11 },
-  { nama: "D", x: 4, y: 14 }
+let targetContoh21 = [
+    { nama: "A", x: 1, y: 5 },
+    { nama: "B", x: 2, y: 8 },
+    { nama: "C", x: 3, y: 11 },
+    { nama: "D", x: 4, y: 14 },
 ];
 
-function getTitikByNama(nama) {
-  return target21.find(t => t.nama === nama);
+let indeksContoh21 = 0;
+let titikContoh21Benar = [];
+let titikContoh21Percobaan = null;
+let garisContoh21Terbentuk = false;
+
+function updateInfoContoh21() {
+    const infoBox = document.getElementById("infoContoh21");
+
+    if (!infoBox) return;
+
+    if (indeksContoh21 >= targetContoh21.length) {
+        infoBox.innerHTML = `Bagus! Semua titik sudah tepat. Titik-titik tersebut membentuk grafik garis lurus dari persamaan <b>$y = 3x + 2$</b>.`;
+
+        renderMathContoh21(infoBox);
+        return;
+    }
+
+    const titik = targetContoh21[indeksContoh21];
+
+    infoBox.innerHTML = `Klik titik <b>${titik.nama}(${titik.x},${titik.y})</b> pada bidang koordinat.`;
 }
 
-let sketch21 = function(p) {
-  const step = 20;   // diperkecil
-  const batas = 15;  // sumbu dari 0 sampai 15
+function renderMathContoh21(target) {
+    if (!target || typeof renderMathInElement !== "function") return;
 
-  p.setup = function() {
-    let canvas = p.createCanvas(400, 400); // canvas diperkecil
-    canvas.parent("canvas-contoh-21");
-  };
+    renderMathInElement(target, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+        ],
+    });
+}
 
-  p.draw = function() {
-    p.background(245);
+const sketchContoh21 = (p) => {
+    const canvasW = 520;
+    const canvasH = 520;
+    const gridSize = 390;
 
-    // Geser titik (0,0) ke kiri bawah
-    p.translate(45, p.height - 45);
+    const leftMargin = 62;
+    const topMargin = 55;
 
-    // Grid dari 0 sampai 15
-    p.stroke(220);
-    p.strokeWeight(1);
+    const minX = 0;
+    const maxX = 15;
+    const minY = 0;
+    const maxY = 15;
 
-    for (let i = 0; i <= batas; i++) {
-      // garis vertikal
-      p.line(i * step, 0, i * step, -batas * step);
+    let scaleUnit;
+    let originX;
+    let originY;
+    let lastClickTime = 0;
 
-      // garis horizontal
-      p.line(0, -i * step, batas * step, -i * step);
+    p.setup = function () {
+        const canvas = p.createCanvas(canvasW, canvasH);
+        canvas.parent("canvas-contoh-21");
+
+        scaleUnit = gridSize / 15;
+        originX = leftMargin;
+        originY = topMargin + gridSize;
+
+        canvas.mousePressed(function () {
+            handleKlikContoh21();
+            return false;
+        });
+
+        updateInfoContoh21();
+    };
+
+    p.draw = function () {
+        p.background(250);
+
+        drawGrid();
+
+        if (garisContoh21Terbentuk) {
+            drawGaris();
+        }
+
+        drawTitikBenar();
+
+        if (titikContoh21Percobaan) {
+            drawTitikPercobaan();
+        }
+    };
+
+    function handleKlikContoh21() {
+        if (p.millis() - lastClickTime < 300) return;
+
+        lastClickTime = p.millis();
+
+        if (indeksContoh21 >= targetContoh21.length) return;
+
+        const koordinat = pixelToCoord(p.mouseX, p.mouseY);
+
+        if (!koordinat) return;
+
+        const target = targetContoh21[indeksContoh21];
+
+        if (koordinat.x === target.x && koordinat.y === target.y) {
+            titikContoh21Benar.push({
+                nama: target.nama,
+                x: target.x,
+                y: target.y,
+            });
+
+            titikContoh21Percobaan = null;
+            indeksContoh21++;
+
+            if (indeksContoh21 >= targetContoh21.length) {
+                garisContoh21Terbentuk = true;
+            }
+
+            updateInfoContoh21();
+        } else {
+            titikContoh21Percobaan = {
+                x: koordinat.x,
+                y: koordinat.y,
+            };
+
+            const infoBox = document.getElementById("infoContoh21");
+
+            if (infoBox) {
+                infoBox.innerHTML = `Titik yang kamu klik belum tepat. Coba perhatikan kembali koordinat titik yang diminta.`;
+            }
+        }
     }
 
-    // Sumbu X dan Y
-    p.stroke(0);
-    p.strokeWeight(2);
+    function drawGrid() {
+        p.push();
 
-    // sumbu X
-    p.line(0, 0, batas * step, 0);
+        p.stroke(225);
+        p.strokeWeight(1);
 
-    // sumbu Y
-    p.line(0, 0, 0, -batas * step);
+        for (let i = minX; i <= maxX; i++) {
+            const x = originX + i * scaleUnit;
+            p.line(x, topMargin, x, originY);
+        }
 
-    p.strokeWeight(1);
+        for (let j = minY; j <= maxY; j++) {
+            const y = originY - j * scaleUnit;
+            p.line(originX, y, originX + gridSize, y);
+        }
 
-    // Ticks kecil pada sumbu
-    p.stroke(0);
+        p.stroke(0);
+        p.strokeWeight(2);
 
-    for (let i = 0; i <= batas; i++) {
-      // ticks sumbu X
-      p.line(i * step, -4, i * step, 4);
+        p.line(originX, originY, originX + gridSize + 20, originY);
+        p.line(originX, originY, originX, topMargin - 20);
 
-      // ticks sumbu Y
-      p.line(-4, -i * step, 4, -i * step);
+        p.noStroke();
+        p.fill(0);
+        p.textSize(12);
+        p.textAlign(p.CENTER, p.CENTER);
+
+        for (let i = minX; i <= maxX; i++) {
+            const x = originX + i * scaleUnit;
+            p.text(i, x, originY + 18);
+        }
+
+        for (let j = minY; j <= maxY; j++) {
+            const y = originY - j * scaleUnit;
+            p.text(j, originX - 20, y);
+        }
+
+        p.textSize(16);
+        p.text("x", originX + gridSize + 34, originY);
+        p.text("y", originX, topMargin - 32);
+
+        p.pop();
     }
 
-    // Angka skala
-    p.fill(0);
-    p.noStroke();
-    p.textSize(10);
+    function drawTitikBenar() {
+        p.push();
 
-    for (let i = 0; i <= batas; i++) {
-      // angka sumbu X
-      p.text(i, i * step - 3, 15);
+        titikContoh21Benar.forEach((t) => {
+            const px = toPixelX(t.x);
+            const py = toPixelY(t.y);
 
-      // angka sumbu Y
-      if (i !== 0) {
-        p.text(i, -18, -i * step + 4);
-      }
+            p.fill(0, 102, 204);
+            p.noStroke();
+            p.circle(px, py, 12);
+
+            p.fill(0);
+            p.textSize(14);
+            p.textAlign(p.LEFT, p.BOTTOM);
+            p.text(`${t.nama}(${t.x},${t.y})`, px + 8, py - 6);
+        });
+
+        p.pop();
     }
 
-    // Label sumbu
-    p.textSize(12);
-    p.text("x", batas * step + 10, 4);
-    p.text("y", 6, -batas * step - 10);
+    function drawTitikPercobaan() {
+        const px = toPixelX(titikContoh21Percobaan.x);
+        const py = toPixelY(titikContoh21Percobaan.y);
 
-    // Garis kalau diminta
-    if (garisMuncul21 && titikMuncul21.length >= 2) {
-      const urut = [...titikMuncul21].sort((a, b) => a.x - b.x);
+        p.push();
 
-      p.stroke(30);
-      p.strokeWeight(2);
+        p.stroke(220, 0, 0);
+        p.strokeWeight(3);
+        p.line(px - 7, py - 7, px + 7, py + 7);
+        p.line(px + 7, py - 7, px - 7, py + 7);
 
-      for (let i = 0; i < urut.length - 1; i++) {
-        const a = urut[i];
-        const b = urut[i + 1];
+        p.pop();
+    }
+
+    function drawGaris() {
+        if (titikContoh21Benar.length < 2) return;
+
+        const titikAwal = titikContoh21Benar[0];
+        const titikAkhir = titikContoh21Benar[titikContoh21Benar.length - 1];
+
+        p.push();
+
+        p.stroke(30, 150, 70);
+        p.strokeWeight(3);
 
         p.line(
-          a.x * step,
-          -a.y * step,
-          b.x * step,
-          -b.y * step
+            toPixelX(titikAwal.x),
+            toPixelY(titikAwal.y),
+            toPixelX(titikAkhir.x),
+            toPixelY(titikAkhir.y),
         );
-      }
 
-      p.strokeWeight(1);
+        p.pop();
     }
 
-    // Titik + label
-    titikMuncul21.forEach(t => {
-      p.fill("red");
-      p.noStroke();
-      p.circle(t.x * step, -t.y * step, 8);
+    function pixelToCoord(px, py) {
+        const batasKiri = originX;
+        const batasKanan = originX + gridSize;
+        const batasAtas = topMargin;
+        const batasBawah = originY;
 
-      p.fill(0);
-      p.textSize(11);
-      p.text(
-        `${t.nama} (${t.x}, ${t.y})`,
-        t.x * step + 6,
-        -t.y * step - 6
-      );
-    });
+        if (
+            px < batasKiri ||
+            px > batasKanan ||
+            py < batasAtas ||
+            py > batasBawah
+        ) {
+            return null;
+        }
 
-    // Petunjuk
-    p.fill(0);
-    p.noStroke();
-    p.textSize(11);
-    p.text(
-      "Tekan tombol untuk menampilkan titik A-D, lalu garis.",
-      0,
-      30
-    );
-  };
+        const x = Math.round((px - originX) / scaleUnit);
+        const y = Math.round((originY - py) / scaleUnit);
+
+        return { x, y };
+    }
+
+    function toPixelX(x) {
+        return originX + x * scaleUnit;
+    }
+
+    function toPixelY(y) {
+        return originY - y * scaleUnit;
+    }
 };
 
-new p5(sketch21);
-
-
-// ====== Tombol kontrol ======
-function tampilTitik21(nama) {
-  const t = getTitikByNama(nama);
-  if (!t) return;
-
-  const sudahAda = titikMuncul21.some(s => s.nama === nama);
-
-  if (sudahAda) {
-    document.getElementById("infoContoh21").innerHTML =
-      `<div class="alert alert-warning mb-0">Titik ${nama} sudah ditampilkan.</div>`;
-    return;
-  }
-
-  titikMuncul21.push({
-    nama: t.nama,
-    x: t.x,
-    y: t.y
-  });
-
-  document.getElementById("infoContoh21").innerHTML =
-    `<div class="alert alert-info mb-0">Menampilkan titik ${nama} (${t.x}, ${t.y}).</div>`;
-}
-
-function tampilGaris21() {
-  if (titikMuncul21.length < 2) {
-    document.getElementById("infoContoh21").innerHTML =
-      `<div class="alert alert-warning mb-0">Tampilkan minimal 2 titik dulu sebelum menampilkan garis.</div>`;
-    return;
-  }
-
-  garisMuncul21 = true;
-
-  document.getElementById("infoContoh21").innerHTML =
-    `<div class="alert alert-success mb-0">Garis ditampilkan dengan menghubungkan titik-titik yang sudah muncul.</div>`;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.getElementById("canvas-contoh-21")) {
+        new p5(sketchContoh21);
+    }
+});
 
 function resetContoh21() {
-  titikMuncul21 = [];
-  garisMuncul21 = false;
-  document.getElementById("infoContoh21").innerHTML = "";
+    indeksContoh21 = 0;
+    titikContoh21Benar = [];
+    titikContoh21Percobaan = null;
+    garisContoh21Terbentuk = false;
+
+    updateInfoContoh21();
 }

@@ -29,12 +29,29 @@
         }
 
         .rumus-box {
-            background: #f7f9fc;
+            background: #f8fbff;
             border: 1px solid #dbe5f1;
-            border-radius: 12px;
-            padding: 14px 16px;
+            border-radius: 14px;
+            padding: 10px 18px;
+            margin: 12px auto;
+            width: fit-content;
+            max-width: 100%;
             overflow-x: auto;
-            font-size: 20px;
+            font-size: 18px;
+        }
+
+        /* Biar jarak rumus KaTeX di dalam box tidak terlalu tinggi */
+        .rumus-box .katex-display {
+            margin: 0.35em 0;
+        }
+
+        /* Untuk layar kecil */
+        @media (max-width: 576px) {
+            .rumus-box {
+                width: 100%;
+                font-size: 16px;
+                padding: 10px 12px;
+            }
         }
 
         .badge-sub {
@@ -178,7 +195,20 @@
 
     <h2 class="mt-2 mb-3" style="font-weight: 600;">4. Gradien dari Persamaan Garis Lurus</h2>
 
-    <div class="box-eksplorasi mt-4">
+    <p class="mb-3" style="line-height:1.8; text-align: justify;">
+        Pada materi sebelumnya, kamu telah mempelajari cara menentukan gradien garis
+        dari gambar dan dari dua titik. Gradien dapat diperoleh dengan membandingkan
+        perubahan nilai \(y\) terhadap perubahan nilai \(x\).
+    </p>
+
+    <p class="mb-3" style="line-height:1.8; text-align: justify;">
+        Pada bagian ini, kamu akan mempelajari cara menentukan gradien jika garis
+        sudah dituliskan dalam bentuk persamaan. Sebelum mempelajari rumusnya,
+        lakukan eksplorasi berikut untuk melihat hubungan antara gradien pada grafik
+        dan angka yang terdapat pada persamaan garis.
+    </p>
+
+    <div class="box-eksplorasi mt-5">
 
         <div class="title-box">
             Eksplorasi
@@ -214,7 +244,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Komponen \(x\)</th>
+                        <th>Komponen \({\Delta}x\)</th>
                         <td class="text-center">
                             <input type="text" id="xAB" class="form-control text-center mx-auto"
                                 style="width:70px;">
@@ -225,7 +255,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Komponen \(y\)</th>
+                        <th>Komponen \({\Delta}y\)</th>
                         <td class="text-center">
                             <input type="text" id="yAB" class="form-control text-center mx-auto"
                                 style="width:70px;">
@@ -275,22 +305,27 @@
 
             <div class="mb-3">
                 <label for="q2" class="form-label">
-                    2. Jika semua ruas pada garis memiliki nilai gradien yang sama,
-                    maka pada persamaan garis \(y = mx + c\),
-                    simbol yang menyatakan gradien adalah ....
+                    2. Pada persamaan \(y=-x+4\), angka yang berada di depan \(x\) adalah ....
                 </label>
-
                 <input type="text" id="q2" class="form-control" style="max-width:120px;">
+            </div>
+
+            <div class="mb-3">
+                <label for="q3" class="form-label">
+                    3. Jika hasil gradien pada tabel sama dengan angka di depan \(x\),
+                    maka pada bentuk \(y=mx+c\), simbol yang menyatakan gradien adalah ....
+                </label>
+                <input type="text" id="q3" class="form-control" style="max-width:120px;">
             </div>
 
             <button class="btn btn-palet btn-sm" onclick="cekPertanyaanEksplorasi()">Cek Pertanyaan</button>
             <div id="feedbackPertanyaanEksplorasi" class="mt-2"></div>
         </div>
-
         <div id="kesimpulanEksplorasiPersamaan" class="box-kesimpulan d-none">
             <div class="alert alert-success mb-0">
-                Berdasarkan tabel, perbandingan komponen \(y\) terhadap komponen \(x\) mempunyai nilai gradien yang
-                sama pada setiap ruas garis. Jadi, gradien garis dengan persamaan \(y = mx + c\) adalah \(m\).
+                Berdasarkan tabel, gradien pada ruas AB dan BC memiliki nilai yang sama, yaitu \(-1\).
+                Nilai tersebut sama dengan koefisien \(x\) pada persamaan \(y=-x+4\).
+                Jadi, pada bentuk \(y=mx+c\), gradien garis ditunjukkan oleh nilai \(m\).
             </div>
         </div>
     </div>
@@ -303,26 +338,26 @@
                 <b>y</b> terhadap perubahan nilai <b>x</b>.
             </p>
 
-            <div class="rumus-box text-center mb-3">
-                \[
+            <div class="text-center my-3 rumus-sederhana">
+                $$
                 m = \frac{\Delta y}{\Delta x}
-                \]
+                $$
             </div>
 
-            <p class="mb-3" style="line-height:1.8; text-align:justify;">
-                Sekarang, kita akan mempelajari cara menentukan gradien jika sebuah garis sudah dinyatakan dalam bentuk
-                persamaan.
+            <p class="mb-3" style="line-height:1.8; text-align: justify;">
+                Sekarang, kita akan mempelajari cara menentukan gradien jika sebuah garis
+                sudah dinyatakan dalam bentuk persamaan.
             </p>
 
-            <div class="rumus-box text-center mb-3">
-                \[
+            <div class="text-center my-3 rumus-sederhana">
+                $$
                 y = mx + c
-                \]
+                $$
             </div>
 
-            <p class="mb-0" style="line-height:1.8; text-align:justify;">
-                Pada bentuk tersebut, <b>m</b> menyatakan gradien, sedangkan <b>c</b> menyatakan konstanta atau titik potong
-                garis dengan sumbu-$y$.
+            <p class="mb-3" style="line-height:1.8; text-align: justify;">
+                Pada bentuk tersebut, \(m\) menyatakan gradien, sedangkan \(c\) menyatakan
+                konstanta atau titik potong garis dengan sumbu-\(y\).
             </p>
         </div>
     </div>
@@ -354,165 +389,147 @@
         </div>
     </div>
 
-    {{-- Amati pola --}}
-    <div class="box-eksplorasi mt-5">
+    {{-- Bentuk umum y = mx + c --}}
+    <div class="card card-materi mt-4 mt-5">
         <div class="card-body">
-            <span class="title-box">Ayo Amati</span>
+            <span class="badge-sub">2. Bentuk Umum: $y = mx + c$</span>
 
-            <p class="mb-2" style="line-height:1.8;">
-                Perhatikan beberapa persamaan berikut.
+            <p class="mb-2" style="line-height:1.8; text-align:justify;">
+                Sekarang perhatikan persamaan berikut.
             </p>
 
-            <ol style="line-height:1.9;">
-                <li>$y = 3x$</li>
-                <li>$y = -2x$</li>
-                <li>$y = \frac{1}{2}x$</li>
-            </ol>
+            <div class="rumus-box text-center mb-3">
+                \[
+                y = mx + c
+                \]
+            </div>
 
-            <p class="mb-2" style="line-height:1.8;">
-                Dari ketiga persamaan tersebut, angka yang selalu berada di depan $x$ adalah penunjuk gradien.
+            <p class="mb-0" style="line-height:1.8; text-align:justify;">
+                Sama halnya dengan perhitungan gradien pada persamaan garis $y = mx$,
+                perhitungan gradien pada garis $y = mx + c$ dilakukan dengan cara menentukan
+                nilai konstanta di depan variabel $x$.
+            </p>
+        </div>
+    </div>
+
+    {{-- Contoh menentukan gradien dari y = mx + c --}}
+    <div class="box-contoh mt-5 mb-4">
+        <div class="card-body">
+            <span class="title-box">Contoh</span>
+
+            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                Tentukan gradien dari persamaan garis berikut.
             </p>
 
-            <div class="info-box">
-                <p class="mb-0" style="line-height:1.8;">
-                    Jadi, pada bentuk $y = mx$, nilai gradien adalah <b>koefisien di depan $x$</b>.
+            <div class="row mb-3" style="line-height:1.8;">
+                <div class="col-md-6">
+                    <p class="mb-1">a. $y = 3x - 4$</p>
+                    <p class="mb-1">b. $y = -2x + 7$</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="mb-1">c. $4y = 2x + 8$</p>
+                    <p class="mb-1">d. $5y = 15 - 10x$</p>
+                </div>
+            </div>
+
+            <p class="mb-2"><b>Jawab:</b></p>
+
+            {{-- Jawaban a --}}
+            <p class="mb-2" style="line-height:1.8; text-align:justify;">
+                <b>a.</b> Persamaan garis $y = 3x - 4$ sudah memenuhi bentuk $y = mx + c$.
+                Jadi, nilai gradiennya adalah $m = 3$.
+            </p>
+
+            {{-- Jawaban b --}}
+            <p class="mb-2" style="line-height:1.8; text-align:justify;">
+                <b>b.</b> Persamaan garis $y = -2x + 7$ sudah memenuhi bentuk $y = mx + c$.
+                Jadi, nilai gradiennya adalah $m = -2$.
+            </p>
+
+            {{-- Jawaban c --}}
+            <div class="mb-3" style="line-height:1.8;">
+                <p class="mb-2" style="text-align:justify;">
+                    <b>c.</b> Persamaan garis $4y = 2x + 8$ belum berbentuk $y = mx + c$,
+                    sehingga perlu diubah terlebih dahulu.
+                </p>
+
+                <div class="text-center">
+                    \[
+                    \begin{aligned}
+                    4y &= 2x + 8 \\
+                    y &= \dfrac{2x + 8}{4} \\
+                    y &= \dfrac{1}{2}x + 2
+                    \end{aligned}
+                    \]
+                </div>
+
+                <p class="mb-0 mt-2" style="text-align:justify;">
+                    Jadi, nilai gradiennya adalah $m = \dfrac{1}{2}$.
+                </p>
+            </div>
+
+            {{-- Jawaban d --}}
+            <div class="mb-0" style="line-height:1.8;">
+                <p class="mb-2" style="text-align:justify;">
+                    <b>d.</b> Persamaan garis $5y = 15 - 10x$ belum berbentuk $y = mx + c$,
+                    sehingga perlu diubah terlebih dahulu.
+                </p>
+
+                <div class="text-center">
+                    \[
+                    \begin{aligned}
+                    5y &= 15 - 10x \\
+                    y &= \dfrac{15 - 10x}{5} \\
+                    y &= 3 - 2x \\
+                    y &= -2x + 3
+                    \end{aligned}
+                    \]
+                </div>
+
+                <p class="mb-0 mt-2" style="text-align:justify;">
+                    Jadi, nilai gradiennya adalah $m = -2$.
                 </p>
             </div>
         </div>
     </div>
 
-    {{-- Contoh kontekstual y=mx --}}
+    {{-- Contoh Drag and Drop --}}
     <div class="box-contoh mt-5 mb-4">
         <div class="card-body">
             <span class="title-box">Contoh</span>
 
-            <p class="mb-3" style="line-height:1.8; text-align:justify;">
-                Sebuah jalan menanjak dinyatakan oleh persamaan berikut.
+            <p style="line-height:1.8; text-align:justify;">
+                Perhatikan persamaan <b>$6y = -3x + 12$</b>. Susunlah potongan langkah berikut agar menjadi urutan yang
+                benar
+                untuk mengubah persamaan tersebut ke bentuk <b>$y = mx + c$</b>.
             </p>
 
-            <div class="rumus-box text-center mb-3">
-                \[
-                y = 4x
-                \]
+            <div class="sort-bank mb-3" id="sortBank">
+                <div class="sort-item" draggable="true" data-step="2">$y = \frac{-3x + 12}{6}$</div>
+                <div class="sort-item" draggable="true" data-step="4">$m = -\frac{1}{2}$</div>
+                <div class="sort-item" draggable="true" data-step="1">$6y = -3x + 12$</div>
+                <div class="sort-item" draggable="true" data-step="3">$y = -\frac{1}{2}x + 2$</div>
             </div>
 
-            <p class="mb-2" style="line-height:1.8; text-align:justify;">
-                Angka yang berada di depan $x$ adalah <b>4</b>.
-                Maka, gradien jalan tersebut adalah:
-            </p>
-
-            <div class="rumus-box text-center">
-                \[
-                m = 4
-                \]
+            <div class="step-card">
+                <div class="step-slot sort-slot" data-answer="1">Letakkan langkah pertama di sini</div>
+                <div class="step-slot sort-slot" data-answer="2">Letakkan langkah berikutnya di sini</div>
+                <div class="step-slot sort-slot" data-answer="3">Letakkan langkah berikutnya di sini</div>
+                <div class="step-slot sort-slot mb-0" data-answer="4">Letakkan kesimpulan di sini</div>
             </div>
+
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-palet btn-sm" onclick="cekUrutanLangkah()">Cek</button>
+                <button class="btn btn-palet btn-sm" onclick="resetUrutanLangkah()">Reset</button>
+            </div>
+
+            <div id="fbUrutanLangkah" class="mt-3"></div>
         </div>
     </div>
 
-    {{-- Bentuk umum y = mx + c --}}
-    <div class="box-contoh mb-4 mt-5">
-        <span class="badge-sub">2. Bentuk Umum: $y = mx + c$</span>
-
-        <p class="mb-2" style="line-height:1.8; text-align:justify;">
-            Sekarang perhatikan persamaan berikut.
-        </p>
-
-        <div class="rumus-box text-center mb-3">
-            \[
-            y = mx + c
-            \]
-        </div>
-
-        <p class="mb-2" style="line-height:1.8; text-align:justify;">
-            Pada bentuk ini, <b>m</b> tetap menyatakan gradien, sedangkan <b>c</b> adalah konstanta.
-        </p>
-
-        <p class="mb-0" style="line-height:1.8; text-align:justify;">
-            Jadi, meskipun ada tambahan $c$, cara menentukan gradien tetap sama, yaitu dengan melihat angka yang berada
-            di depan $x$.
-        </p>
-    </div>
-
-    {{-- Contoh kontekstual y=mx+c --}}
-    <div class="box-contoh mt-5 mb-4">
-        <div class="card-body">
-            <span class="title-box">Contoh</span>
-
-            <p class="mb-3" style="line-height:1.8; text-align:justify;">
-                Ketinggian air dalam sebuah tangki dinyatakan oleh persamaan berikut.
-            </p>
-
-            <div class="rumus-box text-center mb-3">
-                \[
-                y = 2x + 5
-                \]
-            </div>
-
-            <p class="mb-2" style="line-height:1.8; text-align:justify;">
-                Angka yang berada di depan $x$ adalah <b>2</b>, sehingga gradien garisnya adalah:
-            </p>
-
-            <div class="rumus-box text-center mb-3">
-                \[
-                m = 2
-                \]
-            </div>
-
-            <p class="mb-0" style="line-height:1.8; text-align:justify;">
-                Angka <b>5</b> bukan gradien, melainkan konstanta.
-            </p>
-        </div>
-    </div>
-
-    {{-- Contoh bertahap mengubah bentuk --}}
-    <div class="box-contoh mt-5 mb-4">
-        <div class="card-body">
-            <span class="title-box">Contoh</span>
-
-            <p class="mb-3" style="line-height:1.8;">
-                Tentukan gradien dari persamaan berikut.
-            </p>
-
-            <div class="rumus-box text-center mb-3">
-                \[
-                4y = 2x - 8
-                \]
-            </div>
-
-            <div class="step-box">
-                <div class="fw-bold mb-2">Langkah 1</div>
-                <p class="mb-2">Ubah persamaan agar $y$ berada sendiri di ruas kiri.</p>
-                <div class="rumus-box text-center">
-                    \[
-                    y = \frac{2x - 8}{4}
-                    \]
-                </div>
-            </div>
-
-            <div class="step-box">
-                <div class="fw-bold mb-2">Langkah 2</div>
-                <p class="mb-2">Sederhanakan persamaan tersebut.</p>
-                <div class="rumus-box text-center">
-                    \[
-                    y = \frac{1}{2}x - 2
-                    \]
-                </div>
-            </div>
-
-            <div class="step-box mb-0">
-                <div class="fw-bold mb-2">Langkah 3</div>
-                <p class="mb-2">Lihat angka di depan $x$. Angka itu adalah gradien.</p>
-                <div class="rumus-box text-center">
-                    \[
-                    m = \frac{1}{2}
-                    \]
-                </div>
-            </div>
-        </div>
-    </div>
 
     {{-- Eksplorasi Bentuk Ax + By + C = 0  --}}
-
     <div class="box-eksplorasi mt-5 mb-4">
         <div class="card-body">
             <span class="title-box">Eksplorasi</span>
@@ -523,100 +540,137 @@
                 adalah gradien garis.
             </p>
 
-            <p class="mb-3" style="line-height:1.8; text-align:justify;">
+            <p class="petunjuk-mini-latihan mb-3" style="line-height:1.8; text-align:justify;">
                 Perhatikan langkah-langkah berikut, lalu lengkapi bagian yang kosong.
             </p>
 
-            <div class="rumus-box text-center mb-4">
-                \(Ax + By + C = 0\)
-            </div>
-
             <div class="quiz-card p-3">
 
-                {{-- Langkah 1 --}}
-                <div class="mb-4">
-                    <div class="fw-bold mb-2">Langkah 1</div>
-                    <p class="mb-2">Pindahkan suku \(Ax\) ke ruas kanan.</p>
+                <p class="mb-3" style="line-height:1.8; text-align:justify;">
+                    Lengkapi perubahan bentuk persamaan berikut sampai diperoleh gradiennya.
+                </p>
 
-                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-2 flex-wrap">
-                        <span>\(By + C =\)</span>
-                        <input type="text" id="eks1"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
+                {{-- Baris awal --}}
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                            <span>\(Ax + By + C = 0\)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
                     </div>
                 </div>
 
-                {{-- Langkah 2 --}}
-                <div class="mb-4">
-                    <div class="fw-bold mb-2">Langkah 2</div>
-                    <p class="mb-2">Pindahkan suku \(C\) ke ruas kanan.</p>
+                {{-- Baris 1 --}}
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                            <span>\(By + C =\)</span>
+                            <input type="text" id="eks1"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:120px;">
+                        </div>
+                    </div>
 
-                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-2 flex-wrap">
-                        <span>\(By =\)</span>
-                        <input type="text" id="eks2"
-                            class="form-control form-control-sm text-center jawaban-latihan" style="width:140px;">
+                    <div class="col-md-7">
+                        <p class="mb-0" style="line-height:1.8; text-align:justify;">
+                            Pindahkan suku \(Ax\) ke ruas kanan.
+                        </p>
                     </div>
                 </div>
 
-                {{-- Langkah 3 --}}
-                <div class="mb-4">
-                    <div class="fw-bold mb-2">Langkah 3</div>
-                    <p class="mb-2">Bagilah kedua ruas dengan \(B\), sehingga diperoleh bentuk \(y = mx + c\).</p>
-
-                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-1 flex-wrap">
-                        <span>\(y=\)</span>
-
-                        <span style="font-size:22px; font-weight:600;">−</span>
-                        <div class="frac-input single">
-                            <div class="top">
-                                <input type="text" id="eks3atas1"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
-                            </div>
-                            <div class="bottom">
-                                <input type="text" id="eks3bawah1"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
-                            </div>
+                {{-- Baris 2 --}}
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                            <span>\(By =\)</span>
+                            <input type="text" id="eks2"
+                                class="form-control form-control-sm text-center jawaban-latihan" style="width:140px;">
                         </div>
+                    </div>
 
-                        <span>\(x\)</span>
-
-                        <span style="font-size:22px; font-weight:600;">−</span>
-                        <div class="frac-input single">
-                            <div class="top">
-                                <input type="text" id="eks3atas2"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
-                            </div>
-                            <div class="bottom">
-                                <input type="text" id="eks3bawah2"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
-                            </div>
-                        </div>
+                    <div class="col-md-7">
+                        <p class="mb-0" style="line-height:1.8; text-align:justify;">
+                            Pindahkan suku \(C\) ke ruas kanan.
+                        </p>
                     </div>
                 </div>
 
-                {{-- Langkah 4 --}}
-                <div class="mb-3">
-                    <div class="fw-bold mb-2">Langkah 4</div>
-                    <p class="mb-2">Karena gradien adalah koefisien \(x\), maka gradien garis tersebut adalah</p>
+                {{-- Baris 3 --}}
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                            <span>\(y=\)</span>
 
-                    <div class="rumus-box text-center d-flex justify-content-center align-items-center gap-1 flex-wrap">
-                        <span>\(m=\)</span>
-                        <span style="font-size:22px; font-weight:600;">−</span>
-
-                        <div class="frac-input single">
-                            <div class="top">
-                                <input type="text" id="eks4atas"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+                            <div class="frac-input single">
+                                <div class="top">
+                                    <input type="text" id="eks3atas1"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
+                                <div class="bottom">
+                                    <input type="text" id="eks3bawah1"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
                             </div>
-                            <div class="bottom">
-                                <input type="text" id="eks4bawah"
-                                    class="form-control form-control-sm text-center jawaban-latihan" style="width:60px;">
+
+                            <span>\(x+\)</span>
+
+                            <div class="frac-input single">
+                                <div class="top">
+                                    <input type="text" id="eks3atas2"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
+                                <div class="bottom">
+                                    <input type="text" id="eks3bawah2"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <p class="mb-0" style="line-height:1.8; text-align:justify;">
+                            Bagi kedua ruas dengan \(B\)
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Baris 4 --}}
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap">
+                            <span>\(m=\)</span>
+
+                            <div class="frac-input single">
+                                <div class="top">
+                                    <input type="text" id="eks4atas"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
+                                <div class="bottom">
+                                    <input type="text" id="eks4bawah"
+                                        class="form-control form-control-sm text-center jawaban-latihan"
+                                        style="width:70px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <p class="mb-0" style="line-height:1.8; text-align:justify;">
+                            Gradiennya adalah koefisien \(x\).
+                        </p>
                     </div>
                 </div>
 
                 <div class="d-flex gap-2 flex-wrap mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekEksplorasiGradienUmum()">Cek Jawaban</button>
+                    <button class="btn btn-palet btn-sm" onclick="cekEksplorasiGradienUmum()">
+                        Cek Jawaban
+                    </button>
                 </div>
 
                 <div id="fbEksplorasiGradienUmum" class="mt-3"></div>
@@ -624,9 +678,9 @@
                 <div id="kesimpulanEksplorasiGradienUmum" class="box-kesimpulan d-none mt-3">
                     <div class="alert alert-success mb-0">
                         Bagus! Setelah persamaan \(Ax + By + C = 0\) diubah ke bentuk \(y = mx + c\),
-                        diperoleh bahwa koefisien \(x\) bernilai \(-\frac{A}{B}\).
+                        diperoleh bahwa koefisien \(x\) bernilai \(\frac{-A}{B}\).
                         Karena gradien adalah koefisien \(x\), maka gradien garis tersebut adalah
-                        \(m = -\frac{A}{B}\).
+                        \(m = \frac{-A}{B}\).
                     </div>
                 </div>
             </div>
@@ -681,7 +735,7 @@
                 $$ 2x - 4y + 1 = 0 $$
             </div>
 
-            <p>Tentukan gradien garis tersebut.</p>
+            <p>Tentukan dan sederhanakan gradien garis tersebut.</p>
 
             <div class="quiz-card p-3">
 
@@ -726,61 +780,12 @@
         </div>
     </div>
 
-
-    {{-- Contoh 1 --}}
-    <div class="box-contoh mt-5 mb-4">
-        <div class="card-body">
-            <span class="title-box">Contoh</span>
-
-            <p style="line-height:1.8; text-align:justify;">
-                Perhatikan persamaan berikut. Klik bagian persamaan yang menunjukkan gradien garis.
-            </p>
-
-            <div class="rumus-box mb-3">
-                <span>$y =$</span>
-                <span class="expr-part" data-role="coef" id="coefA">$4$</span>
-                <span>$x$</span>
-                <span>$+$</span>
-                <span class="expr-part" data-role="const" id="constA">$2$</span>
-            </div>
-
-            <div id="fbKlikKoef"></div>
-        </div>
-    </div>
-
-    {{-- Contoh 2 --}}
-    <div class="box-contoh mt-5 mb-4">
-        <div class="card-body">
-            <span class="title-box">Contoh</span>
-
-            <p style="line-height:1.8; text-align:justify;">
-                Perhatikan persamaan <b>$6y = -3x + 12$</b>. Susunlah potongan langkah berikut agar menjadi urutan yang
-                benar
-                untuk mengubah persamaan tersebut ke bentuk <b>$y = mx + c$</b>.
-            </p>
-
-            <div class="sort-bank mb-3" id="sortBank">
-                <div class="sort-item" draggable="true" data-step="2">$y = \frac{-3x + 12}{6}$</div>
-                <div class="sort-item" draggable="true" data-step="4">$m = -\frac{1}{2}$</div>
-                <div class="sort-item" draggable="true" data-step="1">$6y = -3x + 12$</div>
-                <div class="sort-item" draggable="true" data-step="3">$y = -\frac{1}{2}x + 2$</div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-slot sort-slot" data-answer="1">Letakkan langkah pertama di sini</div>
-                <div class="step-slot sort-slot" data-answer="2">Letakkan langkah berikutnya di sini</div>
-                <div class="step-slot sort-slot" data-answer="3">Letakkan langkah berikutnya di sini</div>
-                <div class="step-slot sort-slot mb-0" data-answer="4">Letakkan kesimpulan di sini</div>
-            </div>
-
-            <div class="d-flex gap-2 mt-3">
-                <button class="btn btn-palet btn-sm" onclick="cekUrutanLangkah()">Cek</button>
-                <button class="btn btn-palet btn-sm" onclick="resetUrutanLangkah()">Reset</button>
-            </div>
-
-            <div id="fbUrutanLangkah" class="mt-3"></div>
-        </div>
-    </div>
+    <script>
+        const MATERI_ID = @json($materi->id);
+        const MATERI_SLUG = @json($materi->slug);
+        const IS_MATERI_COMPLETED = @json((bool) ($materialProgress->is_completed ?? false));
+        const SAVED_LATIHAN = @json($latihanProgress ?? []);
+    </script>
 
     <div class="box-latihan mt-5 mb-4" id="latihanGradienB4Box">
         <div class="card-body">
@@ -791,6 +796,10 @@
             <div class="latihan-step" id="latihanStep1">
                 <div class="context-card">
                     <p class="mb-3"><b>1.</b> Tentukan gradien dari persamaan berikut.</p>
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk:</strong>
+                        Isilah gradien dari setiap persamaan pada kolom jawaban yang tersedia.
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">a. \(y=-5x+7\)</label>
@@ -831,6 +840,10 @@
 
                 <div class="context-card">
                     <p class="mb-3"><b>2.</b> Tentukan gradien dari persamaan berikut.</p>
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk:</strong>
+                        Isilah gradien dari setiap persamaan pada kolom jawaban yang tersedia.
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">a. \(6x+3y-9=0\)</label>
@@ -882,6 +895,12 @@
                         menyatakan ketinggian.
                     </p>
 
+                    <div class="petunjuk-mini-latihan">
+                        <strong>Petunjuk:</strong>
+                        Isilah gradien Jalan A, gradien Jalan B, dan jalan yang lebih curam pada kolom jawaban yang
+                        tersedia.
+                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Gradien Jalan A adalah ...</label>
                         <input type="text" id="lat3a" class="form-control mini-input">
@@ -927,23 +946,72 @@
     </div>
 
     <script>
-        // Eksplorasi
-        function normJawaban(teks) {
-            return (teks || "")
-                .toString()
+        // =========================
+        // HELPER GLOBAL
+        // =========================
+        function norm(teks, opsi = {}) {
+            const {
+                decimal = false,
+                    hapusKurung = true,
+            } = opsi;
+
+            let hasil = String(teks || "")
                 .trim()
                 .toLowerCase()
+                .replace(/−/g, "-")
                 .replace(/\s+/g, "")
-                .replace(/[()]/g, "");
+                .replace(/\*/g, "");
+
+            if (decimal) {
+                hasil = hasil.replace(",", ".");
+            }
+
+            if (hapusKurung) {
+                hasil = hasil.replace(/[(){}[\]]/g, "");
+            }
+
+            return hasil;
         }
 
+        function renderMath(target = document.body) {
+            if (!target || !window.renderMathInElement) return;
+
+            renderMathInElement(target, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    },
+                    {
+                        left: "\\(",
+                        right: "\\)",
+                        display: false
+                    },
+                    {
+                        left: "\\[",
+                        right: "\\]",
+                        display: true
+                    },
+                ],
+                throwOnError: false,
+            });
+        }
+
+        // =========================
+        // EKSPLORASI GRADIEN DARI PERSAMAAN
+        // =========================
         function cekIsianLokal(id, jawabanBenar) {
             const el = document.getElementById(id);
             if (!el) return false;
 
-            const nilai = normJawaban(el.value);
+            const nilai = norm(el.value);
             const daftar = Array.isArray(jawabanBenar) ? jawabanBenar : [jawabanBenar];
-            const cocok = daftar.map(normJawaban).includes(nilai);
+            const cocok = daftar.map((item) => norm(item)).includes(nilai);
 
             el.classList.remove("is-valid", "is-invalid");
             el.classList.add(cocok ? "is-valid" : "is-invalid");
@@ -963,6 +1031,33 @@
                 "alert-info";
 
             el.innerHTML = `<div class="alert ${kelas} py-2 mb-0">${pesan}</div>`;
+
+            if (window.renderMathInElement) {
+                renderMathInElement(el, {
+                    delimiters: [{
+                            left: "$$",
+                            right: "$$",
+                            display: true
+                        },
+                        {
+                            left: "$",
+                            right: "$",
+                            display: false
+                        },
+                        {
+                            left: "\\(",
+                            right: "\\)",
+                            display: false
+                        },
+                        {
+                            left: "\\[",
+                            right: "\\]",
+                            display: true
+                        },
+                    ],
+                    throwOnError: false,
+                });
+            }
         }
 
         function kosongkanLokal(id) {
@@ -981,24 +1076,22 @@
             let pesan = [];
 
             if (!benarXAB || !benarXBC) {
-                pesan.push("Komponen x masih ada yang belum tepat.");
+                pesan.push("Perubahan \\(x\\) masih ada yang belum tepat.");
             }
 
             if (!benarYAB || !benarYBC) {
-                pesan.push("Komponen y masih ada yang belum tepat.");
+                pesan.push("Perubahan \\(y\\) masih ada yang belum tepat.");
             }
 
             if (!benarMAB || !benarMBC) {
-                pesan.push(
-                    "Nilai perbandingan Δy terhadap Δx masih ada yang belum tepat.",
-                );
+                pesan.push("Nilai perbandingan \\(\\frac{\\Delta y}{\\Delta x}\\) masih ada yang belum tepat.");
             }
 
             if (benarXAB && benarXBC && benarYAB && benarYBC && benarMAB && benarMBC) {
                 isiPesanLokal(
                     "feedbackTabelEksplorasi",
                     "Bagus, seluruh isian pada tabel sudah benar.",
-                    "success",
+                    "success"
                 );
                 return;
             }
@@ -1008,7 +1101,6 @@
 
         function cekPertanyaanEksplorasi() {
             const q1 = document.getElementById("q1");
-            const benarQ2 = cekIsianLokal("q2", ["m"]);
             const kesimpulan = document.getElementById("kesimpulanEksplorasiPersamaan");
 
             let benarQ1 = false;
@@ -1019,27 +1111,34 @@
                 q1.classList.add(benarQ1 ? "is-valid" : "is-invalid");
             }
 
-            if (benarQ1 && benarQ2) {
+            // q2: angka di depan x pada y = -x + 4 adalah -1
+            const benarQ2 = cekIsianLokal("q2", ["-1", "-1/1"]);
+
+            // q3: simbol gradien pada y = mx + c adalah m
+            const benarQ3 = cekIsianLokal("q3", ["m"]);
+
+            if (benarQ1 && benarQ2 && benarQ3) {
                 isiPesanLokal(
                     "feedbackPertanyaanEksplorasi",
                     "Bagus, jawaban pertanyaan kesimpulanmu sudah benar.",
-                    "success",
+                    "success"
                 );
+
                 if (kesimpulan) kesimpulan.classList.remove("d-none");
                 return;
             }
 
             isiPesanLokal(
                 "feedbackPertanyaanEksplorasi",
-                "Masih ada jawaban pertanyaan yang belum tepat. Bandingkan nilai gradien pada ruas AB dan BC, lalu perhatikan bentuk umum persamaan y = mx + c.",
-                "warning",
+                "Masih ada jawaban yang belum tepat. Bandingkan nilai gradien pada tabel dengan angka di depan \\(x\\) pada persamaan \\(y=-x+4\\), lalu hubungkan dengan bentuk \\(y=mx+c\\).",
+                "warning"
             );
 
             if (kesimpulan) kesimpulan.classList.add("d-none");
         }
 
         function resetEksplorasiPersamaan() {
-            ["xAB", "xBC", "yAB", "yBC", "mAB", "mBC", "q2"].forEach((id) => {
+            ["xAB", "xBC", "yAB", "yBC", "mAB", "mBC", "q2", "q3"].forEach((id) => {
                 const el = document.getElementById(id);
                 if (el) {
                     el.value = "";
@@ -1059,98 +1158,6 @@
             const kesimpulan = document.getElementById("kesimpulanEksplorasiPersamaan");
             if (kesimpulan) kesimpulan.classList.add("d-none");
         }
-
-        //
-        function alertSuccess(text) {
-            return `<div class="alert alert-success mb-0" style="border-radius:14px;">${text}</div>`;
-        }
-
-        function alertDanger(text) {
-            return `<div class="alert alert-danger mb-0" style="border-radius:14px;">${text}</div>`;
-        }
-
-        function cekEksplorasiTabel() {
-            let xAB = document.getElementById("xAB").value.trim().replace(/\s+/g, "");
-            let xBC = document.getElementById("xBC").value.trim().replace(/\s+/g, "");
-            let yAB = document.getElementById("yAB").value.trim().replace(/\s+/g, "");
-            let yBC = document.getElementById("yBC").value.trim().replace(/\s+/g, "");
-            let mAB = document.getElementById("mAB").value.trim().replace(/\s+/g, "");
-            let mBC = document.getElementById("mBC").value.trim().replace(/\s+/g, "");
-            let q1 = document.getElementById("q1").value;
-            let q2 = document.getElementById("q2").value.trim().toLowerCase();
-
-            let benar = 0;
-            let pesan = [];
-
-            if (xAB === "1") {
-                benar++;
-            } else {
-                pesan.push("Komponen x pada ruas AB belum tepat.");
-            }
-
-            if (yAB === "-1") {
-                benar++;
-            } else {
-                pesan.push("Komponen y pada ruas AB belum tepat.");
-            }
-
-            if (mAB === "-1" || mAB === "-1/1") {
-                benar++;
-            } else {
-                pesan.push("Nilai Δy/Δx pada ruas AB belum tepat.");
-            }
-
-            if (xBC === "2") {
-                benar++;
-            } else {
-                pesan.push("Komponen x pada ruas BC belum tepat.");
-            }
-
-            if (yBC === "-2") {
-                benar++;
-            } else {
-                pesan.push("Komponen y pada ruas BC belum tepat.");
-            }
-
-            if (mBC === "-1" || mBC === "-2/2") {
-                benar++;
-            } else {
-                pesan.push("Nilai Δy/Δx pada ruas BC belum tepat.");
-            }
-
-            if (q1 === "sama") {
-                benar++;
-            } else {
-                pesan.push("Jawaban pada pertanyaan nomor 1 belum tepat.");
-            }
-
-            if (q2 === "m") {
-                benar++;
-            } else {
-                pesan.push("Jawaban pada pertanyaan nomor 2 belum tepat.");
-            }
-
-            if (benar === 8) {
-                document.getElementById("fbTabel").innerHTML = alertSuccess(
-                    "Benar. Berdasarkan tabel, perbandingan komponen y terhadap komponen x mempunyai nilai gradien yang sama pada setiap ruas garis. Jadi, gradien garis dengan persamaan y = mx + c adalah m.",
-                );
-            } else {
-                document.getElementById("fbTabel").innerHTML = alertDanger(
-                    "Masih ada jawaban yang belum tepat.<br>" + pesan.join("<br>"),
-                );
-            }
-        }
-
-        function resetEksplorasiTabel() {
-            ["xAB", "xBC", "yAB", "yBC", "mAB", "mBC", "q2"].forEach((id) => {
-                document.getElementById(id).value = "";
-            });
-
-            document.getElementById("q1").value = "";
-            document.getElementById("fbTabel").innerHTML = "";
-        }
-
-        //
 
         document.addEventListener("DOMContentLoaded", function() {
             initKlikKoefisien();
@@ -1177,75 +1184,83 @@
         }
 
         // Eksplorasi Ax + By + C = 0
-        function bersihHuruf(teks) {
-            return (teks || "")
-                .toLowerCase()
-                .replace(/\s+/g, "")
-                .replace(/[(){}[\]]/g, "");
-        }
 
         function cekEksplorasiGradienUmum() {
-            const eks1 = bersihHuruf(document.getElementById("eks1").value);
-            const eks2 = bersihHuruf(document.getElementById("eks2").value);
+            const eks1 = norm(document.getElementById("eks1").value);
+            const eks2 = norm(document.getElementById("eks2").value);
 
-            const eks3atas1 = bersihHuruf(document.getElementById("eks3atas1").value);
-            const eks3bawah1 = bersihHuruf(document.getElementById("eks3bawah1").value);
-            const eks3atas2 = bersihHuruf(document.getElementById("eks3atas2").value);
-            const eks3bawah2 = bersihHuruf(document.getElementById("eks3bawah2").value);
+            const eks3atas1 = norm(document.getElementById("eks3atas1").value);
+            const eks3bawah1 = norm(document.getElementById("eks3bawah1").value);
+            const eks3atas2 = norm(document.getElementById("eks3atas2").value);
+            const eks3bawah2 = norm(document.getElementById("eks3bawah2").value);
 
-            const eks4atas = bersihHuruf(document.getElementById("eks4atas").value);
-            const eks4bawah = bersihHuruf(document.getElementById("eks4bawah").value);
+            const eks4atas = norm(document.getElementById("eks4atas").value);
+            const eks4bawah = norm(document.getElementById("eks4bawah").value);
 
             const feedback = document.getElementById("fbEksplorasiGradienUmum");
-            const kesimpulan = document.getElementById(
-                "kesimpulanEksplorasiGradienUmum",
-            );
+            const kesimpulan = document.getElementById("kesimpulanEksplorasiGradienUmum");
 
             const benar1 = eks1 === "-ax";
-            const benar2 = eks2 === "-ax-c" || eks2 === "-c-ax";
+
+            const benar2 =
+                eks2 === "-ax-c" ||
+                eks2 === "-c-ax";
 
             const benar3 =
-                eks3atas1 === "a" &&
+                eks3atas1 === "-a" &&
                 eks3bawah1 === "b" &&
-                eks3atas2 === "c" &&
+                eks3atas2 === "-c" &&
                 eks3bawah2 === "b";
 
-            const benar4 = eks4atas === "a" && eks4bawah === "b";
+            const benar4 =
+                eks4atas === "-a" &&
+                eks4bawah === "b";
 
             if (benar1 && benar2 && benar3 && benar4) {
                 feedback.innerHTML = "";
                 kesimpulan.classList.remove("d-none");
             } else {
-                let pesan =
-                    `<div class="alert alert-warning"><b>Masih ada yang perlu diperbaiki.</b><ul class="mb-0 mt-2">`;
+                let pesan = `
+            <div class="alert alert-warning mb-0">
+                <b>Masih ada yang perlu diperbaiki.</b>
+                <ul class="mb-0 mt-2">
+        `;
 
                 if (!benar1) {
-                    pesan +=
-                        `<li>Langkah 1: perhatikan suku mana yang dipindahkan ke ruas kanan. Tanda suku itu berubah.</li>`;
+                    pesan += `
+                <li>Periksa kembali hasil setelah suku \(Ax\) dipindahkan ke ruas kanan.</li>
+            `;
                 }
 
                 if (!benar2) {
-                    pesan +=
-                        `<li>Langkah 2: setelah konstanta dipindahkan, ruas kanan memuat dua suku. Coba cek kembali tanda masing-masing suku.</li>`;
+                    pesan += `
+                <li>Periksa kembali hasil setelah suku \(C\) dipindahkan ke ruas kanan.</li>
+            `;
                 }
 
                 if (!benar3) {
-                    pesan +=
-                        `<li>Langkah 3: bagi setiap suku di ruas kanan dengan \(B\). Koefisien \(x\) berasal dari suku yang memuat \(A\), sedangkan konstanta berasal dari suku yang memuat \(C\).</li>`;
+                    pesan += `
+                <li>Periksa kembali pembagian setiap suku dengan \(B\). Ingat, tanda negatif dituliskan langsung pada pembilang.</li>
+            `;
                 }
 
                 if (!benar4) {
-                    pesan +=
-                        `<li>Langkah 4: gradien adalah koefisien yang menempel pada \(x\) di bentuk \(y = mx + c\). Perhatikan pembilang dan penyebutnya.</li>`;
+                    pesan += `
+                <li>Periksa kembali koefisien \(x\) pada bentuk \(y = mx + c\).</li>
+            `;
                 }
 
-                pesan += `</ul></div>`;
+                pesan += `
+                </ul>
+            </div>
+        `;
+
                 feedback.innerHTML = pesan;
                 kesimpulan.classList.add("d-none");
             }
 
             if (window.renderMathInElement) {
-                renderMathInElement(document.body, {
+                renderMathInElement(feedback, {
                     delimiters: [{
                             left: "\\(",
                             right: "\\)",
@@ -1256,27 +1271,72 @@
                             right: "\\]",
                             display: true
                         },
+                        {
+                            left: "$",
+                            right: "$",
+                            display: false
+                        },
+                        {
+                            left: "$$",
+                            right: "$$",
+                            display: true
+                        }
                     ],
+                    throwOnError: false
+                });
+
+                renderMathInElement(kesimpulan, {
+                    delimiters: [{
+                            left: "\\(",
+                            right: "\\)",
+                            display: false
+                        },
+                        {
+                            left: "\\[",
+                            right: "\\]",
+                            display: true
+                        },
+                        {
+                            left: "$",
+                            right: "$",
+                            display: false
+                        },
+                        {
+                            left: "$$",
+                            right: "$$",
+                            display: true
+                        }
+                    ],
+                    throwOnError: false
                 });
             }
         }
 
         function resetEksplorasiGradienUmum() {
-            document.getElementById("eks1").value = "";
-            document.getElementById("eks2").value = "";
+            const ids = [
+                "eks1",
+                "eks2",
+                "eks3atas1",
+                "eks3bawah1",
+                "eks3atas2",
+                "eks3bawah2",
+                "eks4atas",
+                "eks4bawah"
+            ];
 
-            document.getElementById("eks3atas1").value = "";
-            document.getElementById("eks3bawah1").value = "";
-            document.getElementById("eks3atas2").value = "";
-            document.getElementById("eks3bawah2").value = "";
+            ids.forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el) return;
 
-            document.getElementById("eks4atas").value = "";
-            document.getElementById("eks4bawah").value = "";
+                el.value = "";
+                el.classList.remove("is-valid", "is-invalid");
+            });
 
-            document.getElementById("fbEksplorasiGradienUmum").innerHTML = "";
-            document
-                .getElementById("kesimpulanEksplorasiGradienUmum")
-                .classList.add("d-none");
+            const feedback = document.getElementById("fbEksplorasiGradienUmum");
+            const kesimpulan = document.getElementById("kesimpulanEksplorasiGradienUmum");
+
+            if (feedback) feedback.innerHTML = "";
+            if (kesimpulan) kesimpulan.classList.add("d-none");
         }
 
         // Contoh Persamaan Ax + By + C = 0
@@ -1296,55 +1356,41 @@
         }
 
         /* =========================
-           CONTOH 1: KLIK KOEFISIEN
-        ========================= */
-        function initKlikKoefisien() {
-            const coef = document.getElementById("coefA");
-            const konst = document.getElementById("constA");
-            const fb = document.getElementById("fbKlikKoef");
-
-            if (!coef || !konst) return;
-
-            coef.addEventListener("click", function() {
-                resetExprState([coef, konst]);
-                coef.classList.add("expr-correct");
-                fb.innerHTML = alertSuccess(
-                    "Benar. Angka 4 adalah koefisien di depan x, sehingga gradien persamaan tersebut adalah 4.",
-                );
-            });
-
-            konst.addEventListener("click", function() {
-                resetExprState([coef, konst]);
-                konst.classList.add("expr-wrong");
-                fb.innerHTML = alertDanger(
-                    "Belum tepat. Angka 2 adalah konstanta, bukan gradien.",
-                );
-            });
-        }
-
-        /* =========================
            CONTOH 2: SUSUN LANGKAH
         ========================= */
+
         let draggedItemUrutan = null;
 
+        document.addEventListener("DOMContentLoaded", function() {
+            initUrutanLangkah();
+
+            const box = document.querySelector(".box-contoh");
+            if (box) renderMath(box);
+        });
+
+        function getDefaultSlotText(index) {
+            const defaults = [
+                "Letakkan langkah pertama di sini",
+                "Letakkan langkah berikutnya di sini",
+                "Letakkan langkah berikutnya di sini",
+                "Letakkan kesimpulan di sini",
+            ];
+
+            return defaults[index] || "Letakkan langkah di sini";
+        }
+
         function initUrutanLangkah() {
-            const items = document.querySelectorAll(".sort-item");
+            const items = document.querySelectorAll("#sortBank .sort-item");
             const slots = document.querySelectorAll(".sort-slot");
-            const bank = document.querySelector(".sort-bank");
+            const bank = document.getElementById("sortBank");
 
             if (!items.length || !slots.length || !bank) return;
 
             items.forEach((item) => {
-                // =========================
-                // DESKTOP DRAG
-                // =========================
                 item.addEventListener("dragstart", function(e) {
                     draggedItemUrutan = this;
 
-                    e.dataTransfer.setData(
-                        "text/plain",
-                        this.dataset.step + "|" + this.innerHTML,
-                    );
+                    e.dataTransfer.setData("text/plain", this.dataset.step);
 
                     setTimeout(() => {
                         this.style.opacity = "0.5";
@@ -1356,51 +1402,39 @@
                     draggedItemUrutan = null;
                 });
 
-                // =========================
-                // MOBILE TAP
-                // =========================
-                item.addEventListener(
-                    "touchstart",
-                    function(e) {
-                        e.preventDefault();
+                // MOBILE: tap item
+                item.addEventListener("touchstart", function(e) {
+                    e.preventDefault();
 
-                        const currentSlot = this.closest(".sort-slot");
+                    const currentSlot = this.closest(".sort-slot");
 
-                        // kalau item masih di bank → masuk ke slot kosong pertama
-                        if (!currentSlot) {
-                            const emptySlot = [...slots].find((slot) => {
-                                return !slot.querySelector(".sort-item");
-                            });
+                    // Kalau item masih di bank, masukkan ke slot kosong pertama
+                    if (!currentSlot) {
+                        const emptySlot = [...slots].find((slot) => {
+                            return !slot.querySelector(".sort-item");
+                        });
 
-                            if (emptySlot) {
-                                emptySlot.innerHTML = "";
-                                emptySlot.dataset.filled = this.dataset.step;
-                                emptySlot.appendChild(this);
-                            }
+                        if (emptySlot) {
+                            emptySlot.innerHTML = "";
+                            emptySlot.dataset.filled = this.dataset.step;
+                            emptySlot.appendChild(this);
+                            emptySlot.classList.remove("correct", "wrong", "hovered");
                         }
+                    }
 
-                        // kalau item sudah di slot → balik ke bank
-                        else {
-                            const indexSlot = [...slots].indexOf(currentSlot);
+                    // Kalau item sudah di slot, kembalikan ke bank
+                    else {
+                        const indexSlot = [...slots].indexOf(currentSlot);
 
-                            bank.appendChild(this);
+                        bank.appendChild(this);
 
-                            delete currentSlot.dataset.filled;
-
-                            const defaults = [
-                                "Letakkan langkah pertama di sini",
-                                "Letakkan langkah berikutnya di sini",
-                                "Letakkan langkah berikutnya di sini",
-                                "Letakkan kesimpulan di sini",
-                            ];
-
-                            currentSlot.innerHTML = defaults[indexSlot];
-                            currentSlot.classList.remove("correct", "wrong", "hovered");
-                        }
-                    }, {
-                        passive: false
-                    },
-                );
+                        delete currentSlot.dataset.filled;
+                        currentSlot.innerHTML = getDefaultSlotText(indexSlot);
+                        currentSlot.classList.remove("correct", "wrong", "hovered");
+                    }
+                }, {
+                    passive: false
+                });
             });
 
             slots.forEach((slot) => {
@@ -1419,19 +1453,30 @@
 
                     if (!draggedItemUrutan) return;
 
-                    // kalau slot sudah ada item, balikin item lama ke bank
+                    const oldSlot = draggedItemUrutan.closest(".sort-slot");
+
+                    // Kalau item berasal dari slot lama, kembalikan teks placeholder slot lama
+                    if (oldSlot && oldSlot !== this) {
+                        const oldIndex = [...slots].indexOf(oldSlot);
+                        oldSlot.innerHTML = getDefaultSlotText(oldIndex);
+                        oldSlot.classList.remove("correct", "wrong", "hovered");
+                        delete oldSlot.dataset.filled;
+                    }
+
+                    // Kalau slot tujuan sudah berisi item, balikin item lama ke bank
                     const existingItem = this.querySelector(".sort-item");
-                    if (existingItem) {
+                    if (existingItem && existingItem !== draggedItemUrutan) {
                         bank.appendChild(existingItem);
                     }
 
                     this.innerHTML = "";
                     this.dataset.filled = draggedItemUrutan.dataset.step;
                     this.appendChild(draggedItemUrutan);
+                    this.classList.remove("correct", "wrong");
                 });
             });
 
-            // desktop: item bisa dikembalikan ke bank
+            // Desktop: item bisa dikembalikan ke bank
             bank.addEventListener("dragover", function(e) {
                 e.preventDefault();
             });
@@ -1439,22 +1484,37 @@
             bank.addEventListener("drop", function(e) {
                 e.preventDefault();
 
-                if (draggedItemUrutan) {
-                    bank.appendChild(draggedItemUrutan);
+                if (!draggedItemUrutan) return;
+
+                const oldSlot = draggedItemUrutan.closest(".sort-slot");
+
+                if (oldSlot) {
+                    const indexSlot = [...slots].indexOf(oldSlot);
+                    oldSlot.innerHTML = getDefaultSlotText(indexSlot);
+                    oldSlot.classList.remove("correct", "wrong", "hovered");
+                    delete oldSlot.dataset.filled;
                 }
+
+                bank.appendChild(draggedItemUrutan);
             });
         }
 
         function cekUrutanLangkah() {
             const slots = document.querySelectorAll(".sort-slot");
             const fb = document.getElementById("fbUrutanLangkah");
+
+            if (!fb) return;
+
             let benar = 0;
+            let terisi = 0;
 
             slots.forEach((slot) => {
                 slot.classList.remove("correct", "wrong");
 
                 const item = slot.querySelector(".sort-item");
                 const jawabanUser = item?.dataset.step;
+
+                if (item) terisi++;
 
                 if (jawabanUser === slot.dataset.answer) {
                     slot.classList.add("correct");
@@ -1464,48 +1524,59 @@
                 }
             });
 
-            if (benar === 4) {
-                fb.innerHTML = alertSuccess(
-                    "Urutanmu sudah benar. Dari persamaan \\(6y = -3x + 12\\) diperoleh \\(y = -\\frac{1}{2}x + 2\\), sehingga gradiennya adalah \\(- \\frac{1}{2}\\).",
-                );
+            if (terisi < 4) {
+                fb.innerHTML = `
+            <div class="alert alert-warning mb-0">
+                Masih ada langkah yang belum diisi. Susun semua potongan langkah terlebih dahulu.
+            </div>
+        `;
+            } else if (benar === 4) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                <strong>Benar.</strong><br>
+                Urutan langkah sudah tepat.
+                Dari persamaan $6y = -3x + 12$ diperoleh:
+                <div class="text-center my-2">
+                    $y = \\frac{-3x + 12}{6} = -\\frac{1}{2}x + 2$
+                </div>
+                Jadi, gradiennya adalah $m = -\\frac{1}{2}$.
+            </div>
+        `;
             } else {
-                fb.innerHTML = alertInfo(
-                    "Masih ada urutan yang belum tepat. Ingat, persamaan harus diubah dulu ke bentuk \\(y = mx + c\\) sebelum gradien ditentukan.",
-                );
+                fb.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                Masih ada urutan yang belum tepat.
+                Ingat, persamaan harus diubah dulu ke bentuk $y = mx + c$ sebelum gradien ditentukan.
+            </div>
+        `;
             }
 
-            renderKatexUlang(fb);
+            renderMath(fb);
         }
 
         function resetUrutanLangkah() {
             const slots = document.querySelectorAll(".sort-slot");
-            const bank = document.querySelector(".sort-bank");
+            const bank = document.getElementById("sortBank");
             const fb = document.getElementById("fbUrutanLangkah");
 
-            const defaults = [
-                "Letakkan langkah pertama di sini",
-                "Letakkan langkah berikutnya di sini",
-                "Letakkan langkah berikutnya di sini",
-                "Letakkan kesimpulan di sini",
-            ];
+            if (!bank) return;
 
-            if (bank) {
-                slots.forEach((slot) => {
-                    const item = slot.querySelector(".sort-item");
-                    if (item) {
-                        bank.appendChild(item);
-                    }
-                });
-            }
+            slots.forEach((slot, index) => {
+                const item = slot.querySelector(".sort-item");
 
-            slots.forEach((slot, i) => {
+                if (item) {
+                    bank.appendChild(item);
+                }
+
                 slot.classList.remove("correct", "wrong", "hovered");
                 delete slot.dataset.filled;
-                slot.innerHTML = defaults[i];
+                slot.innerHTML = getDefaultSlotText(index);
             });
 
             if (fb) fb.innerHTML = "";
         }
+
+
         // Latihan Soal
         // =========================
         // LATIHAN SOAL SUBBAB B4
@@ -1513,51 +1584,12 @@
         // =========================
 
         document.addEventListener("DOMContentLoaded", function() {
-            renderKatexUlang(
+            renderMath(
                 document.getElementById("latihanGradienB4Box") || document.body,
             );
+
+            restoreProgressB4();
         });
-
-        // =========================
-        // HELPER
-        // =========================
-        function normGradien(teks) {
-            return String(teks || "")
-                .toLowerCase()
-                .replace(/\s+/g, "")
-                .replace(/[(){}[\]]/g, "")
-                .replace(/−/g, "-")
-                .trim();
-        }
-
-        function renderKatexUlang(el) {
-            if (!window.renderMathInElement || !el) return;
-
-            renderMathInElement(el, {
-                delimiters: [{
-                        left: "$$",
-                        right: "$$",
-                        display: true
-                    },
-                    {
-                        left: "$",
-                        right: "$",
-                        display: false
-                    },
-                    {
-                        left: "\\(",
-                        right: "\\)",
-                        display: false
-                    },
-                    {
-                        left: "\\[",
-                        right: "\\]",
-                        display: true
-                    },
-                ],
-                throwOnError: false,
-            });
-        }
 
         function scrollKeStep(stepId) {
             const content = document.querySelector(".content-wrapper");
@@ -1589,7 +1621,7 @@
             if (!step) return;
 
             step.style.display = "block";
-            renderKatexUlang(step);
+            renderMath(step);
             scrollKeStep(`latihanStep${stepNumber}`);
         }
 
@@ -1622,6 +1654,45 @@
         // =========================
         // SAVE PROGRESS + BUKA KUIS
         // =========================
+        async function simpanProgressLatihan(latihanKey, tipe, jawaban, isCorrect) {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!LATIHAN_PROGRESS_URL || !csrfToken) {
+                console.error("URL atau CSRF kosong.", {
+                    LATIHAN_PROGRESS_URL,
+                    csrfToken,
+                });
+                return false;
+            }
+
+            try {
+                const response = await fetch(LATIHAN_PROGRESS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({
+                        latihan_key: latihanKey,
+                        tipe: tipe,
+                        jawaban: jawaban,
+                        is_correct: isCorrect,
+                    }),
+                });
+
+                const data = await response.json();
+                console.log("Simpan latihan B4:", data);
+
+                return response.ok;
+            } catch (error) {
+                console.error("Gagal menyimpan latihan B4:", error);
+                return false;
+            }
+        }
         async function saveProgressMateri() {
             const csrfToken = document
                 .querySelector('meta[name="csrf-token"]')
@@ -1663,13 +1734,35 @@
 
             quizBtn.replaceWith(link);
         }
+        // simpan jawaban latihan
+        function ambilJawabanLatihan1B4() {
+            return {
+                lat1a: document.getElementById("lat1a")?.value.trim() ?? "",
+                lat1b: document.getElementById("lat1b")?.value.trim() ?? "",
+            };
+        }
+
+        function ambilJawabanLatihan2B4() {
+            return {
+                lat2a: document.getElementById("lat2a")?.value.trim() ?? "",
+                lat2b: document.getElementById("lat2b")?.value.trim() ?? "",
+            };
+        }
+
+        function ambilJawabanLatihan3B4() {
+            return {
+                lat3a: document.getElementById("lat3a")?.value.trim() ?? "",
+                lat3b: document.getElementById("lat3b")?.value.trim() ?? "",
+                lat3c: document.getElementById("lat3c")?.value.trim() ?? "",
+            };
+        }
 
         // =========================
         // LATIHAN 1
         // =========================
-        function cekLatihan1Gradien() {
-            const a = normGradien(document.getElementById("lat1a")?.value);
-            const b = normGradien(document.getElementById("lat1b")?.value);
+        async function cekLatihan1Gradien() {
+            const a = norm(document.getElementById("lat1a")?.value);
+            const b = norm(document.getElementById("lat1b")?.value);
 
             const fb = document.getElementById("feedbackLatihan1Gradien");
             const nextBtn = document.getElementById("nextBtnLatihan1");
@@ -1692,6 +1785,12 @@
         `;
 
                 if (nextBtn) nextBtn.disabled = false;
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1`,
+                    "input",
+                    ambilJawabanLatihan1B4(),
+                    true
+                );
             } else {
                 let pesan = `
             <div class="alert alert-warning mb-0">
@@ -1718,7 +1817,7 @@
                 resetStepSetelah(2);
             }
 
-            renderKatexUlang(fb);
+            renderMath(fb);
         }
 
         function resetLatihan1Gradien() {
@@ -1742,9 +1841,9 @@
         // =========================
         // LATIHAN 2
         // =========================
-        function cekLatihan2Gradien() {
-            const a = normGradien(document.getElementById("lat2a")?.value);
-            const b = normGradien(document.getElementById("lat2b")?.value);
+        async function cekLatihan2Gradien() {
+            const a = norm(document.getElementById("lat2a")?.value);
+            const b = norm(document.getElementById("lat2b")?.value);
 
             const fb = document.getElementById("feedbackLatihan2Gradien");
             const nextBtn = document.getElementById("nextBtnLatihan2");
@@ -1767,6 +1866,12 @@
         `;
 
                 if (nextBtn) nextBtn.disabled = false;
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L2`,
+                    "input",
+                    ambilJawabanLatihan2B4(),
+                    true
+                );
             } else {
                 let pesan = `
             <div class="alert alert-warning mb-0">
@@ -1794,7 +1899,7 @@
                 resetStepSetelah(3);
             }
 
-            renderKatexUlang(fb);
+            renderMath(fb);
         }
 
         function resetLatihan2Gradien() {
@@ -1819,9 +1924,9 @@
         // LATIHAN 3
         // =========================
         async function cekLatihan3Gradien() {
-            const a = normGradien(document.getElementById("lat3a")?.value);
-            const b = normGradien(document.getElementById("lat3b")?.value);
-            const c = normGradien(document.getElementById("lat3c")?.value);
+            const a = norm(document.getElementById("lat3a")?.value);
+            const b = norm(document.getElementById("lat3b")?.value);
+            const c = norm(document.getElementById("lat3c")?.value);
 
             const fb = document.getElementById("feedbackLatihan3Gradien");
             const akhir = document.getElementById("pesanAkhirLatihan");
@@ -1847,8 +1952,15 @@
 
                 if (akhir) {
                     akhir.classList.remove("d-none");
-                    renderKatexUlang(akhir);
+                    renderMath(akhir);
                 }
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L3`,
+                    "input",
+                    ambilJawabanLatihan3B4(),
+                    true
+                );
 
                 const saved = await saveProgressMateri();
 
@@ -1892,7 +2004,7 @@
                 fb.innerHTML = pesan;
                 if (akhir) akhir.classList.add("d-none");
             }
-            renderKatexUlang(fb);
+            renderMath(fb);
         }
 
         function resetLatihan3Gradien() {
@@ -1909,6 +2021,134 @@
 
             if (fb) fb.innerHTML = "";
             if (akhir) akhir.classList.add("d-none");
+        }
+
+        // Restore
+        function setValueSafe(id, value) {
+            const el = document.getElementById(id);
+
+            if (el && value !== undefined && value !== null) {
+                el.value = value;
+            }
+        }
+
+        function beriValid(ids) {
+            ids.forEach((id) => {
+                const el = document.getElementById(id);
+
+                if (el) {
+                    el.classList.remove("is-invalid");
+                    el.classList.add("is-valid");
+                }
+            });
+        }
+
+        function restoreLatihan1B4() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L1`]?.jawaban;
+
+            if (!saved) return;
+
+            setValueSafe("lat1a", saved.lat1a);
+            setValueSafe("lat1b", saved.lat1b);
+
+            beriValid(["lat1a", "lat1b"]);
+
+            const fb = document.getElementById("feedbackLatihan1Gradien");
+            const nextBtn = document.getElementById("nextBtnLatihan1");
+            const latihan2 = document.getElementById("latihanStep2");
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Jawaban Latihan 1 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (nextBtn) nextBtn.disabled = false;
+            if (latihan2) latihan2.style.display = "block";
+        }
+
+        function restoreLatihan2B4() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L2`]?.jawaban;
+
+            if (!saved) return;
+
+            setValueSafe("lat2a", saved.lat2a);
+            setValueSafe("lat2b", saved.lat2b);
+
+            beriValid(["lat2a", "lat2b"]);
+
+            const fb = document.getElementById("feedbackLatihan2Gradien");
+            const nextBtn = document.getElementById("nextBtnLatihan2");
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Jawaban Latihan 2 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+            if (nextBtn) nextBtn.disabled = false;
+        }
+
+        function restoreLatihan3B4() {
+            const saved = SAVED_LATIHAN[`${MATERI_SLUG}_L3`]?.jawaban;
+
+            if (!saved) return;
+
+            setValueSafe("lat3a", saved.lat3a);
+            setValueSafe("lat3b", saved.lat3b);
+            setValueSafe("lat3c", saved.lat3c);
+
+            beriValid(["lat3a", "lat3b", "lat3c"]);
+
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+            const fb = document.getElementById("feedbackLatihan3Gradien");
+            const akhir = document.getElementById("pesanAkhirLatihan");
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success mb-0">
+                Jawaban Latihan 3 sudah tersimpan.
+            </div>
+        `;
+            }
+
+            if (akhir) {
+                akhir.classList.remove("d-none");
+            }
+
+            bukaQuizButton();
+        }
+
+        function restoreProgressB4() {
+            restoreLatihan1B4();
+            restoreLatihan2B4();
+            restoreLatihan3B4();
+
+            if (IS_MATERI_COMPLETED) {
+                const latihan2 = document.getElementById("latihanStep2");
+                const latihan3 = document.getElementById("latihanStep3");
+                const nextBtn1 = document.getElementById("nextBtnLatihan1");
+                const nextBtn2 = document.getElementById("nextBtnLatihan2");
+
+                if (latihan2) latihan2.style.display = "block";
+                if (latihan3) latihan3.style.display = "block";
+                if (nextBtn1) nextBtn1.disabled = false;
+                if (nextBtn2) nextBtn2.disabled = false;
+
+                bukaQuizButton();
+            }
         }
     </script>
 

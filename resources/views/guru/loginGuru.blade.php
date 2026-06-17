@@ -73,13 +73,13 @@
                     </form>
 
                     {{-- Belum punya akun --}}
-                    <p class="text-center mt-3 mb-0">
+                    {{-- <p class="text-center mt-3 mb-0">
                         Belum punya akun?
                         <a href="{{ route('guru.register') }}" class="fw-semibold"
                             style="color: var(--primary-dark); text-decoration: none;">
                             Registrasi
                         </a>
-                    </p>
+                    </p> --}}
 
                 </div>
 
