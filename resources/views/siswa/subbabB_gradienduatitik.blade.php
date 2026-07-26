@@ -30,19 +30,12 @@
         }
 
         .rumus-box {
-            display: block;
-            width: fit-content;
-            max-width: 100%;
-            margin: 16px auto 22px;
-            padding: 10px 28px;
-
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #d8c8ff;
-
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
-            text-align: center;
-            overflow-x: auto;
+            border-radius: 12px;
         }
 
         .img-grid {
@@ -161,16 +154,11 @@
     {{-- Pengantar --}}
     <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
+
             <p class="mb-3" style="line-height:1.8; text-align: justify;">
                 Pada bagian sebelumnya, kamu telah mempelajari bahwa gradien diperoleh dari
-                perbandingan perubahan nilai \(y\) terhadap perubahan nilai \(x\).
+                perbandingan perubahan nilai \(y\) terhadap perubahan nilai \(x\)
             </p>
-
-            <div class="rumus-box text-center my-3">
-                $$
-                m = \frac{\Delta y}{\Delta x}
-                $$
-            </div>
 
             <p class="mb-3" style="line-height:1.8; text-align: justify;">
                 Sekarang, bagaimana jika suatu garis diketahui melalui dua titik?
@@ -179,55 +167,85 @@
                 titik \(A\) ke titik \(B\).
             </p>
 
-            <div class="text-center mb-3">
-                <img class="zoomable" src="{{ asset('img/gradien/gradienduatitik.png') }}"
+            <div class="text-center mb-4">
+                <img class="zoomable img-fluid" src="{{ asset('img/gradien/gradienduatitik.png') }}"
                     alt="Perpindahan dari titik A ke titik B"
-                    style="max-width:340px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
+                    style="max-width:340px; width:100%; border-radius:12px; border:1px solid #e5e7eb;">
 
                 <div class="text-muted mt-2" style="font-size:13px;">
                     <strong>Gambar 2.6</strong> Perpindahan dari titik \(A(x_1,y_1)\) ke titik \(B(x_2,y_2)\)
                 </div>
             </div>
 
-            <p class="mb-3" style="line-height:1.8; text-align: justify;">
-                Perubahan nilai \(x\) diperoleh dengan mengurangkan nilai \(x\) kedua
-                dengan nilai \(x\) pertama.
-            </p>
+            {{-- Perubahan nilai x --}}
+            <div class="card border rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center g-4">
 
-            <div class="rumus-box text-center my-3">
-                $$
-                \Delta x = x_2 - x_1
-                $$
-            </div>
+                        {{-- Penjelasan --}}
+                        <div class="col-md-7">
+                            <h6 class="fw-bold mb-3">Perubahan nilai \(x\)</h6>
 
-            <div class="text-center mb-3">
-                <img class="zoomable" src="{{ asset('img/gradien/duatitik2.png') }}"
-                    alt="Perubahan nilai x dari titik A ke titik B"
-                    style="max-width:340px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
+                            <p class="mb-3" style="line-height:1.8; text-align: justify;">
+                                Perubahan nilai \(x\) diperoleh dengan mengurangkan nilai \(x\) kedua
+                                dengan nilai \(x\) pertama.
+                            </p>
 
-                <div class="text-muted mt-2" style="font-size:13px;">
-                    <strong>Gambar 2.7</strong> Perubahan nilai \(x\) dari \(x_1\) ke \(x_2\)
+                            <div class="bg-light border rounded-4 p-3 text-center overflow-auto">
+                                \[
+                                \Delta x = x_2 - x_1
+                                \]
+                            </div>
+                        </div>
+
+                        {{-- Gambar --}}
+                        <div class="col-md-5 text-center">
+                            <img class="zoomable img-fluid rounded-4 border bg-white p-2"
+                                src="{{ asset('img/gradien/duatitik2.png') }}"
+                                alt="Perubahan nilai x dari titik A ke titik B" style="max-width:300px; width:100%;">
+
+                            <div class="text-muted mt-2" style="font-size:13px;">
+                                <strong>Gambar 2.7</strong> Perubahan nilai \(x\) dari \(x_1\) ke \(x_2\)
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
-            <p class="mb-3" style="line-height:1.8; text-align: justify;">
-                Perubahan nilai \(y\) diperoleh dengan mengurangkan nilai \(y\) kedua
-                dengan nilai \(y\) pertama.
-            </p>
+            {{-- Perubahan nilai y --}}
+            <div class="card border rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center g-4">
 
-            <div class="rumus-box text-center my-3">
-                $$
-                \Delta y = y_2 - y_1
-                $$
-            </div>
+                        {{-- Penjelasan --}}
+                        <div class="col-md-7">
+                            <h6 class="fw-bold mb-3">Perubahan nilai \(y\)</h6>
 
-            <div class="text-center mb-3">
-                <img class="zoomable" src="{{ asset('img/gradien/duatitik3.png') }}"
-                    alt="Perubahan nilai y dari titik A ke titik B"
-                    style="max-width:340px;width:100%;border-radius:12px;border:1px solid #e5e7eb;">
+                            <p class="mb-3" style="line-height:1.8; text-align: justify;">
+                                Perubahan nilai \(y\) diperoleh dengan mengurangkan nilai \(y\) kedua
+                                dengan nilai \(y\) pertama.
+                            </p>
 
-                <div class="text-muted mt-2" style="font-size:13px;">
-                    <strong>Gambar 2.8</strong> Perubahan nilai \(y\) dari \(y_1\) ke \(y_2\)
+                            <div class="bg-light border rounded-4 p-3 text-center overflow-auto">
+                                \[
+                                \Delta y = y_2 - y_1
+                                \]
+                            </div>
+                        </div>
+
+                        {{-- Gambar --}}
+                        <div class="col-md-5 text-center">
+                            <img class="zoomable img-fluid rounded-4 border bg-white p-2"
+                                src="{{ asset('img/gradien/duatitik3.png') }}"
+                                alt="Perubahan nilai y dari titik A ke titik B" style="max-width:300px; width:100%;">
+
+                            <div class="text-muted mt-2" style="font-size:13px;">
+                                <strong>Gambar 2.8</strong> Perubahan nilai \(y\) dari \(y_1\) ke \(y_2\)
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -248,6 +266,7 @@
                 Jadi, gradien garis yang melalui dua titik \(A(x_1,y_1)\) dan \(B(x_2,y_2)\)
                 dapat ditentukan dengan membagi selisih nilai \(y\) dengan selisih nilai \(x\).
             </p>
+
         </div>
     </div>
 
@@ -256,68 +275,141 @@
         <div class="card-body">
             <span class="title-box">Contoh</span>
 
-            <p class="mb-2" style="line-height:1.8; text-align: justify;">
-                Tentukanlah gradien garis yang melalui titik-titik koordinat berikut:
+            <p class="mb-3" style="line-height:1.8; text-align: justify;">
+                Perhatikan beberapa contoh berikut untuk memahami cara menentukan gradien garis yang melalui dua titik.
             </p>
 
-            <ol class="mb-3" style="line-height:1.9; padding-left:18px;">
-                <li>\(P(1,3)\) dan \(Q(5,7)\)</li>
-                <li>\(R(-1,4)\) dan \(S(3,-2)\)</li>
-                <li>\(T(-3,-1)\) dan \(U(2,-4)\)</li>
-            </ol>
-
-            <p class="mb-2"><b>Penyelesaian:</b></p>
-
-            {{-- a --}}
-            <div class="contoh-item">
-                <p class="mb-2" style="line-height:1.8;">
-                    a. Untuk titik \(P(1,3)\) dan \(Q(5,7)\)
-                </p>
-
-                <div class="rumus-box rumus-contoh text-center">
-                    $$
-                    m = \frac{y_2-y_1}{x_2-x_1}
-                    = \frac{7-3}{5-1}
-                    = \frac{4}{4}
-                    = 1
-                    $$
+            {{-- ===================== --}}
+            {{-- CONTOH 1 --}}
+            {{-- ===================== --}}
+            <div class="card border-info-subtle shadow-sm mb-4">
+                <div class="card-header bg-info-subtle fw-bold">
+                    Contoh 1
                 </div>
 
-                <span class="hasil-mini">Jadi, gradiennya adalah \(1\).</span>
+                <div class="card-body">
+                    <p class="mb-3" style="line-height:1.8;">
+                        Perhatikan gambar berikut. Tentukan gradien garis yang melalui titik \(P\) dan \(Q\).
+                    </p>
+
+                    <div class="row g-4 align-items-start">
+                        {{-- Gambar --}}
+                        <div class="col-md-5 text-center">
+                            <img src="{{ asset('img/gradien/contoh_gradien_pq.png') }}"
+                                alt="Grafik garis melalui titik P dan Q"
+                                class="img-fluid rounded border bg-white p-2 shadow-sm">
+                        </div>
+
+                        {{-- Penyelesaian --}}
+                        <div class="col-md-7">
+                            <p class="mb-2"><b>Jawab:</b></p>
+
+                            <p class="mb-1" style="line-height:1.8;">
+                                Dari gambar, diperoleh titik \(P(1,3)\) dan \(Q(5,7)\).
+                            </p>
+
+                            <p class="mb-1" style="line-height:1.8;">
+                                Untuk titik \(P(1,3)\) maka \(x_1=1\), \(y_1=3\).
+                            </p>
+
+                            <p class="mb-1" style="line-height:1.8;">
+                                Untuk titik \(Q(5,7)\) maka \(x_2=5\), \(y_2=7\).
+                            </p>
+
+                            <div class="overflow-auto my-2">
+                                \[
+                                m=\frac{y_2-y_1}{x_2-x_1}
+                                =\frac{7-3}{5-1}
+                                =\frac{4}{4}
+                                =1
+                                \]
+                            </div>
+
+                            <p class="mb-0" style="line-height:1.8;">
+                                Jadi, gradien garis \(PQ\) adalah \(1\).
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {{-- b --}}
-            <div class="contoh-item">
-                <p class="mb-2" style="line-height:1.8;">
-                    b. Untuk titik \(R(-1,4)\) dan \(S(3,-2)\)
-                </p>
-
-                <div class="rumus-box rumus-contoh text-center">
-                    $$
-                    m = \frac{-2-4}{3-(-1)}
-                    = \frac{-6}{4}
-                    = -\frac{3}{2}
-                    $$
+            {{-- ===================== --}}
+            {{-- CONTOH 2 --}}
+            {{-- ===================== --}}
+            <div class="card border-info-subtle shadow-sm mb-4">
+                <div class="card-header bg-info-subtle fw-bold">
+                    Contoh 2
                 </div>
 
-                <span class="hasil-mini">Jadi, gradiennya adalah \(-\frac{3}{2}\).</span>
+                <div class="card-body">
+                    <p class="mb-3" style="line-height:1.8;">
+                        Tentukan gradien garis yang melalui titik \(R(-1,4)\) dan \(S(3,-2)\).
+                    </p>
+
+                    <div class="bg-light border rounded p-3">
+                        <p class="mb-2"><b>Jawab:</b></p>
+
+                        <p class="mb-1" style="line-height:1.8;">
+                            Untuk titik \(R(-1,4)\) maka \(x_1=-1\), \(y_1=4\).
+                        </p>
+
+                        <p class="mb-1" style="line-height:1.8;">
+                            Untuk titik \(S(3,-2)\) maka \(x_2=3\), \(y_2=-2\).
+                        </p>
+
+                        <div class="overflow-auto my-2">
+                            \[
+                            m=\frac{y_2-y_1}{x_2-x_1}
+                            =\frac{-2-4}{3-(-1)}
+                            =\frac{-6}{4}
+                            =-\frac{3}{2}
+                            \]
+                        </div>
+
+                        <p class="mb-0" style="line-height:1.8;">
+                            Jadi, gradien garis \(RS\) adalah \(-\frac{3}{2}\).
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            {{-- c --}}
-            <div class="contoh-item">
-                <p class="mb-2" style="line-height:1.8;">
-                    c. Untuk titik \(T(-3,-1)\) dan \(U(2,-4)\)
-                </p>
-
-                <div class="rumus-box rumus-contoh text-center">
-                    $$
-                    m = \frac{-4-(-1)}{2-(-3)}
-                    = \frac{-3}{5}
-                    = -\frac{3}{5}
-                    $$
+            {{-- ===================== --}}
+            {{-- CONTOH 3 --}}
+            {{-- ===================== --}}
+            <div class="card border-warning-subtle shadow-sm mb-2">
+                <div class="card-header bg-warning-subtle fw-bold text-dark">
+                    Contoh 3
                 </div>
 
-                <span class="hasil-mini">Jadi, gradiennya adalah \(-\frac{3}{5}\).</span>
+                <div class="card-body">
+                    <p class="mb-3" style="line-height:1.8;">
+                        Tentukan gradien garis yang melalui titik \(T(-3,-1)\) dan \(U(2,-4)\).
+                    </p>
+
+                    <div class="alert alert-warning mb-3" style="line-height:1.8;">
+                        Gunakan rumus:
+                        \(m=\frac{y_2-y_1}{x_2-x_1}\)
+                    </div>
+
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-5">
+                            <label for="jawabanGradienContoh" class="form-label fw-semibold">
+                                Masukkan gradien:
+                            </label>
+
+                            <input type="text" id="jawabanGradienContoh" class="form-control" style="width: 100px">
+
+                        </div>
+
+                        <div class="col-md-auto">
+                            <button type="button" class="btn btn-primary fw-semibold" onclick="cekGradienContoh()">
+                                Cek Jawaban
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="feedbackGradienContoh" class="mt-3"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -345,13 +437,14 @@
                     Tentukan gradien jalur kabel tersebut.
                 </p>
                 <div class="petunjuk-mini-latihan">
-                    <strong>Petunjuk:</strong>
-                    Isilah nilai \(x_1\), \(y_1\), \(x_2\), dan \(y_2\) pada kolom yang tersedia.
-                    Setelah itu, lengkapi bentuk pecahan gradien sampai diperoleh hasil akhirnya.
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi setiap kolom yang tersedia, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
                 </div>
 
                 <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                    <p class="mb-3"><b>Penyelesaian:</b></p>
+                    <b>Langkah Pengerjaan:</b>
 
                     <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
                         <span>\(P(-3,6)\), maka</span>
@@ -460,13 +553,14 @@
                     gradiennya harus bernilai <b>\(1\)</b>. Tentukan nilai <b>\(p\)</b>.
                 </p>
                 <div class="petunjuk-mini-latihan">
-                    <strong>Petunjuk:</strong>
-                    Isilah setiap langkah penyelesaian pada kolom yang tersedia.
-                    Gunakan informasi titik dan nilai gradien yang sudah diketahui untuk menentukan nilai \(p\).
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi setiap kolom yang tersedia, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
                 </div>
 
                 <div class="border rounded-4 p-3 mb-4" style="background:#f7f9fc;">
-                    <p class="mb-3"><b>Penyelesaian:</b></p>
+                    <b>Langkah Pengerjaan:</b>
 
                     <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
                         <span>\(A(1,2)\), maka</span>
@@ -599,18 +693,14 @@
                     Tentukan gradien jalan tersebut.
                 </p>
                 <div class="petunjuk-mini-latihan">
-                    <strong>Petunjuk:</strong>
-                    Perhatikan titik awal dan titik akhir pada soal, lalu isilah nilai pada bentuk pecahan gradien yang
-                    tersedia.
-                </div>
-
-                <div class="text-center mb-4">
-                    <img src="{{ asset('img/gradien/jalan menanjak.png') }}" alt="Ilustrasi jalan menanjak"
-                        class="img-fluid rounded-4 border" style="max-width:200px;">
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi setiap kolom yang tersedia, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
                 </div>
 
                 <div class="border rounded-4 p-3" style="background:#f7f9fc;">
-                    <p class="mb-3"><b>Penyelesaian:</b></p>
+                    <b>Langkah Pengerjaan:</b>
 
                     <div class="mb-3 d-flex flex-wrap align-items-center gap-2" style="line-height:2;">
                         <span>\(m=\dfrac{y_2-y_1}{x_2-x_1}=\)</span>
@@ -684,6 +774,100 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function normalisasiGradien(nilai) {
+            return (nilai || "")
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .replace("−", "-");
+        }
+
+        function renderKatexGradienContoh() {
+            const area = document.getElementById("feedbackGradienContoh");
+
+            if (area && typeof renderMathInElement === "function") {
+                renderMathInElement(area, {
+                    delimiters: [{
+                            left: "$$",
+                            right: "$$",
+                            display: true
+                        },
+                        {
+                            left: "\\[",
+                            right: "\\]",
+                            display: true
+                        },
+                        {
+                            left: "\\(",
+                            right: "\\)",
+                            display: false
+                        },
+                        {
+                            left: "$",
+                            right: "$",
+                            display: false
+                        }
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        function cekGradienContoh() {
+            const input = document.getElementById("jawabanGradienContoh");
+            const feedback = document.getElementById("feedbackGradienContoh");
+
+            const jawaban = normalisasiGradien(input.value);
+
+            const jawabanBenar = [
+                "-3/5",
+                "-0.6",
+                "-0,6"
+            ];
+
+            if (jawabanBenar.includes(jawaban)) {
+                feedback.innerHTML = `
+                <div class="alert alert-success" style="line-height:1.8;">
+                    <b>Benar.</b><br>
+                    Untuk titik \\(T(-3,-1)\\) maka \\(x_1=-3\\), \\(y_1=-1\\).<br>
+                    Untuk titik \\(U(2,-4)\\) maka \\(x_2=2\\), \\(y_2=-4\\).<br>
+
+                    \\[
+                    m=\\frac{y_2-y_1}{x_2-x_1}
+                    =\\frac{-4-(-1)}{2-(-3)}
+                    =\\frac{-3}{5}
+                    =-\\frac{3}{5}
+                    \\]
+
+                    Jadi, gradien garis \\(TU\\) adalah \\(-\\frac{3}{5}\\).
+                </div>
+            `;
+
+                input.classList.remove("is-invalid");
+                input.classList.add("is-valid");
+            } else {
+                feedback.innerHTML = `
+                <div class="alert alert-danger" style="line-height:1.8;">
+                    <b>Belum tepat.</b><br>
+                    Coba tentukan dahulu nilai \\(x_1\\), \\(y_1\\), \\(x_2\\), dan \\(y_2\\).<br>
+                    Setelah itu gunakan rumus:
+
+                    \\[
+                    m=\\frac{y_2-y_1}{x_2-x_1}
+                    \\]
+                </div>
+            `;
+
+                input.classList.remove("is-valid");
+                input.classList.add("is-invalid");
+            }
+
+            renderKatexGradienContoh();
+        }
+    </script>
 
     <script>
         // Contoh Step by step
@@ -1103,126 +1287,6 @@
             };
         }
 
-        function buatHintRingkas(nomor, salah) {
-            let hints = [];
-
-            if (nomor === 1) {
-                const salahTitik = salah.some(item =>
-                    item.includes("x_1") ||
-                    item.includes("y_1") ||
-                    item.includes("x_2") ||
-                    item.includes("y_2")
-                );
-
-                const salahSubstitusi = salah.some(item =>
-                    item.includes("pembilang") ||
-                    item.includes("penyebut")
-                );
-
-                const salahHasil = salah.some(item =>
-                    item.includes("Hasil pembilang") ||
-                    item.includes("Hasil penyebut")
-                );
-
-                const salahAkhir = salah.some(item =>
-                    item.includes("hasil akhir")
-                );
-
-                if (salahTitik) hints.push("Periksa lagi penentuan nilai $x_1$, $y_1$, $x_2$, dan $y_2$.");
-                if (salahSubstitusi) hints.push("Periksa lagi substitusi nilai ke rumus gradien.");
-                if (salahHasil) hints.push("Hitung kembali hasil pengurangan pada pembilang dan penyebut.");
-                if (salahAkhir) hints.push("Sederhanakan hasil gradiennya.");
-            }
-
-            if (nomor === 2) {
-                const salahTitik = salah.some(item =>
-                    item.includes("x_1") ||
-                    item.includes("y_1") ||
-                    item.includes("x_2") ||
-                    item.includes("y_2")
-                );
-
-                const salahGradien = salah.some(item =>
-                    item.includes("gradien")
-                );
-
-                const salahSubstitusi = salah.some(item =>
-                    item.includes("substitusi") ||
-                    item.includes("pembilang") ||
-                    item.includes("penyebut")
-                );
-
-                const salahPersamaan = salah.some(item =>
-                    item.includes("pecahan") ||
-                    item.includes("Ruas kiri") ||
-                    item.includes("Ruas kanan")
-                );
-
-                const salahP = salah.some(item =>
-                    item.includes("Nilai \\(p\\)")
-                );
-
-                if (salahTitik) hints.push("Periksa lagi penentuan nilai $x_1$, $y_1$, $x_2$, dan $y_2$.");
-                if (salahGradien) hints.push("Periksa kembali nilai gradien yang diketahui pada soal.");
-                if (salahSubstitusi) hints.push("Periksa lagi substitusi nilai ke rumus gradien.");
-                if (salahPersamaan) hints.push("Periksa kembali langkah penyederhanaan dan menghilangkan pecahan.");
-                if (salahP) hints.push("Periksa kembali nilai akhir $p$.");
-            }
-
-            if (nomor === 3) {
-                const salahSubstitusi = salah.some(item =>
-                    item.includes("y_2") ||
-                    item.includes("y_1") ||
-                    item.includes("x_2") ||
-                    item.includes("x_1")
-                );
-
-                const salahHasil = salah.some(item =>
-                    item.includes("Hasil pembilang") ||
-                    item.includes("Hasil penyebut")
-                );
-
-                const salahAkhir = salah.some(item =>
-                    item.includes("hasil akhir")
-                );
-
-                if (salahSubstitusi) hints.push("Periksa lagi substitusi titik awal dan titik akhir ke rumus gradien.");
-                if (salahHasil) hints.push("Hitung kembali hasil pengurangan pada pembilang dan penyebut.");
-                if (salahAkhir) hints.push("Sederhanakan hasil gradiennya.");
-            }
-
-            if (hints.length === 0) {
-                hints.push("Periksa kembali langkah penyelesaianmu.");
-            }
-
-            return hints;
-        }
-
-        function tampilkanFeedback(containerId, hasil, nomor, pesanBenar) {
-            const fb = document.getElementById(containerId);
-            if (!fb) return hasil.semuaBenar;
-
-            if (hasil.semuaBenar) {
-                fb.innerHTML = `
-            <div class="alert alert-success py-2 mb-0">
-                ${pesanBenar}
-            </div>
-        `;
-            } else {
-                const hints = buatHintRingkas(nomor, hasil.salah);
-
-                fb.innerHTML = `
-            <div class="alert alert-danger py-2 mb-0">
-                ${hints.join("<br>")}
-            </div>
-        `;
-            }
-
-            renderMath(fb);
-            return hasil.semuaBenar;
-        }
-        
-
         function resetInput(ids) {
             ids.forEach((id) => {
                 const el = document.getElementById(id);
@@ -1361,16 +1425,21 @@
             ];
 
             const hasil = prosesPengecekan(data);
-            const benar = tampilkanFeedback(
-                "fbLatihan1",
-                hasil,
-                1,
-                "Jawaban nomor 1 benar. Silakan lanjut ke latihan berikutnya."
-            );
+            const benar = hasil.semuaBenar;
 
+            const fb = document.getElementById("fbLatihan1");
             const nextBtn = document.getElementById("nextBtnLatihan1");
 
             if (benar) {
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-success d-table text-start py-2 px-3 mb-0">
+                <strong>Benar.</strong>
+                Jawaban nomor 1 sudah tepat. Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
+                }
+
                 if (nextBtn) nextBtn.disabled = false;
 
                 await simpanProgressLatihan(
@@ -1380,9 +1449,37 @@
                     true
                 );
             } else {
+                let pesan = "";
+
+                if (hasil.salah.some(item => item.startsWith("Nilai"))) {
+                    pesan =
+                        "Periksa kembali nilai $x_1$, $y_1$, $x_2$, dan $y_2$.";
+                } else if (hasil.salah.some(item => item.startsWith("Bagian"))) {
+                    pesan =
+                        "Periksa kembali substitusi nilai ke dalam rumus gradien.";
+                } else if (hasil.salah.some(item => item.startsWith("Hasil"))) {
+                    pesan =
+                        "Hitung kembali hasil pengurangan pada pembilang dan penyebut.";
+                } else {
+                    pesan =
+                        "Sederhanakan hasil gradien ke bentuk paling sederhana.";
+                }
+
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-danger d-table text-start py-2 px-3 mb-0">
+                <strong>Belum tepat.</strong>
+                ${pesan}
+            </div>
+        `;
+                }
+
                 if (nextBtn) nextBtn.disabled = true;
+
                 resetStepSetelah(2);
             }
+
+            renderMath(fb);
 
             return benar;
         }
@@ -1490,16 +1587,21 @@
             ];
 
             const hasil = prosesPengecekan(data);
-            const benar = tampilkanFeedback(
-                "fbLatihan2",
-                hasil,
-                2,
-                "Jawaban nomor 2 benar. Silakan lanjut ke latihan berikutnya."
-            );
+            const benar = hasil.semuaBenar;
 
+            const fb = document.getElementById("fbLatihan2");
             const nextBtn = document.getElementById("nextBtnLatihan2");
 
             if (benar) {
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-success d-table text-start py-2 px-3 mb-0">
+                <strong>Benar.</strong>
+                Jawaban nomor 2 sudah tepat. Silakan lanjut ke latihan berikutnya.
+            </div>
+        `;
+                }
+
                 if (nextBtn) nextBtn.disabled = false;
 
                 await simpanProgressLatihan(
@@ -1509,9 +1611,62 @@
                     true
                 );
             } else {
+                let pesan = "";
+
+                const salahTitik = hasil.salah.some(item =>
+                    item.includes("x_1") ||
+                    item.includes("y_1") ||
+                    item.includes("x_2") ||
+                    item.includes("y_2")
+                );
+
+                const salahGradien = hasil.salah.some(item =>
+                    item.includes("gradien")
+                );
+
+                const salahSubstitusi = hasil.salah.some(item =>
+                    item.includes("langkah substitusi") ||
+                    item.startsWith("Bagian")
+                );
+
+                const salahPenyederhanaan = hasil.salah.some(item =>
+                    item.includes("langkah penyederhanaan") ||
+                    item.includes("hasil pecahan") ||
+                    item.includes("menghilangkan pecahan")
+                );
+
+                if (salahTitik) {
+                    pesan =
+                        "Periksa kembali nilai $x_1$, $y_1$, $x_2$, dan $y_2$.";
+                } else if (salahGradien) {
+                    pesan =
+                        "Periksa kembali nilai gradien yang diketahui pada soal.";
+                } else if (salahSubstitusi) {
+                    pesan =
+                        "Periksa kembali substitusi nilai ke dalam rumus gradien.";
+                } else if (salahPenyederhanaan) {
+                    pesan =
+                        "Periksa kembali langkah penyederhanaan dan menghilangkan pecahan.";
+                } else {
+                    pesan =
+                        "Periksa kembali nilai akhir $p$.";
+                }
+
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-danger d-table text-start py-2 px-3 mb-0">
+                <strong>Belum tepat.</strong>
+                ${pesan}
+            </div>
+        `;
+                }
+
                 if (nextBtn) nextBtn.disabled = true;
+
                 resetStepSetelah(3);
             }
+
+            renderMath(fb);
 
             return benar;
         }
@@ -1580,24 +1735,28 @@
             ];
 
             const hasil = prosesPengecekan(data);
-            const benar = tampilkanFeedback(
-                "fbLatihan3",
-                hasil,
-                3,
-                "Jawaban nomor 3 benar. Gradien jalan tersebut adalah \\(\\frac{1}{2}\\)."
-            );
+            const benar = hasil.semuaBenar;
+
+            const fb = document.getElementById("fbLatihan3");
+            const akhir = document.getElementById("pesanAkhirLatihan");
 
             if (benar) {
-                const akhir = document.getElementById("pesanAkhirLatihan");
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-success d-table text-start py-2 px-3 mb-0">
+                <strong>Benar.</strong>
+                Gradien jalan tersebut adalah $\\frac{1}{2}$.
+            </div>
+        `;
+                }
 
                 if (akhir) {
                     akhir.innerHTML = `
-                <div class="alert alert-success fw-semibold text-center mt-3">
-                    Bagus, kamu sudah memahami cara menentukan gradien garis melalui dua titik.
-                    Silakan lanjut ke materi berikutnya.
-                </div>
-            `;
-                    renderMath(akhir);
+            <div class="alert alert-success fw-semibold text-center mt-3">
+                Bagus, kamu sudah memahami cara menentukan gradien garis melalui dua titik.
+                Silakan lanjut ke materi berikutnya.
+            </div>
+        `;
                 }
 
                 await simpanProgressLatihan(
@@ -1613,12 +1772,40 @@
                     bukaNextButton();
                 } else if (akhir) {
                     akhir.innerHTML += `
-                <div class="alert alert-warning mt-2 mb-0">
-                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
-                </div>
-            `;
+            <div class="alert alert-warning mt-2 mb-0">
+                Jawaban benar, tetapi progres belum tersimpan.
+                Coba periksa koneksi internet.
+            </div>
+        `;
                 }
+            } else {
+                let pesan = "";
+
+                if (hasil.salah.some(item => item.startsWith("Nilai"))) {
+                    pesan =
+                        "Periksa kembali substitusi titik awal dan titik akhir ke dalam rumus gradien.";
+                } else if (hasil.salah.some(item => item.startsWith("Hasil"))) {
+                    pesan =
+                        "Hitung kembali hasil pengurangan pada pembilang dan penyebut.";
+                } else {
+                    pesan =
+                        "Sederhanakan hasil gradien ke bentuk paling sederhana.";
+                }
+
+                if (fb) {
+                    fb.innerHTML = `
+            <div class="alert alert-danger d-table text-start py-2 px-3 mb-0">
+                <strong>Belum tepat.</strong>
+                ${pesan}
+            </div>
+        `;
+                }
+
+                if (akhir) akhir.innerHTML = "";
             }
+
+            renderMath(fb);
+            renderMath(akhir);
 
             return benar;
         }

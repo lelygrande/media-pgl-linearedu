@@ -15,7 +15,7 @@ class Siswa extends Authenticatable
         'nis',
         'nama',
         'email',
-        'kelas',
+        'kelas_id',
         'jenis_kelamin',
         'password',
     ];
@@ -24,6 +24,11 @@ class Siswa extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function kelasData()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
 
     public function quizAttempts()
     {

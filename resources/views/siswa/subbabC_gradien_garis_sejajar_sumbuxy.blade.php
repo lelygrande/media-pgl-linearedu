@@ -29,15 +29,12 @@
         }
 
         .rumus-box {
-            background: #f8fbff;
-            border: 1px solid #dbe5f1;
-            border-radius: 14px;
-            padding: 10px 18px;
-            margin: 12px auto;
-            width: fit-content;
-            max-width: 100%;
-            overflow-x: auto;
-            font-size: 18px;
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
+            font-size: 20px;
+            border-radius: 12px;
         }
 
         .badge-contoh {
@@ -201,313 +198,142 @@
     <h2 class="mt-2 mb-3" style="font-weight: 600;">1. Gradien Garis yang Sejajar dengan $sumbu-x$ dan $sumbu-y$</h2>
 
     {{-- ========================================================= --}}
-    {{-- EKSPLORASI --}}
-    {{-- ========================================================= --}}
-    <div class="box-eksplorasi mt-4">
-        <div class="title-box">
-            Eksplorasi
-        </div>
-
-        <p class="mt-2">
-            Pada bagian ini, kita akan menelusuri hubungan antara gradien dan bentuk garis.
-            Perhatikan beberapa garis berikut, hitung gradien masing-masing garis, lalu bandingkan hasilnya.
-            Dari kegiatan ini, kamu diharapkan dapat menemukan pola hubungan antara garis sejajar
-            $sumbu\text{-}x$, garis sejajar $sumbu\text{-}y$, dan gradiennya.
-        </p>
-
-        {{-- ========================= --}}
-        {{-- Eksplorasi Sumbu-x --}}
-        {{-- ========================= --}}
-        <div class="quiz-card p-3 mb-4">
-            <span class="badge-eksplorasi">Eksplorasi $Sumbu\text{-}x$</span>
-
-            <div id="step-x-1">
-                <p class="mt-2">
-                    Perhatikan tiga garis berikut.
-                </p>
-
-                <div class="table-responsive mb-3">
-                    <table class="table table-bordered tabel-gradien align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Garis</th>
-                                <th>Titik</th>
-                                <th>Gradien ($m$)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>$a$</td>
-                                <td>$A(-2,2)$ dan $B(4,2)$</td>
-                                <td>
-                                    <input type="number" id="mx1" class="form-control text-center"
-                                        placeholder="Isi gradien">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>$b$</td>
-                                <td>$C(1,5)$ dan $D(6,5)$</td>
-                                <td>
-                                    <input type="number" id="mx2" class="form-control text-center"
-                                        placeholder="Isi gradien">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>$c$</td>
-                                <td>$E(-3,-1)$ dan $F(2,-1)$</td>
-                                <td>
-                                    <input type="number" id="mx3" class="form-control text-center"
-                                        placeholder="Isi gradien">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <p>
-                    Gunakan rumus gradien berikut untuk membantu perhitunganmu.
-                </p>
-
-                <div class="rumus-box text-center mb-3">
-                    $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
-                </div>
-
-                <button type="button" id="btn-tabel-x" class="btn btn-palet" onclick="cekTabelX()">
-                    Cek Jawaban
-                </button>
-
-                <div id="feedback-x1" style="width: fit-content"></div>
-            </div>
-
-            <div id="step-x-2" class="d-none mt-3">
-                <p>
-                    Setelah kamu mengisi tabel, bagaimana hubungan ketiga gradien tersebut?
-                </p>
-
-                <div class="opsi-kotak-wrap">
-                    <button type="button" class="opsi-kotak" id="bandingx-sama" onclick="cekBandingX('sama', this)">
-                        Semua gradien sama
-                    </button>
-                    <button type="button" class="opsi-kotak" id="bandingx-beda" onclick="cekBandingX('beda', this)">
-                        Gradiennya berbeda
-                    </button>
-                </div>
-
-                <div id="feedback-x2" style="width: fit-content"></div>
-            </div>
-
-            <div id="step-x-3" class="d-none mt-3">
-                <p>
-                    Sekarang perhatikan kembali pasangan titik pada setiap garis. Nilai <b>y</b> pada setiap pasangan titik
-                    tetap.
-                    Jika digambarkan pada bidang koordinat, maka bentuk garis-garis tersebut adalah ....
-                </p>
-
-                <div class="opsi-kotak-wrap">
-                    <button type="button" class="opsi-kotak" onclick="cekBentukX('mendatar', this)">
-                        Mendatar
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekBentukX('tegak', this)">
-                        Tegak
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekBentukX('miring', this)">
-                        Miring
-                    </button>
-                </div>
-
-                <div id="feedback-x3" style="width: fit-content"></div>
-            </div>
-
-            <div id="step-x-4" class="d-none mt-3">
-                <p>
-                    Berdasarkan hasil perhitungan dan pengamatanmu, apa yang dapat kamu simpulkan?
-                </p>
-
-                <button type="button" class="btn btn-palet" onclick="cekSimpulanX()">
-                    Tampilkan Kesimpulan
-                </button>
-
-                <div id="feedback-x4" style="width: fit-content"></div>
-            </div>
-
-            <div class="box-kesimpulan d-none mt-3" id="kesimpulan-x">
-                <b>Kesimpulan:</b><br>
-                Dari hasil perhitungan, ketiga garis tersebut memiliki gradien yang sama, yaitu $0$.
-                Dari pengamatan terhadap bentuk garisnya, ketiganya merupakan garis mendatar.
-                Jadi, dapat disimpulkan bahwa garis yang memiliki pasangan titik dengan nilai $y$ sama
-                merupakan garis yang sejajar dengan $sumbu\text{-}x$ dan gradiennya adalah $0$.
-            </div>
-
-            <div class="d-none mt-3" id="ggb-wrapper-x">
-                <div id="ggb-sumbu-x" style="width:100%; height:420px;"></div>
-            </div>
-        </div>
-
-        {{-- ========================= --}}
-        {{-- Eksplorasi Sumbu-y --}}
-        {{-- ========================= --}}
-        <div class="quiz-card p-3 mb-3">
-            <span class="badge-eksplorasi">Eksplorasi $Sumbu\text{-}y$</span>
-
-            <div id="step-y-1">
-                <p class="mt-2">
-                    Sekarang perhatikan tiga garis berikut.
-                </p>
-
-                <p>
-                    Hitung bentuk gradien masing-masing garis menggunakan rumus gradien, lalu isikan hasilnya
-                    dalam bentuk pecahan pada tabel berikut.
-                </p>
-
-                <div class="table-responsive mb-3" style="max-width: 550px;">
-                    <table class="table table-bordered text-center align-middle" style="table-layout: fixed;">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 80px;">Garis</th>
-                                <th style="width: 260px;">Titik</th>
-                                <th style="width: 160px;">Gradien ($m$)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>$p$</td>
-                                <td>$P(2,3)$ dan $Q(2,-4)$</td>
-                                <td>
-                                    <div class="pecahan-tabel">
-                                        <input type="number" id="py1-atas" class="input-pecahan">
-                                        <div class="garis-pecahan-kecil"></div>
-                                        <input type="number" id="py1-bawah" class="input-pecahan">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>$q$</td>
-                                <td>$R(-1,5)$ dan $S(-1,-2)$</td>
-                                <td>
-                                    <div class="pecahan-tabel">
-                                        <input type="number" id="py2-atas" class="input-pecahan">
-                                        <div class="garis-pecahan-kecil"></div>
-                                        <input type="number" id="py2-bawah" class="input-pecahan">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>$r$</td>
-                                <td>$T(4,1)$ dan $U(4,6)$</td>
-                                <td>
-                                    <div class="pecahan-tabel">
-                                        <input type="number" id="py3-atas" class="input-pecahan">
-                                        <div class="garis-pecahan-kecil"></div>
-                                        <input type="number" id="py3-bawah" class="input-pecahan">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="rumus-box text-center mb-3">
-                    $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
-                </div>
-
-                <button type="button" id="btn-tabel-y" class="btn btn-palet" onclick="cekTabelY()">
-                    Cek Jawaban
-                </button>
-
-                <div id="feedback-y1"></div>
-            </div>
-
-            <div id="step-y-2" class="d-none mt-3">
-                <p>
-                    Setelah kamu menuliskan bentuk gradiennya, apa yang sama dari ketiga garis tersebut?
-                </p>
-
-                <div class="opsi-kotak-wrap">
-                    <button type="button" class="opsi-kotak" onclick="cekBandingY('x-sama', this)">
-                        Semua garis memiliki nilai $x$ yang sama pada tiap pasangan titik
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekBandingY('y-sama', this)">
-                        Semua garis memiliki nilai $y$ yang sama pada tiap pasangan titik
-                    </button>
-                </div>
-
-                <div id="feedback-y2"></div>
-            </div>
-
-            <div id="step-y-3" class="d-none mt-3">
-                <p>
-                    Karena nilai $x$ pada setiap pasangan titik sama, maka pada rumus gradien penyebutnya bernilai $0$.
-                    Akibatnya, gradien garis tersebut ....
-                </p>
-
-                <div class="opsi-kotak-wrap">
-                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('tdk', this)">
-                        Tidak terdefinisi
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('nol', this)">
-                        Bernilai 0
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekKeadaanY('satu', this)">
-                        Bernilai 1
-                    </button>
-                </div>
-
-                <div id="feedback-y3"></div>
-            </div>
-
-            <div id="step-y-4" class="d-none mt-3">
-                <p>
-                    Jika digambar pada bidang koordinat, bentuk garis-garis tersebut adalah ....
-                </p>
-
-                <div class="opsi-kotak-wrap">
-                    <button type="button" class="opsi-kotak" onclick="cekBentukY('tegak', this)">
-                        Tegak
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekBentukY('mendatar', this)">
-                        Mendatar
-                    </button>
-                    <button type="button" class="opsi-kotak" onclick="cekBentukY('miring', this)">
-                        Miring
-                    </button>
-                </div>
-
-                <div id="feedback-y4"></div>
-            </div>
-
-            <div id="step-y-5" class="d-none mt-3">
-                <p>
-                    Berdasarkan hasil yang kamu peroleh, apa yang dapat kamu simpulkan?
-                </p>
-
-                <button type="button" class="btn btn-palet" onclick="cekSimpulanY()">
-                    Tampilkan Kesimpulan
-                </button>
-
-                <div id="feedback-y5"></div>
-            </div>
-
-            <div class="box-kesimpulan d-none mt-3" id="kesimpulan-y">
-                <b>Kesimpulan:</b><br><br>
-                Dari hasil perhitungan, diperoleh bahwa pada ketiga garis tersebut nilai $x_2 - x_1 = 0$.
-                Karena penyebut pada rumus gradien bernilai $0$, maka pembagian tidak dapat dilakukan.
-                Oleh karena itu, gradien garis tersebut tidak terdefinisi.
-
-                Jika digambarkan pada bidang koordinat, garis-garis tersebut berbentuk tegak,
-                sehingga dapat disimpulkan bahwa garis tersebut sejajar dengan $sumbu\text{-}y$.
-            </div>
-
-            <div class="d-none mt-3" id="ggb-wrapper-y">
-                <div id="ggb-sumbu-y" style="width:100%; height:420px;"></div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ========================================================= --}}
     {{-- MATERI --}}
     {{-- ========================================================= --}}
 
     {{-- Materi sejajar sumbu-x --}}
+    <div class="card card-materi mt-4 mb-4">
+        <div class="card-body">
+
+            <span class="badge-sub">Gradien Garis Sejajar Sumbu-x</span>
+
+            <p>Perhatikan Gambar 3.1 di bawah ini.</p>
+
+            <div class="text-center mb-3">
+                <img src="{{ asset('img/hubungan gradien garis/garis_sejajar_sumbu_x.png') }}" class="img-fluid rounded"
+                    style="max-width:320px;">
+                <small class="text-muted d-block">
+                    Gambar 3.1 Garis sejajar sumbu x
+                </small>
+            </div>
+
+            <p>
+                Pada Gambar 3.1 tampak bahwa garis $k$ melalui titik
+                $A(-2,2)$ dan $B(4,2)$.
+                Garis ini sejajar dengan sumbu $x$.
+            </p>
+
+            <p>
+                Untuk titik $A(-2,2)$, diperoleh $x_1 = -2$ dan $y_1 = 2$.<br>
+                Untuk titik $B(4,2)$, diperoleh $x_2 = 4$ dan $y_2 = 2$.
+            </p>
+
+            <p>Substitusikan nilai ke dalam rumus gradien:</p>
+
+            {{-- FRAKSI INPUT --}}
+            <div class="d-flex align-items-center flex-wrap gap-2">
+
+                <span>$m =$</span>
+
+                <div class="d-flex flex-column align-items-center">
+
+                    {{-- PEMBILANG --}}
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="text" id="y2" class="form-control form-control-sm text-center"
+                            style="width:60px;">
+
+                        <span>$-$</span>
+
+                        <input type="text" id="y1" class="form-control form-control-sm text-center"
+                            style="width:60px;">
+                    </div>
+
+                    <div style="width:140px; border-top:2px solid #000; margin:4px 0;"></div>
+
+                    {{-- PENYEBUT --}}
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="text" id="x2" class="form-control form-control-sm text-center"
+                            style="width:60px;">
+
+                        <span>$-$</span>
+
+                        <input type="text" id="x1" class="form-control form-control-sm text-center"
+                            style="width:60px;">
+                    </div>
+
+                </div>
+
+                <span>$=$</span>
+
+                <input type="text" id="hasil" class="form-control form-control-sm text-center" style="width:70px;">
+            </div>
+
+            <button class="btn btn-palet btn-sm mt-2" onclick="cekRumusGradien()">
+                Cek Jawaban
+            </button>
+
+            <div id="feedbackLKS" class="mt-3"></div>
+
+        </div>
+    </div>
+
+    <script>
+        function cekRumusGradien() {
+
+            let y2 = parseFloat(document.getElementById("y2").value);
+            let y1 = parseFloat(document.getElementById("y1").value);
+            let x2 = parseFloat(document.getElementById("x2").value);
+            let x1 = parseFloat(document.getElementById("x1").value);
+            let hasil = document.getElementById("hasil");
+
+            let output = document.getElementById("feedbackLKS");
+
+            // hitung gradien
+            let m = (y2 - y1) / (x2 - x1);
+
+            // BENAR: sumbu-x → y sama → m = 0
+            if (y1 === y2 && m === 0) {
+
+                hasil.value = 0;
+
+                output.innerHTML = `
+            <div class="alert alert-success">
+                <b>Jawaban benar.</b><br><br>
+
+                $m = \\frac{2 - 2}{4 - (-2)} = 0$<br><br>
+
+                <b>Kesimpulan:</b><br>
+                Garis sejajar sumbu-x memiliki gradien 0 (m = 0) karena nilai y pada kedua titik sama.
+            </div>
+        `;
+            }
+
+            // SALAH
+            else {
+
+                hasil.value = m;
+
+                output.innerHTML = `
+            <div class="alert alert-danger">
+                <b>Jawaban belum tepat.</b><br><br>
+
+                <b>Pembahasan:</b><br>
+                Untuk garis sejajar sumbu-x, syaratnya adalah $y_1 = y_2$.<br>
+                Jika disubstitusikan:<br><br>
+
+                $m = \\frac{y_2 - y_1}{x_2 - x_1}$<br><br>
+
+                sehingga:<br>
+                $m = \\frac{2 - 2}{4 - (-2)} = 0$<br><br>
+
+                <b>Kesimpulan:</b><br>
+                Garis sejajar sumbu-x memiliki gradien 0.
+            </div>
+        `;
+            }
+        }
+    </script>
+
     <div class="card card-materi mt-4 mb-4">
         <div class="card-body">
             <span class="badge-sub">Gradien Garis Sejajar $sumbu\text{-}x$</span>
@@ -540,7 +366,7 @@
                 Untuk menghitung gradien garis tersebut, gunakan rumus gradien berikut.
             </p>
 
-            <div class="rumus-box text-center mb-3">
+            <div class="text-center mb-3">
                 $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
             </div>
 
@@ -553,7 +379,7 @@
                 Substitusikan nilai tersebut ke dalam rumus gradien.
             </p>
 
-            <div class="text-center mb-3" style="font-size:20px;">
+            <div class="text-center mb-3" style="font-size:18px;">
                 \[
                 \begin{aligned}
                 m &= \frac{y_2 - y_1}{x_2 - x_1} \\
@@ -573,10 +399,11 @@
 
             <div class="box-kesimpulan">
                 <b>Kesimpulan:</b><br>
-                Jika garis sejajar dengan $sumbu\text{-}x$, maka nilai gradiennya adalah $0$.
+                Jika garis sejajar dengan $sumbu\text{-}x$, maka nilai gradiennya adalah $0$ atau $m=0$.
             </div>
         </div>
     </div>
+
 
     {{-- Materi sejajar sumbu-y --}}
     <div class="card card-materi mb-4">
@@ -611,7 +438,7 @@
                 Untuk menghitung gradien garis tersebut, gunakan rumus gradien berikut.
             </p>
 
-            <div class="rumus-box text-center mb-3">
+            <div class="text-center mb-3">
                 $$ m = \frac{y_2 - y_1}{x_2 - x_1} $$
             </div>
 
@@ -665,7 +492,6 @@
             <div class="mb-3" style="line-height:1.8;">
                 <p class="mb-1">a. Garis $k$ melalui $A(1,-2)$ dan $B(1,5)$</p>
                 <p class="mb-1">b. Garis $l$ melalui $C(-4,3)$ dan $D(2,3)$</p>
-                <p class="mb-1">c. Garis $m$ melalui $E(-1,-4)$ dan $F(5,-4)$</p>
             </div>
 
             <p class="mb-2"><b>Jawab:</b></p>
@@ -683,16 +509,12 @@
                 <p class="mb-2">
                     Dari titik $B(1,5)$, maka $x_2 = 1$ dan $y_2 = 5$.
                 </p>
-
                 <div class="text-center mb-2">
-                    \[
-                    \begin{aligned}
-                    m_{AB}
-                    &= \frac{y_2-y_1}{x_2-x_1} \\
-                    &= \frac{5-(-2)}{1-1} \\
-                    &= \frac{7}{0}
-                    \end{aligned}
-                    \]
+                    $$
+                    m_{AB} = \frac{y_2 - y_1}{x_2 - x_1}
+                    = \frac{5 - (-2)}{1 - 1}
+                    = \frac{7}{0}
+                    $$
                 </div>
 
                 <p class="mb-0">
@@ -716,54 +538,24 @@
                 </p>
 
                 <div class="text-center mb-2">
-                    \[
-                    \begin{aligned}
-                    m_{CD}
-                    &= \frac{y_2-y_1}{x_2-x_1} \\
-                    &= \frac{3-3}{2-(-4)} \\
-                    &= \frac{0}{6} \\
-                    &= 0
-                    \end{aligned}
-                    \]
+                    <div class="text-center mb-2">
+                        $$
+                        m_{CD} = \frac{y_2-y_1}{x_2-x_1}
+                        = \frac{3-3}{2-(-4)}
+                        = \frac{0}{6}
+                        = 0
+                        $$
+                    </div>
                 </div>
 
                 <p class="mb-0">
                     Karena gradiennya $0$, maka garis $l$ sejajar dengan $sumbu\text{-}x$.
                 </p>
             </div>
-
-            {{-- Jawaban c --}}
-            <div class="mb-0" style="line-height:1.8;">
-                <p class="mb-1">
-                    <b>c.</b> Gradien garis $m$, yaitu:
-                </p>
-
-                <p class="mb-1">
-                    Dari titik $E(-1,-4)$, maka $x_1 = -1$ dan $y_1 = -4$.
-                </p>
-
-                <p class="mb-2">
-                    Dari titik $F(5,-4)$, maka $x_2 = 5$ dan $y_2 = -4$.
-                </p>
-
-                <div class="text-center mb-2">
-                    \[
-                    \begin{aligned}
-                    m_{EF}
-                    &= \frac{y_2-y_1}{x_2-x_1} \\
-                    &= \frac{-4-(-4)}{5-(-1)} \\
-                    &= \frac{0}{6} \\
-                    &= 0
-                    \end{aligned}
-                    \]
-                </div>
-
-                <p class="mb-0">
-                    Karena gradiennya $0$, maka garis $m$ sejajar dengan $sumbu\text{-}x$.
-                </p>
-            </div>
         </div>
     </div>
+
+
 
     <script>
         const MATERI_ID = @json($materi->id);
@@ -1042,214 +834,6 @@
 
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script>
-        // Materi awal
-        // =========================
-        // GeoGebra Eksplorasi Sumbu-X
-        // =========================
-        let appletEksSumbuX = null;
-        let sudahLoadSumbuX = false;
-
-        function ggbOnLoadEksSumbuX(api) {
-            api.setPerspective("G");
-
-            api.setAxesVisible(true, true);
-            api.setGridVisible(true);
-
-            api.setGraphicsOptions(1, {
-                gridDistance: [1, 1],
-                minorGrid: false,
-            });
-
-            api.setGraphicsOptions(1, {
-                gridType: 0,
-            });
-
-            api.setCoordSystem(-6, 8, -4, 7);
-            api.setAxisSteps(1, 1, 1, 1);
-
-            // Titik-titik
-            api.evalCommand("A=(-2,2)");
-            api.evalCommand("B=(4,2)");
-            api.evalCommand("C=(1,5)");
-            api.evalCommand("D=(6,5)");
-            api.evalCommand("E=(-3,-1)");
-            api.evalCommand("F=(2,-1)");
-
-            // Ruas garis
-            api.evalCommand("a=Segment(A,B)");
-            api.evalCommand("b=Segment(C,D)");
-            api.evalCommand("c=Segment(E,F)");
-
-            // Titik
-            ["A", "B", "C", "D", "E", "F"].forEach(function(obj) {
-                api.setLabelVisible(obj, true);
-                api.setFixed(obj, true, false);
-                api.setPointSize(obj, 5);
-                api.setColor(obj, 30, 110, 200);
-            });
-
-            // Ruas garis a, b, c
-            api.setLineThickness("a", 5);
-            api.setLineThickness("b", 5);
-            api.setLineThickness("c", 5);
-
-            api.setColor("a", 46, 117, 182); // biru
-            api.setColor("b", 34, 185, 105); // hijau
-            api.setColor("c", 220, 53, 69); // merah
-
-            api.evalCommand('ta=Text("a", (1.2, 2.3))');
-            api.evalCommand('tb=Text("b", (3.5, 5.3))');
-            api.evalCommand('tc=Text("c", (0.4,-1.5))');
-
-            api.setFixed("ta", true, false);
-            api.setFixed("tb", true, false);
-            api.setFixed("tc", true, false);
-
-            api.setColor("ta", 46, 117, 182);
-            api.setColor("tb", 34, 185, 105);
-            api.setColor("tc", 220, 53, 69);
-
-            // Sembunyikan label ruas kalau mau bersih
-            api.setLabelVisible("a", false);
-            api.setLabelVisible("b", false);
-            api.setLabelVisible("c", false);
-
-            api.setAxesVisible(true, true);
-            api.setGridVisible(true);
-            api.setCoordSystem(-6, 8, -4, 7);
-        }
-
-        function tampilkanGrafikSumbuX() {
-            if (sudahLoadSumbuX) return;
-
-            const paramsEksSumbuX = {
-                appName: "classic",
-                id: "ggbAppletEksSumbuX",
-                width: 700,
-                height: 420,
-                showToolBar: false,
-                showAlgebraInput: false,
-                showMenuBar: false,
-                enableRightClick: false,
-                showResetIcon: true,
-                appletOnLoad: ggbOnLoadEksSumbuX,
-            };
-
-            appletEksSumbuX = new GGBApplet(paramsEksSumbuX, true);
-            appletEksSumbuX.inject("ggb-sumbu-x");
-
-            sudahLoadSumbuX = true;
-        }
-
-        window.addEventListener("load", function() {
-            tampilkanGrafikSumbuX();
-        });
-
-        // =========================
-        // GeoGebra Eksplorasi Sumbu-Y
-        // =========================
-        let appletEksSumbuY = null;
-        let sudahLoadSumbuY = false;
-
-        function ggbOnLoadEksSumbuY(api) {
-            api.setPerspective("G");
-
-            api.setAxesVisible(true, true);
-            api.setGridVisible(true);
-
-            api.setGraphicsOptions(1, {
-                gridDistance: [1, 1],
-                minorGrid: false,
-            });
-
-            api.setGraphicsOptions(1, {
-                gridType: 0,
-            });
-
-            api.setCoordSystem(-5, 7, -5, 7);
-            api.setAxisSteps(1, 1, 1, 1);
-
-            // Titik-titik
-            api.evalCommand("P=(2,3)");
-            api.evalCommand("Q=(2,-4)");
-            api.evalCommand("R=(-1,5)");
-            api.evalCommand("S=(-1,-2)");
-            api.evalCommand("T=(4,1)");
-            api.evalCommand("U=(4,6)");
-
-            // Ruas garis
-            api.evalCommand("p=Segment(P,Q)");
-            api.evalCommand("q=Segment(R,S)");
-            api.evalCommand("r=Segment(T,U)");
-
-            // Sembunyikan label default ruas
-            api.setLabelVisible("p", false);
-            api.setLabelVisible("q", false);
-            api.setLabelVisible("r", false);
-
-            // Label manual
-            api.evalCommand('tp=Text("p",(2.2, 0.5))');
-            api.evalCommand('tq=Text("q",(-1.3, 0.4))');
-            api.evalCommand('tr=Text("r",(4.2,4))');
-
-            // Warna label manual
-            api.setColor("tp", 46, 117, 182);
-            api.setColor("tq", 34, 185, 105);
-            api.setColor("tr", 220, 53, 69);
-
-            // Supaya teks tidak bisa digeser
-            ["tp", "tq", "tr"].forEach(function(obj) {
-                api.setFixed(obj, true, false);
-            });
-
-            // Titik
-            ["P", "Q", "R", "S", "T", "U"].forEach(function(pt) {
-                api.setLabelVisible(pt, true);
-                api.setFixed(pt, true, false);
-                api.setPointSize(pt, 5);
-                api.setColor(pt, 30, 110, 200);
-            });
-
-            // Ruas garis
-            api.setLineThickness("p", 5);
-            api.setLineThickness("q", 5);
-            api.setLineThickness("r", 5);
-
-            api.setColor("p", 46, 117, 182); // biru
-            api.setColor("q", 34, 185, 105); // hijau
-            api.setColor("r", 220, 53, 69); // merah
-
-            api.setAxesVisible(true, true);
-            api.setGridVisible(true);
-            api.setCoordSystem(-5, 7, -5, 7);
-        }
-
-        function tampilkanGrafikSumbuY() {
-            if (sudahLoadSumbuY) return;
-
-            const paramsEksSumbuY = {
-                appName: "classic",
-                id: "ggbAppletEksSumbuY",
-                width: 700,
-                height: 420,
-                showToolBar: false,
-                showAlgebraInput: false,
-                showMenuBar: false,
-                enableRightClick: false,
-                showResetIcon: true,
-                appletOnLoad: ggbOnLoadEksSumbuY,
-            };
-
-            appletEksSumbuY = new GGBApplet(paramsEksSumbuY, true);
-            appletEksSumbuY.inject("ggb-sumbu-y");
-
-            sudahLoadSumbuY = true;
-        }
-
-        window.addEventListener("load", function() {
-            tampilkanGrafikSumbuY();
-        });
-
         function tampilkanFeedback(id, tipe, pesan) {
             let kelas = "feedback-box feedback-info";
             if (tipe === "benar") kelas = "feedback-box feedback-benar";

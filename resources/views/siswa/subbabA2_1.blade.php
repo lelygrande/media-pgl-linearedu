@@ -534,6 +534,7 @@
                 Klik titik pada bidang koordinat Kartesius sesuai urutan
                 $A(1,5)$, $B(2,8)$, $C(3,11)$, dan $D(4,14)$.
                 Jika titik yang kamu klik benar, titik akan muncul pada bidang koordinat.
+                Jika titik yang diklik salah akan muncul tanda (X).
                 Jika semua titik sudah tepat, titik-titik tersebut akan dihubungkan membentuk garis lurus.
             </div>
 
@@ -552,8 +553,6 @@
                     </div>
                 </div>
             </div>
-
-            <script src="{{ asset('js/subbabA/pcontoh21.js') }}"></script>
         </div>
     </div>
 
@@ -575,10 +574,10 @@
                 </p>
 
                 <div class="petunjuk-mini-latihan">
-                    <strong>Petunjuk:</strong>
-                    Substitusikan setiap nilai $x$ ke dalam persamaan $y = x - 3$.
-                    Setelah nilai $y$ diperoleh, tuliskan pasangan berurutan dalam bentuk $(x,y)$.
-                    Contoh penulisan pasangan titik: $1, -2$ atau $(1,-2)$.
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi seluruh kolom pada tabel, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar, sedangkan kotak merah menunjukkan jawaban masih perlu diperbaiki.
                 </div>
 
                 <table class="tabel-garis" style="width: 500px">
@@ -587,16 +586,13 @@
                         <th>$y = x - 3$</th>
                         <th>$(x,y)$</th>
                     </tr>
-
                     <tr>
                         <td>$-2$</td>
-
                         <td>
                             <input type="text" id="lat1_y1"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
-
                         <td>
                             <input type="text" id="lat1_pair1"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -606,13 +602,11 @@
 
                     <tr>
                         <td>$0$</td>
-
                         <td>
                             <input type="text" id="lat1_y2"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
-
                         <td>
                             <input type="text" id="lat1_pair2"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -622,13 +616,11 @@
 
                     <tr>
                         <td>$2$</td>
-
                         <td>
                             <input type="text" id="lat1_y3"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
-
                         <td>
                             <input type="text" id="lat1_pair3"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -638,13 +630,11 @@
 
                     <tr>
                         <td>$4$</td>
-
                         <td>
                             <input type="text" id="lat1_y4"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
                                 style="width:90px;">
                         </td>
-
                         <td>
                             <input type="text" id="lat1_pair4"
                                 class="form-control form-control-sm d-inline-block text-center input-matematika"
@@ -680,19 +670,19 @@
                 <hr class="my-4">
 
                 <p class="mb-2" style="max-width: 720px;">
-                    <b>2.</b> Diketahui persamaan garis lurus:
+                    <b>2.</b> Diketahui persamaan garis lurus
                     <b>$y = 2x + 5$</b>.
-                    Tentukan nilai $y$ untuk setiap nilai $x$ pada tabel berikut.
-                    Setelah tabel benar, gunakan pasangan titik yang diperoleh untuk menggambar grafik
-                    pada bidang koordinat.
+                    Lengkapilah nilai $y$ pada tabel berikut.
+                    Setelah seluruh jawaban benar, gambarkan titik $A$, $B$, $C$, dan $D$
+                    pada bidang koordinat berdasarkan pasangan titik yang diperoleh.
                 </p>
 
                 <div class="petunjuk-mini-latihan">
                     <strong>Petunjuk:</strong>
-                    Hitung nilai $y$ dengan mensubstitusikan setiap nilai $x$ ke dalam persamaan
-                    $y = 2x + 5$. Setelah semua nilai $y$ diisi, klik tombol
-                    <strong>Cek Tabel</strong>. Jika tabel benar, bidang koordinat akan muncul
-                    dan kamu dapat mengeklik titik $A$, $B$, $C$, dan $D$ sesuai pasangan titik pada tabel.
+                    Isi seluruh kolom nilai \(y\), lalu klik tombol
+                    <strong>Cek Tabel</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
+                    Jika semua jawaban benar, bidang koordinat akan muncul untuk menggambar grafik.
                 </div>
 
                 <table class="tabel-garis" style="width: 500px">
@@ -772,9 +762,14 @@
                 <div id="grafikSection" style="display:none; margin-top:20px;">
 
                     <div class="petunjuk-mini-latihan">
-                        <strong>Petunjuk menggambar grafik:</strong>
-                        Perhatikan koordinat titik pada panel di samping bidang koordinat, lalu klik titik
-                        sesuai urutan $A$, $B$, $C$, dan $D$.
+                        <strong>Petunjuk:</strong>
+                        Perhatikan koordinat titik pada panel di samping bidang koordinat.
+                        Klik titik $A$, $B$, $C$, dan $D$ secara berurutan sesuai koordinat
+                        yang diperoleh dari tabel. Setelah empat titik dipilih, jawaban akan
+                        diperiksa secara otomatis. Jika terdapat titik yang belum tepat,
+                        seluruh titik akan dihapus secara otomatis dan kamu dapat mencoba kembali.
+                        Jika semua titik tepat, titik-titik tersebut akan dihubungkan
+                        membentuk grafik garis lurus.
                     </div>
 
                     <div class="grafik-wrapper">
@@ -799,6 +794,319 @@
 
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
+    </script>
+
+    {{-- Contoh P5 --}}
+    <script>
+        // =========================
+        // Contoh 2.1 - Plotting Titik Interaktif
+        // =========================
+
+        let targetContoh21 = [{
+                nama: "A",
+                x: 1,
+                y: 5
+            },
+            {
+                nama: "B",
+                x: 2,
+                y: 8
+            },
+            {
+                nama: "C",
+                x: 3,
+                y: 11
+            },
+            {
+                nama: "D",
+                x: 4,
+                y: 14
+            },
+        ];
+
+        let indeksContoh21 = 0;
+        let titikContoh21Benar = [];
+        let titikContoh21Percobaan = null;
+        let garisContoh21Terbentuk = false;
+
+        function updateInfoContoh21() {
+            const infoBox = document.getElementById("infoContoh21");
+
+            if (!infoBox) return;
+
+            if (indeksContoh21 >= targetContoh21.length) {
+                infoBox.className = "alert alert-success mt-3";
+
+                infoBox.innerHTML =
+                    `Bagus! Semua titik sudah tepat. Titik-titik tersebut membentuk grafik garis lurus dari persamaan <b>$y = 3x + 2$</b>.`;
+
+                renderMathContoh21(infoBox);
+                return;
+            }
+
+
+            const titik = targetContoh21[indeksContoh21];
+
+            infoBox.innerHTML = `Klik titik <b>${titik.nama}(${titik.x},${titik.y})</b> pada bidang koordinat.`;
+        }
+
+        function renderMathContoh21(target) {
+            if (!target || typeof renderMathInElement !== "function") return;
+
+            renderMathInElement(target, {
+                delimiters: [{
+                        left: "$$",
+                        right: "$$",
+                        display: true
+                    },
+                    {
+                        left: "$",
+                        right: "$",
+                        display: false
+                    },
+                ],
+            });
+        }
+
+        const sketchContoh21 = (p) => {
+            const canvasW = 520;
+            const canvasH = 520;
+            const gridSize = 390;
+
+            const leftMargin = 62;
+            const topMargin = 55;
+
+            const minX = 0;
+            const maxX = 15;
+            const minY = 0;
+            const maxY = 15;
+
+            let scaleUnit;
+            let originX;
+            let originY;
+            let lastClickTime = 0;
+
+            p.setup = function() {
+                const canvas = p.createCanvas(canvasW, canvasH);
+                canvas.parent("canvas-contoh-21");
+
+                scaleUnit = gridSize / 15;
+                originX = leftMargin;
+                originY = topMargin + gridSize;
+
+                canvas.mousePressed(function() {
+                    handleKlikContoh21();
+                    return false;
+                });
+
+                updateInfoContoh21();
+            };
+
+            p.draw = function() {
+                p.background(250);
+
+                drawGrid();
+
+                if (garisContoh21Terbentuk) {
+                    drawGaris();
+                }
+
+                drawTitikBenar();
+
+                if (titikContoh21Percobaan) {
+                    drawTitikPercobaan();
+                }
+            };
+
+            function handleKlikContoh21() {
+                if (p.millis() - lastClickTime < 300) return;
+
+                lastClickTime = p.millis();
+
+                if (indeksContoh21 >= targetContoh21.length) return;
+
+                const koordinat = pixelToCoord(p.mouseX, p.mouseY);
+
+                if (!koordinat) return;
+
+                const target = targetContoh21[indeksContoh21];
+
+                if (koordinat.x === target.x && koordinat.y === target.y) {
+                    titikContoh21Benar.push({
+                        nama: target.nama,
+                        x: target.x,
+                        y: target.y,
+                    });
+
+                    titikContoh21Percobaan = null;
+                    indeksContoh21++;
+
+                    if (indeksContoh21 >= targetContoh21.length) {
+                        garisContoh21Terbentuk = true;
+                    }
+
+                    updateInfoContoh21();
+                } else {
+                    titikContoh21Percobaan = {
+                        x: koordinat.x,
+                        y: koordinat.y,
+                    };
+
+                    const infoBox = document.getElementById("infoContoh21");
+
+                    if (infoBox) {
+                        infoBox.innerHTML =
+                            `Titik yang kamu klik belum tepat. Coba perhatikan kembali koordinat titik yang diminta.`;
+                    }
+                }
+            }
+
+            function drawGrid() {
+                p.push();
+
+                p.stroke(225);
+                p.strokeWeight(1);
+
+                for (let i = minX; i <= maxX; i++) {
+                    const x = originX + i * scaleUnit;
+                    p.line(x, topMargin, x, originY);
+                }
+
+                for (let j = minY; j <= maxY; j++) {
+                    const y = originY - j * scaleUnit;
+                    p.line(originX, y, originX + gridSize, y);
+                }
+
+                p.stroke(0);
+                p.strokeWeight(2);
+
+                p.line(originX, originY, originX + gridSize + 20, originY);
+                p.line(originX, originY, originX, topMargin - 20);
+
+                p.noStroke();
+                p.fill(0);
+                p.textSize(12);
+                p.textAlign(p.CENTER, p.CENTER);
+
+                for (let i = minX; i <= maxX; i++) {
+                    const x = originX + i * scaleUnit;
+                    p.text(i, x, originY + 18);
+                }
+
+                for (let j = minY; j <= maxY; j++) {
+                    const y = originY - j * scaleUnit;
+                    p.text(j, originX - 20, y);
+                }
+
+                p.textSize(16);
+                p.text("x", originX + gridSize + 34, originY);
+                p.text("y", originX, topMargin - 32);
+
+                p.pop();
+            }
+
+            function drawTitikBenar() {
+                p.push();
+
+                titikContoh21Benar.forEach((t) => {
+                    const px = toPixelX(t.x);
+                    const py = toPixelY(t.y);
+
+                    p.fill(0, 102, 204);
+                    p.noStroke();
+                    p.circle(px, py, 12);
+
+                    p.fill(0);
+                    p.textSize(14);
+                    p.textAlign(p.LEFT, p.BOTTOM);
+                    p.text(`${t.nama}(${t.x},${t.y})`, px + 8, py - 6);
+                });
+
+                p.pop();
+            }
+
+            function drawTitikPercobaan() {
+                const px = toPixelX(titikContoh21Percobaan.x);
+                const py = toPixelY(titikContoh21Percobaan.y);
+
+                p.push();
+
+                p.stroke(220, 0, 0);
+                p.strokeWeight(3);
+                p.line(px - 7, py - 7, px + 7, py + 7);
+                p.line(px + 7, py - 7, px - 7, py + 7);
+
+                p.pop();
+            }
+
+            function drawGaris() {
+                if (titikContoh21Benar.length < 2) return;
+
+                const titikAwal = titikContoh21Benar[0];
+                const titikAkhir = titikContoh21Benar[titikContoh21Benar.length - 1];
+
+                p.push();
+
+                p.stroke(30, 150, 70);
+                p.strokeWeight(3);
+
+                p.line(
+                    toPixelX(titikAwal.x),
+                    toPixelY(titikAwal.y),
+                    toPixelX(titikAkhir.x),
+                    toPixelY(titikAkhir.y),
+                );
+
+                p.pop();
+            }
+
+            function pixelToCoord(px, py) {
+                const batasKiri = originX;
+                const batasKanan = originX + gridSize;
+                const batasAtas = topMargin;
+                const batasBawah = originY;
+
+                if (
+                    px < batasKiri ||
+                    px > batasKanan ||
+                    py < batasAtas ||
+                    py > batasBawah
+                ) {
+                    return null;
+                }
+
+                const x = Math.round((px - originX) / scaleUnit);
+                const y = Math.round((originY - py) / scaleUnit);
+
+                return {
+                    x,
+                    y
+                };
+            }
+
+            function toPixelX(x) {
+                return originX + x * scaleUnit;
+            }
+
+            function toPixelY(y) {
+                return originY - y * scaleUnit;
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.getElementById("canvas-contoh-21")) {
+                new p5(sketchContoh21);
+            }
+        });
+
+        function resetContoh21() {
+            indeksContoh21 = 0;
+            titikContoh21Benar = [];
+            titikContoh21Percobaan = null;
+            garisContoh21Terbentuk = false;
+
+            updateInfoContoh21();
+        }
     </script>
 
     <script>
@@ -1026,10 +1334,14 @@
             const feedback = document.getElementById("feedbackLatihan1");
             if (!feedback) return;
 
-            if (hasil.every(Boolean)) {}
-
             if (hasil.every(Boolean)) {
-                feedback.innerHTML = `<span style="color:#15803d;">Bagus! Semua jawaban benar.</span>`;
+                feedback.innerHTML = `
+                    <div class="alert alert-success d-table text-start py-2 px-3 mb-0">
+                        <strong>Benar.</strong>
+                        Semua nilai pada tabel sudah tepat.
+                        Silakan lanjut ke latihan berikutnya.
+                    </div>
+                `;
 
                 if (nextBtn) nextBtn.disabled = false;
 
@@ -1049,7 +1361,11 @@
                     true
                 );
             } else {
-                feedback.innerHTML = `<span style="color:#b91c1c;">Masih ada yang salah.</span>`;
+                feedback.innerHTML = `
+                <div class="alert alert-danger d-table text-start py-2 px-3 mb-0">
+                    <strong>Belum tepat.</strong>
+                    Periksa kembali nilai yang masih berwarna merah.
+                </div>`;
 
                 if (nextBtn) nextBtn.disabled = true;
 
@@ -1186,12 +1502,24 @@
 
                 if (feedbackTabel) {
                     feedbackTabel.innerHTML =
-                        `<span style="color:#15803d;">Tabel benar! Sekarang klik titik A–D pada grafik.</span>`;
+                        `<div class="alert alert-success d-table mx-auto text-start py-2 px-3 mb-0">
+                            <strong>Benar.</strong>
+                            Tabel nilai sudah lengkap.
+                            Sekarang hubungkan titik-titik pada bidang koordinat untuk membentuk grafik garis lurus.
+                        </div>`;
                 }
 
                 if (grafikSection) {
                     grafikSection.style.display = "block";
-                    scrollKeStep("grafikSection");
+                }
+
+                if (feedbackTabel) {
+                    setTimeout(() => {
+                        feedbackTabel.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                    }, 100);
                 }
 
                 if (window.resetPointsToStart) {

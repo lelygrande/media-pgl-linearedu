@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\RekapNilaiExport;
 
 class SiswaController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Siswa::query()->orderBy('id', 'desc');
+    {
+        $kelasList = Kelas::orderBy('nama_kelas', 'asc')->get();
 
-    if ($request->filled('kelas')) {
-        $query->where('kelas', $request->kelas);
+        $query = Siswa::with('kelasData')
+            ->orderBy('id', 'desc');
+
+        if ($request->filled('kelas_id')) {
+            $query->where('kelas_id', $request->kelas_id);
+        }
+
+        $siswas = $query->paginate(10)->withQueryString();
+
+        return view('guru.daftarsiswa', compact('siswas', 'kelasList'));
     }
-
-    $siswas = $query->paginate(10)->withQueryString();
-
-    return view('guru.daftarsiswa', compact('siswas'));
-}
 
     public function store(Request $request)
     {
@@ -31,18 +34,25 @@ class SiswaController extends Controller
             'nis' => 'required|string|max:20|unique:siswa,nis',
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:siswa,email',
-            'kelas' => 'required|in:8A,8B,8C',
+            'kelas_id' => 'required|exists:kelas,id',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'password' => 'required|min:6',
         ]);
+
+        $kelas = Kelas::findOrFail($request->kelas_id);
 
         Siswa::create([
             'nis' => $request->nis,
             'nama' => $request->nama,
             'email' => $request->email,
-            'kelas' => $request->kelas,
+            'kelas_id' => $request->kelas_id,
+
+            // Ini sementara saja jika kolom kelas lama masih ada di tabel siswa.
+            // Kalau kolom kelas sudah dihapus, hapus baris ini.
+            'kelas' => $kelas->nama_kelas,
+
             'jenis_kelamin' => $request->jenis_kelamin,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()
@@ -52,8 +62,17 @@ class SiswaController extends Controller
 
     public function show(string $id)
     {
-        $siswa = Siswa::findOrFail($id);
-        return response()->json($siswa);
+        $siswa = Siswa::with('kelasData')->findOrFail($id);
+
+        return response()->json([
+            'id' => $siswa->id,
+            'nis' => $siswa->nis,
+            'nama' => $siswa->nama,
+            'email' => $siswa->email,
+            'kelas_id' => $siswa->kelas_id,
+            'kelas' => $siswa->kelasData->nama_kelas ?? $siswa->kelas,
+            'jenis_kelamin' => $siswa->jenis_kelamin,
+        ]);
     }
 
     public function update(Request $request, string $id)
@@ -62,14 +81,27 @@ class SiswaController extends Controller
 
         $request->validate([
             'nis' => 'required|string|max:20|unique:siswa,nis,' . $id,
-            'nama' => 'required',
+            'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:siswa,email,' . $id,
-            'kelas' => 'required|in:8A,8B,8C',
+            'kelas_id' => 'required|exists:kelas,id',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'password' => 'nullable|min:6',
         ]);
 
-        $data = $request->only('nis','nama', 'email', 'kelas', 'jenis_kelamin');
+        $kelas = Kelas::findOrFail($request->kelas_id);
+
+        $data = [
+            'nis' => $request->nis,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'kelas_id' => $request->kelas_id,
+
+            // Ini sementara saja jika kolom kelas lama masih ada di tabel siswa.
+            // Kalau kolom kelas sudah dihapus, hapus baris ini.
+            'kelas' => $kelas->nama_kelas,
+
+            'jenis_kelamin' => $request->jenis_kelamin,
+        ];
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -94,7 +126,9 @@ class SiswaController extends Controller
 
     public function exportPdf()
     {
-        $siswas = Siswa::orderBy('id', 'desc')->get();
+        $siswas = Siswa::with('kelasData')
+            ->orderBy('id', 'desc')
+            ->get();
 
         $pdf = Pdf::loadView('guru.exports.siswa_pdf', compact('siswas'))
             ->setPaper('a4', 'portrait');

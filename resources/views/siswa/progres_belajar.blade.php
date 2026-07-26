@@ -128,7 +128,8 @@
         }
 
         .study-progress-bar .progress-bar {
-            background-color: #ffffff;
+            background: linear-gradient(90deg, #4cd3ff, #00a8d8);
+            border-radius: 999px;
         }
 
         .progress-percent-text {

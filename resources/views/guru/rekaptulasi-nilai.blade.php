@@ -8,6 +8,23 @@
         Rekapitulasi Nilai Siswa
     </h3>
 
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('success') }}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            {{ session('error') }}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
         <form method="GET" action="{{ route('rekapitulasi-nilai') }}" style="max-width:320px;width:100%;">
 
@@ -89,7 +106,7 @@
                             <th class="text-center">Kuis Bab D</th>
                             <th class="text-center">Nilai Evaluasi</th>
                             <th class="text-center">Rata-rata</th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Reset Percobaan</th>
                         </tr>
 
                     </thead>
@@ -106,49 +123,67 @@
                                 <td>{{ $row['kelas'] }}</td>
 
                                 <td class="text-center">
-                                    {{ $row['kuis_a'] ?? '-' }}
+                                    {{ $row['kuis_a'] !== null ? number_format($row['kuis_a'], 0) : '-' }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{ $row['kuis_b'] ?? '-' }}
+                                    {{ $row['kuis_b'] !== null ? number_format($row['kuis_b'], 0) : '-' }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{ $row['kuis_c'] ?? '-' }}
+                                    {{ $row['kuis_c'] !== null ? number_format($row['kuis_c'], 0) : '-' }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{ $row['kuis_d'] ?? '-' }}
+                                    {{ $row['kuis_d'] !== null ? number_format($row['kuis_d'], 0) : '-' }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{ $row['evaluasi'] ?? '-' }}
+                                    {{ $row['evaluasi'] !== null ? number_format($row['evaluasi'], 0) : '-' }}
                                 </td>
 
                                 <td class="text-center fw-semibold">
-                                    {{ $row['rata_rata'] ?? '-' }}
+                                    {{ $row['rata_rata'] !== null ? number_format($row['rata_rata'], 0) : '-' }}
                                 </td>
-
                                 <td class="text-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-warning dropdown-toggle fw-semibold" type="button"
+                                            data-bs-toggle="dropdown">
+                                            Reset Kuis
+                                        </button>
 
-                                    @if ($row['status'] === 'Tuntas')
-                                        <span class="badge bg-success">
-                                            {{ $row['status'] }}
-                                        </span>
-                                    @elseif ($row['status'] === 'Belum Tuntas')
-                                        <span class="badge bg-danger">
-                                            {{ $row['status'] }}
-                                        </span>
-                                    @elseif ($row['status'] === 'Perlu Perbaikan')
-                                        <span class="badge bg-warning text-dark">
-                                            {{ $row['status'] }}
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary">
-                                            {{ $row['status'] }}
-                                        </span>
-                                    @endif
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                            @php
+                                                $daftarKuis = [
+                                                    1 => 'Kuis Bab A',
+                                                    2 => 'Kuis Bab B',
+                                                    3 => 'Kuis Bab C',
+                                                    4 => 'Kuis Bab D',
+                                                    5 => 'Evaluasi',
+                                                ];
+                                            @endphp
 
+                                            @foreach ($daftarKuis as $quizId => $namaKuis)
+                                                <li>
+                                                    <form method="POST"
+                                                        action="{{ route('guru.quiz.reset-percobaan', [
+                                                            'studentId' => $row['student_id'],
+                                                            'quizId' => $quizId,
+                                                        ]) }}"
+                                                        onsubmit="return confirm(
+                            'Yakin ingin mereset percobaan {{ $namaKuis }} milik {{ $row['nama'] }}?'
+                        )">
+                                                        @csrf
+                                                        @method('PATCH')
+
+                                                        <button type="submit" class="dropdown-item">
+                                                            {{ $namaKuis }}
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
 

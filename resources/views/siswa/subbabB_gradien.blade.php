@@ -29,19 +29,12 @@
         }
 
         .rumus-box {
-            display: block;
-            width: fit-content;
-            max-width: 100%;
-            margin: 16px auto 22px;
-            padding: 10px 28px;
-
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #d8c8ff;
-
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
-            text-align: center;
-            overflow-x: auto;
+            border-radius: 12px;
         }
 
         .badge-mini {
@@ -225,9 +218,7 @@
             background: #fff5f5;
         }
 
-        /* =========================================
-                                                                                                                                    RESPONSIVE MOBILE
-                                                                                                                                ========================================= */
+        /* ====  RESPONSIVE MOBILE ======= */
         @media (max-width: 768px) {
 
             /* ---------- RUMUS ---------- */
@@ -281,10 +272,9 @@
     </div>
 
     <p class="mb-3" style="line-height:1.8; text-align: justify;">
-        Bayangkan seseorang sedang berjalan mendaki bukit. Pada bukit yang curam,
-        pendaki membutuhkan usaha lebih besar karena permukaannya lebih miring.
-        Sebaliknya, pada bukit yang landai, perjalanan terasa lebih ringan karena
-        permukaannya tidak terlalu tajam.
+        Bayangkan seseorang sedang berjalan mendaki bukit. Pada bukit yang <b>curam</b>, pendaki membutuhkan
+        usaha lebih besar karena permukaannya lebih miring atau lebih tajam ke atas. Sebaliknya, pada bukit
+        yang <b>landai</b>, perjalanan terasa lebih ringan karena permukaannya tidak terlalu miring.
     </p>
 
     <p class="mb-3" style="line-height:1.8; text-align: justify;">
@@ -434,7 +424,7 @@
             <div class="row g-4">
                 {{-- CONTOH 1 --}}
                 <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100" style="background:#f8fbff;">
+                    <div class="border rounded-4 p-3 h-100" style="background:#fffaf8;">
                         <h6 class="fw-bold mb-3">Contoh 1: Gradien Positif</h6>
 
                         <div class="text-center mb-3">
@@ -453,7 +443,7 @@
                             <b>\(\Delta y\) juga bernilai positif</b>.
                         </p>
 
-                        <div class="rumus-box text-center mb-3">
+                        <div class="bg-white border rounded-2 p-3 text-center mb-3 overflow-auto">
                             \[
                             \Delta x = +6,\qquad \Delta y = +4
                             \]
@@ -471,7 +461,7 @@
 
                 {{-- CONTOH 2 --}}
                 <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100" style="background:#fffaf8;">
+                    <div class="border rounded-2 p-3 h-100" style="background:#fffaf8;">
                         <h6 class="fw-bold mb-3">Contoh 2: Gradien Negatif</h6>
 
                         <div class="text-center mb-3">
@@ -490,7 +480,7 @@
                             <b>\(\Delta y\) bernilai negatif</b>.
                         </p>
 
-                        <div class="rumus-box text-center mb-3">
+                        <div class="bg-white border rounded-4 p-3 text-center mb-3 overflow-auto">
                             \[
                             \Delta x = +6,\qquad \Delta y = -4
                             \]

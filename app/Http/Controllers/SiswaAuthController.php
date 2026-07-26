@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,20 +23,33 @@ class SiswaAuthController extends Controller
 
     public function register(Request $request)
     {
+        // Supaya token yang diketik kecil tetap dianggap sama
+        $request->merge([
+            'token_kelas' => strtoupper(trim($request->token_kelas)),
+        ]);
+
         $request->validate([
             'nis' => 'required|string|max:20|unique:siswa,nis',
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:siswa,email',
-            'kelas' => 'required|in:8A,8B,8C',
+            'token_kelas' => 'required|string|exists:kelas,token_kelas',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'password' => ['required', 'confirmed', Password::min(6)],
         ]);
+
+        $kelas = Kelas::where('token_kelas', $request->token_kelas)->firstOrFail();
 
         $siswa = Siswa::create([
             'nis' => $request->nis,
             'nama' => $request->nama,
             'email' => $request->email,
-            'kelas' => $request->kelas,
+
+            // Kelas sekarang diambil dari token
+            'kelas_id' => $kelas->id,
+
+            // Sementara kalau kolom kelas lama masih ada di tabel siswa
+            'kelas' => $kelas->nama_kelas,
+
             'jenis_kelamin' => $request->jenis_kelamin,
             'password' => Hash::make($request->password),
         ]);

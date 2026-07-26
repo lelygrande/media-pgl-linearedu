@@ -198,35 +198,59 @@
             box-shadow: 0 0 0 3px rgba(46, 117, 182, .12);
         }
 
-        /* Contoh Penyelesaian */
+        /* Contoh Penyelesaian Bertahap */
         .penyelesaian-sejajar {
-            margin-top: 20px;
+            margin-top: 18px;
             padding: 4px 0 8px;
         }
 
         .baris-penyelesaian {
             display: grid;
-            grid-template-columns: 255px 1fr;
+            grid-template-columns: 280px 1fr;
             column-gap: 18px;
-            align-items: center;
-            margin-bottom: 20px;
+            align-items: start;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(123, 97, 199, 0.14);
         }
 
         .rumus-kiri {
             font-size: 18px;
             font-weight: 700;
             text-align: left;
-            padding-left: 35px;
-            line-height: 1.5;
+            line-height: 1.8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            /* jangan overflow */
+            overflow: visible !important;
+            min-width: 0;
+            padding: 6px 0;
         }
 
         .rumus-dua-baris {
             line-height: 1.9;
         }
 
-        /* kecilkan KaTeX khusus di rumus kiri */
         .rumus-kiri .katex {
             font-size: 1.05em !important;
+        }
+
+        .step-badge {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            background: #6f42c1;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
         }
 
         .catatan-kanan {
@@ -234,20 +258,18 @@
             line-height: 1.7;
             color: #555b6e;
             text-align: justify;
-            max-width: 620px;
         }
 
-        /* kecilkan KaTeX di penjelasan */
         .catatan-kanan .katex {
             font-size: 1em !important;
         }
 
         .btn-step-text {
-            margin-top: 6px;
+            margin-top: 8px;
             border: none;
             background: transparent;
             color: #6f4ed8;
-            font-weight: 700;
+            font-weight: 800;
             padding: 0;
             cursor: pointer;
             font-size: 14px;
@@ -258,7 +280,7 @@
         }
 
         .kesimpulan-sejajar {
-            margin-top: 8px;
+            margin-top: 10px;
             padding: 10px 12px;
             border-left: 4px solid #7b56d9;
             background: #f7f3ff;
@@ -274,18 +296,16 @@
         @media (max-width: 768px) {
             .baris-penyelesaian {
                 grid-template-columns: 1fr;
-                row-gap: 6px;
-                margin-bottom: 18px;
+                row-gap: 8px;
+                margin-bottom: 16px;
             }
 
             .rumus-kiri {
-                padding-left: 0;
                 font-size: 17px;
             }
 
             .catatan-kanan {
                 font-size: 14px;
-                max-width: 100%;
             }
         }
 
@@ -565,9 +585,7 @@
             <span class="badge-sub">Bentuk Umum Persamaan Garis Lurus</span>
 
             <p style="text-align: justify;">
-                Agar lebih mudah dipelajari, persamaan garis lurus dapat dituliskan dalam dua bentuk.
-                Ayo perhatikan kedua bentuk berikut.
-                Cobalah amati, apa perbedaan letak variabel <b>$y$</b> pada masing-masing bentuk?
+                Persamaan garis lurus dapat dituliskan dalam dua bentuk, yaitu bentuk eksplisit dan bentuk implisit.
             </p>
 
             <div class="box-info mt-3 mb-3">
@@ -577,9 +595,10 @@
                     Perhatikan bentuk eksplisit persamaan garis lurus berikut.
                 </p>
 
-                <div class="text-center mb-2">
-                    <img src="{{ asset('img/eksplisit.png') }}" alt="Bentuk eksplisit persamaan garis lurus"
-                        class="img-fluid">
+                <div class="text-center my-3">
+                    <div class="rumus-box">
+                        $y=mx+c$
+                    </div>
                 </div>
 
                 <p class="mb-1" style="text-align: justify;">
@@ -597,105 +616,118 @@
 
             <div class="box-info mb-3">
                 <p class="mb-2"><strong>2. Bentuk Implisit</strong></p>
-
                 <p class="mb-2" style="text-align: justify;">
-                    Perhatikan bentuk implisit persamaan garis lurus berikut.
+                    Perhatikan bentuk eksplisit persamaan garis lurus berikut.
                 </p>
 
-                <div class="text-center mb-2">
-                    <img src="{{ asset('img/implisit.png') }}" alt="Bentuk implisit persamaan garis lurus"
-                        class="img-fluid">
+                <div class="text-center my-3">
+                    <div class="rumus-box">
+                        \(Ax + By + C = 0\)
+                    </div>
                 </div>
 
-                <p class="mb-1" style="text-align: justify;">
-                    Bentuk ini disebut bentuk implisit karena variabel <b>$y$</b> belum berdiri sendiri.
-                    Oleh sebab itu, jika ingin mengetahui bentuk <b>$y = mx + c$</b>, kita perlu mengubahnya terlebih
-                    dahulu.
+                <p class="mb-3" style="text-align: justify; line-height:1.8;">
+                    Selain bentuk eksplisit, persamaan garis lurus juga dapat ditulis dalam
+                    <b>bentuk implisit</b>. Pada bentuk ini, variabel <b>\(y\)</b> belum berdiri sendiri
+                    di salah satu ruas.
                 </p>
 
-                <div class="box-info mt-3 mb-3">
-                    <p class="mb-2"><strong>Memahami Bentuk Umum</strong></p>
+                {{-- Keterangan A, B, dan C --}}
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body">
+                        <p class="mb-2"><strong>Memahami Bentuk Umum</strong></p>
 
-                    <p style="text-align: justify;">
-                        Bentuk implisit persamaan garis lurus dapat dituliskan dalam bentuk umum
-                        sebagai berikut.
-                    </p>
+                        <p class="mb-3" style="text-align: justify; line-height:1.8;">
+                            Pada bentuk umum \(Ax + By + C = 0\), nilai \(A\), \(B\), dan \(C\)
+                            merupakan bilangan real. Nilai \(A\) dan \(B\) tidak boleh keduanya nol,
+                            karena jika keduanya nol, persamaan tersebut tidak membentuk garis lurus.
+                        </p>
 
-                    <div class="text-center my-3">
-                        <div class="rumus-box">
-                            $Ax + By + C = 0$
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded-4 bg-light h-100">
+                                    <p class="mb-1 fw-bold text-center">\(A\)</p>
+                                    <p class="mb-0 text-center">Koefisien dari variabel \(x\)</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded-4 bg-light h-100">
+                                    <p class="mb-1 fw-bold text-center">\(B\)</p>
+                                    <p class="mb-0 text-center">Koefisien dari variabel \(y\)</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded-4 bg-light h-100">
+                                    <p class="mb-1 fw-bold text-center">\(C\)</p>
+                                    <p class="mb-0 text-center">Konstanta</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <p style="text-align: justify;">
-                        Pada bentuk umum tersebut, $A$, $B$, dan $C$ merupakan bilangan real.
-                        Nilai $A$ dan $B$ tidak boleh keduanya nol, karena jika keduanya nol,
-                        persamaan tersebut tidak membentuk garis lurus.
-                    </p>
-
-                    <div class="keterangan-abc">
-                        <p class="mb-2"><strong>Keterangan:</strong></p>
-                        <ul class="mb-0">
-                            <li>$A$ adalah koefisien dari variabel $x$.</li>
-                            <li>$B$ adalah koefisien dari variabel $y$.</li>
-                            <li>$C$ adalah konstanta.</li>
-                        </ul>
                     </div>
                 </div>
 
                 {{-- Aktivitas Menentukan A, B, dan C --}}
-                <div class="aktivitas-abc mt-4">
-                    <div class="aktivitas-abc-header">
-                        <h5 class="aktivitas-title">Menentukan Nilai $A$, $B$, dan $C$</h5>
-                    </div>
-
-                    <p style="text-align: justify;">
-                        Setelah memahami bentuk umum persamaan garis lurus, sekarang coba tentukan
-                        nilai $A$, $B$, dan $C$ dari sebuah persamaan.
-                    </p>
-
-                    <div class="petunjuk-abc">
-                        <strong>Petunjuk:</strong><br>
-                        Perhatikan bentuk umum $Ax + By + C = 0$. Nilai $A$ adalah koefisien
-                        dari $x$, nilai $B$ adalah koefisien dari $y$, dan nilai $C$ adalah konstanta.
-                    </div>
-
-                    <div class="persamaan-abc-box">
-                        <p class="mb-2">Tentukan nilai $A$, $B$, dan $C$ dari persamaan berikut.</p>
-
-                        <div class="persamaan-abc">
-                            $3x + 2y - 6 = 0$
-                        </div>
-                    </div>
-
-                    <div class="abc-input-card">
-                        <div class="abc-row">
-                            <label class="abc-label" for="inputA">$A =$</label>
-                            <input type="text" id="inputA" class="abc-input" placeholder="Isi nilai A">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <h5 class="mb-0 fw-bold">
+                                Menentukan Nilai \(A\), \(B\), dan \(C\)
+                            </h5>
                         </div>
 
-                        <div class="abc-row">
-                            <label class="abc-label" for="inputB">$B =$</label>
-                            <input type="text" id="inputB" class="abc-input" placeholder="Isi nilai B">
+                        <p class="mb-3" style="text-align: justify; line-height:1.8;">
+                            Setelah memahami bentuk umum persamaan garis lurus, sekarang coba tentukan
+                            nilai \(A\), \(B\), dan \(C\) dari sebuah persamaan.
+                        </p>
+
+                        <div class="petunjuk-mini-latihan mb-3">
+                            <strong>Petunjuk Pengerjaan:</strong>
+                            Isi kotak \(A\), \(B\), dan \(C\) berdasarkan persamaan yang tersedia,
+                            kemudian klik <strong>Cek Jawaban</strong>.
                         </div>
 
-                        <div class="abc-row">
-                            <label class="abc-label" for="inputC">$C =$</label>
-                            <input type="text" id="inputC" class="abc-input" placeholder="Isi nilai C">
+                        <div class="p-3 border rounded-4 bg-white mb-3 text-center">
+                            <p class="mb-2">Tentukan nilai \(A\), \(B\), dan \(C\) dari persamaan berikut.</p>
+
+                            <div class="rumus-box d-inline-block">
+                                \(3x + 2y - 6 = 0\)
+                            </div>
                         </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="inputA" class="form-label fw-bold">\(A =\)</label>
+                                <input type="text" id="inputA" class="form-control text-center"
+                                    placeholder="Isi nilai A">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="inputB" class="form-label fw-bold">\(B =\)</label>
+                                <input type="text" id="inputB" class="form-control text-center"
+                                    placeholder="Isi nilai B">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="inputC" class="form-label fw-bold">\(C =\)</label>
+                                <input type="text" id="inputC" class="form-control text-center"
+                                    placeholder="Isi nilai C">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap mt-3">
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekJawabanABC()">
+                                Cek Jawaban
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetKotakABC()">
+                                Reset
+                            </button>
+                        </div>
+
+                        <div id="hasilABC" class="mt-3" style="display: none;"></div>
                     </div>
-
-                    <div class="mt-3">
-                        <button type="button" class="btn btn-palet btn-sm" onclick="cekJawabanABC()">
-                            Cek Jawaban
-                        </button>
-
-                        <button type="button" class="btn btn-palet btn-sm" onclick="resetKotakABC()">
-                            Reset
-                        </button>
-                    </div>
-
-                    <div id="hasilABC" class="mt-3" style="display: none;"></div>
                 </div>
             </div>
         </div>
@@ -705,26 +737,31 @@
     <div class="box-contoh mt-5 mb-4">
         <span class="title-box">Contoh</span>
 
-        <p class="mt-2 mb-3" style="text-align: justify;">
-            Nyatakan persamaan garis berikut ke dalam bentuk umum <b>$Ax + By + C = 0$</b>.
+        <p class="mt-2 mb-3" style="text-align: justify; line-height:1.8;">
+            Nyatakan persamaan garis berikut ke dalam bentuk umum <b>\(Ax + By + C = 0\)</b>.
         </p>
 
         <p class="text-center mb-3" style="font-weight:700;">
-            $y = -2x + 3$
+            \(y = -2x + 3\)
         </p>
+
+        <div class="petunjuk-mini-latihan mb-3">
+            <b>Petunjuk:</b> Klik tulisan <b>“Tampilkan langkah berikutnya”</b> untuk melihat proses perubahan bentuk
+            persamaan secara bertahap.
+        </div>
 
         <div class="penyelesaian-sejajar">
 
-            <!-- STEP 1 -->
+            {{-- STEP 1 --}}
             <div class="baris-penyelesaian">
                 <div class="rumus-kiri">
-                    $y = -2x + 3$
+                    <span class="step-badge">1</span>
+                    \(y = -2x + 3\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Persamaan tersebut masih berbentuk <b>eksplisit</b> karena $y$ sudah berdiri sendiri.
-                    Agar menjadi bentuk implisit, semua suku harus dipindahkan ke satu ruas sehingga ruas lainnya bernilai
-                    nol.
+                    Persamaan masih berbentuk <b>eksplisit</b> karena \(y\) sudah berdiri sendiri.
+                    Agar menjadi bentuk umum, semua suku harus berada di ruas kiri dan ruas kanan bernilai nol.
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepUmum('umum2', this)">
@@ -733,14 +770,15 @@
                 </div>
             </div>
 
-            <!-- STEP 2 -->
+            {{-- STEP 2 --}}
             <div id="umum2" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri">
-                    $2x + y = 3$
+                <div class="rumus-kiri rumus-dua-baris">
+                    <span class="step-badge">2</span>
+                    \(y + 2x = -2x + 3 + 2x\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Pindahkan $-2x$ ke ruas kiri. Saat dipindahkan ruas, tandanya berubah menjadi $+2x$.
+                    Tambahkan \(2x\) pada kedua ruas agar suku \(x\) berpindah ke ruas kiri.
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepUmum('umum3', this)">
@@ -749,66 +787,90 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
+            {{-- STEP 3 --}}
             <div id="umum3" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri">
-                    $2x + y - 3 = 0$
+                    <span class="step-badge">3</span>
+                    \(2x + y = 3\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Selanjutnya, pindahkan $3$ ke ruas kiri. Karena awalnya $+3$ di ruas kanan,
-                    maka saat dipindahkan menjadi $-3$.
+                    Suku \(-2x\) dan \(+2x\) saling menghilangkan.
+                    Persamaan dapat ditulis menjadi \(2x + y = 3\).
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepUmum('umum4', this)">
+                        Tampilkan langkah berikutnya ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 4 --}}
+            <div id="umum4" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri rumus-dua-baris">
+                    <span class="step-badge">4</span>
+                    \(2x + y - 3 = 3 - 3\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Kurangi kedua ruas dengan \(3\), agar ruas kanan menjadi \(0\).
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStepUmum('umum5', this)">
                         Tampilkan kesimpulan ↓
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 4 -->
-            <div id="umum4" class="baris-penyelesaian" style="display:none;">
+            {{-- STEP 5 --}}
+            <div id="umum5" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri hasil-akhir">
-                    $2x + y - 3 = 0$
+                    <span class="step-badge">5</span>
+                    \(2x + y - 3 = 0\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Sekarang persamaan sudah berbentuk umum $Ax + By + C = 0$,
-                    dengan $A = 2$, $B = 1$, dan $C = -3$.
+                    Persamaan sudah berbentuk umum \(Ax + By + C = 0\).
 
                     <div class="kesimpulan-sejajar">
-                        <b>Kesimpulan:</b> Bentuk umum dari persamaan $y = -2x + 3$ adalah
-                        <b>$2x + y - 3 = 0$</b>.
+                        <b>Kesimpulan:</b> Bentuk umum dari persamaan \(y = -2x + 3\) adalah
+                        <b>\(2x + y - 3 = 0\)</b>, dengan \(A = 2\), \(B = 1\), dan \(C = -3\).
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
     {{-- Contoh mengubah implisit ke eksplisit --}}
     <div class="box-contoh mt-5 mb-4">
         <span class="title-box">Contoh</span>
 
-        <p class="mt-2 mb-3" style="text-align: justify;">
+        <p class="mt-2 mb-3" style="text-align: justify; line-height:1.8;">
             Mari kita ubah persamaan berikut dari bentuk implisit ke bentuk eksplisit secara bertahap.
-            Perhatikan setiap langkahnya dengan saksama, terutama bagaimana <b>$y$</b> dibuat berdiri sendiri.
+            Perhatikan setiap langkahnya, terutama bagaimana <b>\(y\)</b> dibuat berdiri sendiri.
         </p>
 
         <p class="text-center mb-3" style="font-weight:700;">
-            $3x + 2y - 6 = 0$
+            \(3x + 2y - 6 = 0\)
         </p>
+
+        <div class="petunjuk-mini-latihan mb-3">
+            <b>Petunjuk:</b> Klik tulisan <b>“Tampilkan langkah berikutnya”</b> untuk melihat proses perubahan bentuk
+            persamaan secara bertahap.
+        </div>
 
         <div class="penyelesaian-sejajar">
 
-            <!-- STEP 1 -->
+            {{-- STEP 1 --}}
             <div class="baris-penyelesaian">
                 <div class="rumus-kiri">
-                    $3x + 2y - 6 = 0$
+                    <span class="step-badge">1</span>
+                    \(3x + 2y - 6 = 0\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Mulai dari persamaan dalam bentuk implisit.
-                    Target kita adalah membuat $y$ berdiri sendiri.
+                    Persamaan masih berbentuk <b>implisit</b>. Target kita adalah membuat \(y\) berdiri sendiri.
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepS('eksplisit2', this)">
@@ -817,16 +879,15 @@
                 </div>
             </div>
 
-            <!-- STEP 2 -->
+            {{-- STEP 2 --}}
             <div id="eksplisit2" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri">
-                    $2y = -3x + 6$
+                <div class="rumus-kiri rumus-dua-baris">
+                    <span class="step-badge">2</span>
+                    \(3x + 2y - 6 + 6 = 0 + 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Pindahkan $3x$ dan $-6$ ke ruas kanan.
-                    Jika suatu suku berpindah ruas, maka tandanya berubah.
-                    Jadi, $3x$ menjadi $-3x$ dan $-6$ menjadi $+6$.
+                    Tambahkan \(6\) pada kedua ruas agar konstanta \(-6\) hilang dari ruas kiri.
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepS('eksplisit3', this)">
@@ -835,15 +896,15 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
+            {{-- STEP 3 --}}
             <div id="eksplisit3" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri rumus-dua-baris">
-                    $\frac{2y}{2} = \frac{-3x + 6}{2}$ <br>
-                    $y = \frac{-3x + 6}{2}$
+                <div class="rumus-kiri">
+                    <span class="step-badge">3</span>
+                    \(3x + 2y = 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Bagi kedua ruas dengan $2$ agar $y$ berdiri sendiri.
+                    Suku \(-6\) dan \(+6\) saling menghilangkan, sehingga diperoleh \(3x + 2y = 6\).
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStepS('eksplisit4', this)">
@@ -852,24 +913,91 @@
                 </div>
             </div>
 
-            <!-- STEP 4 -->
+            {{-- STEP 4 --}}
             <div id="eksplisit4" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri">
-                    $y = -\frac{3}{2}x + 3$
+                <div class="rumus-kiri rumus-dua-baris">
+                    <span class="step-badge">4</span>
+                    \(3x + 2y - 3x = 6 - 3x\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Sederhanakan bentuk pecahannya.
-                    Sekarang persamaan sudah berbentuk eksplisit $y = mx + c$.
+                    Kurangi kedua ruas dengan \(3x\), agar suku yang memuat \(y\) berada sendiri di ruas kiri.
 
-                    <div class="kesimpulan-sejajar">
-                        <b>Kesimpulan:</b> Bentuk eksplisit dari persamaan
-                        $3x + 2y - 6 = 0$ adalah
-                        <b>$y = -\frac{3}{2}x + 3$</b>.
-                    </div>
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStepS('eksplisit5', this)">
+                        Tampilkan langkah berikutnya ↓
+                    </button>
                 </div>
             </div>
 
+            {{-- STEP 5 --}}
+            <div id="eksplisit5" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri">
+                    <span class="step-badge">5</span>
+                    \(2y = -3x + 6\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Suku \(3x\) dan \(-3x\) saling menghilangkan. Sekarang tinggal membuat \(y\) berdiri sendiri.
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStepS('eksplisit6', this)">
+                        Tampilkan langkah berikutnya ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 6 --}}
+            <div id="eksplisit6" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri rumus-dua-baris">
+                    <span class="step-badge">6</span>
+                    \(\frac{2y}{2} = \frac{-3x + 6}{2}\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Bagi kedua ruas dengan \(2\), karena koefisien dari \(y\) adalah \(2\).
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStepS('eksplisit7', this)">
+                        Tampilkan langkah berikutnya ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 7 --}}
+            <div id="eksplisit7" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri">
+                    <span class="step-badge">7</span>
+                    \(y = \frac{-3x + 6}{2}\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Ruas kiri menjadi \(y\). Selanjutnya, sederhanakan pecahan pada ruas kanan.
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStepS('eksplisit8', this)">
+                        Tampilkan kesimpulan ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 8 --}}
+            <div id="eksplisit8" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri hasil-akhir">
+                    <span class="step-badge">8</span>
+                    \(y = -\frac{3}{2}x + 3\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Persamaan sudah berbentuk eksplisit \(y = mx + c\).
+
+                    <div class="kesimpulan-sejajar">
+                        <b>Kesimpulan:</b> Bentuk eksplisit dari persamaan
+                        \(3x + 2y - 6 = 0\) adalah
+                        <b>\(y = -\frac{3}{2}x + 3\)</b>.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1023,6 +1151,14 @@
                     <b>$Ax + By + C = 0$</b>.
                 </p>
 
+                <div class="petunjuk-mini-latihan mb-3">
+                    <strong>Petunjuk:</strong>
+                    Ubahlah setiap persamaan ke dalam bentuk
+                    <strong>\(Ax + By + C = 0\)</strong>.
+                    Tuliskan ruas kiri persamaan pada kotak jawaban tanpa menuliskan
+                    \(= 0\), kemudian klik <strong>Cek Jawaban</strong>.
+                </div>
+
                 <div class="mb-3">
                     <p><b>a.</b> $y = 2x - 5$</p>
 
@@ -1095,6 +1231,14 @@
                     <b>$y = mx + c$</b>.
                 </p>
 
+                <div class="petunjuk-mini-latihan mb-3">
+                    <strong>Petunjuk:</strong>
+                    Ubahlah setiap persamaan ke dalam bentuk
+                    <strong>\(y = mx + c\)</strong>.
+                    Tuliskan bagian setelah tanda \(y=\) pada kotak jawaban,
+                    kemudian klik <strong>Cek Jawaban</strong>.
+                </div>
+
                 <div class="mb-3">
                     <p><b>a.</b> $3x + y - 7 = 0$</p>
 
@@ -1138,8 +1282,12 @@
                 </div>
 
                 <div class="mt-3">
-                    <button class="btn btn-palet btn-sm" onclick="cekLatihan4A1()">
+                    <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan4A1()">
                         Cek Jawaban
+                    </button>
+
+                    <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan4A1()">
+                        Reset
                     </button>
                 </div>
 
@@ -1166,40 +1314,60 @@
             const inputC = document.getElementById("inputC");
             const hasil = document.getElementById("hasilABC");
 
-            if (!inputA || !inputB || !inputC || !hasil) return;
+            if (!inputA || !inputB || !inputC || !hasil) {
+                console.error("Elemen aktivitas ABC tidak ditemukan.");
+                return;
+            }
 
-            const jawabanA = inputA.value.trim().replace(/\s+/g, "").replace(/−/g, "-");
-            const jawabanB = inputB.value.trim().replace(/\s+/g, "").replace(/−/g, "-");
-            const jawabanC = inputC.value.trim().replace(/\s+/g, "").replace(/−/g, "-");
+            function normalisasi(nilai) {
+                return String(nilai || "")
+                    .trim()
+                    .replace(/\s+/g, "")
+                    .replace(/−/g, "-");
+            }
+
+            const jawabanA = normalisasi(inputA.value);
+            const jawabanB = normalisasi(inputB.value);
+            const jawabanC = normalisasi(inputC.value);
+
+            hasil.style.display = "block";
+
+            // Jika masih ada jawaban kosong
+            if (
+                jawabanA === "" ||
+                jawabanB === "" ||
+                jawabanC === ""
+            ) {
+                hasil.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <strong>Jawaban belum lengkap.</strong><br>
+                Lengkapi nilai $A$, $B$, dan $C$ terlebih dahulu.
+            </div>
+        `;
+
+                renderMathSafe(hasil);
+                return;
+            }
 
             const benarA = jawabanA === "3" || jawabanA === "+3";
             const benarB = jawabanB === "2" || jawabanB === "+2";
             const benarC = jawabanC === "-6";
 
-            let jumlahBenar = 0;
+            const jumlahBenar = [
+                benarA,
+                benarB,
+                benarC
+            ].filter(Boolean).length;
 
-            if (benarA) jumlahBenar++;
-            if (benarB) jumlahBenar++;
-            if (benarC) jumlahBenar++;
-
-            hasil.style.display = "block";
-
-            if (jawabanA === "" || jawabanB === "" || jawabanC === "") {
-                hasil.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Masih ada jawaban yang belum diisi. Lengkapi nilai $A$, $B$, dan $C$ terlebih dahulu.
-            </div>
-        `;
-
-                renderMathSafe(hasil);
-                return;
-            }
-
+            // Jika terdapat jawaban salah
             if (jumlahBenar < 3) {
                 hasil.innerHTML = `
             <div class="alert alert-danger mb-0">
-                Masih ada jawaban yang belum tepat. Kamu menjawab <strong>${jumlahBenar}</strong> dari <strong>3</strong> bagian dengan benar.
-                Perhatikan kembali koefisien $x$, koefisien $y$, dan konstantanya.
+                <strong>Belum tepat.</strong><br>
+                Kamu menjawab <strong>${jumlahBenar}</strong> dari
+                <strong>3</strong> bagian dengan benar.
+                Perhatikan kembali koefisien $x$, koefisien $y$,
+                dan konstantanya.
             </div>
         `;
 
@@ -1207,14 +1375,31 @@
                 return;
             }
 
+            // Jika seluruh jawaban benar
             hasil.innerHTML = `
         <div class="alert alert-success mb-0">
-            <strong>Bagus, jawaban kamu benar.</strong><br>
-            Pada persamaan $3x + 2y - 6 = 0$, diperoleh:
-            <ul class="mb-0 mt-2">
-                <li>$A = 3$</li>
-                <li>$B = 2$</li>
-                <li>$C = -6$</li>
+            <strong>Benar.</strong>
+            Jawaban kamu sudah tepat.
+            <br><br>
+
+            <strong>Penyelesaian:</strong><br>
+            Bentuk umum persamaan garis lurus adalah
+            $Ax + By + C = 0$.
+
+            <p class="mt-2 mb-1">
+                Pada persamaan $3x + 2y - 6 = 0$:
+            </p>
+
+            <ul class="mb-0">
+                <li>
+                    $A = 3$, karena $3$ merupakan koefisien dari $x$.
+                </li>
+                <li>
+                    $B = 2$, karena $2$ merupakan koefisien dari $y$.
+                </li>
+                <li>
+                    $C = -6$, karena $-6$ merupakan konstanta.
+                </li>
             </ul>
         </div>
     `;
@@ -1409,21 +1594,37 @@
         }
 
         function nextLatihan(stepNumber) {
-            const step = document.getElementById(`latihanStep${stepNumber}`);
+            const step = document.getElementById(`
+                latihanStep$ {
+                    stepNumber
+                }
+                `);
             if (!step) return;
 
             step.style.display = "block";
             renderMathSafe(step);
-            scrollKeStep(`latihanStep${stepNumber}`);
+            scrollKeStep(`
+                latihanStep$ {
+                    stepNumber
+                }
+                `);
         }
 
         function prevLatihan(stepNumber) {
-            scrollKeStep(`latihanStep${stepNumber}`);
+            scrollKeStep(`
+                latihanStep$ {
+                    stepNumber
+                }
+                `);
         }
 
         function resetStepSetelah(stepMulai) {
             for (let i = stepMulai; i <= 4; i++) {
-                const step = document.getElementById(`latihanStep${i}`);
+                const step = document.getElementById(`
+                latihanStep$ {
+                    i
+                }
+                `);
                 if (step) step.style.display = "none";
             }
         }
@@ -1518,6 +1719,30 @@
             });
         }
 
+        // Latihan 
+        function tampilFeedbackItem(
+            element,
+            benar,
+            pesanBenar = "",
+            pesanSalah = ""
+        ) {
+            if (!element) return;
+
+            element.innerHTML = `
+        <div class="alert ${
+            benar ? "alert-success" : "alert-danger"
+        } d-table py-2 px-3 mb-0"
+             style="max-width: 100%;">
+            <strong>
+                ${benar ? "Benar." : "Belum tepat."}
+            </strong>
+            ${benar ? pesanBenar : pesanSalah}
+        </div>
+    `;
+
+            renderMathSafe(element);
+        }
+
         async function cekLatihan1A1() {
             const dropLinear = document.getElementById("dropLinear");
             const feedback = document.getElementById("feedbackLatihan1A1");
@@ -1525,54 +1750,94 @@
 
             if (!dropLinear || !feedback || !nextBtn) return;
 
-            const selectedItems = [...dropLinear.querySelectorAll(".opsi-item")];
-            const selectedIds = selectedItems.map(item => item.dataset.id);
+            const selectedItems = [
+                ...dropLinear.querySelectorAll(".opsi-item")
+            ];
 
-            const benar =
-                selectedItems.length === 3 &&
-                selectedItems.every(item => item.dataset.linear === "true");
+            const selectedIds = selectedItems.map(
+                item => item.dataset.id
+            );
 
-            if (benar) {
+            if (selectedItems.length === 0) {
                 feedback.innerHTML = `
-            <div class="alert alert-success mb-0">
-                <strong>Benar.</strong> Semua persamaan yang kamu pilih merupakan persamaan garis lurus.
-                <br><br>
-                <strong>Penyelesaian:</strong><br>
-                Persamaan garis lurus adalah persamaan yang variabelnya memiliki pangkat tertinggi $1$
-                dan tidak memuat bentuk akar, kuadrat, atau perkalian antarvariabel.
-                <br><br>
-                Persamaan yang termasuk persamaan garis lurus adalah:
-                <ul class="mb-0 mt-2">
-                    <li>$x + 3y = 9$</li>
-                    <li>$2x - y + 5 = 0$</li>
-                    <li>$y = -3x + 1$</li>
-                </ul>
+            <div class="alert alert-danger mb-0">
+                <strong>Jawaban belum dipilih.</strong><br>
+                Seret semua persamaan yang menurutmu merupakan
+                persamaan garis lurus ke kotak jawaban.
             </div>
         `;
 
-                nextBtn.disabled = false;
-                renderMathSafe(feedback);
+                nextBtn.disabled = true;
+                return;
+            }
 
-                await simpanProgressLatihan(
-                    `${MATERI_SLUG}_L1`,
-                    "drag_drop", {
-                        selectedIds: selectedIds
-                    },
-                    true
-                );
-            } else {
+            const semuaLinear = selectedItems.every(
+                item => item.dataset.linear === "true"
+            );
+
+            const benar =
+                selectedItems.length === 3 &&
+                semuaLinear;
+
+            if (!benar) {
                 feedback.innerHTML = `
             <div class="alert alert-danger mb-0">
                 <strong>Belum tepat.</strong><br>
-                Pilih hanya persamaan yang memuat variabel berpangkat satu.
-                Persamaan yang memuat $x^2$, bentuk akar seperti $\\sqrt{y}$,
-                atau perkalian variabel seperti $xy$ bukan persamaan garis lurus.
+                Pilih tepat tiga persamaan yang merupakan
+                persamaan garis lurus.
+
+                <br><br>
+
+                Perhatikan bahwa persamaan garis lurus:
+                <ul class="mb-0 mt-2">
+                    <li>memiliki pangkat tertinggi variabel sebesar $1$;</li>
+                    <li>tidak memuat bentuk kuadrat;</li>
+                    <li>tidak memuat bentuk akar pada variabel;</li>
+                    <li>tidak memuat perkalian antarvariabel seperti $xy$.</li>
+                </ul>
             </div>
         `;
 
                 nextBtn.disabled = true;
                 renderMathSafe(feedback);
+                return;
             }
+
+            feedback.innerHTML = `
+        <div class="alert alert-success mb-0">
+            <strong>Benar.</strong>
+            Semua persamaan yang kamu pilih merupakan
+            persamaan garis lurus.
+
+            <br><br>
+
+            <strong>Penyelesaian:</strong><br>
+            Persamaan garis lurus memiliki variabel berpangkat
+            tertinggi satu serta tidak memuat bentuk akar,
+            kuadrat, atau perkalian antarvariabel.
+
+            <p class="mt-2 mb-1">
+                Persamaan yang merupakan persamaan garis lurus:
+            </p>
+
+            <ul class="mb-0">
+                <li>$x + 3y = 9$</li>
+                <li>$2x - y + 5 = 0$</li>
+                <li>$y = -3x + 1$</li>
+            </ul>
+        </div>
+    `;
+
+            nextBtn.disabled = false;
+            renderMathSafe(feedback);
+
+            await simpanProgressLatihan(
+                `${MATERI_SLUG}_L1`,
+                "drag_drop", {
+                    selectedIds: selectedIds
+                },
+                true
+            );
         }
 
         function resetLatihan1A1() {
@@ -1598,11 +1863,11 @@
         // =========================
 
         function normLatihan2(teks) {
-            return (teks || "")
-                .toString()
+            return String(teks || "")
                 .trim()
                 .toLowerCase()
                 .replace(/\s+/g, "")
+                .replace(/−/g, "-")
                 .replace(/\*/g, "")
                 .replace(/[()]/g, "");
         }
@@ -1611,95 +1876,117 @@
         // LATIHAN 2
         // =========================
         async function cekLatihan2A1() {
-            let skor = 0;
-
-            const a = document.getElementById("lat2a")?.value.trim();
-            const b = document.getElementById("lat2b")?.value.trim();
-            const c = document.getElementById("lat2c")?.value.trim();
+            const a = document.getElementById("lat2a")?.value || "";
+            const b = document.getElementById("lat2b")?.value || "";
+            const c = document.getElementById("lat2c")?.value || "";
 
             const fba = document.getElementById("fb-lat2a");
             const fbb = document.getElementById("fb-lat2b");
             const fbc = document.getElementById("fb-lat2c");
-            const fb = document.getElementById("feedbackLatihan2A1");
+            const feedback = document.getElementById("feedbackLatihan2A1");
             const nextBtn = document.getElementById("nextBtn2");
 
-            if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
+            if (!fba || !fbb || !fbc || !feedback || !nextBtn) return;
 
-            const jawabanA = ["y=4x+6"];
-            const jawabanB = [
+            const benarA = [
+                "y=4x+6"
+            ].map(normLatihan2).includes(normLatihan2(a));
+
+            const benarB = [
                 "2x+5y-2=0",
                 "2x+5y+-2=0"
-            ];
-            const jawabanC = [
+            ].map(normLatihan2).includes(normLatihan2(b));
+
+            const benarC = [
                 "y=-3x+1",
                 "y=1-3x"
-            ];
+            ].map(normLatihan2).includes(normLatihan2(c));
 
-            if (jawabanA.map(normLatihan2).includes(normLatihan2(a))) {
-                fba.innerHTML = "Benar.";
-                fba.style.color = "green";
-                skor++;
-            } else {
-                fba.innerHTML = "Belum tepat. Substitusikan $m = 4$ dan $c = 6$ ke bentuk $y = mx + c$.";
-                fba.style.color = "red";
-            }
+            tampilFeedbackItem(
+                fba,
+                benarA,
+                "",
+                " Substitusikan $m=4$ dan $c=6$ ke bentuk $y=mx+c$."
+            );
 
-            if (jawabanB.map(normLatihan2).includes(normLatihan2(b))) {
-                fbb.innerHTML = "Benar.";
-                fbb.style.color = "green";
-                skor++;
-            } else {
-                fbb.innerHTML =
-                    "Belum tepat. Substitusikan $A = 2$, $B = 5$, dan $C = -2$ ke bentuk $Ax + By + C = 0$.";
-                fbb.style.color = "red";
-            }
+            tampilFeedbackItem(
+                fbb,
+                benarB,
+                "",
+                " Substitusikan $A=2$, $B=5$, dan $C=-2$ ke bentuk $Ax+By+C=0$."
+            );
 
-            if (jawabanC.map(normLatihan2).includes(normLatihan2(c))) {
-                fbc.innerHTML = "Benar.";
-                fbc.style.color = "green";
-                skor++;
-            } else {
-                fbc.innerHTML = "Belum tepat. Substitusikan $m = -3$ dan $c = 1$ ke bentuk $y = mx + c$.";
-                fbc.style.color = "red";
-            }
+            tampilFeedbackItem(
+                fbc,
+                benarC,
+                "",
+                " Substitusikan $m=-3$ dan $c=1$ ke bentuk $y=mx+c$."
+            );
 
-            [fba, fbb, fbc].forEach(renderMathSafe);
+            const jumlahBenar = [
+                benarA,
+                benarB,
+                benarC
+            ].filter(Boolean).length;
 
-            if (skor === 3) {
-                fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                <strong>Benar.</strong> Kamu sudah dapat menyusun persamaan garis lurus berdasarkan nilai koefisien yang diberikan.
-                <br><br>
-                <strong>Penyelesaian:</strong>
-                <ul class="mb-0 mt-2">
-                    <li>Jika $m = 4$ dan $c = 6$, maka $y = mx + c$ menjadi $y = 4x + 6$.</li>
-                    <li>Jika $A = 2$, $B = 5$, dan $C = -2$, maka $Ax + By + C = 0$ menjadi $2x + 5y - 2 = 0$.</li>
-                    <li>Jika $m = -3$ dan $c = 1$, maka $y = mx + c$ menjadi $y = -3x + 1$.</li>
-                </ul>
+            if (jumlahBenar < 3) {
+                feedback.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <strong>Belum semua jawaban benar.</strong><br>
+                Kamu menjawab <strong>${jumlahBenar}</strong>
+                dari <strong>3</strong> soal dengan benar.
+                Perbaiki jawaban yang masih berwarna merah.
             </div>
         `;
 
-                nextBtn.disabled = false;
-                renderMathSafe(fb);
-
-                await simpanProgressLatihan(
-                    `${MATERI_SLUG}_L2`,
-                    "input", {
-                        lat2a: a,
-                        lat2b: b,
-                        lat2c: c,
-                    },
-                    true
-                );
-            } else {
-                fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Kamu menjawab <strong>${skor}</strong> dari <strong>3</strong> soal dengan benar.
-                Periksa kembali bagian yang masih belum tepat.
-            </div>
-        `;
                 nextBtn.disabled = true;
+                return;
             }
+
+            feedback.innerHTML = `
+        <div class="alert alert-success mb-0">
+            <strong>Benar.</strong>
+            Kamu sudah dapat menyusun persamaan garis lurus
+            berdasarkan nilai koefisien yang diberikan.
+
+            <br><br>
+
+            <strong>Penyelesaian:</strong>
+
+            <ol class="mb-0 mt-2">
+                <li>
+                    Diketahui $m=4$ dan $c=6$.<br>
+                    $y=mx+c$<br>
+                    $y=4x+6$
+                </li>
+
+                <li class="mt-2">
+                    Diketahui $A=2$, $B=5$, dan $C=-2$.<br>
+                    $Ax+By+C=0$<br>
+                    $2x+5y-2=0$
+                </li>
+
+                <li class="mt-2">
+                    Diketahui $m=-3$ dan $c=1$.<br>
+                    $y=mx+c$<br>
+                    $y=-3x+1$
+                </li>
+            </ol>
+        </div>
+    `;
+
+            nextBtn.disabled = false;
+            renderMathSafe(feedback);
+
+            await simpanProgressLatihan(
+                `${MATERI_SLUG}_L2`,
+                "input", {
+                    lat2a: a.trim(),
+                    lat2b: b.trim(),
+                    lat2c: c.trim()
+                },
+                true
+            );
         }
 
         function resetLatihan2A1() {
@@ -1718,102 +2005,125 @@
 
             resetStepSetelah(3);
         }
-        // =========================
-        // LATIHAN 3
-        // =========================
 
         // =========================
         // LATIHAN 3
         // =========================
         async function cekLatihan3A1() {
-            let skor = 0;
+            const nilaiA = document.getElementById("lat3a")?.value || "";
+            const nilaiB = document.getElementById("lat3b")?.value || "";
+            const nilaiC = document.getElementById("lat3c")?.value || "";
 
-            const a = norm(document.getElementById("lat3a")?.value);
-            const b = norm(document.getElementById("lat3b")?.value);
-            const c = norm(document.getElementById("lat3c")?.value);
+            const a = norm(nilaiA);
+            const b = norm(nilaiB);
+            const c = norm(nilaiC);
 
             const fba = document.getElementById("fb-lat3a");
             const fbb = document.getElementById("fb-lat3b");
             const fbc = document.getElementById("fb-lat3c");
-            const fb = document.getElementById("feedbackLatihan3A1");
+            const feedback = document.getElementById("feedbackLatihan3A1");
             const nextBtn = document.getElementById("nextBtn3");
 
-            if (!fba || !fbb || !fbc || !fb || !nextBtn) return;
+            if (!fba || !fbb || !fbc || !feedback || !nextBtn) return;
 
-            if (["2x-y-5", "-2x+y+5"].includes(a)) {
-                fba.innerHTML = "Benar.";
-                fba.style.color = "green";
-                skor++;
-            } else {
-                fba.innerHTML = "Belum tepat.";
-                fba.style.color = "red";
-            }
+            const benarA = [
+                "2x-y-5",
+                "-2x+y+5"
+            ].includes(a);
 
-            if (["3x+y-4", "-3x-y+4"].includes(b)) {
-                fbb.innerHTML = "Benar.";
-                fbb.style.color = "green";
-                skor++;
-            } else {
-                fbb.innerHTML = "Belum tepat.";
-                fbb.style.color = "red";
-            }
+            const benarB = [
+                "3x+y-4",
+                "-3x-y+4"
+            ].includes(b);
 
-            if (["x-2y+6", "-x+2y-6"].includes(c)) {
-                fbc.innerHTML = "Benar.";
-                fbc.style.color = "green";
-                skor++;
-            } else {
-                fbc.innerHTML = "Belum tepat.";
-                fbc.style.color = "red";
-            }
+            const benarC = [
+                "x-2y+6",
+                "-x+2y-6"
+            ].includes(c);
 
-            if (skor === 3) {
-                fb.innerHTML = `
-                    <div class="alert alert-success mb-0">
-                        <strong>Benar.</strong> Kamu sudah dapat mengubah bentuk eksplisit ke bentuk implisit.
-                        <br><br>
-                        <strong>Penyelesaian:</strong>
-                        <ul class="mb-0 mt-2">
-                            <li>
-                                $y = 2x - 5$ dapat ditulis menjadi $2x - y - 5 = 0$
-                                atau $-2x + y + 5 = 0$.
-                            </li>
-                            <li>
-                                $y = -3x + 4$ dapat ditulis menjadi $3x + y - 4 = 0$
-                                atau $-3x - y + 4 = 0$.
-                            </li>
-                            <li>
-                                $2y = x + 6$ dapat ditulis menjadi $x - 2y + 6 = 0$
-                                atau $-x + 2y - 6 = 0$.
-                            </li>
-                        </ul>
-                        Bentuk-bentuk tersebut tetap benar karena persamaan yang dikalikan $-1$
-                        masih memiliki makna yang sama.
-                    </div>
-                `;
+            tampilFeedbackItem(
+                fba,
+                benarA,
+                "",
+                " Pindahkan semua suku ke salah satu ruas sehingga ruas lainnya bernilai nol."
+            );
 
-                nextBtn.disabled = false;
-                renderMathSafe(fb);
+            tampilFeedbackItem(
+                fbb,
+                benarB,
+                "",
+                " Pindahkan suku $-3x$ dan konstanta ke ruas yang sesuai."
+            );
 
-                await simpanProgressLatihan(
-                    `${MATERI_SLUG}_L3`,
-                    "input", {
-                        lat3a: document.getElementById("lat3a").value.trim(),
-                        lat3b: document.getElementById("lat3b").value.trim(),
-                        lat3c: document.getElementById("lat3c").value.trim(),
-                    },
-                    true
-                );
-            } else {
-                fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Kamu menjawab <strong>${skor}</strong> dari <strong>3</strong> soal dengan benar.
-                Ingat, bentuk implisit ditulis dalam bentuk $Ax + By + C = 0$.
+            tampilFeedbackItem(
+                fbc,
+                benarC,
+                "",
+                " Pindahkan semua suku ke ruas kiri dan buat ruas kanan bernilai nol."
+            );
+
+            const jumlahBenar = [
+                benarA,
+                benarB,
+                benarC
+            ].filter(Boolean).length;
+
+            if (jumlahBenar < 3) {
+                feedback.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <strong>Belum semua jawaban benar.</strong><br>
+                Kamu menjawab <strong>${jumlahBenar}</strong>
+                dari <strong>3</strong> soal dengan benar.
+                Perbaiki jawaban yang masih berwarna merah.
             </div>
         `;
+
                 nextBtn.disabled = true;
-                renderMathSafe(fb);
+                renderMathSafe(feedback);
+                return;
             }
+
+            feedback.innerHTML = `
+        <div class="alert alert-success mb-0">
+            <strong>Benar.</strong>
+            Kamu sudah dapat mengubah bentuk eksplisit
+            menjadi bentuk implisit.
+
+            <br><br>
+
+            <strong>Penyelesaian:</strong>
+
+            <ol class="mb-0 mt-2">
+                <li>
+                    $y=2x-5$<br>
+                    $2x-y-5=0$
+                </li>
+
+                <li class="mt-2">
+                    $y=-3x+4$<br>
+                    $3x+y-4=0$
+                </li>
+
+                <li class="mt-2">
+                    $2y=x+6$<br>
+                    $x-2y+6=0$
+                </li>
+            </ol>
+        </div>
+    `;
+
+            nextBtn.disabled = false;
+            renderMathSafe(feedback);
+
+            await simpanProgressLatihan(
+                `${MATERI_SLUG}_L3`,
+                "input", {
+                    lat3a: nilaiA.trim(),
+                    lat3b: nilaiB.trim(),
+                    lat3c: nilaiC.trim()
+                },
+                true
+            );
         }
 
         function resetLatihan3A1() {
@@ -1836,110 +2146,131 @@
         // =========================
         // LATIHAN 4
         // =========================
-        // =========================
-        // LATIHAN 4
-        // =========================
         async function cekLatihan4A1() {
-            let skor = 0;
+            const nilaiA = document.getElementById("lat4a")?.value || "";
+            const nilaiB = document.getElementById("lat4b")?.value || "";
+            const nilaiC = document.getElementById("lat4c")?.value || "";
 
-            const a = norm(document.getElementById("lat4a")?.value);
-            const b = norm(document.getElementById("lat4b")?.value);
-            const c = norm(document.getElementById("lat4c")?.value);
+            const a = norm(nilaiA);
+            const b = norm(nilaiB);
+            const c = norm(nilaiC);
 
             const fba = document.getElementById("fb-lat4a");
             const fbb = document.getElementById("fb-lat4b");
             const fbc = document.getElementById("fb-lat4c");
-            const fb = document.getElementById("feedbackLatihan4A1");
+            const feedback = document.getElementById("feedbackLatihan4A1");
 
-            if (!fba || !fbb || !fbc || !fb) return;
+            if (!fba || !fbb || !fbc || !feedback) return;
 
-            if (["-3x+7"].includes(a)) {
-                fba.innerHTML = "Benar.";
-                fba.style.color = "green";
-                skor++;
-            } else {
-                fba.innerHTML = "Belum tepat.";
-                fba.style.color = "red";
-            }
+            const benarA = [
+                "-3x+7"
+            ].includes(a);
 
-            if (["1/2x+2", "0.5x+2", "x/2+2"].includes(b)) {
-                fbb.innerHTML = "Benar.";
-                fbb.style.color = "green";
-                skor++;
-            } else {
-                fbb.innerHTML = "Belum tepat.";
-                fbb.style.color = "red";
-            }
+            const benarB = [
+                "1/2x+2",
+                "0.5x+2",
+                "x/2+2"
+            ].includes(b);
 
-            if (["-5/2x+3", "-2.5x+3", "-5x/2+3"].includes(c)) {
-                fbc.innerHTML = "Benar.";
-                fbc.style.color = "green";
-                skor++;
-            } else {
-                fbc.innerHTML = "Belum tepat.";
-                fbc.style.color = "red";
-            }
+            const benarC = [
+                "-5/2x+3",
+                "-2.5x+3",
+                "-5x/2+3"
+            ].includes(c);
 
-            if (skor === 3) {
-                const saved = await saveProgressMateri();
+            tampilFeedbackItem(
+                fba,
+                benarA,
+                "",
+                " Periksa kembali jawabanmu."
+            );
 
-                if (saved) {
-                    fb.innerHTML = `
-                <div class="alert alert-success mb-0">
-                    <strong>Benar.</strong> Kamu sudah dapat mengubah bentuk implisit ke bentuk eksplisit.
-                    <br><br>
-                    <strong>Penyelesaian:</strong>
-                    <ul class="mb-0 mt-2">
-                        <li>
-                            $3x + y - 7 = 0$<br>
-                            $y = -3x + 7$
-                        </li>
-                        <li>
-                            $2x - 4y + 8 = 0$<br>
-                            $-4y = -2x - 8$<br>
-                            $y = \\frac{1}{2}x + 2$
-                        </li>
-                        <li>
-                            $5x + 2y - 6 = 0$<br>
-                            $2y = -5x + 6$<br>
-                            $y = -\\frac{5}{2}x + 3$
-                        </li>
-                    </ul>
-                    Jadi, untuk mengubah ke bentuk $y = mx + c$, pisahkan variabel $y$ di ruas kiri.
-                    <br><br>
-                    Silakan lanjut ke materi berikutnya.
-                </div>
-            `;
+            tampilFeedbackItem(
+                fbb,
+                benarB,
+                "",
+                " Periksa kembali jawabanmu."
+            );
 
-                    bukaNextButton();
-                } else {
-                    fb.innerHTML = `
-                <div class="alert alert-warning mb-0">
-                    Jawaban benar, tapi progres belum tersimpan.
-                </div>
-            `;
-                }
+            tampilFeedbackItem(
+                fbc,
+                benarC,
+                "",
+                " Periksa kembali jawabanmu."
+            );
+            const jumlahBenar = [
+                benarA,
+                benarB,
+                benarC
+            ].filter(Boolean).length;
 
-                renderMathSafe(fb);
-
-                await simpanProgressLatihan(
-                    `${MATERI_SLUG}_L4`,
-                    "input", {
-                        lat4a: document.getElementById("lat4a").value.trim(),
-                        lat4b: document.getElementById("lat4b").value.trim(),
-                        lat4c: document.getElementById("lat4c").value.trim(),
-                    },
-                    true
-                );
-
-            } else {
-                fb.innerHTML = `
-            <div class="alert alert-warning mb-0">
-                Kamu menjawab <strong>${skor}</strong> dari <strong>3</strong> soal dengan benar.
-                Ingat, bentuk eksplisit harus ditulis dalam bentuk $y = mx + c$.
+            if (jumlahBenar < 3) {
+                feedback.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <strong>Belum semua jawaban benar.</strong><br>
+                Kamu menjawab <strong>${jumlahBenar}</strong>
+                dari <strong>3</strong> soal dengan benar.
+                Perbaiki jawaban yang masih berwarna merah.
             </div>
         `;
-                renderMathSafe(fb);
+
+                renderMathSafe(feedback);
+                return;
+            }
+
+            feedback.innerHTML = `
+        <div class="alert alert-success mb-0">
+            <strong>Benar.</strong>
+            Kamu sudah dapat mengubah bentuk implisit
+            menjadi bentuk eksplisit.
+
+            <br><br>
+
+            <strong>Penyelesaian:</strong>
+
+            <ol class="mb-0 mt-2">
+                <li>
+                    $3x+y-7=0$<br>
+                    $y=-3x+7$
+                </li>
+
+                <li class="mt-2">
+                    $2x-4y+8=0$<br>
+                    $-4y=-2x-8$<br>
+                    $y=\\frac{1}{2}x+2$
+                </li>
+
+                <li class="mt-2">
+                    $5x+2y-6=0$<br>
+                    $2y=-5x+6$<br>
+                    $y=-\\frac{5}{2}x+3$
+                </li>
+            </ol>
+
+            <p class="mb-0 mt-2">
+                Jadi, untuk mengubah persamaan menjadi
+                bentuk $y=mx+c$, buat variabel $y$
+                berdiri sendiri di salah satu ruas.
+            </p>
+        </div>
+    `;
+
+            renderMathSafe(feedback);
+
+            const progresTersimpan = await saveProgressMateri();
+
+            await simpanProgressLatihan(
+                `${MATERI_SLUG}_L4`,
+                "input", {
+                    lat4a: nilaiA.trim(),
+                    lat4b: nilaiB.trim(),
+                    lat4c: nilaiC.trim()
+                },
+                true
+            );
+
+            if (progresTersimpan) {
+                bukaNextButton();
             }
         }
 
@@ -1963,6 +2294,8 @@
         window.completeMateriUrl = "{{ route('materi.complete', $materi->id) }}";
         window.nextMateriUrl = @json($nextMateri ? route('materi.show', $nextMateri->slug) : null);
     </script>
+
+    <script></script>
 
     {{-- Script Simpan Progres Latihan --}}
     <script>

@@ -26,9 +26,66 @@
             font-family: "Quicksand", sans-serif;
         }
 
+        /* =========================
+   NAVBAR KECIL
+========================= */
         .navbar {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            font-weight: 600;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            min-height: 52px;
+        }
+
+        .navbar .container {
+            min-height: 44px;
+        }
+
+        .navbar-brand {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .navbar-brand img {
+            height: 32px !important;
+            width: auto;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 6px 12px !important;
+            border-radius: 999px;
+            color: #1f2a37;
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: #eef8ff;
+            color: var(--primary-color);
+        }
+
+        /* ACTIVE NAVBAR */
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            box-shadow: 0 3px 8px rgba(1, 135, 184, 0.25);
+        }
+
+        .navbar-toggler {
+            padding: 3px 7px;
+            font-size: 14px;
+        }
+
+        .navbar .btn-outline-danger {
+            padding: 4px 10px;
+            font-size: 13px;
+            border-radius: 999px;
+            font-weight: 700;
         }
 
         .navbar-brand span:first-child {
@@ -102,7 +159,7 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('landing-page') }}">
-                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
+                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -113,23 +170,47 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('landing-page') }}">Beranda</a>
+                        <a class="nav-link {{ request()->routeIs('landing-page') ? 'active' : '' }}"
+                            href="{{ route('landing-page') }}">
+                            Beranda
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('petunjuk') }}">Petunjuk Penggunaan</a>
+                        <a class="nav-link {{ request()->routeIs('petunjuk') ? 'active' : '' }}"
+                            href="{{ route('petunjuk') }}">
+                            Petunjuk Penggunaan
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tentang') }}">Tentang</a>
+                        <a class="nav-link {{ request()->routeIs('tentang') ? 'active' : '' }}"
+                            href="{{ route('tentang') }}">
+                            Tentang
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('guru.login') }}">Halaman Guru</a>
+                        <a class="nav-link {{ request()->routeIs('guru.login') ? 'active' : '' }}"
+                            href="{{ route('guru.login') }}">
+                            Halaman Guru
+                        </a>
                     </li>
+
                 </ul>
 
-                <div class="d-flex gap-2">
-                    <a href="{{ route('registrasi-siswa') }}" class="btn btn-outline-primary">Daftar</a>
-                    <a href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
+                <div class="d-flex gap-2 mt-2 mt-lg-0">
+                    <a href="{{ route('registrasi-siswa') }}"
+                        class="btn btn-outline-primary {{ request()->routeIs('registrasi-siswa') ? 'active' : '' }}">
+                        Daftar
+                    </a>
+
+                    <a href="{{ route('login') }}"
+                        class="btn btn-primary {{ request()->routeIs('login') ? 'active' : '' }}">
+                        Masuk
+                    </a>
                 </div>
             </div>
         </div>
@@ -167,7 +248,7 @@
                     <!-- Materi Interaktif -->
                     <div class="col-md-4">
                         <div class="card h-100 shadow-sm border-0 text-center p-3">
-                            <img src="{{ asset('img/belajar.jpg') }}" class="card-img-top mx-auto"
+                            <img src="{{ asset('img/belajar.png') }}" class="card-img-top mx-auto"
                                 style="width: 140px;" alt="Materi Interaktif">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-3">Materi Interaktif</h5>
@@ -183,7 +264,7 @@
                     <!-- Kuis & Evaluasi -->
                     <div class="col-md-4">
                         <div class="card h-100 shadow-sm border-0 text-center p-3">
-                            <img src="{{ asset('img/kuis.jpg') }}" class="card-img-top mx-auto" style="width: 140px;"
+                            <img src="{{ asset('img/kuis.png') }}" class="card-img-top mx-auto" style="width: 140px;"
                                 alt="Kuis dan Evaluasi">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-3">Kuis &amp; Evaluasi</h5>

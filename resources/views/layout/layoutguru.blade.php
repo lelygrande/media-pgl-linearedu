@@ -31,9 +31,64 @@
             font-family: "Quicksand", sans-serif;
         }
 
+        /* ===== NAVBAR KECIL ===== */
         .navbar {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            font-weight: 600;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            min-height: 52px;
+        }
+
+        .navbar .container {
+            min-height: 44px;
+        }
+
+        .navbar-brand {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .navbar-brand img {
+            height: 32px !important;
+            width: auto;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 6px 12px !important;
+            border-radius: 999px;
+            color: #1f2a37;
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: #eef8ff;
+            color: var(--primary-color);
+        }
+
+        /* ACTIVE NAVBAR */
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            box-shadow: 0 3px 8px rgba(1, 135, 184, 0.25);
+        }
+
+        .navbar-toggler {
+            padding: 3px 7px;
+            font-size: 14px;
+        }
+
+        .navbar .btn-outline-danger {
+            padding: 4px 10px;
+            font-size: 13px;
+            border-radius: 999px;
+            font-weight: 700;
         }
 
         .nav-link {
@@ -441,56 +496,42 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container d-flex align-items-center">
 
-            <button id="toggleSidebarGuru" class="btn btn-outline-primary d-md-none me-2" type="button"
-                style="
-                    border-radius: 10px;
-                    font-weight: 700;
-                    padding: 8px 14px;
-                ">
-
+            {{-- TOGGLE SIDEBAR GURU --}}
+            <button id="toggleSidebarGuru" class="btn btn-outline-primary btn-menu-guru d-md-none me-2" type="button">
                 <i class="bi bi-list me-1"></i>
                 Menu
             </button>
 
             {{-- LOGO --}}
             <a class="navbar-brand d-flex align-items-center me-auto" href="{{ route('landing-page') }}">
-
-                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
+                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo">
             </a>
 
             {{-- BURGER NAVBAR --}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
-
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             {{-- MENU NAVBAR --}}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('landing-page') }}">
+                        <a class="nav-link {{ request()->routeIs('landing-page') ? 'active' : '' }}"
+                            href="{{ route('landing-page') }}">
                             Beranda
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('petunjuk') }}">
-                            Petunjuk Penggunaan Guru
-                        </a>
-                    </li> --}}
-
                     <li class="nav-item">
                         <form action="{{ route('guru.logout') }}" method="POST" class="d-inline">
-
                             @csrf
 
-                            <button type="submit" class="nav-link border-0 bg-transparent">
+                            <button type="submit" class="nav-link logout-link border-0 bg-transparent">
                                 Logout
                             </button>
-
                         </form>
                     </li>
 
@@ -500,7 +541,7 @@
         </div>
     </nav>
     @php
-        $isSiswaMenu = request()->routeIs('daftarsiswa', 'rekapitulasi-nilai', 'progres-siswa');
+        $isSiswaMenu = request()->routeIs('daftarsiswa.index', 'rekapitulasi-nilai', 'progres-siswa');
     @endphp
 
     {{-- LAYOUT GURU: SIDEBAR + MAIN CONTENT --}}
@@ -518,7 +559,8 @@
 
                     <p class="fw-bold text-center mb-4">{{ auth('guru')->user()->nama }}</p>
 
-                    <a href="{{ route('dashboardguru') }}" class="btn-sub d-block mb-2">
+                    <a href="{{ route('dashboardguru') }}"
+                        class="btn-sub d-block mb-2 {{ request()->routeIs('dashboardguru') ? 'active' : '' }}">
                         Dashboard
                     </a>
 
@@ -538,11 +580,15 @@
                             Rekapitulasi Nilai
                         </a>
 
-                        <a href="{{ route('guru.progress-siswa') }}"
+                        <a href="{{ route('progres-siswa') }}"
                             class="dropdown-item-custom {{ request()->routeIs('progres-siswa') ? 'active-child' : '' }}">
-                            Progress Siswa
+                            Progres Siswa
                         </a>
                     </div>
+                    <a href="{{ route('kelas.index') }}"
+                        class="btn-sub d-block {{ request()->routeIs('guru.kelas.*') ? 'active' : '' }}">
+                        Manajemen Kelas
+                    </a>
                     <a href="{{ route('kuis.index') }}"
                         class="btn-sub d-block {{ request()->routeIs('kuis.*') ? 'active' : '' }}">
                         Manajemen Kuis

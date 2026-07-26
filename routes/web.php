@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GuruAuthController;
 use App\Http\Controllers\GuruDashboardController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LatihanProgressController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProgressBelajarController;
@@ -56,10 +57,6 @@ Route::middleware('auth:siswa')->group(function () {
 Route::post('/materi/{id}/complete', [MateriController::class, 'complete'])
     ->name('materi.complete');
 
-
-
-
-
 // ====================
 // GURU
 // ====================
@@ -78,7 +75,7 @@ Route::prefix('guru')->group(function () {
 
         // Progress Siswa
         Route::get('/progress-siswa', [ProgressSiswaController::class, 'index'])
-        ->name('guru.progress-siswa');
+        ->name('progres-siswa');
 
         Route::view('/daftarmateriguru', 'guru.daftarmateriguru')->name('daftarmateriguru');
 
@@ -89,6 +86,11 @@ Route::prefix('guru')->group(function () {
         Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('guru.daftarsiswa.update');
         Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('guru.daftarsiswa.destroy');
 
+        // Kelas
+        Route::resource('kelas', KelasController::class)->except(['create', 'show', 'edit']);
+        Route::put('/kelas/{id}/regenerate-token', [KelasController::class, 'regenerateToken'])
+        ->name('guru.kelas.regenerate-token');
+
         // Export Daftar Siswa
         Route::get('/daftarsiswa/export/pdf', [SiswaController::class, 'exportPdf'])->name('guru.daftarsiswa.export.pdf');
         Route::get('/daftarsiswa/export/excel', [SiswaController::class, 'exportExcel'])->name('guru.daftarsiswa.export.excel');
@@ -97,6 +99,8 @@ Route::prefix('guru')->group(function () {
         Route::get('/rekapitulasi-nilai', [QuizController::class, 'rekapNilai'])->name('rekapitulasi-nilai');
         Route::get('/rekap/export/pdf',[QuizController::class, 'exportRekapPdf'])->name('guru.rekap.export.pdf');
         Route::get('/rekap/export/excel',[QuizController::class, 'exportRekapExcel'])->name('guru.rekap.export.excel');
+        Route::patch('/guru/rekapitulasi-nilai/{studentId}/quiz/{quizId}/reset-percobaan', [QuizController::class, 'resetPercobaan']
+        )->name('guru.quiz.reset-percobaan');
 
         Route::get('/kuis', [QuizController::class, 'index'])->name('kuis.index');
         Route::get('/kuis/{id}', [QuizController::class, 'show'])->name('kuis.show');
@@ -108,5 +112,10 @@ Route::prefix('guru')->group(function () {
         Route::get('/soal/{question}', [QuizQuestionController::class, 'show'])->name('kuis.soal.show');
         Route::put('/soal/{question}', [QuizQuestionController::class, 'update'])->name('kuis.soal.update');
         Route::delete('/soal/{question}', [QuizQuestionController::class, 'destroy'])->name('kuis.soal.destroy');
+
+        Route::get('/penggunaan-katex', function () {
+            return view('guru.penggunaan-katex');
+        })->name('penggunaan-katex');
     });
+
 });

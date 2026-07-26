@@ -39,10 +39,64 @@
             font-weight: 550;
         }
 
+        /* ========= NAVBAR KECIL ======== */
         .navbar {
             font-weight: 600;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            min-height: 52px;
+        }
+
+        .navbar .container {
+            min-height: 44px;
+        }
+
+        .navbar-brand {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .navbar-brand img {
+            height: 32px !important;
+            width: auto;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 6px 12px !important;
+            border-radius: 999px;
+            color: #1f2a37;
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: #eef8ff;
+            color: var(--primary-color);
+        }
+
+        /* ACTIVE NAVBAR */
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            box-shadow: 0 3px 8px rgba(1, 135, 184, 0.25);
+        }
+
+        .navbar-toggler {
+            padding: 3px 7px;
+            font-size: 14px;
+        }
+
+        .navbar .btn-outline-danger {
+            padding: 4px 10px;
+            font-size: 13px;
+            border-radius: 999px;
+            font-weight: 700;
         }
 
         .navbar-brand span:first-child {
@@ -59,29 +113,66 @@
             font-weight: 600;
         }
 
+        /* Wrapper */
+        .main-row {
+            height: calc(100vh - 68px);
+            min-height: 0;
+        }
+
+        #sidebarCol,
+        #contentCol {
+            height: 100%;
+            min-height: 0;
+        }
+
         .sidebar-wrapper {
             background-color: #d6ebff;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            max-height: calc(100vh - 100px);
+            height: 100%;
+            max-height: none;
             overflow-y: auto;
-            padding-right: 8px;
+            padding: 14px;
         }
 
         .sidebar-wrapper .btn-sub {
             width: 100%;
             text-align: left;
-            margin-bottom: 8px;
-            padding: 12px 60px 12px 18px;
+            margin-bottom: 10px;
+            padding: 12px 48px 12px 18px;
             border-radius: 14px;
             background-color: #1e5c7b;
             border: none;
             font-weight: 700;
+            font-size: 16px;
             white-space: normal;
             word-wrap: break-word;
             overflow-wrap: break-word;
             line-height: 1.3;
             position: relative;
+        }
+
+        .content-wrapper {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            flex: 1 1 auto;
+            min-height: 0;
+            max-height: none;
+            overflow-y: auto;
+            padding: 20px !important;
+            padding-bottom: 20px !important;
+        }
+
+        .nav-wrapper {
+            flex: 0 0 auto;
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e0e9f6;
+            padding: 4px 0;
+            z-index: 50;
         }
 
         .btn-sub.dropdown-toggle::after {
@@ -97,10 +188,10 @@
         }
 
         .dropdown-item-custom {
-            width: 90%;
+            width: 88%;
             margin-left: auto;
             margin-right: 0;
-            margin-bottom: 8px;
+            margin-bottom: 9px;
             display: block;
             background: #eef7ff;
             padding: 12px 18px;
@@ -108,6 +199,7 @@
             text-decoration: none;
             color: #1e5c7b;
             font-weight: 700;
+            font-size: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
             white-space: normal;
             overflow-wrap: break-word;
@@ -121,19 +213,6 @@
         .dropdown-item-custom.active {
             background: var(--section-light);
             border: 2px solid var(--primary-color);
-        }
-
-        .content-wrapper {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            max-height: calc(100vh - 160px);
-            overflow-y: auto;
-            padding-bottom: 20px;
-        }
-
-        .main-row {
-            min-height: calc(100vh - 80px);
         }
 
         .btn-prev {
@@ -161,6 +240,18 @@
             color: #fff;
         }
 
+        .nav-wrapper .btn,
+        .nav-wrapper a {
+            padding: 6px 20px !important;
+            font-size: 15px;
+            border-radius: 999px;
+        }
+
+        .btn-prev,
+        .btn-next {
+            min-width: 115px;
+        }
+
         .burger-mini {
             width: 42px;
             height: 42px;
@@ -173,6 +264,7 @@
             align-items: center;
             justify-content: center;
             transition: 0.2s ease-in-out;
+            margin-bottom: 14px;
         }
 
         .burger-mini:hover {
@@ -181,25 +273,18 @@
 
         .materi-top-btn {
             width: fit-content;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border-radius: 12px;
             font-weight: 700;
+            padding: 8px 16px;
         }
 
-        .nav-wrapper {
-            margin-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            bottom: 0;
-            background: #e0e9f6;
-            padding: 12px 0;
-            z-index: 50;
+        #contentCol.col-12 .content-wrapper {
+            width: 100%;
         }
 
-        .content-wrapper {
-            padding-bottom: 80px;
+        #contentCol.col-12 .nav-wrapper {
+            width: 100%;
         }
 
         input[type="text"] {
@@ -308,7 +393,7 @@
             border: 1px solid #dbe5f1;
         }
 
-         /* ===== Petunjuk Latihan ===== */
+        /* ===== Petunjuk Latihan ===== */
         .petunjuk-mini-latihan {
             background: #fffdf5;
             border: 1px solid #ffe69c;
@@ -445,7 +530,7 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('landing-page') }}">
-                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo" style="height: 40px;">
+                <img src="{{ asset('img/logo.png') }}" alt="LinearEdu Logo">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -456,18 +541,30 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('landing-page') }}">Beranda</a>
+                        <a class="nav-link {{ request()->routeIs('landing-page') ? 'active' : '' }}"
+                            href="{{ route('landing-page') }}">
+                            Beranda
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('petunjuk') }}">Petunjuk Penggunaan</a>
+                        <a class="nav-link {{ request()->routeIs('petunjuk') ? 'active' : '' }}"
+                            href="{{ route('petunjuk') }}">
+                            Petunjuk Penggunaan
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('progress-belajar') }}">Progress Belajar</a>
+                        <a class="nav-link {{ request()->routeIs('progress-belajar') ? 'active' : '' }}"
+                            href="{{ route('progress-belajar') }}">
+                            Progress Belajar
+                        </a>
                     </li>
 
                     @auth('siswa')
-                        <li class="nav-item d-flex align-items-center">
+                        <li class="nav-item d-flex align-items-center ms-lg-2 mt-2 mt-lg-0">
                             <form action="{{ route('siswa.logout') }}" method="POST" class="mb-0">
                                 @csrf
                                 <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -476,12 +573,13 @@
                             </form>
                         </li>
                     @endauth
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid px-4 py-3">
+    <div class="container-fluid px-1 py-1">
         <div class="row main-row g-3">
             {{-- SIDEBAR --}}
             <div id="sidebarCol" class="col-md-4 col-lg-3">
@@ -569,7 +667,7 @@
 
                             <a href="{{ route('apersepsi1') }}"
                                 class="dropdown-item-custom {{ request()->routeIs('apersepsi1') ? 'active' : '' }}">
-                                Apersepsi
+                                Pendahuluan
                             </a>
                         </div>
                     </div>
@@ -894,17 +992,35 @@
             const openBtn = document.getElementById("openSidebarBtn");
             const closeBtn = document.getElementById("closeSidebarBtn");
 
+            function bersihkanClassKolom() {
+                sidebarCol.classList.remove(
+                    "col-md-4", "col-lg-3",
+                    "col-md-3", "col-lg-2",
+                    "d-none"
+                );
+
+                contentCol.classList.remove(
+                    "col-md-8", "col-lg-9",
+                    "col-md-9", "col-lg-10",
+                    "col-12"
+                );
+            }
+
             function showSidebar() {
-                sidebarCol.classList.remove("d-none");
-                contentCol.classList.remove("col-12");
+                bersihkanClassKolom();
+
+                sidebarCol.classList.add("col-md-4", "col-lg-3");
                 contentCol.classList.add("col-md-8", "col-lg-9");
+
                 openBtn.classList.add("d-none");
             }
 
             function hideSidebar() {
+                bersihkanClassKolom();
+
                 sidebarCol.classList.add("d-none");
-                contentCol.classList.remove("col-md-8", "col-lg-9");
                 contentCol.classList.add("col-12");
+
                 openBtn.classList.remove("d-none");
             }
 
@@ -916,7 +1032,6 @@
             }
         });
     </script>
-
     {{-- KaTeX --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {

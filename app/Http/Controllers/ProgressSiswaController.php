@@ -34,6 +34,7 @@ class ProgressSiswaController extends Controller
         $studentsData = $siswas->map(function ($siswa) use (
             $progressByStudent,
             $attemptsByStudent,
+            $materis,
             $totalMateri,
             $totalQuiz
         ) {
@@ -63,6 +64,60 @@ class ProgressSiswaController extends Controller
                 ->where('quiz_id', 5)
                 ->sortByDesc('submitted_at')
                 ->first();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Materi terakhir atau materi yang belum selesai
+            |--------------------------------------------------------------------------
+            */
+
+            // Menghubungkan progress dengan ID materi
+            $progressByMateriId = $progressMateri
+                ->filter(fn ($progress) => $progress->materi !== null)
+                ->keyBy(fn ($progress) => $progress->materi->id);
+
+            // Cari materi yang sudah dibuka tetapi belum selesai
+            $materiBelumSelesai = $materis->first(function ($materi) use ($progressByMateriId) {
+                $progress = $progressByMateriId->get($materi->id);
+
+                return $progress
+                    && $progress->is_opened
+                    && !$progress->is_completed;
+            });
+
+            // Cari materi dengan urutan paling akhir yang sudah dicapai
+            $materiTerakhirDicapai = $materis
+                ->reverse()
+                ->first(function ($materi) use ($progressByMateriId) {
+                    $progress = $progressByMateriId->get($materi->id);
+
+                    return $progress
+                        && ($progress->is_opened || $progress->is_completed);
+                });
+
+            if ($totalMateri > 0 && $materiSelesai >= $totalMateri) {
+                // Kalau semua selesai, selalu ambil materi paling akhir berdasarkan urutan
+                $materiFokus = $materis->last()?->judul ?? '-';
+                $statusMateriFokus = 'Terakhir';
+                $statusMateriClass = 'bg-success';
+
+            } elseif ($materiBelumSelesai) {
+                // Prioritaskan materi yang masih dikerjakan
+                $materiFokus = $materiBelumSelesai->judul;
+                $statusMateriFokus = 'Belum selesai';
+                $statusMateriClass = 'bg-warning text-dark';
+
+            } elseif ($materiTerakhirDicapai) {
+                // Jika tidak ada yang belum selesai, tampilkan materi terakhir yang dicapai
+                $materiFokus = $materiTerakhirDicapai->judul;
+                $statusMateriFokus = 'Terakhir';
+                $statusMateriClass = 'bg-success';
+
+            } else {
+                $materiFokus = null;
+                $statusMateriFokus = 'Belum mulai belajar';
+                $statusMateriClass = 'bg-secondary';
+            }
 
             /*
             |--------------------------------------------------------------------------
@@ -118,6 +173,10 @@ class ProgressSiswaController extends Controller
                 'evaluasi_sudah' => $evaluasiAttempt !== null,
                 'evaluasi_lulus' => $evaluasiAttempt?->is_passed ?? false,
                 'evaluasi_score' => $evaluasiAttempt?->score,
+
+                'materi_fokus' => $materiFokus,
+                'status_materi_fokus' => $statusMateriFokus,
+                'status_materi_class' => $statusMateriClass,
 
                 'aktivitas_terakhir' => $lastActivityFormatted,
                 'last_activity' => $lastActivity,

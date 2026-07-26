@@ -16,7 +16,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:12px;">
-            <b>Gagal menyimpan:</b> 
+            <b>Gagal menyimpan:</b>
             <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -58,14 +58,18 @@
 
             <form method="GET" action="{{ route('daftarsiswa.index') }}"
                 class="d-flex align-items-center gap-2 flex-wrap">
-                <select name="kelas" class="form-select" style="width:160px;" onchange="this.form.submit()">
+                {{-- Filter Kelas --}}
+                <select name="kelas_id" class="form-select" style="width:160px;" onchange="this.form.submit()">
                     <option value="">Semua Kelas</option>
-                    <option value="8A" {{ request('kelas') == '8A' ? 'selected' : '' }}>8A</option>
-                    <option value="8B" {{ request('kelas') == '8B' ? 'selected' : '' }}>8B</option>
-                    <option value="8C" {{ request('kelas') == '8C' ? 'selected' : '' }}>8C</option>
+
+                    @foreach ($kelasList as $kelas)
+                        <option value="{{ $kelas->id }}" {{ request('kelas_id') == $kelas->id ? 'selected' : '' }}>
+                            {{ $kelas->nama_kelas }}
+                        </option>
+                    @endforeach
                 </select>
 
-                @if (request('kelas'))
+                @if (request('kelas_id'))
                     <a href="{{ route('daftarsiswa.index') }}" class="btn btn-palet">
                         Reset
                     </a>
@@ -117,7 +121,7 @@
 
                                 <td>{{ $siswa->email }}</td>
 
-                                <td>{{ $siswa->kelas }}</td>
+                                <td>{{ $siswa->kelasData->nama_kelas ?? '-' }}</td>
 
                                 <td>{{ $siswa->jenis_kelamin }}</td>
 
@@ -325,15 +329,15 @@
                             <input type="email" name="email" class="form-control" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Kelas</label>
-                            <select name="kelas" class="form-select" required>
-                                <option value="">Pilih Kelas</option>
-                                <option value="8A">8A</option>
-                                <option value="8B">8B</option>
-                                <option value="8C">8C</option>
-                            </select>
-                        </div>
+                        <select name="kelas_id" class="form-select" required>
+                            <option value="">Pilih Kelas</option>
+
+                            @foreach ($kelasList as $kelas)
+                                <option value="{{ $kelas->id }}">
+                                    {{ $kelas->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
 
                         <div class="mb-3">
                             <label class="form-label">Jenis Kelamin</label>
@@ -409,16 +413,15 @@
                             <input type="email" id="edit_email" name="email" class="form-control" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Kelas</label>
-                            <select id="edit_kelas" name="kelas" class="form-select" required>
+                        <select id="edit_kelas_id" name="kelas_id" class="form-select" required>
+                            <option value="">Pilih Kelas</option>
 
-                                <option value="8A">8A</option>
-                                <option value="8B">8B</option>
-                                <option value="8C">8C</option>
-
-                            </select>
-                        </div>
+                            @foreach ($kelasList as $kelas)
+                                <option value="{{ $kelas->id }}">
+                                    {{ $kelas->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
 
                         <div class="mb-3">
                             <label class="form-label">Jenis Kelamin</label>
@@ -437,7 +440,8 @@
                                 <small class="text-muted">(opsional)</small>
                             </label>
 
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" id="edit_password" name="password" class="form-control"
+                                autocomplete="new-password" value="">
 
                             <small class="text-muted">
                                 Kosongkan jika tidak ingin mengubah password.
@@ -494,9 +498,10 @@
 
                 document.getElementById('edit_nama').value = data.nama;
                 document.getElementById('edit_email').value = data.email;
-                document.getElementById('edit_kelas').value = data.kelas;
+                document.getElementById('edit_kelas_id').value = data.kelas_id;
                 document.getElementById('edit_nis').value = data.nis;
                 document.getElementById('edit_jk').value = data.jenis_kelamin;
+                document.getElementById('edit_password').value = '';
 
                 document.getElementById('formEditSiswa').action = `/guru/siswa/${id}`;
 

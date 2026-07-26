@@ -28,19 +28,12 @@
         }
 
         .rumus-box {
-            display: block;
-            width: fit-content;
-            max-width: 100%;
-            margin: 16px auto 22px;
-            padding: 10px 28px;
-
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #d8c8ff;
-
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
-            text-align: center;
-            overflow-x: auto;
+            border-radius: 12px;
         }
 
         .badge-contoh {

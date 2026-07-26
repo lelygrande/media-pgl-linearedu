@@ -1,6 +1,26 @@
 @extends('layout.halaman-materi')
 
 @section('content')
+    <style>
+        .peta-konsep-wrapper {
+            width: 100%;
+            height: calc(100vh - 230px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .peta-konsep-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -10,8 +30,9 @@
 
     <h1 class="mb-4" style="font-weight:600;">Peta Konsep</h1>
 
-    <div class="card shadow-sm border-0 rounded-4 p-3 text-center">
-        <img src="{{ asset('img/peta konsep.png') }}" alt="Peta Konsep Garis Lurus" class="img-fluid zoomable rounded-3">
+    <div class="card shadow-sm border-0 rounded-4 p-3 text-center peta-konsep-wrapper">
+        <img src="{{ asset('img/peta-konsep.png') }}" alt="Peta Konsep Garis Lurus"
+            class="img-fluid zoomable rounded-3 peta-konsep-img">
     </div>
 @endsection
 

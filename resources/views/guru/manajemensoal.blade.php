@@ -4,6 +4,12 @@
 
 @section('content')
 
+    {{-- KaTeX untuk menampilkan rumus pada daftar soal --}}
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css"
+        integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB"
+        crossorigin="anonymous">
+
     {{-- Style --}}
     <style>
         .option-help-box {
@@ -91,10 +97,15 @@
             </p>
         </div>
 
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap justify-content-end">
             <a href="{{ route('kuis.index') }}" class="btn btn-outline-secondary">
                 Kembali
             </a>
+
+            <a href="{{ route('penggunaan-katex') }}" class="btn btn-outline-primary fw-semibold">
+                Aturan Simbol Matematika
+            </a>
+
             <button class="btn fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahSoal"
                 style="background-color: var(--primary-color); color: #fff; border-radius: 8px;">
                 Tambah Soal
@@ -143,11 +154,11 @@
                         </div>
                     </div>
 
-                    <p class="mb-2">{{ $question->question_text }}</p>
+                    <p class="mb-2 math-content">{{ $question->question_text }}</p>
 
                     <div class="ps-2">
                         @foreach ($question->options as $option)
-                            <div class="mb-1">
+                            <div class="mb-1 math-content">
                                 <strong>{{ $option->option_label }}.</strong>
 
                                 @if ($option->option_image)
@@ -186,7 +197,12 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Pertanyaan</label>
-                            <textarea name="question_text" class="form-control" rows="3" required></textarea>
+                            <textarea name="question_text" class="form-control" rows="3" required
+                                placeholder="Contoh: Tentukan gradien dari $y = 2x + 3$"></textarea>
+                            <small class="field-help mb-0">
+                                Gunakan <code>$...$</code> untuk rumus dalam satu baris dan <code>$$...$$</code>
+                                untuk rumus pada baris terpisah. Lihat halaman aturan simbol untuk contoh lengkap.
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -215,7 +231,7 @@
 
                                         <label class="option-field-label">Teks jawaban</label>
                                         <input type="text" name="option_{{ $key }}" class="form-control"
-                                            placeholder="Contoh: garis lurus / 2x + y - 3 = 0">
+                                            placeholder="Contoh: $2x + y - 3 = 0$">
 
                                         <small class="field-help">
                                             Isi bagian ini jika pilihan jawaban berbentuk teks. Untuk opsi gambar saja,
@@ -268,6 +284,10 @@
                         <div class="mb-3">
                             <label class="form-label">Pertanyaan</label>
                             <textarea name="question_text" id="edit_question_text" class="form-control" rows="3" required></textarea>
+                            <small class="field-help mb-0">
+                                Gunakan <code>$...$</code> untuk rumus dalam satu baris dan <code>$$...$$</code>
+                                untuk rumus pada baris terpisah.
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -310,7 +330,7 @@
                                         <label class="option-field-label">Teks jawaban</label>
                                         <input type="text" name="option_{{ $key }}"
                                             id="edit_option_{{ $key }}" class="form-control"
-                                            placeholder="Contoh: garis lurus / 2x + y - 3 = 0">
+                                            placeholder="Contoh: $2x + y - 3 = 0$">
 
                                         <small class="field-help">
                                             Ubah teks jika opsi berupa tulisan. Untuk opsi gambar saja, boleh kosong atau
@@ -465,6 +485,52 @@
                     alert('Data soal gagal dimuat.');
                 }
             });
+        });
+    </script>
+
+
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.js"
+        integrity="sha384-AtrdNsnxl/75rvBneBVH7DtOvCxSVahR2zWqle1coBKd8DEmLoviqNeJSx64gNAs"
+        crossorigin="anonymous"></script>
+
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/contrib/auto-render.min.js"
+        integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz"
+        crossorigin="anonymous"></script>
+
+    {{-- Render rumus KaTeX pada daftar soal --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof renderMathInElement === 'function') {
+                document.querySelectorAll('.math-content').forEach(function(element) {
+                    renderMathInElement(element, {
+                        delimiters: [
+                            {
+                                left: '$$',
+                                right: '$$',
+                                display: true
+                            },
+                            {
+                                left: '$',
+                                right: '$',
+                                display: false
+                            },
+                            {
+                                left: '\\(',
+                                right: '\\)',
+                                display: false
+                            },
+                            {
+                                left: '\\[',
+                                right: '\\]',
+                                display: true
+                            }
+                        ],
+                        throwOnError: false
+                    });
+                });
+            }
         });
     </script>
 

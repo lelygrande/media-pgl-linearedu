@@ -696,12 +696,241 @@
             color: #dc3545;
             font-weight: 700;
         }
+
+        .plot-bebas-box {
+            margin-top: 0;
+        }
+
+        .canvas-plot-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        /* =============================== */
+        /* CARD SCROLL EKSPLORASI GARIS */
+        /* =============================== */
+
+        .eksplorasi-scroll-card {
+            background: #ffffff;
+            border: 1px solid #dbe5f1;
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+        }
+
+        .eksplorasi-scroll-grid {
+            display: grid;
+            grid-template-columns: 48% 52%;
+            gap: 18px;
+            height: 560px;
+            min-height: 440px;
+        }
+
+        .scroll-panel {
+            border: 1px solid #dbe5f1;
+            border-radius: 18px;
+            background: #fbfdff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .scroll-panel-header {
+            padding: 14px 16px;
+            font-weight: 700;
+            text-align: center;
+            color: #1f2937;
+            background: #f3f8ff;
+            border-bottom: 1px solid #dbe5f1;
+        }
+
+        .scroll-panel-body {
+            padding: 16px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex: 1;
+        }
+
+
+        /* =============================== */
+        /* PANEL GRAFIK */
+        /* =============================== */
+
+        .info-plot-bebas {
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            background: #eef6ff;
+            color: #1f2937;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            text-align: center;
+        }
+
+        .canvas-plot-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .canvas-plot-wrapper canvas {
+            max-width: 100%;
+            height: auto !important;
+            border: 1px solid #dbe5f1;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .plot-btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .btn-mini-garis {
+            border: none;
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #315f9c;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-mini-garis:hover {
+            opacity: 0.9;
+        }
+
+        .btn-mini-garis.reset {
+            background: #6c757d;
+        }
+
+        .status-plot-bebas {
+            margin-top: 12px;
+            font-size: 14px;
+            text-align: center;
+            color: #4b5563;
+        }
+
+        .status-plot-bebas.benar {
+            color: #198754;
+            font-weight: 700;
+        }
+
+        .status-plot-bebas.salah {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+
+        /* =============================== */
+        /* PANEL SOAL */
+        /* =============================== */
+
+        .soal-garis-item {
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px dashed #d6e0ee;
+        }
+
+        .soal-garis-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .opsi-garis-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .opsi-garis-row label {
+            width: 100%;
+            min-width: 0;
+            margin: 0;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #f8fbff;
+            border: 1px solid #cfe0f5;
+            box-sizing: border-box;
+            font-size: 0.96rem;
+            line-height: 1.45;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .opsi-garis-row input {
+            flex-shrink: 0;
+        }
+
+        .status-garis {
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
+        .feedback-garis {
+            margin-top: 14px;
+        }
+
+
+        /* =============================== */
+        /* SCROLLBAR BIAR RAPI */
+        /* =============================== */
+
+        .scroll-panel-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scroll-panel-body::-webkit-scrollbar-track {
+            background: #eef3f9;
+            border-radius: 999px;
+        }
+
+        .scroll-panel-body::-webkit-scrollbar-thumb {
+            background: #b9c8dc;
+            border-radius: 999px;
+        }
+
+        .scroll-panel-body::-webkit-scrollbar-thumb:hover {
+            background: #8fa4bf;
+        }
+
+
+        /* =============================== */
+        /* RESPONSIVE */
+        /* =============================== */
+
+        @media (max-width: 992px) {
+            .eksplorasi-scroll-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .scroll-panel {
+                max-height: 520px;
+            }
+
+            .opsi-garis-row {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
     <div class="container mt-4 apersepsi-container">
         <div class="card shadow-sm mb-4 apersepsi-card">
             <div class="card-body">
-                <h1 class="mb-3" style="font-weight: 600;">Apersepsi</h1>
+                <h1 class="mb-3" style="font-weight: 600;">Pendahuluan</h1>
 
                 <p style="text-align: justify;">
                     Sebelum memahami pengertian Persamaan Garis Lurus, ada baiknya kamu
@@ -762,7 +991,7 @@
                         alt="Contoh titik pada bidang koordinat Kartesius" class="materi-img zoomable"
                         style="max-width: 300px">
                     <p class="mt-2 mb-0 text-center">
-                        <small><strong>Gambar 3.2</strong> Contoh titik pada bidang koordinat Kartesius</small>
+                        <small><strong>Gambar 1.2</strong> Contoh titik pada bidang koordinat Kartesius</small>
                     </p>
                 </div>
 
@@ -828,7 +1057,7 @@
                         <li>Klik posisi titik pada perpotongan garis koordinat yang sesuai.</li>
                         <li>Jika titik yang kamu klik benar, titik akan muncul pada bidang koordinat dan kamu akan lanjut ke
                             titik berikutnya.</li>
-                        <li>Jika titik yang kamu klik salah, akan muncul tanda silang, lalu baca petunjuk dan coba klik
+                        <li>Jika titik yang kamu klik salah, akan muncul tanda silang(X), lalu baca petunjuk dan coba klik
                             kembali.</li>
                     </ol>
 
@@ -884,7 +1113,7 @@
                 </div>
 
                 <p class="mt-2 mb-0 text-center">
-                    <small><strong>Gambar 3.3</strong> Titik-titik pada bidang koordinat yang membentuk garis lurus</small>
+                    <small><strong>Gambar 1.3</strong> Titik-titik pada bidang koordinat yang membentuk garis lurus</small>
                 </p>
             </div>
         </div>
@@ -900,122 +1129,147 @@
 
                 <div class="petunjuk-garis-box">
                     <strong>Petunjuk eksplorasi:</strong><br>
-                    Gunakan alat bantu bidang koordinat berikut untuk membuat tiga titik secara mandiri.
-                    Klik tiga posisi titik pada bidang Kartesius, lalu klik tombol <strong>Lihat Garis</strong>.
-                    Amati apakah ketiga titik tersebut berada pada satu garis yang sama atau tidak.
-                    Setelah memahami bentuk titik-titik yang membentuk garis lurus, kerjakan soal berikut
-                    dengan memilih jawaban yang sesuai.
+                    Perhatikan titik-titik pada setiap soal di kotak sebelah kanan. Gunakan bidang koordinat di kotak kiri sebagai alat bantu
+                    untuk menggambar tiga titik sesuai soal koordinat yang diberikan. Setelah tiga titik digambar,
+                    klik tombol <strong>Lihat Garis</strong>, lalu tentukan apakah ketiga titik tersebut
+                    membentuk garis lurus atau tidak. Klik <strong>Reset Grafik</strong> sebelum mencoba soal berikutnya.
                 </div>
 
-                <div class="plot-bebas-box mt-3 mb-4">
-                    <div class="plot-bebas-title">
-                        Aktivitas Membuat Garis Lurus
+                <div class="eksplorasi-scroll-card mt-3">
+
+                    <div class="eksplorasi-scroll-grid">
+
+                        {{-- KOLOM KIRI: ALAT BANTU GRAFIK --}}
+                        <div class="scroll-panel scroll-panel-grafik">
+                            <div class="scroll-panel-header">
+                                Alat Bantu Menggambar Titik
+                            </div>
+
+                            <div class="scroll-panel-body">
+
+                                <div id="infoPlotBebas" class="info-plot-bebas">
+                                    Klik titik ke-1 pada bidang koordinat Kartesius. Kamu sudah membuat 0 dari 3 titik.
+                                </div>
+
+                                <div id="canvas-plot-bebas" class="canvas-plot-wrapper"></div>
+
+                                <div class="plot-btn-row">
+                                    <button type="button" class="btn-mini-garis" onclick="lihatGarisPlotBebas()">
+                                        Lihat Garis
+                                    </button>
+
+                                    <button type="button" class="btn-mini-garis reset" onclick="resetPlotBebas()">
+                                        Reset Grafik
+                                    </button>
+                                </div>
+
+                                <div id="statusPlotBebas" class="status-plot-bebas"></div>
+
+                            </div>
+                        </div>
+
+                        {{-- KOLOM KANAN: SOAL --}}
+                        <div class="scroll-panel scroll-panel-soal">
+                            <div class="scroll-panel-header">
+                                Soal Eksplorasi
+                            </div>
+
+                            <div class="scroll-panel-body">
+                                <div class="instruksi-soal-garis">
+                                    Tentukan apakah tiga titik berikut membentuk garis lurus atau tidak.
+                                </div>
+
+                                <div class="soal-garis-item" id="itemGaris1">
+                                    <div class="soal-garis-title">
+                                        1. $A(0,0)$, $B(1,1)$, $C(2,2)$
+                                    </div>
+
+                                    <div class="opsi-garis-row">
+                                        <label>
+                                            <input type="radio" name="garis1" value="ya">
+                                            Membentuk garis lurus
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="garis1" value="tidak">
+                                            Tidak membentuk garis lurus
+                                        </label>
+                                    </div>
+
+                                    <div id="statusGaris1" class="status-garis"></div>
+                                </div>
+
+                                <div class="soal-garis-item" id="itemGaris2">
+                                    <div class="soal-garis-title">
+                                        2. $D(2,-2)$, $E(1,-1)$, $F(0,0)$
+                                    </div>
+
+                                    <div class="opsi-garis-row">
+                                        <label>
+                                            <input type="radio" name="garis2" value="ya">
+                                            Membentuk garis lurus
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="garis2" value="tidak">
+                                            Tidak membentuk garis lurus
+                                        </label>
+                                    </div>
+
+                                    <div id="statusGaris2" class="status-garis"></div>
+                                </div>
+
+                                <div class="soal-garis-item" id="itemGaris3">
+                                    <div class="soal-garis-title">
+                                        3. $G(-2,1)$, $H(1,0)$, $I(4,3)$
+                                    </div>
+
+                                    <div class="opsi-garis-row">
+                                        <label>
+                                            <input type="radio" name="garis3" value="ya">
+                                            Membentuk garis lurus
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="garis3" value="tidak">
+                                            Tidak membentuk garis lurus
+                                        </label>
+                                    </div>
+
+                                    <div id="statusGaris3" class="status-garis"></div>
+                                </div>
+
+                                <div class="soal-garis-item" id="itemGaris4">
+                                    <div class="soal-garis-title">
+                                        4. $J(2,-2)$, $K(3,0)$, $L(1,1)$
+                                    </div>
+
+                                    <div class="opsi-garis-row">
+                                        <label>
+                                            <input type="radio" name="garis4" value="ya">
+                                            Membentuk garis lurus
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="garis4" value="tidak">
+                                            Tidak membentuk garis lurus
+                                        </label>
+                                    </div>
+
+                                    <div id="statusGaris4" class="status-garis"></div>
+                                </div>
+
+                                <button class="btn-palet btn mt-2" onclick="cekGarisLurus()">
+                                    Cek Jawaban
+                                </button>
+
+                                <div id="feedbackGarisLurus" class="feedback-garis"></div>
+
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div id="infoPlotBebas" class="info-plot-bebas">
-                        Klik 3 titik pada bidang koordinat Kartesius.
-                    </div>
-
-                    <div id="canvas-plot-bebas" class="canvas-plot-wrapper"></div>
-
-                    <div class="plot-btn-row">
-                        <button type="button" class="btn-mini-garis" onclick="lihatGarisPlotBebas()">
-                            Lihat Garis
-                        </button>
-
-                        <button type="button" class="btn-mini-garis reset" onclick="resetPlotBebas()">
-                            Reset
-                        </button>
-                    </div>
-
-                    <div id="statusPlotBebas" class="status-plot-bebas"></div>
                 </div>
-
-                <div class="soal-garis-item" id="itemGaris1">
-                    <div class="soal-garis-title">
-                        1. $A(0,0)$, $B(1,1)$, $C(2,2)$
-                    </div>
-
-                    <div class="opsi-garis-row">
-                        <label>
-                            <input type="radio" name="garis1" value="ya">
-                            Membentuk garis lurus
-                        </label>
-
-                        <label>
-                            <input type="radio" name="garis1" value="tidak">
-                            Tidak membentuk garis lurus
-                        </label>
-                    </div>
-
-                    <div id="statusGaris1" class="status-garis"></div>
-                </div>
-
-                <div class="soal-garis-item" id="itemGaris2">
-                    <div class="soal-garis-title">
-                        2. $D(2,-2)$, $E(1,-1)$, $F(0,0)$
-                    </div>
-
-                    <div class="opsi-garis-row">
-                        <label>
-                            <input type="radio" name="garis2" value="ya">
-                            Membentuk garis lurus
-                        </label>
-
-                        <label>
-                            <input type="radio" name="garis2" value="tidak">
-                            Tidak membentuk garis lurus
-                        </label>
-                    </div>
-
-                    <div id="statusGaris2" class="status-garis"></div>
-                </div>
-
-                <div class="soal-garis-item" id="itemGaris3">
-                    <div class="soal-garis-title">
-                        3. $G(-2,1)$, $H(1,0)$, $I(4,3)$
-                    </div>
-
-                    <div class="opsi-garis-row">
-                        <label>
-                            <input type="radio" name="garis3" value="ya">
-                            Membentuk garis lurus
-                        </label>
-
-                        <label>
-                            <input type="radio" name="garis3" value="tidak">
-                            Tidak membentuk garis lurus
-                        </label>
-                    </div>
-
-                    <div id="statusGaris3" class="status-garis"></div>
-                </div>
-
-                <div class="soal-garis-item" id="itemGaris4">
-                    <div class="soal-garis-title">
-                        4. $J(2,-2)$, $K(3,0)$, $L(1,1)$
-                    </div>
-
-                    <div class="opsi-garis-row">
-                        <label>
-                            <input type="radio" name="garis4" value="ya">
-                            Membentuk garis lurus
-                        </label>
-
-                        <label>
-                            <input type="radio" name="garis4" value="tidak">
-                            Tidak membentuk garis lurus
-                        </label>
-                    </div>
-
-                    <div id="statusGaris4" class="status-garis"></div>
-                </div>
-
-                <button class="btn-palet btn mt-3" onclick="cekGarisLurus()">
-                    Cek Jawaban
-                </button>
-
-                <div id="feedbackGarisLurus" class="feedback-garis"></div>
 
                 <div id="penyelesaianGarisLurus" class="penyelesaian-garis-box">
                     <p class="mb-3">
@@ -1156,8 +1410,12 @@
             if (!infoBox) return;
 
             if (indeksLetakTitik >= targetLetakTitik.length) {
-                infoBox.innerHTML =
-                    `Bagus, kamu sudah bisa menempatkan titik pada bidang koordinat Kartesius dengan baik.`;
+                infoBox.innerHTML = `
+            <div class="alert alert-success mb-0">
+                <strong>Bagus!</strong><br>
+                Kamu sudah bisa menempatkan titik pada bidang koordinat Kartesius dengan baik.
+            </div>
+        `;
                 return;
             }
 
@@ -1167,6 +1425,7 @@
                 `Klik posisi titik <b>${titik.nama}(${titik.x},${titik.y})</b> pada bidang koordinat. ` +
                 petunjukArahTitik(titik);
         }
+
         const sketchLetakTitik = (p) => {
             const canvasW = 360;
             const canvasH = 340;
@@ -1359,7 +1618,7 @@
                 }
             } else {
                 infoBox.innerHTML =
-                    `Kamu sudah membuat 3 titik. Klik <b>Lihat Garis</b> untuk melihat apakah ketiga titik membentuk garis lurus.`;
+                    `Kamu sudah membuat 3 titik. Klik tombol <b>Lihat Garis</b> untuk melihat apakah ketiga titik membentuk garis lurus.`;
             }
         }
         const sketchPlotBebas = (p) => {

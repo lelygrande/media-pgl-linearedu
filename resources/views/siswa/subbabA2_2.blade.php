@@ -61,35 +61,59 @@
             border: 1px solid #dbe5f1;
         }
 
-        /* Contoh Penyelesaian */
+        /* Contoh Penyelesaian Bertahap */
         .penyelesaian-sejajar {
-            margin-top: 20px;
+            margin-top: 18px;
             padding: 4px 0 8px;
         }
 
         .baris-penyelesaian {
             display: grid;
-            grid-template-columns: 255px 1fr;
+            grid-template-columns: 280px 1fr;
             column-gap: 18px;
-            align-items: center;
-            margin-bottom: 20px;
+            align-items: start;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(123, 97, 199, 0.14);
         }
 
         .rumus-kiri {
             font-size: 18px;
             font-weight: 700;
             text-align: left;
-            padding-left: 35px;
-            line-height: 1.5;
+            line-height: 1.8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            /* ini yang memperbaiki overflow aneh */
+            overflow: visible !important;
+            min-width: 0;
+            padding: 6px 0;
         }
 
         .rumus-dua-baris {
             line-height: 1.9;
         }
 
-        /* kecilkan KaTeX khusus di rumus kiri */
         .rumus-kiri .katex {
             font-size: 1.05em !important;
+        }
+
+        .step-badge {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            background: #6f42c1;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
         }
 
         .catatan-kanan {
@@ -97,20 +121,18 @@
             line-height: 1.7;
             color: #555b6e;
             text-align: justify;
-            max-width: 620px;
         }
 
-        /* kecilkan KaTeX di penjelasan */
         .catatan-kanan .katex {
             font-size: 1em !important;
         }
 
         .btn-step-text {
-            margin-top: 6px;
+            margin-top: 8px;
             border: none;
             background: transparent;
             color: #6f4ed8;
-            font-weight: 700;
+            font-weight: 800;
             padding: 0;
             cursor: pointer;
             font-size: 14px;
@@ -121,7 +143,7 @@
         }
 
         .kesimpulan-sejajar {
-            margin-top: 8px;
+            margin-top: 10px;
             padding: 10px 12px;
             border-left: 4px solid #7b56d9;
             background: #f7f3ff;
@@ -137,18 +159,16 @@
         @media (max-width: 768px) {
             .baris-penyelesaian {
                 grid-template-columns: 1fr;
-                row-gap: 6px;
-                margin-bottom: 18px;
+                row-gap: 8px;
+                margin-bottom: 16px;
             }
 
             .rumus-kiri {
-                padding-left: 0;
                 font-size: 17px;
             }
 
             .catatan-kanan {
                 font-size: 14px;
-                max-width: 100%;
             }
         }
 
@@ -208,28 +228,6 @@
             border: 1px solid rgba(0, 0, 0, .2);
             border-radius: 8px;
             font-size: 15px;
-        }
-
-        .feedback-box {
-            border-radius: 10px;
-            padding: 10px 12px;
-            margin-top: 10px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .feedback-ok {
-            display: block;
-            background: #e8fff0;
-            border: 1px solid #2fb344;
-            color: #1b7a31;
-        }
-
-        .feedback-bad {
-            display: block;
-            background: #ffe8e8;
-            border: 1px solid #e03131;
-            color: #b42318;
         }
 
         .geogebra-wrap {
@@ -553,8 +551,8 @@
         }
 
         /* =========================================
-                                                                                                                                                                                                                                        GEOGEBRA RESPONSIVE
-                                                                                                                                                                                                                ========================================= */
+                                                                                                                                                                                                                                                                                                                        GEOGEBRA RESPONSIVE
+                                                                                                                                                                                                                                                                                                ========================================= */
         #ggb-22 {
             width: 100%;
             max-width: 720px;
@@ -654,24 +652,36 @@
     <div class="box-contoh mb-4">
         <span class="title-box">Contoh</span>
 
-        <p class="mt-2 mb-2">Gambarlah grafik persamaan garis lurus:</p>
-        <p class="text-center mb-3" style="font-weight:700;">
-            $y = -2x + 6$
+        <p class="mt-2 mb-2" style="line-height:1.8; text-align:justify;">
+            Gambarlah grafik persamaan garis lurus berikut.
         </p>
 
-        <!-- ======================= -->
-        <!-- A. Titik potong sumbu X -->
-        <!-- ======================= -->
+        <p class="text-center mb-3" style="font-weight:700;">
+            \(y = -2x + 6\)
+        </p>
 
-        <h6 class="fw-bold mb-2">a. Menentukan titik potong dengan sumbu x</h6>
-        <p class="mb-3">Titik potong sumbu $x$ terjadi saat <b>$y = 0$</b>.</p>
+        <div class="petunjuk-mini-latihan mb-3">
+            <b>Petunjuk:</b> Klik tulisan <b>“Tampilkan langkah berikutnya”</b> untuk melihat proses menentukan
+            titik potong sumbu \(x\) dan titik potong sumbu \(y\) secara bertahap.
+        </div>
+
+        {{-- ======================= --}}
+        {{-- A. Titik potong sumbu X --}}
+        {{-- ======================= --}}
+
+        <h6 class="fw-bold mb-2">a. Menentukan titik potong dengan sumbu \(x\)</h6>
+
+        <p class="mb-3" style="line-height:1.8; text-align:justify;">
+            Titik potong sumbu \(x\) terjadi saat nilai <b>\(y = 0\)</b>.
+        </p>
 
         <div class="penyelesaian-sejajar">
 
-            <!-- STEP 1 -->
+            {{-- STEP 1 --}}
             <div class="baris-penyelesaian">
                 <div class="rumus-kiri">
-                    $y = -2x + 6$
+                    <span class="step-badge">1</span>
+                    \(y = -2x + 6\)
                 </div>
 
                 <div class="catatan-kanan">
@@ -684,14 +694,16 @@
                 </div>
             </div>
 
-            <!-- STEP 2 -->
+            {{-- STEP 2 --}}
             <div id="Ax2" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri">
-                    $0 = -2x + 6$
+                    <span class="step-badge">2</span>
+                    \(0 = -2x + 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Substitusikan $y = 0$, karena titik potong sumbu $x$ terjadi saat nilai $y = 0$.
+                    Karena titik potong sumbu \(x\) terjadi saat \(y = 0\), maka nilai \(y\)
+                    pada persamaan diganti dengan \(0\).
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStep('Ax3', this)">
@@ -700,14 +712,15 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
+            {{-- STEP 3 --}}
             <div id="Ax3" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri">
-                    $2x = 6$
+                    <span class="step-badge">3</span>
+                    \(0 - 6 = -2x + 6 - 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Pindahkan $-2x$ ke ruas kiri, sehingga tandanya berubah menjadi $+2x$.
+                    Kurangi kedua ruas dengan \(6\), agar suku \(-2x\) berada sendiri di ruas kanan.
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStep('Ax4', this)">
@@ -716,16 +729,52 @@
                 </div>
             </div>
 
-            <!-- STEP 4 -->
+            {{-- STEP 4 --}}
             <div id="Ax4" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri rumus-dua-baris">
-                    $x = 3$ <br>
-                    $\Rightarrow (3,0)$
+                <div class="rumus-kiri">
+                    <span class="step-badge">4</span>
+                    \(-6 = -2x\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Bagi kedua ruas dengan $2$, sehingga diperoleh $x = 3$.
-                    Jadi titik potong sumbu $x$ adalah <b>$(3,0)$</b>.
+                    Hasil dari \(0 - 6\) adalah \(-6\), sedangkan \(6 - 6 = 0\).
+                    Jadi diperoleh \(-6 = -2x\).
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStep('Ax5', this)">
+                        Tampilkan langkah berikutnya ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 5 --}}
+            <div id="Ax5" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri">
+                    <span class="step-badge">5</span>
+                    \(\dfrac{-6}{-2} = \dfrac{-2x}{-2}\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Bagi kedua ruas dengan \(-2\), karena koefisien dari \(x\) adalah \(-2\).
+
+                    <br>
+                    <button class="btn-step-text" type="button" onclick="openStep('Ax6', this)">
+                        Tampilkan hasil titik potong ↓
+                    </button>
+                </div>
+            </div>
+
+            {{-- STEP 6 --}}
+            <div id="Ax6" class="baris-penyelesaian" style="display:none;">
+                <div class="rumus-kiri rumus-dua-baris hasil-akhir">
+                    <span class="step-badge">6</span>
+                    \(x = 3\) <br>
+                    \(\Rightarrow A(3,0)\)
+                </div>
+
+                <div class="catatan-kanan">
+                    Diperoleh \(x = 3\). Karena titik potong sumbu \(x\) memiliki \(y = 0\),
+                    maka titik potong sumbu \(x\) adalah <b>\(A(3,0)\)</b>.
                 </div>
             </div>
 
@@ -733,19 +782,23 @@
 
         <hr class="my-4">
 
-        <!-- ======================= -->
-        <!-- B. Titik potong sumbu Y -->
-        <!-- ======================= -->
+        {{-- ======================= --}}
+        {{-- B. Titik potong sumbu Y --}}
+        {{-- ======================= --}}
 
-        <h6 class="fw-bold mb-2">b. Menentukan titik potong dengan sumbu y</h6>
-        <p class="mb-3">Titik potong sumbu $y$ terjadi saat <b>$x = 0$</b>.</p>
+        <h6 class="fw-bold mb-2">b. Menentukan titik potong dengan sumbu \(y\)</h6>
+
+        <p class="mb-3" style="line-height:1.8; text-align:justify;">
+            Titik potong sumbu \(y\) terjadi saat nilai <b>\(x = 0\)</b>.
+        </p>
 
         <div class="penyelesaian-sejajar">
 
-            <!-- STEP 1 -->
+            {{-- STEP 1 --}}
             <div class="baris-penyelesaian">
                 <div class="rumus-kiri">
-                    $y = -2x + 6$
+                    <span class="step-badge">1</span>
+                    \(y = -2x + 6\)
                 </div>
 
                 <div class="catatan-kanan">
@@ -758,14 +811,16 @@
                 </div>
             </div>
 
-            <!-- STEP 2 -->
+            {{-- STEP 2 --}}
             <div id="By2" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri">
-                    $y = -2(0) + 6$
+                    <span class="step-badge">2</span>
+                    \(y = -2(0) + 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Substitusikan $x = 0$, karena titik potong sumbu $y$ terjadi saat nilai $x = 0$.
+                    Karena titik potong sumbu \(y\) terjadi saat \(x = 0\), maka nilai \(x\)
+                    pada persamaan diganti dengan \(0\).
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStep('By3', this)">
@@ -774,31 +829,35 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
+            {{-- STEP 3 --}}
             <div id="By3" class="baris-penyelesaian" style="display:none;">
                 <div class="rumus-kiri">
-                    $y = 0 + 6$
+                    <span class="step-badge">3</span>
+                    \(y = 0 + 6\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Hitung $-2(0) = 0$, sehingga persamaan menjadi $y = 0 + 6$.
+                    Hitung \(-2(0)\). Karena bilangan apa pun dikali \(0\) hasilnya \(0\),
+                    maka diperoleh \(y = 0 + 6\).
 
                     <br>
                     <button class="btn-step-text" type="button" onclick="openStep('By4', this)">
-                        Tampilkan langkah berikutnya ↓
+                        Tampilkan hasil titik potong ↓
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 4 -->
+            {{-- STEP 4 --}}
             <div id="By4" class="baris-penyelesaian" style="display:none;">
-                <div class="rumus-kiri rumus-dua-baris">
-                    $y = 6$ <br>
-                    $\Rightarrow (0,6)$
+                <div class="rumus-kiri rumus-dua-baris hasil-akhir">
+                    <span class="step-badge">4</span>
+                    \(y = 6\) <br>
+                    \(\Rightarrow B(0,6)\)
                 </div>
 
                 <div class="catatan-kanan">
-                    Jadi titik potong sumbu $y$ adalah <b>$(0,6)$</b>.
+                    Diperoleh \(y = 6\). Karena titik potong sumbu \(y\) memiliki \(x = 0\),
+                    maka titik potong sumbu \(y\) adalah <b>\(B(0,6)\)</b>.
                 </div>
             </div>
 
@@ -806,44 +865,45 @@
 
         <hr class="my-4">
 
-        <p class="mb-2">
-            Dua titik potong tersebut dapat dituliskan dalam tabel pasangan nilai $(x,y)$ berikut:
+        <p class="mb-2" style="line-height:1.8; text-align:justify;">
+            Dua titik potong tersebut dapat dituliskan dalam tabel pasangan nilai \((x,y)\) berikut.
         </p>
 
-        <div class="table-responsive" style="max-width:450px;">
+        <div class="table-responsive mx-auto" style="max-width:450px;">
             <table class="tabel-garis">
                 <thead>
                     <tr>
-                        <th>$x$</th>
-                        <th>$y$</th>
-                        <th>$(x,y)$</th>
+                        <th>\(x\)</th>
+                        <th>\(y\)</th>
+                        <th>\((x,y)\)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>$3$</td>
-                        <td>$0$</td>
-                        <td>$(3,0)$</td>
+                        <td>\(3\)</td>
+                        <td>\(0\)</td>
+                        <td>\((3,0)\)</td>
                     </tr>
                     <tr>
-                        <td>$0$</td>
-                        <td>$6$</td>
-                        <td>$(0,6)$</td>
+                        <td>\(0\)</td>
+                        <td>\(6\)</td>
+                        <td>\((0,6)\)</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <p class="mt-3 mb-2">
-            Selanjutnya, gambarkan titik <b>$(3,0)$</b> dan <b>$(0,6)$</b> pada bidang koordinat Kartesius,
-            lalu hubungkan kedua titik tersebut sehingga terbentuk grafik persamaan garis lurus $y = -2x + 6$.
+        <p class="mt-3 mb-2" style="line-height:1.8; text-align:justify;">
+            Selanjutnya, gambarkan titik <b>\((3,0)\)</b> dan <b>\((0,6)\)</b> pada bidang koordinat Kartesius,
+            lalu hubungkan kedua titik tersebut sehingga terbentuk grafik persamaan garis lurus
+            \(y = -2x + 6\).
         </p>
 
         <div class="box-info mb-3" style="background:#fff;">
             <div class="petunjuk-mini-latihan">
                 <strong>Petunjuk:</strong>
-                Tempatkan titik potong sumbu $x$, yaitu $A(3,0)$, dan titik potong sumbu $y$,
-                yaitu $B(0,6)$, pada bidang koordinat Kartesius. Setelah kedua titik tepat,
+                Klik titik potong sumbu \(x\), yaitu <b>A(3,0)</b>, dan titik potong sumbu \(y\),
+                yaitu <b>B(0,6)</b>, pada bidang koordinat Kartesius. Setelah kedua titik tepat,
                 klik tombol <strong>Hubungkan Titik</strong> untuk membentuk grafik garis lurus.
             </div>
 
@@ -889,10 +949,19 @@
             <div class="latihan-step" id="latihanStep1">
                 <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk \(y = mx + c\)</h5>
 
-                <p class="mb-3">
-                    Diketahui persamaan garis:
-                    <b>$y = 2x + 4$</b>
+                <p class="mb-2">
+                    Diketahui persamaan garis <b>\(y=2x+4\)</b>.
+                    Tentukan titik potong garis dengan sumbu \(x\) dan sumbu \(y\),
+                    kemudian gambarkan grafiknya pada bidang koordinat.
                 </p>
+
+                <div class="petunjuk-mini-latihan">
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi seluruh kotak jawaban, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
+                    Jika semua jawaban benar, bidang koordinat akan muncul.
+                </div>
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
@@ -964,20 +1033,13 @@
                         </div>
 
                         <div class="petunjuk-mini-latihan">
-                            <b>Petunjuk</b>
-                            <ol class="mb-2 ps-3">
-                                <li>Klik titik potong sumbu-$x$.</li>
-                                <li>Klik titik potong sumbu-$y$.</li>
-                                <li>Setelah dua titik dipilih, garis akan terbentuk.</li>
-                                <li>Sistem akan memeriksa apakah garis sudah benar.</li>
-                            </ol>
+                            <strong>Petunjuk Pengerjaan:</strong>
+                            Klik titik \((-2,0)\) dan \((0,4)\) pada bidang koordinat.
+                            Jika titik yang dipilih salah, kedua titik akan direset secara otomatis.
+                            Jika kedua titik benar, garis akan terbentuk.
 
-                            <b>Koordinat yang harus diklik:</b><br>
-                            Titik potong sumbu \(x\): <b>(-2, 0)</b><br>
-                            Titik potong sumbu \(y\): <b>(0, 4)</b>
-
-                            <div id="statusPlotLatihan1A22" class="status-plot-mini">
-                                Klik titik <b>(-2, 0)</b> dan <b>(0, 4)</b> pada bidang koordinat.
+                            <div id="statusPlotLatihan1A22" class="alert alert-info py-2 px-3 mt-2 mb-0">
+                                Klik titik \((-2,0)\) dan \((0,4)\).
                             </div>
                         </div>
                     </div>
@@ -999,10 +1061,19 @@
 
                 <h5 class="mt-3 fw-bold">Menggambar grafik dari bentuk $Ax + By + C = 0$</h5>
 
-                <p class="mb-3">
-                    Diketahui persamaan garis:
-                    <b>$3x + 4y - 24 = 0$</b>
+                <p class="mb-2">
+                    Diketahui persamaan garis <b>\(3x+4y-24=0\)</b>.
+                    Tentukan titik potong garis dengan sumbu \(x\) dan sumbu \(y\),
+                    kemudian gambarkan grafiknya pada bidang koordinat.
                 </p>
+
+                <div class="petunjuk-mini-latihan">
+                    <strong>Petunjuk Pengerjaan:</strong>
+                    Isi seluruh kotak jawaban, lalu klik tombol
+                    <strong>Cek Jawaban</strong>.
+                    Kotak hijau menunjukkan jawaban benar dan kotak merah menunjukkan jawaban salah.
+                    Jika semua jawaban benar, bidang koordinat akan muncul.
+                </div>
 
                 <div class="box-info mb-3">
                     <h6 class="fw-bold">A. Titik potong dengan sumbu x</h6>
@@ -1078,20 +1149,13 @@
                         </div>
 
                         <div class="petunjuk-mini-latihan">
-                            <b>Petunjuk</b>
-                            <ol class="mb-2 ps-3">
-                                <li>Klik titik potong sumbu-$x$.</li>
-                                <li>Klik titik potong sumbu-$y$.</li>
-                                <li>Setelah dua titik dipilih, garis akan terbentuk.</li>
-                                <li>Sistem akan memeriksa apakah garis sudah benar.</li>
-                            </ol>
+                            <strong>Petunjuk Pengerjaan:</strong>
+                            Klik titik \((8,0)\) dan \((0,6)\) pada bidang koordinat.
+                            Jika titik yang dipilih salah, kedua titik akan direset secara otomatis.
+                            Jika kedua titik benar, garis akan terbentuk.
 
-                            <b>Koordinat yang harus diklik:</b><br>
-                            Titik potong sumbu \(x\): <b>(8, 0)</b><br>
-                            Titik potong sumbu \(y\): <b>(0, 6)</b>
-
-                            <div id="statusPlotLatihan2A22" class="status-plot-mini">
-                                Klik titik <b>(8, 0)</b> dan <b>(0, 6)</b> pada bidang koordinat.
+                            <div id="statusPlotLatihan2A22" class="alert alert-info py-2 px-3 mt-2 mb-0">
+                                Klik titik \((8,0)\) dan \((0,6)\).
                             </div>
                         </div>
                     </div>
@@ -1537,24 +1601,37 @@
             return cocok;
         }
 
-        function setFeedback(id, ok, pesan) {
-            const el = document.getElementById(id);
-            if (!el) return;
+        function setFeedback(id, benar, pesan) {
+            const element = document.getElementById(id);
+            if (!element) return;
 
-            el.innerHTML = pesan;
-            el.className = ok ?
-                "feedback-box feedback-ok mt-3" :
-                "feedback-box feedback-bad mt-3";
-            el.style.display = "block";
+            element.className = "mt-3";
+            element.style.display = "block";
+
+            element.innerHTML = `
+        <div
+            class="alert ${
+                benar ? "alert-success" : "alert-danger"
+            } d-table text-start py-2 px-3 mb-0"
+            role="alert"
+        >
+            <strong>
+                ${benar ? "Benar." : "Belum tepat."}
+            </strong>
+            ${pesan}
+        </div>
+    `;
+
+            renderMathSafe(element);
         }
 
         function resetFeedback(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
+            const element = document.getElementById(id);
+            if (!element) return;
 
-            el.innerHTML = "";
-            el.className = "mt-3";
-            el.style.display = "none";
+            element.innerHTML = "";
+            element.className = "mt-3";
+            element.style.display = "none";
         }
 
         function scrollKeStep(stepId) {
@@ -1602,12 +1679,16 @@
             }
         }
         // Set Status Plot
-        function setStatusPlotLatihan(id, pesan) {
-            const el = document.getElementById(id);
-            if (!el) return;
+        function setStatusPlotLatihan(id, pesan, tipe = "info") {
+            const element = document.getElementById(id);
+            if (!element) return;
 
-            el.innerHTML = pesan;
-            renderMathSafe(el);
+            element.className =
+                `alert alert-${tipe} py-2 px-3 mt-2 mb-0`;
+
+            element.innerHTML = pesan;
+
+            renderMathSafe(element);
         }
 
         // Simpan Jawaban Latihan
@@ -1743,9 +1824,14 @@
                 setFeedback(
                     "feedbackLatihan1A22",
                     true,
-                    "Benar! Sekarang klik titik <b>(-2,0)</b> dan <b>(0,4)</b> pada bidang koordinat untuk membentuk garis.",
+                    "Semua jawaban sudah tepat. Silakan lanjut membuat grafik."
                 );
-
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1_ISIAN`,
+                    "input",
+                    ambilJawabanLatihan1A22(),
+                    true
+                );
                 tampilkanCanvasLatihan1();
             } else {
                 latihan1BenarA22 = false;
@@ -1753,7 +1839,7 @@
                 setFeedback(
                     "feedbackLatihan1A22",
                     false,
-                    "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
+                    "Periksa kembali kotak jawaban yang berwarna merah."
                 );
 
                 resetCanvasLatihan1();
@@ -1791,7 +1877,7 @@
             resetStepSetelah(2);
         }
 
-        function tampilkanCanvasLatihan1() {
+        function tampilkanCanvasLatihan1(autoScroll = true) {
             const wrap = document.getElementById("canvas-latihan1-wrap");
             if (wrap) wrap.style.display = "block";
 
@@ -1803,11 +1889,16 @@
             const holder = document.getElementById("canvas-latihan1");
             if (holder) holder.innerHTML = "";
 
-            sketchLatihan1Instance = new p5(sketchLatihan1, "canvas-latihan1");
+            sketchLatihan1Instance = new p5(
+                sketchLatihan1,
+                "canvas-latihan1"
+            );
 
-            setTimeout(() => {
-                scrollKeStep("canvas-latihan1-wrap");
-            }, 100);
+            if (autoScroll) {
+                setTimeout(() => {
+                    scrollKeStep("feedbackLatihan1A22");
+                }, 100);
+            }
         }
 
         function resetCanvasLatihan1() {
@@ -1846,7 +1937,7 @@
                 setFeedback(
                     "feedbackLatihan2A22",
                     true,
-                    "Benar! Sekarang klik titik <b>(8,0)</b> dan <b>(0,6)</b> pada bidang koordinat.",
+                    "Semua jawaban sudah tepat. Silakan lanjut membuat grafik."
                 );
 
                 await simpanProgressLatihan(
@@ -1863,7 +1954,7 @@
                 setFeedback(
                     "feedbackLatihan2A22",
                     false,
-                    "Masih ada jawaban yang belum tepat. Coba periksa lagi titik potong dengan sumbu x dan sumbu y.",
+                    "Periksa kembali kotak jawaban yang berwarna merah."
                 );
 
                 resetCanvasLatihan2();
@@ -1898,7 +1989,7 @@
             if (kesimpulan) kesimpulan.style.display = "none";
         }
 
-        function tampilkanCanvasLatihan2() {
+        function tampilkanCanvasLatihan2(autoScroll = true) {
             const wrap = document.getElementById("canvas-latihan2-wrap");
             if (wrap) wrap.style.display = "block";
 
@@ -1910,11 +2001,16 @@
             const holder = document.getElementById("canvas-latihan2");
             if (holder) holder.innerHTML = "";
 
-            sketchLatihan2Instance = new p5(sketchLatihan2, "canvas-latihan2");
+            sketchLatihan2Instance = new p5(
+                sketchLatihan2,
+                "canvas-latihan2"
+            );
 
-            setTimeout(() => {
-                scrollKeStep("canvas-latihan2-wrap");
-            }, 100);
+            if (autoScroll) {
+                setTimeout(() => {
+                    scrollKeStep("feedbackLatihan2A22");
+                }, 100);
+            }
         }
 
         function resetCanvasLatihan2() {
@@ -2728,7 +2824,7 @@
                 "Jawaban Latihan 1 sudah tersimpan.",
             );
 
-            tampilkanCanvasLatihan1();
+            tampilkanCanvasLatihan1(false);
 
             if (savedFinal && savedFinal.plottingBenar) {
                 const nextBtn = document.getElementById("nextBtnLatihan1");
@@ -2783,7 +2879,7 @@
                 "Jawaban Latihan 2 sudah tersimpan.",
             );
 
-            tampilkanCanvasLatihan2();
+            tampilkanCanvasLatihan2(false);
 
             if (savedFinal && savedFinal.plottingBenar) {
                 const kesimpulan = document.getElementById("kesimpulanLatihan2A22");

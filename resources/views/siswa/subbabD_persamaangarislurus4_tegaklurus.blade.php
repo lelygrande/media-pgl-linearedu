@@ -30,12 +30,12 @@
         }
 
         .rumus-box {
-            background: #f7f9fc;
-            border: 1px solid #dbe5f1;
-            border-radius: 12px;
-            padding: 14px 16px;
-            overflow-x: auto;
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
+            border-radius: 12px;
         }
 
         .badge-contoh {
@@ -212,6 +212,103 @@
             flex: 0 0 100%;
             box-sizing: border-box;
         }
+
+        /* Latihan */
+
+        /* Latihan */
+        .hitung-turun {
+            margin-top: 12px;
+            margin-bottom: 18px;
+            max-width: 760px;
+        }
+
+        .hitung-info {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .hitung-line {
+            display: grid;
+            grid-template-columns: 190px 28px 1fr;
+            align-items: center;
+            column-gap: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 2.1;
+        }
+
+        .hitung-left {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .hitung-eq {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .hitung-right {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .input-matematika {
+            vertical-align: middle;
+            height: 38px;
+            padding: 4px 8px;
+        }
+
+        /* Pecahan untuk gradien */
+        .frac-latihan {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 150px;
+        }
+
+        .frac-latihan .atas {
+            width: 100%;
+            border-bottom: 2px solid #222;
+            padding: 0 8px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .frac-latihan .bawah {
+            width: 100%;
+            padding-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .frac-latihan input {
+            width: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .hitung-line {
+                grid-template-columns: 1fr 24px 1fr;
+                font-size: 1rem;
+            }
+
+            .hitung-left {
+                text-align: right;
+            }
+
+            .frac-latihan {
+                min-width: 130px;
+            }
+
+            .frac-latihan input {
+                width: 55px;
+            }
+        }
     </style>
 
     {{-- Subjudul --}}
@@ -276,7 +373,7 @@
                 dapat ditulis dalam bentuk:
             </p>
 
-            <div class="rumus-box mb-3" style="width: fit-content;">
+            <div class="mb-3" style="width: fit-content;">
                 <span>$y-$</span>
                 <input type="text" id="eks_tl_3"
                     class="form-control form-control-sm d-inline-block text-center jawaban-latihan" style="width:90px;">
@@ -407,89 +504,107 @@
         <div class="card-body">
             <span class="title-box">Contoh</span>
 
-            <p>
-                Tentukan persamaan garis yang melalui titik <span>$A(8,6)$</span> dan tegak lurus dengan garis
-                <span>$y = -4x + 9$</span>.
+            <p style="line-height:1.8; text-align:justify;">
+                Tentukan persamaan garis yang melalui titik \(A(8,6)\) dan tegak lurus dengan garis
+                \(y = -4x + 9\).
             </p>
 
-            <p><b>Penyelesaian:</b></p>
+            <p class="mb-2"><b>Penyelesaian:</b></p>
 
-            <p>
-                Gradien garis <span>$y = -4x + 9$</span> adalah <span>$m_1 = -4$</span>.
+            <p style="line-height:1.8; text-align:justify;">
+                Gradien garis \(y = -4x + 9\) adalah \(m_1 = -4\).
             </p>
 
-            <p>
-                Gradien garis yang tegak lurus dengan garis <span>$y = -4x + 9$</span>
-                adalah <span>$m_2$</span>, maka:
+            <p style="line-height:1.8; text-align:justify;">
+                Karena garis yang dicari tegak lurus dengan garis \(y = -4x + 9\), maka gradiennya
+                dapat ditentukan dengan hubungan:
             </p>
 
-            <div class="row align-items-center mb-3">
-                <div class="col-md-5 mb-3 mb-md-0">
-                    <div class="rumus-box rumus-bertingkat text-center mx-auto" style="width: fit-content;">
-                        <div class="baris-rumus">$m_2 = -\dfrac{1}{m_1}$</div>
-                        <div class="baris-rumus">$m_2 = -\dfrac{1}{-4}$</div>
-                        <div class="baris-rumus">$m_2 = \dfrac{1}{4}$</div>
-                    </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <p class="mb-1" style="line-height:2;">
+                        \(m_2 = -\dfrac{1}{m_1}\)
+                    </p>
+                    <p class="mb-1" style="line-height:2;">
+                        \(m_2 = -\dfrac{1}{-4}\)
+                    </p>
+                    <p class="mb-0" style="line-height:2;">
+                        \(m_2 = \dfrac{1}{4}\)
+                    </p>
                 </div>
 
-                <div class="col-md-2 text-center mb-3 mb-md-0">
-                    <span class="fw-semibold">atau</span>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="rumus-box rumus-bertingkat text-center mx-auto" style="width: fit-content;">
-                        <div class="baris-rumus">$m_2 \times m_1 = -1$</div>
-                        <div class="baris-rumus">$m_2 \times (-4) = -1$</div>
-                        <div class="baris-rumus">$m_2 = \dfrac{1}{4}$</div>
-                    </div>
+                <div class="col-md-6">
+                    <p class="mb-1" style="line-height:2;">
+                        Atau menggunakan sifat \(m_1 \times m_2 = -1\):
+                    </p>
+                    <p class="mb-1" style="line-height:2;">
+                        \((-4) \times m_2 = -1\)
+                    </p>
+                    <p class="mb-0" style="line-height:2;">
+                        \(m_2 = \dfrac{1}{4}\)
+                    </p>
                 </div>
             </div>
 
-            <p>
-                Titik yang dilalui adalah <span>$A(8,6)$</span>, sehingga
-                <span>$x_1 = 8$</span> dan <span>$y_1 = 6$</span>.
+            <p style="line-height:1.8; text-align:justify;">
+                Jadi, gradien garis yang tegak lurus dengan \(y = -4x + 9\) adalah
+                \(m_2 = \dfrac{1}{4}\).
             </p>
 
-            <p>
-                Substitusikan nilai <span>$m=\dfrac{1}{4}$</span>, <span>$x_1=8$</span>,
-                dan <span>$y_1=6$</span> ke rumus persamaan garis melalui satu titik:
+            <p style="line-height:1.8; text-align:justify;">
+                Titik yang dilalui adalah \(A(8,6)\), sehingga \(x_1 = 8\) dan \(y_1 = 6\).
             </p>
 
-            <div class="rumus-box rumus-bertingkat mb-3 mx-auto" style="width: fit-content;">
-                <div class="baris-rumus">$y-y_1=m(x-x_1)$</div>
-            </div>
+            <p style="line-height:1.8; text-align:justify;">
+                Gunakan rumus persamaan garis yang melalui satu titik:
+            </p>
 
-            <p>
+            <p class="text-center fw-bold" style="line-height:2;">
+                \(y-y_1=m(x-x_1)\)
+            </p>
+
+            <p style="line-height:1.8; text-align:justify;">
+                Substitusikan nilai \(m_2=\dfrac{1}{4}\), \(x_1=8\), dan \(y_1=6\) ke dalam rumus tersebut.
+            </p>
+
+            <p class="mb-2">
                 <b>Coba lengkapi substitusi ke rumus berikut:</b>
             </p>
 
-            <div class="rumus-box mb-3 mx-auto" style="width: fit-content;">
-                <span>$y-$</span>
-                <input type="text" id="cs_tl_sub_y1"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
+            <div class="my-3 text-center" style="line-height:2.2;">
+                <span>\(y-\)</span>
 
-                <span>$= $</span>
+                <input type="text" id="cs_tl_sub_y1"
+                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh bg-white"
+                    style="width:80px;">
+
+                <span>\(=\)</span>
 
                 <div class="frac-input d-inline-flex align-middle mx-1">
                     <div class="top">
                         <input type="text" id="cs_tl_sub_m_atas"
-                            class="form-control form-control-sm text-center jawaban-contoh">
+                            class="form-control form-control-sm text-center jawaban-contoh bg-white">
                     </div>
                     <div class="bottom">
                         <input type="text" id="cs_tl_sub_m_bawah"
-                            class="form-control form-control-sm text-center jawaban-contoh">
+                            class="form-control form-control-sm text-center jawaban-contoh bg-white">
                     </div>
                 </div>
 
-                <span>$(x-$</span>
+                <span>\((x-\)</span>
+
                 <input type="text" id="cs_tl_sub_x1"
-                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh" style="width:80px;">
-                <span>$)$</span>
+                    class="form-control form-control-sm d-inline-block text-center jawaban-contoh bg-white"
+                    style="width:80px;">
+
+                <span>\()\)</span>
             </div>
 
-            <p class="small text-muted">
-                Isi nilai $y_1$, pembilang dan penyebut gradien $m$, serta nilai $x_1$.
-            </p>
+            <div class="petunjuk-mini-latihan mb-3">
+                <strong>Petunjuk Pengerjaan:</strong>
+                Isilah kotak kosong sesuai nilai yang sudah diketahui, yaitu nilai \(y_1\), pembilang dan penyebut
+                gradien \(m\), serta nilai \(x_1\).
+            </div>
 
             <div class="mt-3">
                 <button class="btn btn-palet btn-sm" type="button" onclick="cekContohSoalTegakLurus()">
@@ -509,66 +624,74 @@
 
                 <ol class="mb-0 mt-2" style="line-height:1.9;">
                     <li>
-                        Gradien garis <span>$y=-4x+9$</span> adalah <span>$m_1=-4$</span>.
+                        Gradien garis \(y=-4x+9\) adalah \(m_1=-4\).
                     </li>
 
                     <li>
                         Karena garis yang dicari tegak lurus, maka:
-                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
-                            <div class="baris-rumus">$m_2=-\dfrac{1}{m_1}$</div>
-                            <div class="baris-rumus">$m_2=-\dfrac{1}{-4}$</div>
-                            <div class="baris-rumus">$m_2=\dfrac{1}{4}$</div>
+                        <div class="my-2 ps-3" style="line-height:2;">
+                            \(m_2=-\dfrac{1}{m_1}\)<br>
+                            \(m_2=-\dfrac{1}{-4}\)<br>
+                            \(m_2=\dfrac{1}{4}\)
                         </div>
                     </li>
 
                     <li>
-                        Titik yang dilalui adalah <span>$A(8,6)$</span>, sehingga
-                        <span>$x_1=8$</span> dan <span>$y_1=6$</span>.
+                        Titik yang dilalui adalah \(A(8,6)\), sehingga \(x_1=8\) dan \(y_1=6\).
                     </li>
 
                     <li>
-                        Substitusikan ke rumus <span>$y-y_1=m(x-x_1)$</span>:
-                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
-                            <div class="baris-rumus">$y-6=\dfrac{1}{4}(x-8)$</div>
+                        Substitusikan ke rumus \(y-y_1=m(x-x_1)\):
+                        <div class="my-2 ps-3" style="line-height:2;">
+                            \(y-6=\dfrac{1}{4}(x-8)\)
                         </div>
                     </li>
 
                     <li>
                         Uraikan ruas kanan:
-                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
-                            <div class="baris-rumus">$y-6=\dfrac{1}{4}x-2$</div>
+                        <div class="my-2 ps-3" style="line-height:2;">
+                            \(y-6=\dfrac{1}{4}x-2\)
                         </div>
                     </li>
 
                     <li>
-                        Pindahkan <span>$6$</span> ke ruas kanan:
-                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
-                            <div class="baris-rumus">$y=\dfrac{1}{4}x-2+6$</div>
-                            <div class="baris-rumus">$y=\dfrac{1}{4}x+4$</div>
+                        Pindahkan \(-6\) ke ruas kanan dengan menambahkan \(6\) pada kedua ruas:
+                        <div class="my-2 ps-3" style="line-height:2;">
+                            \(y=\dfrac{1}{4}x-2+6\)<br>
+                            \(y=\dfrac{1}{4}x+4\)
                         </div>
                     </li>
 
                     <li>
-                        Bentuk umum:
-                        <div class="rumus-box rumus-bertingkat my-2 mx-auto" style="width: fit-content;">
-                            <div class="baris-rumus">$y=\dfrac{1}{4}x+4$</div>
-                            <div class="baris-rumus">$x-4y+16=0$</div>
+                        Bentuk umum dari persamaan tersebut adalah:
+                        <div class="my-2 ps-3" style="line-height:2;">
+                            \(y=\dfrac{1}{4}x+4\)<br>
+                            \(4y=x+16\)<br>
+                            \(x-4y+16=0\)
                         </div>
                     </li>
                 </ol>
 
-                <div class="alert alert-success mt-3 mb-0" style="border-radius:14px;">
-                    Jadi, persamaan garis yang dicari adalah <b>$y=\dfrac{1}{4}x+4$</b>,
-                    atau dalam bentuk umum implisitnya <b>$x-4y+16=0$</b>.
+                <div class="alert alert-success mt-3 mb-0" style="border-radius:14px; line-height:1.8;">
+                    Jadi, persamaan garis yang dicari adalah <b>\(y=\dfrac{1}{4}x+4\)</b>,
+                    atau dalam bentuk umum implisitnya <b>\(x-4y+16=0\)</b>.
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        const MATERI_ID = @json($materi->id);
+        const MATERI_SLUG = @json($materi->slug);
+        const IS_MATERI_COMPLETED = @json((bool) ($materialProgress->is_completed ?? false));
+        const SAVED_LATIHAN = @json($latihanProgress ?? []);
+        const LATIHAN_PROGRESS_URL = @json(route('latihan.progress.store', $materi->id));
+    </script>
+
     {{-- Latihan --}}
     <div class="box-latihan mt-5 mb-4" id="latihanDLastBox">
         <div class="card-body">
-            <span class="title-box">Latihan</span>
+            <span class="title-box">Latihan Soal</span>
 
             {{-- ===================== --}}
             {{-- LATIHAN 1 --}}
@@ -580,92 +703,115 @@
                     persamaan <span>$y = -3x + 7$</span>. Tentukan persamaan jalan kecil tersebut.
                 </p>
 
-                <p>
-                    Tentukan gradien garis <span>$y = -3x + 7$</span>.
-                </p>
+                <p class="mb-2"><b>Penyelesaian:</b></p>
 
-                <p>
-                    <span>$m_1 =$</span>
-                    <input type="text" id="lat1_m1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                </p>
+                <div class="hitung-turun">
 
-                <p>
-                    Tentukan gradien garis yang tegak lurus dengan garis tersebut.
-                </p>
+                    <p class="hitung-info">
+                        Gradien garis utama:
+                    </p>
 
-                <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                    <span>$m_2 =$</span>
-
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="lat1_m2_atas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-
-                        <div class="bottom">
-                            <input type="text" id="lat1_m2_bawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-                </div>
-
-                <p>
-                    Gunakan titik <span>$D(4,2)$</span> dan gradien yang diperoleh untuk membentuk persamaan garis.
-                </p>
-
-                <div class="rumus-box mb-3" style="width: fit-content;">
-                    <span>$y-$</span>
-                    <input type="text" id="lat1_sub_y1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$= $</span>
-
-                    <div class="frac-input d-inline-flex align-middle mx-1">
-                        <div class="top">
-                            <input type="text" id="lat1_sub_m_atas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-
-                        <div class="bottom">
-                            <input type="text" id="lat1_sub_m_bawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                    <div class="hitung-line">
+                        <div class="hitung-left">$m_1$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <input type="text" id="lat1_m1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
                         </div>
                     </div>
 
-                    <span>$(x-$</span>
-                    <input type="text" id="lat1_sub_x1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$)$</span>
+                    <p class="hitung-info">
+                        Gradien garis yang tegak lurus:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$m_2$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <div class="frac-latihan" style="min-width:110px;">
+                                <div class="atas">
+                                    <input type="text" id="lat1_m2_atas"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+
+                                <div class="bawah">
+                                    <input type="text" id="lat1_m2_bawah"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="hitung-info">
+                        Dengan menggunakan rumus umum:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y-y_1$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">$m(x-x_1)$</div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y-$
+                            <input type="text" id="lat1_sub_y1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <div class="frac-latihan" style="min-width:110px;">
+                                <div class="atas">
+                                    <input type="text" id="lat1_sub_m_atas"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+
+                                <div class="bawah">
+                                    <input type="text" id="lat1_sub_m_bawah"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+                            </div>
+
+                            <span>$(x-$</span>
+                            <input type="text" id="lat1_sub_x1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                            <span>$)$</span>
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y-$
+                            <input type="text" id="lat1_urai1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <input type="text" id="lat1_urai2"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:180px;">
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <input type="text" id="lat1_akhir"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:200px;">
+                        </div>
+                    </div>
+
                 </div>
-
-                <p>
-                    Uraikan bentuk tersebut.
-                </p>
-
-                <p>
-                    <span>$y-$</span>
-                    <input type="text" id="lat1_urai1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$=$</span>
-                    <input type="text" id="lat1_urai2"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:180px;">
-                </p>
-
-                <p>
-                    Tuliskan persamaan garis dalam bentuk <span>$y = mx + c$</span>.
-                </p>
-
-                <p>
-                    <span>$y =$</span>
-                    <input type="text" id="lat1_akhir"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:200px;">
-                </p>
 
                 <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div>
@@ -694,101 +840,123 @@
             <div class="latihan-step" id="latihanStep2" style="display:none;">
                 <hr class="my-4">
 
-                <p>
+                <p class="mt-3">
                     <b>2.</b> Seorang siswa menggambar garis bantu pada bidang koordinat. Garis itu harus melalui titik
                     <span>$E(7,-4)$</span> dan tegak lurus terhadap garis lain yang mempunyai gradien
                     <span>$-\dfrac{2}{5}$</span>. Tentukan persamaan garis tersebut.
                 </p>
 
-                <p><b>Penyelesaian:</b></p>
+                <p class="mb-2"><b>Penyelesaian:</b></p>
 
-                <p>
-                    Tentukan gradien garis yang dicari.
-                </p>
+                <div class="hitung-turun">
 
-                <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                    <span>$m =$</span>
+                    <p class="hitung-info">
+                        Gradien garis yang dicari:
+                    </p>
 
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="lat2_m_atas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
+                    <div class="hitung-line">
+                        <div class="hitung-left">$m$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <div class="frac-latihan" style="min-width:110px;">
+                                <div class="atas">
+                                    <input type="text" id="lat2_m_atas"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
 
-                        <div class="bottom">
-                            <input type="text" id="lat2_m_bawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-                    </div>
-                </div>
-
-                <p>
-                    Gunakan titik <span>$E(7,-4)$</span> dan gradien tersebut ke bentuk persamaan garis melalui satu titik
-                    dan gradien.
-                </p>
-
-                <div class="rumus-box mb-3" style="width: fit-content;">
-                    <span>$y-$</span>
-                    <input type="text" id="lat2_sub_y1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$= $</span>
-
-                    <div class="frac-input d-inline-flex align-middle mx-1">
-                        <div class="top">
-                            <input type="text" id="lat2_sub_m_atas"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
-
-                        <div class="bottom">
-                            <input type="text" id="lat2_sub_m_bawah"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                                <div class="bawah">
+                                    <input type="text" id="lat2_m_bawah"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <span>$(x-$</span>
-                    <input type="text" id="lat2_sub_x1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$)$</span>
+                    <p class="hitung-info">
+                        Dengan menggunakan rumus umum:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y-y_1$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">$m(x-x_1)$</div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y-$
+                            <input type="text" id="lat2_sub_y1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <div class="frac-latihan" style="min-width:110px;">
+                                <div class="atas">
+                                    <input type="text" id="lat2_sub_m_atas"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+
+                                <div class="bawah">
+                                    <input type="text" id="lat2_sub_m_bawah"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+                            </div>
+
+                            <span>$(x-$</span>
+                            <input type="text" id="lat2_sub_x1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                            <span>$)$</span>
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y+$
+                            <input type="text" id="lat2_urai1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <input type="text" id="lat2_urai2"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:200px;">
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <input type="text" id="lat2_akhir"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:150px;">
+                        </div>
+                    </div>
+
+                    <p class="hitung-info">
+                        Bentuk umum:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            <input type="text" id="lat2_umum"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:150px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">$0$</div>
+                    </div>
+
                 </div>
-
-                <p>
-                    Uraikan bentuk tersebut.
-                </p>
-
-                <p>
-                    <span>$y+$</span>
-                    <input type="text" id="lat2_urai1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$=$</span>
-                    <input type="text" id="lat2_urai2"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:200px;">
-                </p>
-
-                <p>
-                    Tuliskan persamaan garis dalam bentuk <span>$y = mx + c$</span>.
-                </p>
-
-                <p>
-                    <span>$y =$</span>
-                    <input type="text" id="lat2_akhir"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:220px;">
-                </p>
-
-                <p>
-                    Tuliskan juga persamaan garis dalam bentuk umum.
-                </p>
-
-                <p>
-                    <input type="text" id="lat2_umum"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:240px;">
-                    <span>$= 0$</span>
-                </p>
 
                 <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(1)">
@@ -821,100 +989,124 @@
             <div class="latihan-step" id="latihanStep3" style="display:none;">
                 <hr class="my-4">
 
-                <p>
+                <p class="mt-3">
                     <b>3.</b> Pada suatu denah sekolah, terdapat sebuah jalur utama yang melalui titik <span>$(1,14)$</span>
-                    dan
-                    <span>$(9,6)$</span>. Pihak sekolah akan membuat jalur baru menuju kantin yang melalui titik
+                    dan <span>$(9,6)$</span>. Pihak sekolah akan membuat jalur baru menuju kantin yang melalui titik
                     <span>$(12,-3)$</span> dan tegak lurus terhadap jalur utama tersebut. Tentukan persamaan jalur baru itu.
                 </p>
 
-                <p>
-                    Tentukan gradien jalur utama.
-                </p>
+                <p class="mb-2"><b>Penyelesaian:</b></p>
 
-                <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                    <span>$m_1 =$</span>
+                <div class="hitung-turun">
 
-                    <div class="frac-input">
-                        <div class="top">
-                            <input type="text" id="lat3_m1_atas1"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>$-$</span>
-                            <input type="text" id="lat3_m1_atas2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                        </div>
+                    <p class="hitung-info">
+                        Gradien jalur utama:
+                    </p>
 
-                        <div class="bottom">
-                            <input type="text" id="lat3_m1_bawah1"
-                                class="form-control form-control-sm text-center jawaban-latihan">
-                            <span>$-$</span>
-                            <input type="text" id="lat3_m1_bawah2"
-                                class="form-control form-control-sm text-center jawaban-latihan">
+                    <div class="hitung-line">
+                        <div class="hitung-left">$m_1$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <div class="frac-latihan">
+                                <div class="atas">
+                                    <input type="text" id="lat3_m1_atas1"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                    <span>$-$</span>
+                                    <input type="text" id="lat3_m1_atas2"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+
+                                <div class="bawah">
+                                    <input type="text" id="lat3_m1_bawah1"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                    <span>$-$</span>
+                                    <input type="text" id="lat3_m1_bawah2"
+                                        class="form-control form-control-sm text-center input-matematika jawaban-latihan">
+                                </div>
+                            </div>
+
+                            <span>$=$</span>
+
+                            <input type="text" id="lat3_m1_final"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
                         </div>
                     </div>
 
-                    <span>$=$</span>
-                    <input type="text" id="lat3_m1_final"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
+                    <p class="hitung-info">
+                        Gradien jalur baru:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$m_2$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <input type="text" id="lat3_m2_final"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+                    </div>
+
+                    <p class="hitung-info">
+                        Dengan menggunakan rumus umum:
+                    </p>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y-y_1$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">$m(x-x_1)$</div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y-$
+                            <input type="text" id="lat3_sub_y1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <input type="text" id="lat3_sub_m"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                            <span>$(x-$</span>
+                            <input type="text" id="lat3_sub_x1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                            <span>$)$</span>
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">
+                            $y+$
+                            <input type="text" id="lat3_urai1"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:80px;">
+                        </div>
+
+                        <div class="hitung-eq">$=$</div>
+
+                        <div class="hitung-right">
+                            <input type="text" id="lat3_urai2"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:180px;">
+                        </div>
+                    </div>
+
+                    <div class="hitung-line">
+                        <div class="hitung-left">$y$</div>
+                        <div class="hitung-eq">$=$</div>
+                        <div class="hitung-right">
+                            <input type="text" id="lat3_akhir"
+                                class="form-control form-control-sm d-inline-block text-center input-matematika jawaban-latihan"
+                                style="width:180px;">
+                        </div>
+                    </div>
+
                 </div>
-
-                <p>
-                    Karena jalur baru tegak lurus terhadap jalur utama, maka gradien jalur baru adalah:
-                </p>
-
-                <p>
-                    <span>$m_2 =$</span>
-                    <input type="text" id="lat3_m2_final"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                </p>
-
-                <p>
-                    Gunakan titik <span>$(12,-3)$</span> dan gradien yang diperoleh untuk membentuk persamaan garis.
-                </p>
-
-                <div class="rumus-box mb-3" style="width: fit-content;">
-                    <span>$y-$</span>
-                    <input type="text" id="lat3_sub_y1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$= $</span>
-                    <input type="text" id="lat3_sub_m"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$(x-$</span>
-                    <input type="text" id="lat3_sub_x1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$)$</span>
-                </div>
-
-                <p>
-                    Uraikan bentuk tersebut.
-                </p>
-
-                <p>
-                    <span>$y+$</span>
-                    <input type="text" id="lat3_urai1"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:80px;">
-                    <span>$=$</span>
-                    <input type="text" id="lat3_urai2"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:180px;">
-                </p>
-
-                <p>
-                    Tuliskan persamaan garis dalam bentuk <span>$y = mx + c$</span>.
-                </p>
-
-                <p>
-                    <span>$y =$</span>
-                    <input type="text" id="lat3_akhir"
-                        class="form-control form-control-sm d-inline-block text-center jawaban-latihan"
-                        style="width:180px;">
-                </p>
 
                 <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <button class="btn btn-palet btn-sm" type="button" onclick="prevLatihan(2)">
@@ -1234,6 +1426,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             renderMathSafe(document.getElementById("latihanDLastBox") || document.body);
+            restoreProgressDLast();
         });
 
         // =========================================================
@@ -1286,6 +1479,106 @@
         // =========================================================
         // SAVE PROGRESS + BUKA KUIS
         // =========================================================
+
+        // =========================================================
+        // SAVE LATIHAN PROGRESS D LAST
+        // =========================================================
+        async function simpanProgressLatihan(latihanKey, tipe, jawaban, isCorrect) {
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content");
+
+            if (!LATIHAN_PROGRESS_URL || !csrfToken) {
+                console.error("URL atau CSRF kosong.", {
+                    LATIHAN_PROGRESS_URL,
+                    csrfToken,
+                });
+                return false;
+            }
+
+            try {
+                const response = await fetch(LATIHAN_PROGRESS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({
+                        latihan_key: latihanKey,
+                        tipe: tipe,
+                        jawaban: jawaban,
+                        is_correct: isCorrect,
+                    }),
+                });
+
+                const data = await response.json();
+                console.log("Simpan latihan D Last:", data);
+
+                return response.ok;
+            } catch (error) {
+                console.error("Gagal menyimpan latihan D Last:", error);
+                return false;
+            }
+        }
+
+        function ambilJawabanLatihan1DLast() {
+            return {
+                lat1_m1: document.getElementById("lat1_m1")?.value.trim() ?? "",
+                lat1_m2_atas: document.getElementById("lat1_m2_atas")?.value.trim() ?? "",
+                lat1_m2_bawah: document.getElementById("lat1_m2_bawah")?.value.trim() ?? "",
+
+                lat1_sub_y1: document.getElementById("lat1_sub_y1")?.value.trim() ?? "",
+                lat1_sub_m_atas: document.getElementById("lat1_sub_m_atas")?.value.trim() ?? "",
+                lat1_sub_m_bawah: document.getElementById("lat1_sub_m_bawah")?.value.trim() ?? "",
+                lat1_sub_x1: document.getElementById("lat1_sub_x1")?.value.trim() ?? "",
+
+                lat1_urai1: document.getElementById("lat1_urai1")?.value.trim() ?? "",
+                lat1_urai2: document.getElementById("lat1_urai2")?.value.trim() ?? "",
+
+                lat1_akhir: document.getElementById("lat1_akhir")?.value.trim() ?? "",
+            };
+        }
+
+        function ambilJawabanLatihan2DLast() {
+            return {
+                lat2_m_atas: document.getElementById("lat2_m_atas")?.value.trim() ?? "",
+                lat2_m_bawah: document.getElementById("lat2_m_bawah")?.value.trim() ?? "",
+
+                lat2_sub_y1: document.getElementById("lat2_sub_y1")?.value.trim() ?? "",
+                lat2_sub_m_atas: document.getElementById("lat2_sub_m_atas")?.value.trim() ?? "",
+                lat2_sub_m_bawah: document.getElementById("lat2_sub_m_bawah")?.value.trim() ?? "",
+                lat2_sub_x1: document.getElementById("lat2_sub_x1")?.value.trim() ?? "",
+
+                lat2_urai1: document.getElementById("lat2_urai1")?.value.trim() ?? "",
+                lat2_urai2: document.getElementById("lat2_urai2")?.value.trim() ?? "",
+
+                lat2_akhir: document.getElementById("lat2_akhir")?.value.trim() ?? "",
+                lat2_umum: document.getElementById("lat2_umum")?.value.trim() ?? "",
+            };
+        }
+
+        function ambilJawabanLatihan3DLast() {
+            return {
+                lat3_m1_atas1: document.getElementById("lat3_m1_atas1")?.value.trim() ?? "",
+                lat3_m1_atas2: document.getElementById("lat3_m1_atas2")?.value.trim() ?? "",
+                lat3_m1_bawah1: document.getElementById("lat3_m1_bawah1")?.value.trim() ?? "",
+                lat3_m1_bawah2: document.getElementById("lat3_m1_bawah2")?.value.trim() ?? "",
+                lat3_m1_final: document.getElementById("lat3_m1_final")?.value.trim() ?? "",
+
+                lat3_m2_final: document.getElementById("lat3_m2_final")?.value.trim() ?? "",
+
+                lat3_sub_y1: document.getElementById("lat3_sub_y1")?.value.trim() ?? "",
+                lat3_sub_m: document.getElementById("lat3_sub_m")?.value.trim() ?? "",
+                lat3_sub_x1: document.getElementById("lat3_sub_x1")?.value.trim() ?? "",
+
+                lat3_urai1: document.getElementById("lat3_urai1")?.value.trim() ?? "",
+                lat3_urai2: document.getElementById("lat3_urai2")?.value.trim() ?? "",
+
+                lat3_akhir: document.getElementById("lat3_akhir")?.value.trim() ?? "",
+            };
+        }
         async function saveProgressMateri() {
             const csrfToken = document
                 .querySelector('meta[name="csrf-token"]')
@@ -1351,7 +1644,7 @@
             isiPesan("petunjukLatihan1", pesan, "info");
         }
 
-        function cekLatihan1TegakLurus() {
+        async function cekLatihan1TegakLurus() {
             const benarM1 = cekIsian("lat1_m1", ["-3"]);
 
             const benarM2Atas = cekIsian("lat1_m2_atas", ["1"]);
@@ -1405,6 +1698,13 @@
                 kosongkan("petunjukLatihan1");
 
                 if (nextBtn) nextBtn.disabled = false;
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1`,
+                    "input",
+                    ambilJawabanLatihan1DLast(),
+                    true
+                );
                 return;
             }
 
@@ -1484,7 +1784,7 @@
             isiPesan("petunjukLatihan2", pesan, "info");
         }
 
-        function cekLatihan2TegakLurus() {
+        async function cekLatihan2TegakLurus() {
             const benarMAtas = cekIsian("lat2_m_atas", ["5"]);
             const benarMBawah = cekIsian("lat2_m_bawah", ["2"]);
 
@@ -1539,6 +1839,13 @@
                 kosongkan("petunjukLatihan2");
 
                 if (nextBtn) nextBtn.disabled = false;
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L2`,
+                    "input",
+                    ambilJawabanLatihan2DLast(),
+                    true
+                );
                 return;
             }
 
@@ -1675,6 +1982,14 @@
 
                 const saved = await saveProgressMateri();
 
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L3`,
+                    "input",
+                    ambilJawabanLatihan3DLast(),
+                    true
+                );
+
+
                 if (saved) {
                     bukaQuizButton();
                 } else if (feedback) {
@@ -1756,6 +2071,166 @@
             kosongkan("feedbackLatihan3");
             kosongkan("petunjukLatihan3");
             kosongkan("pesanAkhirLatihan");
+        }
+
+        // =========================================================
+        // RESTORE PROGRESS D LAST
+        // =========================================================
+        function setValueSafe(id, value) {
+            const el = document.getElementById(id);
+
+            if (el && value !== undefined && value !== null) {
+                el.value = value;
+            }
+        }
+
+        function beriValid(ids) {
+            ids.forEach((id) => {
+                const el = document.getElementById(id);
+
+                if (el) {
+                    el.classList.remove("is-invalid");
+                    el.classList.add("is-valid");
+                }
+            });
+        }
+
+        function ambilSavedJawaban(latihanKey) {
+            const saved = SAVED_LATIHAN?.[latihanKey]?.jawaban;
+
+            if (!saved) return null;
+
+            if (typeof saved === "string") {
+                try {
+                    return JSON.parse(saved);
+                } catch (error) {
+                    console.error("Gagal parse jawaban tersimpan:", error);
+                    return null;
+                }
+            }
+
+            return saved;
+        }
+
+        function restoreLatihan1DLast() {
+            const saved = ambilSavedJawaban(`${MATERI_SLUG}_L1`);
+            if (!saved) return;
+
+            Object.entries(saved).forEach(([id, value]) => {
+                setValueSafe(id, value);
+            });
+
+            beriValid(Object.keys(saved));
+
+            const fb = document.getElementById("feedbackLatihan1");
+            const nextBtn = document.getElementById("nextBtnLatihan1");
+            const latihan2 = document.getElementById("latihanStep2");
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Jawaban Latihan 1 sudah tersimpan.
+            </div>
+        `;
+                renderMathSafe(fb);
+            }
+
+            if (nextBtn) nextBtn.disabled = false;
+            if (latihan2) latihan2.style.display = "block";
+        }
+
+        function restoreLatihan2DLast() {
+            const saved = ambilSavedJawaban(`${MATERI_SLUG}_L2`);
+            if (!saved) return;
+
+            Object.entries(saved).forEach(([id, value]) => {
+                setValueSafe(id, value);
+            });
+
+            beriValid(Object.keys(saved));
+
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+            const fb = document.getElementById("feedbackLatihan2");
+            const nextBtn = document.getElementById("nextBtnLatihan2");
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Jawaban Latihan 2 sudah tersimpan.
+            </div>
+        `;
+                renderMathSafe(fb);
+            }
+
+            if (nextBtn) nextBtn.disabled = false;
+        }
+
+        function restoreLatihan3DLast() {
+            const saved = ambilSavedJawaban(`${MATERI_SLUG}_L3`);
+            if (!saved) return;
+
+            Object.entries(saved).forEach(([id, value]) => {
+                setValueSafe(id, value);
+            });
+
+            beriValid(Object.keys(saved));
+
+            const latihan2 = document.getElementById("latihanStep2");
+            const latihan3 = document.getElementById("latihanStep3");
+            const fb = document.getElementById("feedbackLatihan3");
+            const akhir = document.getElementById("pesanAkhirLatihan");
+
+            if (latihan2) latihan2.style.display = "block";
+            if (latihan3) latihan3.style.display = "block";
+
+            if (fb) {
+                fb.innerHTML = `
+            <div class="alert alert-success py-2 mb-0">
+                Jawaban Latihan 3 sudah tersimpan.
+            </div>
+        `;
+                renderMathSafe(fb);
+            }
+
+            if (akhir) {
+                akhir.innerHTML = `
+            <div class="alert alert-success fw-semibold text-center mt-3">
+                Bagus, kamu sudah memahami persamaan garis yang tegak lurus dengan garis lain.
+                Silakan lanjut ke kuis.
+            </div>
+        `;
+                renderMathSafe(akhir);
+            }
+
+            bukaQuizButton();
+        }
+
+        function restoreProgressDLast() {
+            restoreLatihan1DLast();
+            restoreLatihan2DLast();
+            restoreLatihan3DLast();
+
+            if (IS_MATERI_COMPLETED) {
+                const latihan2 = document.getElementById("latihanStep2");
+                const latihan3 = document.getElementById("latihanStep3");
+
+                const nextBtn1 = document.getElementById("nextBtnLatihan1");
+                const nextBtn2 = document.getElementById("nextBtnLatihan2");
+
+                if (latihan2) latihan2.style.display = "block";
+                if (latihan3) latihan3.style.display = "block";
+
+                if (nextBtn1) nextBtn1.disabled = false;
+                if (nextBtn2) nextBtn2.disabled = false;
+
+                bukaQuizButton();
+            }
+
+            renderMathSafe(document.getElementById("latihanDLastBox") || document.body);
         }
     </script>
 

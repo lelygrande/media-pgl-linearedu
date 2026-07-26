@@ -34,25 +34,6 @@
             </div>
         </div>
 
-        {{-- Rata-rata Nilai --}}
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100" style="border-radius: 18px;">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="text-muted mb-1">Rata-rata Nilai</p>
-
-                            <h2 class="fw-bold mb-0" style="color: var(--primary-dark);">
-                                {{ $rataNilai ?? 0 }}
-                            </h2>
-                        </div>
-
-                        <i class="bi bi-bar-chart-fill" style="font-size: 40px; color: var(--primary-color);"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         {{-- Pengunjung hari ini --}}
         <div class="col-md-4">
             <div class="card shadow-sm border-0 h-100" style="border-radius: 18px;">
@@ -147,22 +128,6 @@
         </div>
     </div>
 
-
-    {{-- CHART --}}
-    <div class="card border-0 shadow-sm" style="border-radius: 18px;">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0">
-                    Rata-rata Nilai Kuis
-                </h5>
-            </div>
-
-            <canvas id="nilaiChart" style="max-height: 300px;">
-            </canvas>
-
-        </div>
-
-    </div>
 
     {{-- Aktivitas Terbaru --}}
     <div class="card shadow-sm border-0 mt-4" style="border-radius: 18px;">
@@ -260,35 +225,4 @@
             text-decoration: none;
         }
     </style>
-@endpush
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const ctx = document.getElementById('nilaiChart');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: {!! json_encode($labels) !!},
-                datasets: [{
-                    label: 'Rata-rata Nilai',
-                    data: {!! json_encode($data) !!},
-                    borderWidth: 1
-                }]
-            },
-
-            options: {
-                responsive: true,
-
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }
-            }
-        });
-    </script>
 @endpush

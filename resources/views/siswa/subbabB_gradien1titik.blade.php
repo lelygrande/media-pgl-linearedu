@@ -5,19 +5,12 @@
 
     <style>
         .rumus-box {
-            display: block;
-            width: fit-content;
-            max-width: 100%;
-            margin: 16px auto 22px;
-            padding: 10px 28px;
-
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #d8c8ff;
-
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
-            text-align: center;
-            overflow-x: auto;
+            border-radius: 12px;
         }
 
         /* ====== RESPONSIVE MOBILE .input-kecil====== */
@@ -170,10 +163,6 @@
                 <div class="text-muted" style="font-size: 14px;">Disederhanakan menjadi:</div>
                 $$ m = \frac{y_1}{x_1} $$
             </div>
-
-            <div class="alert alert-info mb-0" style="border-radius: 14px;">
-                <strong>Catatan:</strong> Jika $x_1 = 0$, maka gradien tidak terdefinisi (garisnya tegak/vertikal).
-            </div>
         </div>
     </div>
 
@@ -211,7 +200,7 @@
                 </div>
 
                 <div class="kesimpulan-sejajar mt-3">
-                    <b>Kesimpulan:</b> Gradien garis yang melalui titik <b>O(0,0)</b>
+                    <b>Jadi,</b> gradien garis yang melalui titik <b>O(0,0)</b>
                     dan titik <b>A(6,3)</b> adalah <b>$\frac{1}{2}$</b>.
                 </div>
             </div>
@@ -227,6 +216,12 @@
                 <p style="line-height:1.8; text-align: justify;">
                     Tentukan gradien garis yang melalui titik <b>O(0,0)</b> dan titik <b>B(4,8)</b>.
                 </p>
+
+                <div class="petunjuk-mini-latihan mb-3">
+                    <strong>Petunjuk:</strong>
+                    Isi nilai \(x_1\) dan \(y_1\),
+                    kemudian lengkapi bentuk pecahan dan hasil akhirnya.
+                </div>
 
                 <p style="line-height:1.8; text-align: justify;">
                     Pada titik <b>B(4,8)</b>, nilai
@@ -454,17 +449,29 @@
                         Jadi, jalur yang lebih landai untuk memudahkan pendaki naik ke gunung adalah jalur
                     </p>
 
-                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                        <input type="text" id="pilihJalur" class="form-control w-auto text-center jawaban-latihan"
-                            style="max-width:90px;" placeholder="A/B">
-                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1()">Cek</button>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        {{-- Bagian kiri --}}
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <input type="text" id="pilihJalur" class="form-control w-auto text-center jawaban-latihan"
+                                style="max-width:90px;" placeholder="A/B">
 
-                        <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm"
-                            onclick="nextLatihan(2)" disabled>
-                            Lanjut ke Latihan 2
-                        </button>
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan1()">
+                                Cek
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan1()">
+                                Reset
+                            </button>
+                        </div>
+
+                        {{-- Bagian kanan --}}
+                        <div class="ms-auto">
+                            <button id="nextBtnLatihan1" type="button" class="btn btn-palet btn-sm"
+                                onclick="nextLatihan(2)" disabled>
+                                Lanjut ke Latihan 2
+                            </button>
+                        </div>
                     </div>
-
                     <div id="feedbackLatihan1" class="mt-3"></div>
                 </div>
             </div>
@@ -548,8 +555,15 @@
                             Kembali ke Latihan 1
                         </button>
 
-                        <div>
-                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2()">Cek</button>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan2()">
+                                Cek
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan2()">
+                                Reset
+                            </button>
+
                             <button id="nextBtnLatihan2" type="button" class="btn btn-palet btn-sm"
                                 onclick="nextLatihan(3)" disabled>
                                 Lanjut ke Latihan 3
@@ -642,7 +656,15 @@
                             Kembali ke Latihan 2
                         </button>
 
-                        <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3()">Cek</button>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-palet btn-sm" onclick="cekLatihan3()">
+                                Cek
+                            </button>
+
+                            <button type="button" class="btn btn-palet btn-sm" onclick="resetLatihan3()">
+                                Reset
+                            </button>
+                        </div>
                     </div>
                     <div id="feedbackLatihan3" class="mt-3"></div>
                 </div>
@@ -901,338 +923,428 @@
         // =========================
         // LATIHAN 1
         // =========================
-        async function cekLatihanTitik1() {
+        async function cekLatihan1() {
             const ids = [
-                "l1x1", "l1y1", "l1x2", "l1y2",
-                "l1_subY2", "l1_subY1", "l1_subX2", "l1_subX1",
-                "l1_hasilAtas", "l1_hasilBawah",
-                "l1_hasilAkhirAtas", "l1_hasilAkhirBawah",
+                "subAtas_a", "subBawah_a", "hasilAtas_a", "hasilBawah_a",
+                "subAtas_b", "subBawah_b", "hasilAtas_b", "hasilBawah_b",
+                "pilihJalur"
             ];
 
             clearValid(ids);
 
-            const x1 = normalisasiNilai(document.getElementById("l1x1")?.value);
-            const y1 = normalisasiNilai(document.getElementById("l1y1")?.value);
-            const x2 = normalisasiNilai(document.getElementById("l1x2")?.value);
-            const y2 = normalisasiNilai(document.getElementById("l1y2")?.value);
+            const subAtasA = norm(document.getElementById("subAtas_a")?.value);
+            const subBawahA = norm(document.getElementById("subBawah_a")?.value);
+            const hasilAtasA = norm(document.getElementById("hasilAtas_a")?.value);
+            const hasilBawahA = norm(document.getElementById("hasilBawah_a")?.value);
 
-            const subY2 = normalisasiNilai(document.getElementById("l1_subY2")?.value);
-            const subY1 = normalisasiNilai(document.getElementById("l1_subY1")?.value);
-            const subX2 = normalisasiNilai(document.getElementById("l1_subX2")?.value);
-            const subX1 = normalisasiNilai(document.getElementById("l1_subX1")?.value);
+            const subAtasB = norm(document.getElementById("subAtas_b")?.value);
+            const subBawahB = norm(document.getElementById("subBawah_b")?.value);
+            const hasilAtasB = norm(document.getElementById("hasilAtas_b")?.value);
+            const hasilBawahB = norm(document.getElementById("hasilBawah_b")?.value);
 
-            const hasilAtas = normalisasiNilai(document.getElementById("l1_hasilAtas")?.value);
-            const hasilBawah = normalisasiNilai(document.getElementById("l1_hasilBawah")?.value);
-            const akhirAtas = normalisasiNilai(document.getElementById("l1_hasilAkhirAtas")?.value);
-            const akhirBawah = normalisasiNilai(document.getElementById("l1_hasilAkhirBawah")?.value);
+            const pilihJalur = norm(document.getElementById("pilihJalur")?.value)
+                .replace("jalur", "");
 
-            const fb = document.getElementById("fbLatihan1");
+            const fb = document.getElementById("feedbackLatihan1");
             const nextBtn = document.getElementById("nextBtnLatihan1");
 
             if (!fb) return;
 
-            const benarTitik =
-                x1 === "-3" &&
-                y1 === "6" &&
-                x2 === "5" &&
-                y2 === "-4";
+            const benarSubA = subAtasA === "4" && subBawahA === "8";
+            const benarHasilA = hasilAtasA === "1" && hasilBawahA === "2";
 
-            const benarSubstitusi =
-                subY2 === "-4" &&
-                subY1 === "6" &&
-                subX2 === "5" &&
-                subX1 === "-3";
+            const benarSubB = subAtasB === "4" && subBawahB === "6";
+            const benarHasilB = hasilAtasB === "2" && hasilBawahB === "3";
 
-            const benarHasil =
-                hasilAtas === "-10" &&
-                hasilBawah === "8";
+            const benarJalur = pilihJalur === "a";
 
-            const benarAkhir =
-                akhirAtas === "-5" &&
-                akhirBawah === "4";
+            setValid("subAtas_a", subAtasA === "4");
+            setValid("subBawah_a", subBawahA === "8");
+            setValid("hasilAtas_a", hasilAtasA === "1");
+            setValid("hasilBawah_a", hasilBawahA === "2");
 
-            setValid("l1x1", x1 === "-3");
-            setValid("l1y1", y1 === "6");
-            setValid("l1x2", x2 === "5");
-            setValid("l1y2", y2 === "-4");
+            setValid("subAtas_b", subAtasB === "4");
+            setValid("subBawah_b", subBawahB === "6");
+            setValid("hasilAtas_b", hasilAtasB === "2");
+            setValid("hasilBawah_b", hasilBawahB === "3");
 
-            setValid("l1_subY2", subY2 === "-4");
-            setValid("l1_subY1", subY1 === "6");
-            setValid("l1_subX2", subX2 === "5");
-            setValid("l1_subX1", subX1 === "-3");
+            setValid("pilihJalur", benarJalur);
 
-            setValid("l1_hasilAtas", hasilAtas === "-10");
-            setValid("l1_hasilBawah", hasilBawah === "8");
-            setValid("l1_hasilAkhirAtas", akhirAtas === "-5");
-            setValid("l1_hasilAkhirBawah", akhirBawah === "4");
-
-            if (benarTitik && benarSubstitusi && benarHasil && benarAkhir) {
+            if (benarSubA && benarHasilA && benarSubB && benarHasilB && benarJalur) {
                 fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                <strong>Benar.</strong><br>
-                Gradien jalur kabel tersebut adalah:
-                <div class="text-center my-2">
-                    $m = \\frac{-4 - 6}{5 - (-3)} = \\frac{-10}{8} = \\frac{-5}{4}$
+                <div class="alert alert-success mb-0" style="line-height:1.8;">
+                    <strong>Benar.</strong><br>
+                    Gradien jalur A:
+                    <div class="text-center my-2">
+                        $m_A = \\frac{4}{8} = \\frac{1}{2}$
+                    </div>
+
+                    Gradien jalur B:
+                    <div class="text-center my-2">
+                        $m_B = \\frac{4}{6} = \\frac{2}{3}$
+                    </div>
+
+                    Karena $\\frac{1}{2}$ lebih kecil daripada $\\frac{2}{3}$,
+                    maka jalur yang lebih landai adalah <b>jalur A</b>.
+                    <br>
+                    Silakan lanjut ke latihan berikutnya.
                 </div>
-                Jadi, gradien jalur kabel adalah $\\frac{-5}{4}$.
-                <br>
-                Silakan lanjut ke latihan berikutnya.
-            </div>
-        `;
+            `;
 
                 if (nextBtn) nextBtn.disabled = false;
 
                 await simpanProgressLatihan(
                     `${MATERI_SLUG}_L1`,
                     "input",
-                    ambilJawabanLatihanTitik1(),
+                    ambilJawabanLatihan1B2(),
                     true
                 );
             } else {
-                let hints = [];
+                let pesan = "";
 
-                if (!benarTitik) hints.push("Periksa lagi penentuan nilai $x_1$, $y_1$, $x_2$, dan $y_2$.");
-                if (benarTitik && !benarSubstitusi) hints.push("Periksa lagi substitusi nilai ke rumus gradien.");
-                if (benarTitik && benarSubstitusi && !benarHasil) hints.push(
-                    "Hitung kembali hasil pengurangan pada pembilang dan penyebut.");
-                if (benarTitik && benarSubstitusi && benarHasil && !benarAkhir) hints.push(
-                    "Sederhanakan hasil gradiennya.");
+
+                // tahap 1 cek substitusi jalur A
+                if (!benarSubA) {
+
+                    pesan = `
+                    <strong>Belum tepat.</strong><br>
+                    Perhatikan kembali titik A(8,4).
+                    Pada rumus $m=\\frac{y}{x}$,
+                    nilai $y$ menjadi pembilang dan nilai $x$ menjadi penyebut.
+                    `;
+
+                }
+
+                // tahap 2 cek hasil A
+                else if (!benarHasilA) {
+
+                    pesan = `
+                    <strong>Hampir benar.</strong><br>
+                    Nilai gradien jalur A sudah disubstitusikan dengan benar.
+                    Sekarang sederhanakan:
+                    <div class="text-center mt-2">
+                    $\\frac{4}{8}=\\frac{1}{2}$
+                    </div>
+                    `;
+
+                }
+
+
+                // tahap 3 cek substitusi B
+                else if (!benarSubB) {
+
+                    pesan = `
+                    <strong>Coba periksa kembali.</strong><br>
+                    Pada jalur B(6,4),
+                    masukkan nilai $y=4$ sebagai pembilang dan $x=6$ sebagai penyebut.
+                    `;
+
+                }
+
+
+                // tahap 4 cek hasil B
+                else if (!benarHasilB) {
+
+                    pesan = `
+                    <strong>Satu langkah lagi.</strong><br>
+                    Sederhanakan:
+                    <div class="text-center mt-2">
+                    $\\frac{4}{6}=\\frac{2}{3}$
+                    </div>
+                    `;
+
+                }
+
+
+                // tahap 5 pilih jalur
+                else if (!benarJalur) {
+
+                    pesan = `
+                    <strong>Periksa kembali pilihan jalur.</strong><br>
+                    Jalur yang lebih landai adalah jalur dengan nilai gradien lebih kecil.
+                    Bandingkan $\\frac{1}{2}$ dan $\\frac{2}{3}$.
+                    `;
+
+                }
+
 
                 fb.innerHTML = `
-            <div class="alert alert-danger mb-0">
-                ${hints.join("<br>")}
-            </div>
-        `;
+                <div class="alert alert-warning mb-0" style="line-height:1.8;">
+                    ${pesan}
+                </div>
+                `;
 
                 if (nextBtn) nextBtn.disabled = true;
                 resetStepSetelah(2);
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L1`,
+                    "input",
+                    ambilJawabanLatihan1B2(),
+                    false
+                );
             }
 
-            renderMath(fb);
+            renderMathSafe(fb);
         }
+
+        function resetLatihan1() {
+
+            const ids = [
+                "subAtas_a",
+                "subBawah_a",
+                "hasilAtas_a",
+                "hasilBawah_a",
+                "subAtas_b",
+                "subBawah_b",
+                "hasilAtas_b",
+                "hasilBawah_b",
+                "pilihJalur"
+            ];
+
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+
+                if (el) {
+                    el.value = "";
+                    el.classList.remove("is-valid", "is-invalid");
+                }
+            });
+
+
+            const fb = document.getElementById("feedbackLatihan1");
+
+            if (fb) {
+                fb.innerHTML = "";
+            }
+
+
+            const nextBtn = document.getElementById("nextBtnLatihan1");
+
+            if (nextBtn) {
+                nextBtn.disabled = true;
+            }
+
+
+            resetStepSetelah(2);
+        }
+
+
+
         // =========================
         // LATIHAN 2
         // =========================
-        async function cekLatihanTitik2() {
+        async function cekLatihan2() {
             const ids = [
-                "x1_2", "y1_2", "x2_2", "y2_2", "m_2",
-                "kiri1_2", "subY2_2", "subY1_2", "subX2_2", "subX1_2",
-                "kiri2_2", "hasilAtas_2", "hasilBawah_2",
-                "pers1Kiri_2", "pers1Kanan_2", "hasilP_2",
+                "moaAtas", "moaBawah",
+                "mobAtas", "mobBawah",
+                "mocAtas", "mocBawah"
             ];
 
             clearValid(ids);
 
-            const x1 = normalisasiNilai(document.getElementById("x1_2")?.value);
-            const y1 = normalisasiNilai(document.getElementById("y1_2")?.value);
-            const x2 = normalisasiNilai(document.getElementById("x2_2")?.value);
-            const y2 = normalisasiNilai(document.getElementById("y2_2")?.value);
-            const m = normalisasiNilai(document.getElementById("m_2")?.value);
+            const moaAtas = norm(document.getElementById("moaAtas")?.value);
+            const moaBawah = norm(document.getElementById("moaBawah")?.value);
 
-            const kiri1 = normalisasiNilai(document.getElementById("kiri1_2")?.value);
-            const subY2 = normalisasiNilai(document.getElementById("subY2_2")?.value);
-            const subY1 = normalisasiNilai(document.getElementById("subY1_2")?.value);
-            const subX2 = normalisasiNilai(document.getElementById("subX2_2")?.value);
-            const subX1 = normalisasiNilai(document.getElementById("subX1_2")?.value);
+            const mobAtas = norm(document.getElementById("mobAtas")?.value);
+            const mobBawah = norm(document.getElementById("mobBawah")?.value);
 
-            const kiri2 = normalisasiNilai(document.getElementById("kiri2_2")?.value);
-            const hasilAtas = normalisasiNilai(document.getElementById("hasilAtas_2")?.value);
-            const hasilBawah = normalisasiNilai(document.getElementById("hasilBawah_2")?.value);
+            const mocAtas = norm(document.getElementById("mocAtas")?.value);
+            const mocBawah = norm(document.getElementById("mocBawah")?.value);
 
-            const persKiri = normalisasiNilai(document.getElementById("pers1Kiri_2")?.value);
-            const persKanan = normalisasiNilai(document.getElementById("pers1Kanan_2")?.value);
-            const hasilP = normalisasiNilai(document.getElementById("hasilP_2")?.value);
-
-            const fb = document.getElementById("fbLatihan2");
+            const fb = document.getElementById("feedbackLatihan2");
             const nextBtn = document.getElementById("nextBtnLatihan2");
 
             if (!fb) return;
 
-            const benarTitik =
-                x1 === "1" &&
-                y1 === "2" &&
-                x2 === "5" &&
-                y2 === "p";
+            const benarOA = moaAtas === "5" && moaBawah === "3";
+            const benarOB = mobAtas === "-2" && mobBawah === "3";
+            const benarOC = mocAtas === "3" && mocBawah === "4";
 
-            const benarGradien = m === "1";
+            setValid("moaAtas", moaAtas === "5");
+            setValid("moaBawah", moaBawah === "3");
 
-            const benarSubstitusi =
-                kiri1 === "1" &&
-                subY2 === "p" &&
-                subY1 === "2" &&
-                subX2 === "5" &&
-                subX1 === "1";
+            setValid("mobAtas", mobAtas === "-2");
+            setValid("mobBawah", mobBawah === "3");
 
-            const benarSederhana =
-                kiri2 === "1" &&
-                hasilAtas === "p-2" &&
-                hasilBawah === "4";
+            setValid("mocAtas", mocAtas === "3");
+            setValid("mocBawah", mocBawah === "4");
 
-            const benarHilangkanPecahan =
-                persKiri === "4" &&
-                persKanan === "p-2";
-
-            const benarP = hasilP === "6";
-
-            setValid("x1_2", x1 === "1");
-            setValid("y1_2", y1 === "2");
-            setValid("x2_2", x2 === "5");
-            setValid("y2_2", y2 === "p");
-            setValid("m_2", benarGradien);
-
-            setValid("kiri1_2", kiri1 === "1");
-            setValid("subY2_2", subY2 === "p");
-            setValid("subY1_2", subY1 === "2");
-            setValid("subX2_2", subX2 === "5");
-            setValid("subX1_2", subX1 === "1");
-
-            setValid("kiri2_2", kiri2 === "1");
-            setValid("hasilAtas_2", hasilAtas === "p-2");
-            setValid("hasilBawah_2", hasilBawah === "4");
-
-            setValid("pers1Kiri_2", persKiri === "4");
-            setValid("pers1Kanan_2", persKanan === "p-2");
-            setValid("hasilP_2", benarP);
-
-            if (
-                benarTitik &&
-                benarGradien &&
-                benarSubstitusi &&
-                benarSederhana &&
-                benarHilangkanPecahan &&
-                benarP
-            ) {
+            if (benarOA && benarOB && benarOC) {
                 fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                <strong>Benar.</strong><br>
-                Karena gradiennya $1$, maka:
-                <div class="text-center my-2">
-                    $1 = \\frac{p - 2}{5 - 1} = \\frac{p - 2}{4}$
+                <div class="alert alert-success mb-0" style="line-height:1.8;">
+                    <strong>Benar.</strong><br>
+                    Gradien garis yang diperoleh adalah:
+                    <div class="text-center my-2">
+                        $m_{OA}=\\frac{5}{3}, \\quad
+                        m_{OB}=-\\frac{2}{3}, \\quad
+                        m_{OC}=\\frac{3}{4}$
+                    </div>
+                    Silakan lanjut ke latihan berikutnya.
                 </div>
-                Kalikan kedua ruas dengan $4$, sehingga diperoleh:
-                <div class="text-center my-2">
-                    $4 = p - 2$
-                </div>
-                Maka $p = 6$.
-                <br>
-                Silakan lanjut ke latihan berikutnya.
-            </div>
-        `;
+            `;
 
                 if (nextBtn) nextBtn.disabled = false;
 
                 await simpanProgressLatihan(
                     `${MATERI_SLUG}_L2`,
                     "input",
-                    ambilJawabanLatihanTitik2(),
+                    ambilJawabanLatihan2B2(),
                     true
                 );
             } else {
                 let hints = [];
 
-                if (!benarTitik) hints.push("Periksa lagi penentuan nilai $x_1$, $y_1$, $x_2$, dan $y_2$.");
-                if (benarTitik && !benarGradien) hints.push("Periksa kembali nilai gradien yang diketahui pada soal.");
-                if (benarTitik && benarGradien && !benarSubstitusi) hints.push(
-                    "Periksa lagi substitusi nilai ke rumus gradien.");
-                if (benarTitik && benarGradien && benarSubstitusi && !benarSederhana) hints.push(
-                    "Sederhanakan penyebut pecahannya.");
-                if (benarTitik && benarGradien && benarSubstitusi && benarSederhana && !benarHilangkanPecahan) hints
-                    .push("Periksa kembali langkah menghilangkan pecahan.");
-                if (benarTitik && benarGradien && benarSubstitusi && benarSederhana && benarHilangkanPecahan && !benarP)
-                    hints.push("Periksa kembali nilai akhir $p$.");
+                if (!benarOA) hints.push("Periksa kembali gradien garis OA.");
+                if (!benarOB) hints.push("Periksa kembali gradien garis OB.");
+                if (!benarOC) hints.push("Periksa kembali gradien garis OC.");
 
                 fb.innerHTML = `
-            <div class="alert alert-danger mb-0">
-                ${hints.join("<br>")}
-            </div>
-        `;
+                <div class="alert alert-danger mb-0" style="line-height:1.8;">
+                    <strong>Belum tepat.</strong><br>
+                    ${hints.join("<br>")}
+                </div>
+            `;
 
                 if (nextBtn) nextBtn.disabled = true;
                 resetStepSetelah(3);
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L2`,
+                    "input",
+                    ambilJawabanLatihan2B2(),
+                    false
+                );
             }
 
-            renderMath(fb);
+            renderMathSafe(fb);
         }
+
+        function resetLatihan2() {
+
+    const ids = [
+        "moaAtas",
+        "moaBawah",
+        "mobAtas",
+        "mobBawah",
+        "mocAtas",
+        "mocBawah"
+    ];
+
+
+    ids.forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+
+    });
+
+
+    const fb = document.getElementById("feedbackLatihan2");
+
+    if (fb) {
+        fb.innerHTML = "";
+    }
+
+
+    const nextBtn = document.getElementById("nextBtnLatihan2");
+
+    if (nextBtn) {
+        nextBtn.disabled = true;
+    }
+
+
+    resetStepSetelah(3);
+}
+
 
         // =========================
         // LATIHAN 3
         // =========================
-        async function cekLatihanTitik3() {
+        async function cekLatihan3() {
             const ids = [
-                "subY2_3", "subY1_3", "subX2_3", "subX1_3",
-                "hasilAtas_3", "hasilBawah_3",
-                "hasilAkhirAtas_3", "hasilAkhirBawah_3",
+                "nilaiX_3", "nilaiP_3",
+                "subM_3", "subP_3", "subX_3",
+                "kali1_3", "kali2_3",
+                "hasilP_3", "koordX_3", "koordY_3"
             ];
 
             clearValid(ids);
 
-            const subY2 = normalisasiNilai(document.getElementById("subY2_3")?.value);
-            const subY1 = normalisasiNilai(document.getElementById("subY1_3")?.value);
-            const subX2 = normalisasiNilai(document.getElementById("subX2_3")?.value);
-            const subX1 = normalisasiNilai(document.getElementById("subX1_3")?.value);
+            const nilaiX = norm(document.getElementById("nilaiX_3")?.value);
+            const nilaiP = norm(document.getElementById("nilaiP_3")?.value);
 
-            const hasilAtas = normalisasiNilai(document.getElementById("hasilAtas_3")?.value);
-            const hasilBawah = normalisasiNilai(document.getElementById("hasilBawah_3")?.value);
-            const akhirAtas = normalisasiNilai(document.getElementById("hasilAkhirAtas_3")?.value);
-            const akhirBawah = normalisasiNilai(document.getElementById("hasilAkhirBawah_3")?.value);
+            const subM = norm(document.getElementById("subM_3")?.value);
+            const subP = norm(document.getElementById("subP_3")?.value);
+            const subX = norm(document.getElementById("subX_3")?.value);
 
-            const fb = document.getElementById("fbLatihan3");
+            const kali1 = norm(document.getElementById("kali1_3")?.value);
+            const kali2 = norm(document.getElementById("kali2_3")?.value);
+
+            const hasilP = norm(document.getElementById("hasilP_3")?.value);
+            const koordX = norm(document.getElementById("koordX_3")?.value);
+            const koordY = norm(document.getElementById("koordY_3")?.value);
+
+            const fb = document.getElementById("feedbackLatihan3");
 
             if (!fb) return;
 
-            const benarSubstitusi =
-                subY2 === "4" &&
-                subY1 === "1" &&
-                subX2 === "8" &&
-                subX1 === "2";
+            const benarDiketahui =
+                nilaiX === "6" &&
+                nilaiP === "p";
 
-            const benarHasil =
-                hasilAtas === "3" &&
-                hasilBawah === "6";
+            const benarSubstitusi =
+                subM === "4" &&
+                subP === "p" &&
+                subX === "6";
+
+            const benarKali =
+                kali1 === "6" &&
+                kali2 === "4";
 
             const benarAkhir =
-                akhirAtas === "1" &&
-                akhirBawah === "2";
+                hasilP === "24" &&
+                koordX === "6" &&
+                koordY === "24";
 
-            setValid("subY2_3", subY2 === "4");
-            setValid("subY1_3", subY1 === "1");
-            setValid("subX2_3", subX2 === "8");
-            setValid("subX1_3", subX1 === "2");
+            setValid("nilaiX_3", nilaiX === "6");
+            setValid("nilaiP_3", nilaiP === "p");
 
-            setValid("hasilAtas_3", hasilAtas === "3");
-            setValid("hasilBawah_3", hasilBawah === "6");
+            setValid("subM_3", subM === "4");
+            setValid("subP_3", subP === "p");
+            setValid("subX_3", subX === "6");
 
-            setValid("hasilAkhirAtas_3", akhirAtas === "1");
-            setValid("hasilAkhirBawah_3", akhirBawah === "2");
+            setValid("kali1_3", kali1 === "6");
+            setValid("kali2_3", kali2 === "4");
 
-            if (benarSubstitusi && benarHasil && benarAkhir) {
+            setValid("hasilP_3", hasilP === "24");
+            setValid("koordX_3", koordX === "6");
+            setValid("koordY_3", koordY === "24");
+
+            if (benarDiketahui && benarSubstitusi && benarKali && benarAkhir) {
                 fb.innerHTML = `
-            <div class="alert alert-success mb-0">
-                <strong>Benar.</strong><br>
-                Gradien jalan tersebut adalah:
-                <div class="text-center my-2">
-                    $m = \\frac{4 - 1}{8 - 2} = \\frac{3}{6} = \\frac{1}{2}$
-                </div>
-                Jadi, gradien jalan tersebut adalah $\\frac{1}{2}$.
-            </div>
-        `;
-
-                const akhir = document.getElementById("pesanAkhirLatihan");
-
-                if (akhir) {
-                    akhir.innerHTML = `
-                <div class="alert alert-success fw-semibold text-center mt-3">
-                    Bagus, kamu sudah memahami cara menentukan gradien garis melalui dua titik.
-                    Silakan lanjut ke materi berikutnya.
+                <div class="alert alert-success mb-0" style="line-height:1.8;">
+                    <strong>Benar.</strong><br>
+                    Diketahui gradien $m=4$ dan titik $A(6,p)$.
+                    <div class="text-center my-2">
+                        $4 = \\frac{p}{6}$
+                    </div>
+                    Maka:
+                    <div class="text-center my-2">
+                        $p = 6 \\times 4 = 24$
+                    </div>
+                    Jadi, nilai $p$ adalah $24$, sehingga koordinat titik $A$ adalah $(6,24)$.
                 </div>
             `;
-                    renderMath(akhir);
-                }
 
                 await simpanProgressLatihan(
                     `${MATERI_SLUG}_L3`,
                     "input",
-                    ambilJawabanLatihanTitik3(),
+                    ambilJawabanLatihan3B2(),
                     true
                 );
 
@@ -1240,31 +1352,76 @@
 
                 if (saved) {
                     bukaNextButton();
-                } else if (akhir) {
-                    akhir.innerHTML += `
-                <div class="alert alert-warning mt-2 mb-0">
-                    Jawaban benar, tetapi progres belum tersimpan. Coba cek koneksi atau refresh halaman.
-                </div>
-            `;
+                } else {
+                    fb.innerHTML += `
+                    <div class="alert alert-warning mt-2 mb-0">
+                        Jawaban benar, tetapi progres materi belum tersimpan. Coba cek koneksi atau refresh halaman.
+                    </div>
+                `;
                 }
             } else {
                 let hints = [];
 
-                if (!benarSubstitusi) hints.push(
-                "Periksa lagi substitusi titik awal dan titik akhir ke rumus gradien.");
-                if (benarSubstitusi && !benarHasil) hints.push(
-                    "Hitung kembali hasil pengurangan pada pembilang dan penyebut.");
-                if (benarSubstitusi && benarHasil && !benarAkhir) hints.push("Sederhanakan hasil gradiennya.");
+                if (!benarDiketahui) hints.push("Periksa kembali nilai x dan y dari titik A(6,p).");
+                if (benarDiketahui && !benarSubstitusi) hints.push("Periksa kembali substitusi ke rumus gradien.");
+                if (benarDiketahui && benarSubstitusi && !benarKali) hints.push(
+                    "Periksa kembali langkah perkalian silang.");
+                if (benarDiketahui && benarSubstitusi && benarKali && !benarAkhir) hints.push(
+                    "Periksa kembali nilai p dan koordinat titik A.");
 
                 fb.innerHTML = `
-            <div class="alert alert-danger mb-0">
-                ${hints.join("<br>")}
-            </div>
-        `;
+                <div class="alert alert-danger mb-0" style="line-height:1.8;">
+                    <strong>Belum tepat.</strong><br>
+                    ${hints.join("<br>")}
+                </div>
+            `;
+
+                await simpanProgressLatihan(
+                    `${MATERI_SLUG}_L3`,
+                    "input",
+                    ambilJawabanLatihan3B2(),
+                    false
+                );
             }
 
-            renderMath(fb);
+            renderMathSafe(fb);
         }
+
+        function resetLatihan3() {
+
+    const ids = [
+        "nilaiX_3",
+        "nilaiP_3",
+        "subM_3",
+        "subP_3",
+        "subX_3",
+        "kali1_3",
+        "kali2_3",
+        "hasilP_3",
+        "koordX_3",
+        "koordY_3"
+    ];
+
+
+    ids.forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.value = "";
+            el.classList.remove("is-valid", "is-invalid");
+        }
+
+    });
+
+
+    const fb = document.getElementById("feedbackLatihan3");
+
+    if (fb) {
+        fb.innerHTML = "";
+    }
+
+}
 
         // Restore Jawaban
         function setValueSafe(id, value) {

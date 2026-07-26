@@ -28,12 +28,12 @@
         }
 
         .rumus-box {
-            background: #f7f9fc;
-            border: 1px solid #dbe5f1;
-            border-radius: 12px;
-            padding: 14px 16px;
-            overflow-x: auto;
+            display: inline-block;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            padding: 10px 30px;
             font-size: 20px;
+            border-radius: 12px;
         }
 
         .badge-contoh {
@@ -485,16 +485,18 @@
                 <p class="mt-3" style="line-height:1.8;">
                     <b>1.</b> Tentukan persamaan garis yang tegak lurus dengan garis <b>$y = 3x - 2$</b>.
                 </p>
+
+                <p>
+                    a. $x + 3y - 6 = 0$ <br>
+                    b. $2x - 3y + 9 = 0$
+                </p>
+
                 <div class="petunjuk-mini-latihan">
                     <strong>Petunjuk:</strong>
                     Isilah setiap langkah penyelesaian pada kolom yang tersedia, lalu tuliskan persamaan garis yang tegak
                     lurus.
                 </div>
 
-                <p>
-                    a. $x + 3y - 6 = 0$ <br>
-                    b. $2x - 3y + 9 = 0$
-                </p>
 
                 <div class="border rounded-4 p-4 mb-3" style="background:#f7f9fc;">
                     <p class="fw-bold mb-4">Penyelesaian:</p>
