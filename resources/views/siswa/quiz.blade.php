@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="id">
 
     <head>
@@ -503,6 +503,139 @@
                 color: var(--text-soft);
             }
 
+
+            /* =========================
+               POP-UP / MODAL KUIS
+            ========================== */
+            .quiz-modal-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                background: rgba(7, 36, 54, 0.58);
+                backdrop-filter: blur(4px);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.2s ease, visibility 0.2s ease;
+            }
+
+            .quiz-modal-overlay.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .quiz-modal {
+                width: min(430px, 100%);
+                background: var(--white);
+                border-radius: 20px;
+                padding: 28px 24px 24px;
+                text-align: center;
+                box-shadow: 0 24px 70px rgba(0, 67, 101, 0.28);
+                transform: translateY(18px) scale(0.96);
+                transition: transform 0.22s ease;
+            }
+
+            .quiz-modal-overlay.show .quiz-modal {
+                transform: translateY(0) scale(1);
+            }
+
+            .quiz-modal-icon {
+                width: 66px;
+                height: 66px;
+                margin: 0 auto 16px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 30px;
+                font-weight: 700;
+                background: var(--light-blue);
+                color: var(--primary-dark);
+            }
+
+            .quiz-modal-icon.warning {
+                background: var(--yellow-soft);
+                color: #8a6500;
+            }
+
+            .quiz-modal-icon.danger {
+                background: var(--red-soft);
+                color: var(--red);
+            }
+
+            .quiz-modal-icon.success {
+                background: #e4f6ec;
+                color: var(--green);
+            }
+
+            .quiz-modal h2 {
+                margin-bottom: 10px;
+                color: var(--footer-bg);
+                font-size: 22px;
+                line-height: 1.3;
+            }
+
+            .quiz-modal p {
+                margin-bottom: 22px;
+                color: var(--text-soft);
+                font-size: 15px;
+                line-height: 1.65;
+                white-space: pre-line;
+            }
+
+            .quiz-modal-actions {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .quiz-modal-btn {
+                border: none;
+                border-radius: 11px;
+                padding: 11px 18px;
+                min-width: 130px;
+                font-family: "Quicksand", sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.2s ease;
+            }
+
+            .quiz-modal-btn.secondary {
+                background: #e7f0f6;
+                color: var(--footer-bg);
+            }
+
+            .quiz-modal-btn.secondary:hover {
+                background: #d6e7f1;
+            }
+
+            .quiz-modal-btn.primary {
+                background: var(--primary-color);
+                color: var(--white);
+            }
+
+            .quiz-modal-btn.primary:hover {
+                background: var(--primary-dark);
+            }
+
+            @media (max-width: 480px) {
+                .quiz-modal {
+                    padding: 24px 18px 20px;
+                }
+
+                .quiz-modal-actions {
+                    flex-direction: column-reverse;
+                }
+
+                .quiz-modal-btn {
+                    width: 100%;
+                }
+            }
+
             @media (max-width: 992px) {
                 body {
                     overflow: auto;
@@ -769,6 +902,26 @@
             </div>
         </div>
 
+
+        <!-- Pop-up kuis -->
+        <div class="quiz-modal-overlay" id="quizModal" aria-hidden="true">
+            <div class="quiz-modal" role="dialog" aria-modal="true"
+                aria-labelledby="quizModalTitle" aria-describedby="quizModalMessage">
+                <div class="quiz-modal-icon warning" id="quizModalIcon">!</div>
+                <h2 id="quizModalTitle">Perhatian</h2>
+                <p id="quizModalMessage"></p>
+
+                <div class="quiz-modal-actions">
+                    <button type="button" class="quiz-modal-btn secondary" id="quizModalCancel">
+                        Kembali
+                    </button>
+                    <button type="button" class="quiz-modal-btn primary" id="quizModalConfirm">
+                        Mengerti
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -801,10 +954,69 @@
                 const quizForm = document.getElementById('quizForm');
                 const timerElement = document.getElementById('timer');
 
+                const quizModal = document.getElementById('quizModal');
+                const quizModalIcon = document.getElementById('quizModalIcon');
+                const quizModalTitle = document.getElementById('quizModalTitle');
+                const quizModalMessage = document.getElementById('quizModalMessage');
+                const quizModalCancel = document.getElementById('quizModalCancel');
+                const quizModalConfirm = document.getElementById('quizModalConfirm');
+
                 let currentIndex = 0;
                 let totalSeconds = {{ $quiz->duration_minutes * 60 }};
                 let isTimeUpSubmit = false;
+                let submitConfirmed = false;
+                let modalConfirmAction = null;
                 const doubtIndexes = new Set();
+
+                function openQuizModal({
+                    type = 'warning',
+                    icon = '!',
+                    title = 'Perhatian',
+                    message = '',
+                    confirmText = 'Mengerti',
+                    cancelText = 'Kembali',
+                    showCancel = false,
+                    onConfirm = null
+                }) {
+                    quizModalIcon.className = `quiz-modal-icon ${type}`;
+                    quizModalIcon.textContent = icon;
+                    quizModalTitle.textContent = title;
+                    quizModalMessage.textContent = message;
+                    quizModalConfirm.textContent = confirmText;
+                    quizModalCancel.textContent = cancelText;
+                    quizModalCancel.style.display = showCancel ? 'inline-block' : 'none';
+
+                    modalConfirmAction = onConfirm;
+                    quizModal.classList.add('show');
+                    quizModal.setAttribute('aria-hidden', 'false');
+
+                    setTimeout(() => quizModalConfirm.focus(), 50);
+                }
+
+                function closeQuizModal() {
+                    quizModal.classList.remove('show');
+                    quizModal.setAttribute('aria-hidden', 'true');
+                    modalConfirmAction = null;
+                }
+
+                quizModalConfirm.addEventListener('click', function() {
+                    const action = modalConfirmAction;
+                    closeQuizModal();
+
+                    if (typeof action === 'function') {
+                        action();
+                    }
+                });
+
+                quizModalCancel.addEventListener('click', closeQuizModal);
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' &&
+                        quizModal.classList.contains('show') &&
+                        !isTimeUpSubmit) {
+                        closeQuizModal();
+                    }
+                });
 
                 function updateAnsweredStatus() {
                     slides.forEach((slide, index) => {
@@ -885,8 +1097,6 @@
                     return count;
                 }
 
-
-
                 function getFirstDoubtIndex() {
                     for (let i = 0; i < slides.length; i++) {
                         if (doubtIndexes.has(i)) {
@@ -953,43 +1163,68 @@
                 });
 
                 quizForm.addEventListener('submit', function(event) {
-                    if (isTimeUpSubmit) {
+                    if (isTimeUpSubmit || submitConfirmed) {
                         return;
                     }
 
-                    // 1. Cek soal yang belum dijawab
+                    event.preventDefault();
+
                     const firstUnansweredIndex = getFirstUnansweredIndex();
 
                     if (firstUnansweredIndex !== -1) {
-                        event.preventDefault();
-
                         showSlide(firstUnansweredIndex);
 
-                        alert(
-                            `Masih ada soal yang belum dijawab.\n` +
-                            `Terjawab: ${getAnsweredCount()} dari ${slides.length} soal.\n` +
-                            `Silakan lengkapi semua jawaban terlebih dahulu.`
-                        );
+                        openQuizModal({
+                            type: 'danger',
+                            icon: '!',
+                            title: 'Jawaban Belum Lengkap',
+                            message:
+                                `Masih ada soal yang belum dijawab.
+` +
+                                `Terjawab ${getAnsweredCount()} dari ${slides.length} soal.
+` +
+                                `Silakan lengkapi jawaban terlebih dahulu.`,
+                            confirmText: 'Lanjut Mengerjakan'
+                        });
 
                         return;
                     }
 
-                    // 2. Cek soal yang masih ditandai ragu-ragu
                     const firstDoubtIndex = getFirstDoubtIndex();
 
                     if (firstDoubtIndex !== -1) {
-                        event.preventDefault();
-
                         showSlide(firstDoubtIndex);
 
-                        alert(
-                            `Masih ada soal yang ditandai Ragu-ragu.\n` +
-                            `Jumlah soal ragu-ragu: ${getDoubtCount()} soal.\n` +
-                            `Silakan klik tombol Batal Ragu-ragu atau ubah jawaban sebelum mengumpulkan.`
-                        );
+                        openQuizModal({
+                            type: 'warning',
+                            icon: '?',
+                            title: 'Masih Ada Jawaban Ragu-ragu',
+                            message:
+                                `Terdapat ${getDoubtCount()} soal yang masih ditandai ragu-ragu.
+` +
+                                `Periksa kembali atau batalkan tanda ragu-ragu sebelum mengumpulkan.`,
+                            confirmText: 'Periksa Kembali'
+                        });
 
                         return;
                     }
+
+                    openQuizModal({
+                        type: 'success',
+                        icon: '✓',
+                        title: 'Kumpulkan Jawaban?',
+                        message:
+                            `Semua ${slides.length} soal sudah dijawab.
+` +
+                            `Pastikan jawabanmu sudah benar karena jawaban tidak dapat diubah setelah dikumpulkan.`,
+                        confirmText: 'Ya, Kumpulkan',
+                        cancelText: 'Periksa Lagi',
+                        showCancel: true,
+                        onConfirm: function() {
+                            submitConfirmed = true;
+                            quizForm.requestSubmit();
+                        }
+                    });
                 });
 
                 function updateTimer() {
@@ -1000,14 +1235,40 @@
 
                     if (totalSeconds <= 0) {
                         clearInterval(interval);
-                        alert('Waktu habis. Jawaban akan dikumpulkan otomatis.');
                         isTimeUpSubmit = true;
-                        quizForm.submit();
+
+                        openQuizModal({
+                            type: 'danger',
+                            icon: '⏱',
+                            title: 'Waktu Habis',
+                            message: 'Waktu pengerjaan telah selesai. Jawaban akan dikumpulkan secara otomatis.',
+                            confirmText: 'Kumpulkan Sekarang',
+                            onConfirm: function() {
+                                quizForm.submit();
+                            }
+                        });
+
+                        setTimeout(function() {
+                            if (isTimeUpSubmit) {
+                                quizForm.submit();
+                            }
+                        }, 1800);
+
                         return;
                     }
 
                     totalSeconds--;
                 }
+
+                @if (session('error'))
+                    openQuizModal({
+                        type: 'danger',
+                        icon: '!',
+                        title: 'Perhatian',
+                        message: @json(session('error')),
+                        confirmText: 'Mengerti'
+                    });
+                @endif
 
                 if (slides.length > 0) {
                     showSlide(0);

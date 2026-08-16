@@ -9,6 +9,134 @@
 </p>
 
 ## About Laravel
+# Media Pembelajaran Interaktif Persamaan Garis Lurus
+
+Aplikasi ini merupakan media pembelajaran interaktif berbasis web yang dikembangkan menggunakan **Laravel** dan telah dikonfigurasi menggunakan **Docker** agar dapat dijalankan tanpa perlu melakukan instalasi PHP, Composer, MySQL, maupun Laragon secara terpisah.
+
+## Persyaratan
+
+Sebelum menjalankan aplikasi, pastikan komputer telah terinstal:
+
+* Docker Desktop
+* Browser seperti Google Chrome, Microsoft Edge, atau Mozilla Firefox
+
+## Cara Menjalankan Aplikasi
+
+1. Extract file `media_pgl.zip`.
+
+2. Buka folder:
+
+   ```text
+   media_pgl
+   ```
+
+3. Buka Terminal, Command Prompt, PowerShell, atau terminal pada Visual Studio Code di dalam folder tersebut.
+
+4. Jalankan perintah:
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+5. Tunggu hingga proses build dan proses menjalankan container selesai.
+
+   Pada proses pertama kali, waktu yang dibutuhkan dapat lebih lama karena Docker perlu mengunduh dan menyiapkan komponen aplikasi.
+
+6. Untuk memastikan container telah berjalan, jalankan:
+
+   ```bash
+   docker compose ps
+   ```
+
+   Pastikan container `media_pgl_app` dan `media_pgl_db` berstatus **Up**, serta database berstatus **healthy**.
+
+7. Buka aplikasi melalui browser:
+
+   ```text
+   http://localhost:8000
+   ```
+
+## Cara Menghentikan Aplikasi
+
+Untuk menghentikan aplikasi, jalankan:
+
+```bash
+docker compose down
+```
+
+Untuk menjalankan kembali aplikasi tanpa melakukan build ulang:
+
+```bash
+docker compose up -d
+```
+
+Kemudian buka kembali:
+
+```text
+http://localhost:8000
+```
+
+## Database
+
+Database aplikasi menggunakan **MySQL 8.0**.
+
+Database awal telah disertakan pada:
+
+```text
+docker/mysql/init.sql
+```
+
+File tersebut akan digunakan secara otomatis ketika database Docker pertama kali dibuat.
+
+Data yang ditambahkan atau diubah selama aplikasi digunakan akan disimpan pada Docker Volume sehingga tetap tersedia meskipun container dihentikan.
+
+> **Catatan:** Hindari menjalankan `docker compose down -v` apabila tidak ingin menghapus database yang tersimpan pada Docker Volume.
+
+## Teknologi yang Digunakan
+
+* Laravel 12
+* PHP 8.2
+* MySQL 8.0
+* Vite
+* Docker
+* Docker Compose
+
+## Struktur Konfigurasi Docker
+
+File utama yang digunakan untuk menjalankan aplikasi:
+
+```text
+Dockerfile
+docker-compose.yml
+.env.docker
+docker/mysql/init.sql
+```
+
+## Troubleshooting
+
+Apabila aplikasi tidak dapat dibuka, periksa status container dengan:
+
+```bash
+docker compose ps
+```
+
+Untuk melihat log aplikasi Laravel:
+
+```bash
+docker compose logs app
+```
+
+Untuk melihat log database:
+
+```bash
+docker compose logs db
+```
+
+Apabila port `8000` sedang digunakan oleh aplikasi lain, tutup aplikasi yang menggunakan port tersebut terlebih dahulu kemudian jalankan kembali Docker.
+
+---
+
+**Catatan:** Aplikasi dapat dijalankan menggunakan Docker Desktop tanpa perlu menjalankan Laragon.
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 

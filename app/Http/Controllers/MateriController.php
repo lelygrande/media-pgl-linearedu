@@ -34,7 +34,9 @@ class MateriController extends Controller
 
         $unlockedSlugs = [];
 
+        // memeriksa setiap halaman
         foreach ($allMateri as $index => $item) {
+            // Jika materi pertama, maka materi langsung terbuka
             if ($index === 0) {
                 $unlockedSlugs[] = $item->slug;
                 continue;
